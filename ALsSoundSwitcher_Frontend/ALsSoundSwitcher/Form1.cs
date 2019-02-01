@@ -41,10 +41,19 @@ namespace ALsSoundSwitcher
         text = System.IO.File.ReadAllText(@"devices.txt");
         Console.WriteLine(text);
       }
-      catch (Exception ex)
+      catch (Exception)
       {
-        MessageBox.Show(ex.Message.ToString() + "\r\n\r\n" + "Please run GetPlaybackDevices.exe to generate this file.");
-        Close();
+        try
+        {
+          RunExe(getDevicesExe);
+          Close();
+        }
+        catch (Exception)
+        {
+          MessageBox.Show("Error reading device list.\n\nCould not start " + getDevicesExe);
+          Close();
+        }
+
       }
 
       contextMenu1 = new ContextMenu();
@@ -94,6 +103,11 @@ namespace ALsSoundSwitcher
 
     private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
+      if (e.Button != MouseButtons.Left)
+      {
+        return;
+      }
+
       if (WindowState == FormWindowState.Normal)
       {
         Minimize();
@@ -102,6 +116,17 @@ namespace ALsSoundSwitcher
       {
         Maximize();
       }
+    }
+
+    void RunExe(string exeName)
+    {
+      Process process = new Process();
+      process.StartInfo.FileName = exeName;
+      process.StartInfo.RedirectStandardOutput = true;
+      process.StartInfo.RedirectStandardError = true;
+      process.StartInfo.UseShellExecute = false;
+      process.StartInfo.CreateNoWindow = true;
+      process.Start();
     }
 
     private void menuItem_Click(object Sender, EventArgs e)
@@ -119,13 +144,7 @@ namespace ALsSoundSwitcher
     {
       try
       {
-        Process process = new Process();
-        process.StartInfo.FileName = getDevicesExe;
-        process.StartInfo.RedirectStandardOutput = true;
-        process.StartInfo.RedirectStandardError = true;
-        process.StartInfo.UseShellExecute = false;
-        process.StartInfo.CreateNoWindow = true;
-        process.Start();
+        RunExe(getDevicesExe);
         Close();
       }
       catch (Exception)
@@ -147,15 +166,7 @@ namespace ALsSoundSwitcher
 
       try
       {
-        Process process = new Process();
-        process.StartInfo.FileName = setDeviceExe;
-        process.StartInfo.Arguments = id;
-        process.StartInfo.RedirectStandardOutput = true;
-        process.StartInfo.RedirectStandardError = true;
-        process.StartInfo.UseShellExecute = false;
-        process.StartInfo.CreateNoWindow = true;
-        process.Start();
-
+        RunExe(setDeviceExe);
         notifyIcon1.ShowBalloonTip(balloonTime, "Switched Audio Device", ar[index*2], ToolTipIcon.None);
       }
       catch (Exception ex)
