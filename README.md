@@ -8,7 +8,7 @@ Written by Altamish Mahomed  gambit318@gmail.com, Jan 2019.
 
 ___
 
-To use, compile all solutions as respective executables, and copy to a shared folder before running.  
+To use, extract the file in the "*Sample_Build*" folder, or compile all solutions as respective executables, and copy to a shared folder before running.  
 
 *ALsSoundSwitcher.exe* is the front-end. 
 
