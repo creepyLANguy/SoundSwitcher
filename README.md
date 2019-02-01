@@ -10,11 +10,12 @@ ___
 
 To use, compile all solutions as respective executables, and copy to a shared folder before running.  
 
-ALsSoundSwitcher.exe is the front-end. 
+*ALsSoundSwitcher.exe* is the front-end. 
 
-SetPlaybackDevices.exe will not perform any function if it it executed on its own.  
+*SetPlaybackDevices.exe* will not perform any function if it is executed on its own.  
 The front-end expects this to be located in the same folder so it can be used to change the sound device.  
 
-GetPlaybackDevices is in fact the bootstrap and will detect currenttly available audio devises before launching the front-end.  
-It creates a file "devices.txt" which the front-end uses to populate a list of available audo devices.  
-Ideally, this should be run the very first time, but if not, users are prompted to from the front-end if the devices.txt file is not found. 
+*GetPlaybackDevices.exe* is in fact the bootstrap and will detect the currently available audio devises before launching the front-end.  
+It creates a file "devices.txt" which the front-end uses to populate its device list.  
+Ideally, this should be run the very first time, but if not, users are prompted to do so from the front-end if the devices.txt file is not found. 
+Note, the "refresh" item in the front-end's tray context menu simply runs this executable and closes the front-end, 'refreshing' the entire program.  
