@@ -17,5 +17,5 @@ The front-end expects this to be located in the same folder so it can be used to
 
 *GetPlaybackDevices.exe* is in fact the bootstrap and will detect the currently available audio devises before launching the front-end.  
 It creates a file "devices.txt" which the front-end uses to populate its device list.  
-Ideally, this should be run the very first time, but if not, users are prompted to do so from the front-end if the devices.txt file is not found. 
+The front-end also calls into this on startup if it cannot find devices.txt. 
 Note, the "refresh" item in the front-end's tray context menu simply runs this executable and closes the front-end, 'refreshing' the entire program.  
