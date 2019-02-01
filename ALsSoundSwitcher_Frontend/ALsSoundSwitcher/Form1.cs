@@ -94,11 +94,6 @@ namespace ALsSoundSwitcher
 
     private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
-      if (e.Button != MouseButtons.Left)
-      {
-        return;
-      }
-
       if (WindowState == FormWindowState.Normal)
       {
         Minimize();
