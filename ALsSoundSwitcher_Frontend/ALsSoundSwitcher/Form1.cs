@@ -169,6 +169,7 @@ namespace ALsSoundSwitcher
       {
         RunExe(setDeviceExe, id);
         notifyIcon1.ShowBalloonTip(balloonTime, "Switched Audio Device", ar[index*2], ToolTipIcon.None);
+        notifyIcon1.Text = ar[index * 2];
       }
       catch (Exception ex)
       {
