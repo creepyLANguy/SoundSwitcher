@@ -118,7 +118,7 @@ namespace ALsSoundSwitcher
       }
     }
 
-    void RunExe(string exeName)
+    void RunExe(string exeName, string args = "")
     {
       Process process = new Process();
       process.StartInfo.FileName = exeName;
@@ -126,6 +126,7 @@ namespace ALsSoundSwitcher
       process.StartInfo.RedirectStandardError = true;
       process.StartInfo.UseShellExecute = false;
       process.StartInfo.CreateNoWindow = true;
+      process.StartInfo.Arguments = args;
       process.Start();
     }
 
@@ -166,7 +167,7 @@ namespace ALsSoundSwitcher
 
       try
       {
-        RunExe(setDeviceExe);
+        RunExe(setDeviceExe, id);
         notifyIcon1.ShowBalloonTip(balloonTime, "Switched Audio Device", ar[index*2], ToolTipIcon.None);
       }
       catch (Exception ex)
