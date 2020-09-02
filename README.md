@@ -4,20 +4,21 @@
 
 ___
 
-To use, extract the file found in the **Sample_Build** folder. 
+ **[Download Latest Release Here](https://github.com/creepyLANguy/SoundSwitcher/releases)**  
 
-Alternatively, compile all solutions as their respective executables and copy to a shared folder before running *ALsSoundSwitcher.exe*  
+Alternatively, compile all solutions and copy the resulting executables to a common folder before running *ALsSoundSwitcher.exe*  
 
 **ALsSoundSwitcher.exe** is the front-end.  
-You should be able to simply run this.  
+You should be able to simply run this as-is.  
  - Left or Right Click on the tray icon to view a list of available audio devices and select one to switch to. 
  - Double-click the tray icon to automatically switch to the next audio device.
 
-**SetPlaybackDevices.exe** will not perform any function if it is executed on its own.  
+**SetPlaybackDevices.exe** is a helper program that will not perform any function if it is executed on its own.  
 The front-end expects this to be located in the same folder so it can be used to change the sound device.  
 
-**GetPlaybackDevices.exe** is in fact the bootstrap and can detect the currently available audio devices before launching the front-end.  
-It creates a file *devices.txt* which the front-end uses to populate its device list.
+**GetPlaybackDevices.exe** is a helper program as well as an additional bootstrap.  
+It can detect the currently available audio devices before launching the front-end.  
+Importantly, it creates the *devices.txt* file which the front-end uses to populate its device list.
 The front-end also calls into this on startup if it cannot find *devices.txt*. 
 
 ___
