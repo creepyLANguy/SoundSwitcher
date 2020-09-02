@@ -18,3 +18,11 @@ SetPlaybackDevice/\.vs/
 SetPlaybackDevice/Release/
 
 SetPlaybackDevice/SetPlaybackDevice/Release/
+
+SetPlaybackDevice/SetPlaybackDevice/x64/
+
+SetPlaybackDevice/x64/
+
+GetPlaybackDevices/GetPlaybackDevices/x64/
+
+GetPlaybackDevices/x64/
