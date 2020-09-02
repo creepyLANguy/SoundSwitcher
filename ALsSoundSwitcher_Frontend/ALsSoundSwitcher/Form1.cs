@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace ALsSoundSwitcher
 {
@@ -101,8 +102,21 @@ namespace ALsSoundSwitcher
       PerformSwitch(index);
     }
 
+    private void InvokeRightClick()
+    {
+      MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu",
+        BindingFlags.Instance | BindingFlags.NonPublic);
+      mi.Invoke(notifyIcon1, null);
+    }
+
     private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
+      if (((MouseEventArgs)e).Button == MouseButtons.Left)
+      {
+        InvokeRightClick();
+        return;
+      }
+
       if (e.Button != MouseButtons.Left)
       {
         return;
@@ -156,9 +170,9 @@ namespace ALsSoundSwitcher
 
     void PerformSwitch(int index)
     {
-      if(index<0)
+      if (index < 0)
       {
-        //MessageBox.Show("Ivalid index (-1?) selected.");
+        MessageBox.Show("Invalid index (-1?) selected.");
         return;
       }
 
