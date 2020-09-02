@@ -1,5 +1,7 @@
 **SoundSwitcher**
 
+![](https://i.imgur.com/Rk5t4vq.png)
+
 ___
 
 To use, extract the file found in the **Sample_Build** folder. 
@@ -8,7 +10,7 @@ Alternatively, compile all solutions as their respective executables and copy to
 
 **ALsSoundSwitcher.exe** is the front-end.  
 You should be able to simply run this.  
- - Left or Right Click on the tray icon to view a list of available audio devices and select one to swithc to. 
+ - Left or Right Click on the tray icon to view a list of available audio devices and select one to switch to. 
  - Double-click the tray icon to automatically switch to the next audio device.
 
 **SetPlaybackDevices.exe** will not perform any function if it is executed on its own.  
