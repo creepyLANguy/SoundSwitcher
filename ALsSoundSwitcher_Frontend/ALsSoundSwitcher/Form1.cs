@@ -9,8 +9,10 @@ namespace ALsSoundSwitcher
   {
     string getDevicesExe = "GetPlaybackDevices.exe";
     string setDeviceExe = "SetPlaybackDevice.exe";
-    int balloonTime = 500;
+    int balloonTime = 350;
     string[] ar;
+
+    private int lastIndex = 0;
 
     private ContextMenu contextMenu1;
     private MenuItem menuItemExit;
@@ -117,11 +119,7 @@ namespace ALsSoundSwitcher
         return;
       }
 
-      if (e.Button != MouseButtons.Left)
-      {
-        return;
-      }
-
+      /*
       if (WindowState == FormWindowState.Normal)
       {
         Minimize();
@@ -130,6 +128,7 @@ namespace ALsSoundSwitcher
       {
         Maximize();
       }
+      */
     }
 
     void RunExe(string exeName, string args = "")
@@ -201,5 +200,14 @@ namespace ALsSoundSwitcher
       }
     }
 
+    private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+      ++lastIndex;
+      if (lastIndex == ar.Length / 2)
+      {
+        lastIndex = 0;
+      }
+      PerformSwitch(lastIndex);
+    }
   }
 }
