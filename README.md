@@ -8,6 +8,9 @@ ___
 
 Alternatively, compile all solutions and copy the resulting executables to a common folder before running *ALsSoundSwitcher.exe*  
 
+___
+
+
 **ALsSoundSwitcher.exe** is the front-end.  
 You should be able to simply run this as-is.  
  - Left or Right Click on the tray icon to view a list of available audio devices and select one to switch to. 
