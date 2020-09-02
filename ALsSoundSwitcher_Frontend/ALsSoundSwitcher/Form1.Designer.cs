@@ -67,6 +67,7 @@
       this.ClientSize = new System.Drawing.Size(284, 154);
       this.ControlBox = false;
       this.Controls.Add(this.listBox1);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.Name = "Form1";
       this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
