@@ -1,6 +1,6 @@
 **SoundSwitcher**
 
-![](https://i.imgur.com/Rk5t4vq.png)
+![](https://i.imgur.com/ZgmWzYf.png)
 
 ___
 
