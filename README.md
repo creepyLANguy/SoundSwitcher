@@ -4,7 +4,7 @@
 
 ___
 
- **[Download Latest Release Here](https://github.com/creepyLANguy/SoundSwitcher/releases)**  
+ ### **[Download Latest Release Here](https://github.com/creepyLANguy/SoundSwitcher/releases)** ###  
 
 Alternatively, compile all solutions and copy the resulting executables to a common folder before running *ALsSoundSwitcher.exe*  
 
