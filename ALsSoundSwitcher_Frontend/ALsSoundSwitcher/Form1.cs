@@ -18,6 +18,8 @@ namespace ALsSoundSwitcher
     private MenuItem menuItemExit;
     private MenuItem menuItemRefresh;
 
+    private string activeMarker = " *";
+
     public Form1()
     {
       InitializeComponent();
@@ -176,14 +178,26 @@ namespace ALsSoundSwitcher
         return;
       }
 
+      Console.WriteLine(ar[index * 2]);
+
       string id = ar[(index * 2) + 1].TrimEnd();
-      Console.WriteLine(id);
+
 
       try
       {
         RunExe(setDeviceExe, id);
         notifyIcon1.ShowBalloonTip(balloonTime, "Switched Audio Device", ar[index*2], ToolTipIcon.None);
         notifyIcon1.Text = ar[index * 2];
+
+        foreach (MenuItem item in notifyIcon1.ContextMenu.MenuItems)
+        {
+          int i = item.Text.IndexOf(activeMarker);
+          if (i >= 0)
+          {
+            item.Text = item.Text.Substring(0, i);
+          }
+        }
+        notifyIcon1.ContextMenu.MenuItems[index].Text += activeMarker;
       }
       catch (Exception ex)
       {
