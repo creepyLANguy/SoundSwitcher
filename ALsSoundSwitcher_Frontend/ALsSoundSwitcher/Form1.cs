@@ -107,18 +107,21 @@ namespace ALsSoundSwitcher
       PerformSwitch(index);
     }
 
+    /*
     private void InvokeRightClick()
     {
       MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu",
         BindingFlags.Instance | BindingFlags.NonPublic);
       mi.Invoke(notifyIcon1, null);
     }
+    */
 
     private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
       if (((MouseEventArgs)e).Button == MouseButtons.Left)
       {
-        InvokeRightClick();
+        //InvokeRightClick();
+        Toggle();
         return;
       }
 
@@ -215,7 +218,7 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+    private void Toggle()
     {
       ++lastIndex;
       if (lastIndex == ar.Length / 2)
@@ -223,6 +226,11 @@ namespace ALsSoundSwitcher
         lastIndex = 0;
       }
       PerformSwitch(lastIndex);
+    }
+
+    private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+      //Toggle();
     }
   }
 }
