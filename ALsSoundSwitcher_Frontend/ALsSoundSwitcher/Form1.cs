@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.Reflection;
+using System.Drawing;
+using ALsSoundSwitcher.Properties;
 
 namespace ALsSoundSwitcher
 {
@@ -189,6 +190,9 @@ namespace ALsSoundSwitcher
       try
       {
         RunExe(setDeviceExe, id);
+
+        SetIcon(ar[index * 2]);
+
         notifyIcon1.ShowBalloonTip(balloonTime, "Switched Audio Device", ar[index*2], ToolTipIcon.None);
         notifyIcon1.Text = ar[index * 2];
 
@@ -232,5 +236,26 @@ namespace ALsSoundSwitcher
     {
       //Toggle();
     }
+
+    private void SetIcon(string iconName)
+    {
+      iconName = iconName.Trim();
+      var icon = ResourceExtended.GetIconByRawName(iconName);
+      if (icon == null)
+      {
+        icon = Properties.Resources.Icon;
+      }
+
+      notifyIcon1.Icon = icon;
+    }
   }
+
+  public class ResourceExtended
+    {
+      public static Icon GetIconByRawName(string iconName)
+      {
+        var obj = Resources.ResourceManager.GetObject(iconName, Resources.Culture);
+        return (Icon)obj;
+      }
+    }
 }
