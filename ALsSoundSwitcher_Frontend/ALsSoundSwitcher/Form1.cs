@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Drawing;
@@ -10,7 +10,7 @@ namespace ALsSoundSwitcher
   {
     string getDevicesExe = "GetPlaybackDevices.exe";
     string setDeviceExe = "SetPlaybackDevice.exe";
-    int balloonTime = 350;
+    int balloonTime = 1500;
     string[] ar;
 
     private int lastIndex = 0;
