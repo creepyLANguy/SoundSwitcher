@@ -10,6 +10,7 @@ namespace ALsSoundSwitcher
   {
     string getDevicesExe = "GetPlaybackDevices.exe";
     string setDeviceExe = "SetPlaybackDevice.exe";
+    string devicesFile = "devices.txt";
     int balloonTime = 1500;
     string[] ar;
 
@@ -18,6 +19,8 @@ namespace ALsSoundSwitcher
     private ContextMenu contextMenu1;
     private MenuItem menuItemExit;
     private MenuItem menuItemRefresh;
+    private MenuItem menuItemEdit;
+    private MenuItem menuItemRestart;
 
     private string activeMarker = " *";
 
@@ -45,7 +48,7 @@ namespace ALsSoundSwitcher
 
       try
       {
-        text = System.IO.File.ReadAllText(@"devices.txt");
+        text = System.IO.File.ReadAllText(devicesFile);
         Console.WriteLine(text);
       }
       catch (Exception)
@@ -85,11 +88,23 @@ namespace ALsSoundSwitcher
       menuItemRefresh.Click += new EventHandler(menuItemRefresh_Click);
       contextMenu1.MenuItems.AddRange(new MenuItem[] { menuItemRefresh });
 
+      menuItemEdit = new MenuItem();
+      menuItemEdit.Index = 0;
+      menuItemEdit.Text = "E&dit";
+      menuItemEdit.Click += new EventHandler(menuItemEdit_Click);
+      contextMenu1.MenuItems.AddRange(new MenuItem[] { menuItemEdit });
+
+      menuItemRestart = new MenuItem();
+      menuItemRestart.Index = 0;
+      menuItemRestart.Text = "Res&tart";
+      menuItemRestart.Click += new EventHandler(menuItemRestart_Click);
+      contextMenu1.MenuItems.AddRange(new MenuItem[] { menuItemRestart });
+
       contextMenu1.MenuItems.Add("-");
 
       menuItemExit = new MenuItem();
       menuItemExit.Index = 0;
-      menuItemExit.Text = "E&xit";
+      menuItemExit.Text = "Ex&it";
       menuItemExit.Click += new System.EventHandler(menuItemExit_Click);
       contextMenu1.MenuItems.AddRange(new MenuItem[] { menuItemExit });
 
@@ -163,14 +178,42 @@ namespace ALsSoundSwitcher
 
     private void menuItemRefresh_Click(object Sender, EventArgs e)
     {
+      {
+        try
+        {
+          RunExe(getDevicesExe);
+          Close();
+        }
+        catch (Exception)
+        {
+          notifyIcon1.ShowBalloonTip(balloonTime, "Error Refreshing Device List", "Could not start " + getDevicesExe,
+            ToolTipIcon.Error);
+        }
+      }
+    }
+
+    private void menuItemRestart_Click(object Sender, EventArgs e)
+    {
       try
       {
-        RunExe(getDevicesExe);
-        Close();
+        Application.Restart();
+        Environment.Exit(0);
       }
       catch (Exception)
       {
-        notifyIcon1.ShowBalloonTip(balloonTime, "Error Refreshing Device List", "Could not start " + getDevicesExe, ToolTipIcon.Error);
+        notifyIcon1.ShowBalloonTip(balloonTime, "Error Restarting Application", "Please try manually closing and starting the application.", ToolTipIcon.Error);
+      }
+    }   
+
+    private void menuItemEdit_Click(object Sender, EventArgs e)
+    {
+      try
+      {
+        Process.Start(devicesFile);
+      }
+      catch (Exception)
+      {
+        notifyIcon1.ShowBalloonTip(balloonTime, "Error Opening Device List File", "Try navigating to file from .exe location.", ToolTipIcon.Error);
       }
     }
 
