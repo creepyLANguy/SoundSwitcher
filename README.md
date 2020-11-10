@@ -26,8 +26,9 @@ The front-end also calls into this on startup if it cannot find *devices.txt*.
 
 ___
 
-You may also modify *devices.txt* to only contain the audio devices you use.  
+You may also modify *devices.txt* by selecting the "Edit" option to only contain the audio devices you use.  
 This is helpful when using the double-click feature to easily toggle between a small number of devices, eg. speakers and headphones.
+Select "Restart" after editing to enable your file changes. 
 ___
 
 Copyright (C) Altamish Mahomed - All Rights Reserved  
