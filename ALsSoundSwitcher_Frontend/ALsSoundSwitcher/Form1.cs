@@ -10,8 +10,14 @@ namespace ALsSoundSwitcher
   {
     string getDevicesExe = "GetPlaybackDevices.exe";
     string setDeviceExe = "SetPlaybackDevice.exe";
+    
+    private string volumeMixer = "sndvol.exe";
+    private string volumeMixerArgs = "-r 88888888"; //TODO - figure out exactly why this works and do something better.
+
     string devicesFile = "devices.txt";
+    
     int balloonTime = 1500;
+    
     string[] ar;
 
     private int lastIndex = 0;
@@ -134,11 +140,15 @@ namespace ALsSoundSwitcher
 
     private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
-      if (((MouseEventArgs)e).Button == MouseButtons.Left)
+      if (e.Button == MouseButtons.Left)
       {
         //InvokeRightClick();
         Toggle();
         return;
+      }
+      else if (e.Button == MouseButtons.Middle)
+      {
+        RunExe(volumeMixer, volumeMixerArgs);
       }
 
       /*
