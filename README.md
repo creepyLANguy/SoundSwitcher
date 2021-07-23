@@ -14,7 +14,8 @@ ___
 **ALsSoundSwitcher.exe** is the front-end.  
 You should be able to simply run this as-is.  
  - Left click on the tray icon to automatically switch to the next audio device.
- - Right Click on the tray icon to view a list of available audio devices and select a specific one to switch to. 
+ - Middle click to open the Windows volume mixer.
+ - Right click on the tray icon to view a list of available audio devices and select a specific one to switch to. 
 
 **SetPlaybackDevices.exe** is a helper program that will not perform any function if it is executed on its own.  
 The front-end expects this to be located in the same folder so it can be used to change the sound device.  
