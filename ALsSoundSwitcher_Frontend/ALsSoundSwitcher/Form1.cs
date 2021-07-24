@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using ALsSoundSwitcher.Properties;
 
 namespace ALsSoundSwitcher
@@ -11,7 +12,7 @@ namespace ALsSoundSwitcher
     string getDevicesExe = "GetPlaybackDevices.exe";
     string setDeviceExe = "SetPlaybackDevice.exe";
     
-    private string volumeMixer = "sndvol.exe";
+    private string volumeMixerExe = "sndvol.exe";
     private string volumeMixerArgs = "-r 88888888"; //TODO - figure out exactly why this works and do something better.
 
     string devicesFile = "devices.txt";
@@ -148,7 +149,19 @@ namespace ALsSoundSwitcher
       }
       else if (e.Button == MouseButtons.Middle)
       {
-        RunExe(volumeMixer, volumeMixerArgs);
+        var processName = volumeMixerExe.Substring(0, volumeMixerExe.LastIndexOf(".exe"));
+        var processes = Process.GetProcessesByName(processName);
+        if (processes.Length > 0)
+        {
+          foreach (var process in processes)
+          {
+            process.Kill();
+          }
+        }
+        else
+        {
+          RunExe(volumeMixerExe, volumeMixerArgs);
+        }
       }
 
       /*
