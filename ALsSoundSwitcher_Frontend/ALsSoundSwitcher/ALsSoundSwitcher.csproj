@@ -82,7 +82,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Icons\Headset Earphone %28HyperX 7.1 Audio%29.ico" />
     <Content Include="Icons\icon.ico" />
   </ItemGroup>
   <ItemGroup />

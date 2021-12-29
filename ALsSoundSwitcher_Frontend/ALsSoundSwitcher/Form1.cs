@@ -320,8 +320,17 @@ namespace ALsSoundSwitcher
     {
       public static Icon GetIconByRawName(string iconName)
       {
-        var obj = Resources.ResourceManager.GetObject(iconName, Resources.Culture);
-        return (Icon)obj;
+        //var obj = Resources.ResourceManager.GetObject(iconName, Resources.Culture);
+        //return (Icon)obj;
+        try
+        {
+          var icon = new Icon(iconName + ".ico");
+          return icon;
+        }
+        catch (Exception)
+        {
+          return null;
+        }
       }
     }
 }
