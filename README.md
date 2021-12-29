@@ -42,5 +42,4 @@ Select **Restart** after editing to enable your file changes.
 
 ___
 
-*Copyright (C) Altamish Mahomed*
-*Unauthorized copying of this code or its contents, via any medium, is strictly prohibited, regardless of intent of use. Proprietary and confidential.*
+*Copyright (C) Altamish Mahomed. Unauthorized copying of this code or its contents, via any medium, is strictly prohibited, regardless of intent of use. Proprietary and confidential.*
