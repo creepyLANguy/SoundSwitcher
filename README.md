@@ -10,7 +10,6 @@ Alternatively, compile all solutions and copy the resulting executables to a com
 
 ___
 
-
 **ALsSoundSwitcher.exe** is the front-end.  
 You should be able to simply run this as-is.  
  - **Left** click on the tray icon to automatically switch to the next audio device.
@@ -27,9 +26,18 @@ The front-end also calls into this on startup if it cannot find *devices.txt*.
 
 ___
 
+**Custom Icons** - New!
+Apply custom icons for each sound device by placing an icon of the same name as the sound device alongside *ALsSoundSwitcher.exe*
+eg. If the sound device is called *Speakers (Razer BlackShark V2 Pro)*, placing `Speakers (Razer BlackShark V2 Pro).ico` alongside the .exe will cause the tray icon to change when it is active. 
+
+![](https://i.imgur.com/4lEvIzt.png)
+
+___
+
 You may also modify *devices.txt* by selecting the "Edit" option to only contain the audio devices you use.  
-This is helpful when using the double-click feature to easily toggle between a small number of devices, eg. speakers and headphones.
+This is helpful when using the left-click feature to easily toggle between a small number of devices, eg. speakers and headphones.
 Select "Restart" after editing to enable your file changes. 
+
 ___
 
 Copyright (C) Altamish Mahomed - All Rights Reserved  
