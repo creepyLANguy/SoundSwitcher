@@ -128,6 +128,7 @@ namespace ALsSoundSwitcher
     {
       int index = ((ListBox)sender).SelectedIndex;
       PerformSwitch(index);
+      IncrementLastIndex();
     }
 
     /*
@@ -192,6 +193,7 @@ namespace ALsSoundSwitcher
     {
       int index = ((MenuItem)Sender).Index;
       PerformSwitch(index);
+      IncrementLastIndex();
     }
 
     private void menuItemExit_Click(object Sender, EventArgs e)
@@ -290,12 +292,17 @@ namespace ALsSoundSwitcher
 
     private void Toggle()
     {
+      IncrementLastIndex();
+      PerformSwitch(lastIndex);
+    }    
+    
+    private void IncrementLastIndex()
+    {
       ++lastIndex;
       if (lastIndex == ar.Length / 2)
       {
         lastIndex = 0;
       }
-      PerformSwitch(lastIndex);
     }
 
     private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
