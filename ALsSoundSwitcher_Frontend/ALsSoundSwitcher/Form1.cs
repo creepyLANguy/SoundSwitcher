@@ -128,7 +128,7 @@ namespace ALsSoundSwitcher
     {
       int index = ((ListBox)sender).SelectedIndex;
       PerformSwitch(index);
-      IncrementLastIndex();
+      lastIndex = index;
     }
 
     /*
@@ -193,7 +193,7 @@ namespace ALsSoundSwitcher
     {
       int index = ((MenuItem)Sender).Index;
       PerformSwitch(index);
-      IncrementLastIndex();
+      lastIndex = index;
     }
 
     private void menuItemExit_Click(object Sender, EventArgs e)
