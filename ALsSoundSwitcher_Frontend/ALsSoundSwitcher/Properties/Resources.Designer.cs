@@ -19,7 +19,7 @@ namespace ALsSoundSwitcher.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,117 @@ namespace ALsSoundSwitcher.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Opening Device List File.
+        /// </summary>
+        internal static string Form1_menuItemEdit_Click_Error_Opening_Device_List_File {
+            get {
+                return ResourceManager.GetString("Form1_menuItemEdit_Click_Error_Opening_Device_List_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not start .
+        /// </summary>
+        internal static string Form1_menuItemRefresh_Click_Could_not_start_ {
+            get {
+                return ResourceManager.GetString("Form1_menuItemRefresh_Click_Could_not_start_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Refreshing Device List.
+        /// </summary>
+        internal static string Form1_menuItemRefresh_Click_Error_Refreshing_Device_List {
+            get {
+                return ResourceManager.GetString("Form1_menuItemRefresh_Click_Error_Refreshing_Device_List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Restarting Application.
+        /// </summary>
+        internal static string Form1_menuItemRestart_Click_Error_Restarting_Application {
+            get {
+                return ResourceManager.GetString("Form1_menuItemRestart_Click_Error_Restarting_Application", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please try manually closing and starting the application..
+        /// </summary>
+        internal static string Form1_menuItemRestart_Click_Please_try_manually_closing_and_starting_the_application_ {
+            get {
+                return ResourceManager.GetString("Form1_menuItemRestart_Click_Please_try_manually_closing_and_starting_the_applicat" +
+                        "ion_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Switching Audio Device.
+        /// </summary>
+        internal static string Form1_PerformSwitch_Error_Switching_Audio_Device {
+            get {
+                return ResourceManager.GetString("Form1_PerformSwitch_Error_Switching_Audio_Device", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid index (-1?) selected..
+        /// </summary>
+        internal static string Form1_PerformSwitch_Invalid_index___1___selected_ {
+            get {
+                return ResourceManager.GetString("Form1_PerformSwitch_Invalid_index___1___selected_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error reading device list.
+        ///
+        ///Could not start .
+        /// </summary>
+        internal static string Form1_SetupContextMenu_ {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E&amp;dit.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_E_dit {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_E_dit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ex&amp;it.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_Ex_it {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_Ex_it", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to R&amp;efresh.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_R_efresh {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_R_efresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Res&amp;tart.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_Res_tart {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_Res_tart", resourceCulture);
             }
         }
         
