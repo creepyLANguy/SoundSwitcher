@@ -127,16 +127,16 @@
 Could not start </value>
   </data>
   <data name="Form1_SetupContextMenu_R_efresh" xml:space="preserve">
-    <value>R&amp;efresh</value>
+    <value>&amp;Refresh</value>
   </data>
   <data name="Form1_SetupContextMenu_E_dit" xml:space="preserve">
-    <value>E&amp;dit</value>
+    <value>&amp;Edit</value>
   </data>
   <data name="Form1_SetupContextMenu_Res_tart" xml:space="preserve">
-    <value>Res&amp;tart</value>
+    <value>Re&amp;start</value>
   </data>
   <data name="Form1_SetupContextMenu_Ex_it" xml:space="preserve">
-    <value>Ex&amp;it</value>
+    <value>E&amp;xit</value>
   </data>
   <data name="Form1_menuItemRefresh_Click_Error_Refreshing_Device_List" xml:space="preserve">
     <value>Error Refreshing Device List</value>

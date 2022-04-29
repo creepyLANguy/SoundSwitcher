@@ -136,7 +136,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E&amp;dit.
+        ///   Looks up a localized string similar to &amp;Edit.
         /// </summary>
         internal static string Form1_SetupContextMenu_E_dit {
             get {
@@ -145,7 +145,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ex&amp;it.
+        ///   Looks up a localized string similar to E&amp;xit.
         /// </summary>
         internal static string Form1_SetupContextMenu_Ex_it {
             get {
@@ -154,7 +154,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to R&amp;efresh.
+        ///   Looks up a localized string similar to &amp;Refresh.
         /// </summary>
         internal static string Form1_SetupContextMenu_R_efresh {
             get {
@@ -163,7 +163,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Res&amp;tart.
+        ///   Looks up a localized string similar to Re&amp;start.
         /// </summary>
         internal static string Form1_SetupContextMenu_Res_tart {
             get {
