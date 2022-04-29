@@ -12,11 +12,13 @@ ___
 
 **Custom Icons (v1.8)** - *New!*
 
-Apply custom icons for each sound device by placing .ico files of similar names as the sound devices in the same folder as the executables or in any subfolder.
+Apply custom icons for each sound device.  
+
+Simply include `.ico` files with similar names to sound devices in the same folder as the executables (or in any subfolder).
 
 Your icons do not need to be named the exact same as your sound device - the software will try its best to find a match.
 
-eg. If the sound device is called *Speakers (Razer BlackShark V2 Pro)*, using `Razer BlackShark.ico` will display when selecting this device. 
+eg. If the sound device is called *Speakers (Razer BlackShark V2 Pro)*, the icon called `Razer BlackShark.ico` will display when selecting this device. 
 
 ![](https://i.imgur.com/zggGhlS.png)
 
