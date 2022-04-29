@@ -1,8 +1,8 @@
 **SoundSwitcher**
 
-![](https://i.imgur.com/PcK9C73.png )
+![](https://i.imgur.com/uqCUKYt.png)
 
-___
+___ 
 
  ### **[Download Latest Release Here ➡](https://github.com/creepyLANguy/SoundSwitcher/releases)** ###  
 
