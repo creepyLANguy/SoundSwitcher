@@ -28,6 +28,13 @@ namespace ALsSoundSwitcher
       InitializeComponent();
     }
 
+    private void Form1_Load(object sender, EventArgs e)
+    {
+      ReadConfig();
+      SetupContextMenu();
+      Minimize();
+    }
+
     private void Minimize()
     {
       WindowState = FormWindowState.Minimized;
@@ -35,14 +42,6 @@ namespace ALsSoundSwitcher
       ShowInTaskbar = false;
       Visible = false;
     }
-
-    /*
-    private void Maximize()
-    {
-      WindowState = FormWindowState.Normal;
-      ShowInTaskbar = true;
-    }
-    */
 
     private void SetupContextMenu()
     {
@@ -113,10 +112,24 @@ namespace ALsSoundSwitcher
       notifyIcon1.ContextMenu = contextMenu1;
     }
 
-    private void Form1_Load(object sender, EventArgs e)
+    private void ReadConfig()
     {
-      SetupContextMenu();
-      Minimize();
+      try
+      {
+        var items = File.ReadAllText(Definitions.configFile).Split();
+        Definitions.balloonTime = Convert.ToInt32(items[0]);
+        Definitions.activeMarker = " " + items[1];
+        Definitions.bestIconNameMatchPercentageMinimum = Convert.ToInt32(items[2]);
+      }
+      catch (Exception)
+      {
+        notifyIcon1.ShowBalloonTip(
+          Definitions.balloonTime,
+          Resources.Form1_ReadConfig_Error_reading_config_file_ + Definitions.configFile,
+          Resources.Form1_ReadConfig_Will_use_default_values + Definitions.getDevicesExe,
+          ToolTipIcon.Error
+        );
+      }
     }
 
     private void listBox1_Click(object sender, EventArgs e)
@@ -163,17 +176,6 @@ namespace ALsSoundSwitcher
           RunExe(Definitions.volumeMixerExe, Definitions.volumeMixerArgs);
         }
       }
-
-      /*
-      if (WindowState == FormWindowState.Normal)
-      {
-        Minimize();
-      }
-      else
-      {
-        Maximize();
-      }
-      */
     }
 
     private static void RunExe(string exeName, string args = "")
@@ -301,7 +303,6 @@ namespace ALsSoundSwitcher
           ToolTipIcon.Error
           );
       }
-
     }
 
     private void Form1_LocationChanged(object sender, EventArgs e)
@@ -327,11 +328,6 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
-    {
-      //Toggle();
-    }
-
     private void SetIcon(string iconName)
     {
       notifyIcon1.Icon = Resources.Icon;
@@ -349,7 +345,7 @@ namespace ALsSoundSwitcher
         return;
       }
 
-      var icon = ResourceExtended.GetIconByRawName(bestMatch.Item1);
+      var icon = GetIconByRawName(bestMatch.Item1);
       if (icon != null)
       {
         notifyIcon1.Icon = icon;
@@ -388,20 +384,17 @@ namespace ALsSoundSwitcher
 
       return (double)(largerStringLength - editDistance) / largerStringLength * 100;
     }
-  }
 
-  public static class ResourceExtended
+    private static Icon GetIconByRawName(string iconName)
     {
-      public static Icon GetIconByRawName(string iconName)
+      try
       {
-        try
-        {
-          return new Icon(iconName);
-        }
-        catch (Exception)
-        {
-          return null;
-        }
+        return new Icon(iconName);
+      }
+      catch (Exception)
+      {
+        return null;
       }
     }
+  }
 }

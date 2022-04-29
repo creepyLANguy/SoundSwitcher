@@ -125,6 +125,24 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error reading config file .
+        /// </summary>
+        internal static string Form1_ReadConfig_Error_reading_config_file_ {
+            get {
+                return ResourceManager.GetString("Form1_ReadConfig_Error_reading_config_file_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will use default values.
+        /// </summary>
+        internal static string Form1_ReadConfig_Will_use_default_values {
+            get {
+                return ResourceManager.GetString("Form1_ReadConfig_Will_use_default_values", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error reading device list.
         ///
         ///Could not start .

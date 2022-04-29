@@ -11,9 +11,9 @@
     public static string devicesFile = "devices.txt";
 
     public static int balloonTime = 1500;
+    public static string activeMarker = " 🎵";
+    public static int bestIconNameMatchPercentageMinimum = 15;
 
-    public static string activeMarker = " *";
-
-    public static int bestIconNameMatchPercentageMinimum = 85;
+    public static string configFile = "config.ini";
   }
 }

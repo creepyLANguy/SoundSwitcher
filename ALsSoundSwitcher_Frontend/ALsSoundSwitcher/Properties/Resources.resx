@@ -159,4 +159,10 @@ Could not start </value>
   <data name="Form1_PerformSwitch_Error_Switching_Audio_Device" xml:space="preserve">
     <value>Error Switching Audio Device</value>
   </data>
+  <data name="Form1_ReadConfig_Error_reading_config_file_" xml:space="preserve">
+    <value>Error reading config file </value>
+  </data>
+  <data name="Form1_ReadConfig_Will_use_default_values" xml:space="preserve">
+    <value>Will use default values</value>
+  </data>
 </root>
