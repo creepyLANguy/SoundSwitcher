@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
+using CSCore.CoreAudioAPI;
 
 namespace ALsSoundSwitcher
 {
@@ -14,8 +15,8 @@ namespace ALsSoundSwitcher
   [SuppressMessage("ReSharper", "CommentTypo")]
   public partial class Form1 : Form
   {
-    private string[] ar;
-    private int lastIndex;
+    private static string[] ar;
+    private static int lastIndex;
 
     private ContextMenu contextMenu1;
     private MenuItem menuItemExit;
@@ -32,6 +33,7 @@ namespace ALsSoundSwitcher
     {
       ReadConfig();
       SetupContextMenu();
+      SetCurrentDeviceIconAndIndicatorOnStartup();
       Minimize();
     }
 
@@ -119,7 +121,7 @@ namespace ALsSoundSwitcher
         var items = File.ReadAllText(Definitions.ConfigFile).Split();
         Definitions.BalloonTime = Convert.ToInt32(items[0]);
         Definitions.ActiveMarker = " " + items[1];
-        Definitions.BestIconNameMatchPercentageMinimum = Convert.ToInt32(items[2]);
+        Definitions.BestNameMatchPercentageMinimum = Convert.ToInt32(items[2]);
       }
       catch (Exception)
       {
@@ -226,6 +228,8 @@ namespace ALsSoundSwitcher
     {
       try
       {
+        notifyIcon1.Icon.Dispose();
+        notifyIcon1.Dispose();
         Application.Restart();
         Environment.Exit(0);
       }
@@ -281,17 +285,8 @@ namespace ALsSoundSwitcher
           ar[index*2],
           ToolTipIcon.None
           );
-        notifyIcon1.Text = ar[index * 2];
 
-        foreach (MenuItem item in notifyIcon1.ContextMenu.MenuItems)
-        {
-          var i = item.Text.IndexOf(Definitions.ActiveMarker, StringComparison.Ordinal);
-          if (i >= 0)
-          {
-            item.Text = item.Text.Substring(0, i);
-          }
-        }
-        notifyIcon1.ContextMenu.MenuItems[index].Text += Definitions.ActiveMarker;
+        SetActiveMenuItemMarker(index);
       }
       catch (Exception ex)
       {
@@ -303,6 +298,19 @@ namespace ALsSoundSwitcher
           ToolTipIcon.Error
           );
       }
+    }
+
+    private void SetActiveMenuItemMarker(int index)
+    {
+      foreach (MenuItem item in notifyIcon1.ContextMenu.MenuItems)
+      {
+        var i = item.Text.IndexOf(Definitions.ActiveMarker, StringComparison.Ordinal);
+        if (i >= 0)
+        {
+          item.Text = item.Text.Substring(0, i);
+        }
+      }
+      notifyIcon1.ContextMenu.MenuItems[index].Text += Definitions.ActiveMarker;
     }
 
     private void Form1_LocationChanged(object sender, EventArgs e)
@@ -340,7 +348,7 @@ namespace ALsSoundSwitcher
 
       var matches = GetMatchPercentages(iconName.Trim(), alIcons);
       var bestMatch = matches.OrderByDescending(it => it.Item2).First();
-      if (bestMatch.Item2 < Definitions.BestIconNameMatchPercentageMinimum)
+      if (bestMatch.Item2 < Definitions.BestNameMatchPercentageMinimum)
       {
         return;
       }
@@ -395,6 +403,40 @@ namespace ALsSoundSwitcher
       {
         return null;
       }
+    }
+
+    //AL.
+    //TODO - Fix bug where if you remove the active device from the devices text file, it will likely show the wrong menuitem (and icon) as active. 
+    private void SetCurrentDeviceIconAndIndicatorOnStartup()
+    {
+      string currentDeviceName;
+      using (var enumerator = new MMDeviceEnumerator())
+      {
+        currentDeviceName = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia).FriendlyName;
+      }
+
+      var highestMatchPercentage = 0.0;
+      var highestMatchIndex = 0;
+      for(var i = 0; i < ar.Length; i+=2)
+      {
+        var currentMatchPercentage = GetMatchPercentage(currentDeviceName, ar[i]);
+        if (currentMatchPercentage > highestMatchPercentage)
+        {
+          highestMatchPercentage = currentMatchPercentage;
+          highestMatchIndex = i;
+        }
+      }
+
+      if (highestMatchPercentage < Definitions.BestNameMatchPercentageMinimum)
+      {
+        return;
+      }
+
+      SetActiveMenuItemMarker(highestMatchIndex/2);
+      SetIcon(currentDeviceName);
+      notifyIcon1.Text = currentDeviceName.Trim();
+
+      lastIndex = highestMatchIndex / 2;
     }
   }
 }

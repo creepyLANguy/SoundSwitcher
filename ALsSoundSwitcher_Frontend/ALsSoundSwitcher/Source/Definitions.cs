@@ -12,7 +12,7 @@
 
     public static int BalloonTime = 1500;
     public static string ActiveMarker = " 🎵";
-    public static int BestIconNameMatchPercentageMinimum = 15;
+    public static int BestNameMatchPercentageMinimum = 15;
 
     public const string ConfigFile = "config.ini";
   }
