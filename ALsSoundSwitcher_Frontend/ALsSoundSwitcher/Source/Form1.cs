@@ -38,7 +38,7 @@ namespace ALsSoundSwitcher
     private void Minimize()
     {
       WindowState = FormWindowState.Minimized;
-      notifyIcon1.ShowBalloonTip(Definitions.balloonTime);
+      notifyIcon1.ShowBalloonTip(Definitions.BalloonTime);
       ShowInTaskbar = false;
       Visible = false;
     }
@@ -49,19 +49,19 @@ namespace ALsSoundSwitcher
 
       try
       {
-        text = File.ReadAllText(Definitions.devicesFile);
+        text = File.ReadAllText(Definitions.DevicesFile);
         Console.WriteLine(text);
       }
       catch (Exception)
       {
         try
         {
-          RunExe(Definitions.getDevicesExe);
+          RunExe(Definitions.GetDevicesExe);
           Close();
         }
         catch (Exception)
         {
-          MessageBox.Show(Resources.Form1_SetupContextMenu_ + Definitions.getDevicesExe);
+          MessageBox.Show(Resources.Form1_SetupContextMenu_ + Definitions.GetDevicesExe);
           Close();
         }
 
@@ -116,17 +116,17 @@ namespace ALsSoundSwitcher
     {
       try
       {
-        var items = File.ReadAllText(Definitions.configFile).Split();
-        Definitions.balloonTime = Convert.ToInt32(items[0]);
-        Definitions.activeMarker = " " + items[1];
-        Definitions.bestIconNameMatchPercentageMinimum = Convert.ToInt32(items[2]);
+        var items = File.ReadAllText(Definitions.ConfigFile).Split();
+        Definitions.BalloonTime = Convert.ToInt32(items[0]);
+        Definitions.ActiveMarker = " " + items[1];
+        Definitions.BestIconNameMatchPercentageMinimum = Convert.ToInt32(items[2]);
       }
       catch (Exception)
       {
         notifyIcon1.ShowBalloonTip(
-          Definitions.balloonTime,
-          Resources.Form1_ReadConfig_Error_reading_config_file_ + Definitions.configFile,
-          Resources.Form1_ReadConfig_Will_use_default_values + Definitions.getDevicesExe,
+          Definitions.BalloonTime,
+          Resources.Form1_ReadConfig_Error_reading_config_file_ + Definitions.ConfigFile,
+          Resources.Form1_ReadConfig_Will_use_default_values + Definitions.GetDevicesExe,
           ToolTipIcon.Error
         );
       }
@@ -158,9 +158,9 @@ namespace ALsSoundSwitcher
       else if (e.Button == MouseButtons.Middle)
       {
         var processName = 
-          Definitions.volumeMixerExe.Substring(
+          Definitions.VolumeMixerExe.Substring(
             0, 
-            Definitions.volumeMixerExe.LastIndexOf(".exe", StringComparison.Ordinal)
+            Definitions.VolumeMixerExe.LastIndexOf(".exe", StringComparison.Ordinal)
             );
         
         var processes = Process.GetProcessesByName(processName);
@@ -173,7 +173,7 @@ namespace ALsSoundSwitcher
         }
         else
         {
-          RunExe(Definitions.volumeMixerExe, Definitions.volumeMixerArgs);
+          RunExe(Definitions.VolumeMixerExe, Definitions.VolumeMixerArgs);
         }
       }
     }
@@ -207,15 +207,15 @@ namespace ALsSoundSwitcher
       {
         try
         {
-          RunExe(Definitions.getDevicesExe);
+          RunExe(Definitions.GetDevicesExe);
           Close();
         }
         catch (Exception)
         {
           notifyIcon1.ShowBalloonTip(
-            Definitions.balloonTime, 
+            Definitions.BalloonTime, 
             Resources.Form1_menuItemRefresh_Click_Error_Refreshing_Device_List,
-            Resources.Form1_menuItemRefresh_Click_Could_not_start_ + Definitions.getDevicesExe,
+            Resources.Form1_menuItemRefresh_Click_Could_not_start_ + Definitions.GetDevicesExe,
             ToolTipIcon.Error
             );
         }
@@ -232,7 +232,7 @@ namespace ALsSoundSwitcher
       catch (Exception)
       {
         notifyIcon1.ShowBalloonTip(
-          Definitions.balloonTime, 
+          Definitions.BalloonTime, 
           Resources.Form1_menuItemRestart_Click_Error_Restarting_Application, 
           Resources.Form1_menuItemRestart_Click_Please_try_manually_closing_and_starting_the_application_, 
           ToolTipIcon.Error
@@ -244,12 +244,12 @@ namespace ALsSoundSwitcher
     {
       try
       {
-        Process.Start(Definitions.devicesFile);
+        Process.Start(Definitions.DevicesFile);
       }
       catch (Exception)
       {
         notifyIcon1.ShowBalloonTip(
-          Definitions.balloonTime, 
+          Definitions.BalloonTime, 
           Resources.Form1_menuItemEdit_Click_Error_Opening_Device_List_File, 
           "Try navigating to file from .exe location.", 
           ToolTipIcon.Error
@@ -271,12 +271,12 @@ namespace ALsSoundSwitcher
 
       try
       {
-        RunExe(Definitions.setDeviceExe, id);
+        RunExe(Definitions.SetDeviceExe, id);
 
         SetIcon(ar[index * 2]);
 
         notifyIcon1.ShowBalloonTip(
-          Definitions.balloonTime, 
+          Definitions.BalloonTime, 
           "Switched Audio Device",
           ar[index*2],
           ToolTipIcon.None
@@ -285,21 +285,21 @@ namespace ALsSoundSwitcher
 
         foreach (MenuItem item in notifyIcon1.ContextMenu.MenuItems)
         {
-          var i = item.Text.IndexOf(Definitions.activeMarker, StringComparison.Ordinal);
+          var i = item.Text.IndexOf(Definitions.ActiveMarker, StringComparison.Ordinal);
           if (i >= 0)
           {
             item.Text = item.Text.Substring(0, i);
           }
         }
-        notifyIcon1.ContextMenu.MenuItems[index].Text += Definitions.activeMarker;
+        notifyIcon1.ContextMenu.MenuItems[index].Text += Definitions.ActiveMarker;
       }
       catch (Exception ex)
       {
         Console.WriteLine(ex.ToString());
         notifyIcon1.ShowBalloonTip(
-          Definitions.balloonTime, 
+          Definitions.BalloonTime, 
           Resources.Form1_PerformSwitch_Error_Switching_Audio_Device, 
-          Resources.Form1_menuItemRefresh_Click_Could_not_start_ + Definitions.setDeviceExe, 
+          Resources.Form1_menuItemRefresh_Click_Could_not_start_ + Definitions.SetDeviceExe, 
           ToolTipIcon.Error
           );
       }
@@ -340,7 +340,7 @@ namespace ALsSoundSwitcher
 
       var matches = GetMatchPercentages(iconName.Trim(), alIcons);
       var bestMatch = matches.OrderByDescending(it => it.Item2).First();
-      if (bestMatch.Item2 < Definitions.bestIconNameMatchPercentageMinimum)
+      if (bestMatch.Item2 < Definitions.BestIconNameMatchPercentageMinimum)
       {
         return;
       }

@@ -2,18 +2,18 @@
 {
   public static class Definitions
   {
-    public static string getDevicesExe = "GetPlaybackDevices.exe";
-    public static string setDeviceExe = "SetPlaybackDevice.exe";
+    public const string GetDevicesExe = "GetPlaybackDevices.exe";
+    public const string SetDeviceExe = "SetPlaybackDevice.exe";
 
-    public static string volumeMixerExe = "sndvol.exe";
-    public static string volumeMixerArgs = "-r 88888888"; //TODO - figure out exactly why this works and do something better.
+    public const string VolumeMixerExe = "sndvol.exe";
+    public const string VolumeMixerArgs = "-r 88888888"; //TODO - figure out exactly why this works and do something better.
 
-    public static string devicesFile = "devices.txt";
+    public const string DevicesFile = "devices.txt";
 
-    public static int balloonTime = 1500;
-    public static string activeMarker = " 🎵";
-    public static int bestIconNameMatchPercentageMinimum = 15;
+    public static int BalloonTime = 1500;
+    public static string ActiveMarker = " 🎵";
+    public static int BestIconNameMatchPercentageMinimum = 15;
 
-    public static string configFile = "config.ini";
+    public const string ConfigFile = "config.ini";
   }
 }
