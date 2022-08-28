@@ -52,7 +52,7 @@ namespace ALsSoundSwitcher
       try
       {
         text = File.ReadAllText(Definitions.DevicesFile);
-        Console.WriteLine(text);
+        //Console.WriteLine(text);
       }
       catch (Exception)
       {
@@ -269,22 +269,26 @@ namespace ALsSoundSwitcher
         return;
       }
 
-      Console.WriteLine(ar[index * 2]);
-
-      var id = ar[(index * 2) + 1].TrimEnd();
-
       try
       {
-        RunExe(Definitions.SetDeviceExe, id);
+        //Console.WriteLine(ar[index * 2]);
 
-        SetIcon(ar[index * 2]);
+        var id = ar[(index * 2) + 1].TrimEnd();
+
+        RunExe(Definitions.SetDeviceExe, id);
+        
+        var name = ar[index * 2];
+
+        SetIcon(name);
 
         notifyIcon1.ShowBalloonTip(
           Definitions.BalloonTime, 
           "Switched Audio Device",
-          ar[index*2],
+          name,
           ToolTipIcon.None
           );
+
+        notifyIcon1.Text = name.Trim();
 
         SetActiveMenuItemMarker(index);
       }
