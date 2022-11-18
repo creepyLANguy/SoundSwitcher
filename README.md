@@ -20,7 +20,7 @@ Your icons do not need to be named the exact same as your sound device - the sof
 
 eg. If the sound device is called *Speakers (Razer BlackShark V2 Pro)*, the icon called `Razer BlackShark.ico` will display when selecting this device. 
 
-![](https://i.imgur.com/zggGhlS.png)
+![](https://i.imgur.com/TSdmrhI.png)
 
 ___
 
