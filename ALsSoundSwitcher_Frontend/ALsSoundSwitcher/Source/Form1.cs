@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using CSCore.CoreAudioAPI;
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 
 namespace ALsSoundSwitcher
 {
-  [SuppressMessage("ReSharper", "InconsistentNaming")]
-  [SuppressMessage("ReSharper", "CommentTypo")]
   public partial class Form1 : Form
   {
     private static string[] ar;
@@ -24,6 +24,9 @@ namespace ALsSoundSwitcher
     private MenuItem menuItemEdit;
     private MenuItem menuItemRestart;
 
+    [DllImport("user32.dll", SetLastError = true)]
+    private static extern bool SetForegroundWindow(IntPtr hwnd);
+    
     public Form1()
     {
       InitializeComponent();
@@ -159,25 +162,34 @@ namespace ALsSoundSwitcher
       }
       else if (e.Button == MouseButtons.Middle)
       {
-        var processName = 
-          Definitions.VolumeMixerExe.Substring(
-            0, 
-            Definitions.VolumeMixerExe.LastIndexOf(".exe", StringComparison.Ordinal)
-            );
-        
-        var processes = Process.GetProcessesByName(processName);
-        if (processes.Length > 0)
+        HandleMiddleClick();
+      }
+    }
+
+    private void HandleMiddleClick()
+    {
+      var processName = GetVolumeMixerProcessName();
+      var processes = Process.GetProcessesByName(processName);
+      if (processes.Length > 0)
+      {
+        foreach (var process in processes)
         {
-          foreach (var process in processes)
-          {
-            process.Kill();
-          }
-        }
-        else
-        {
-          RunExe(Definitions.VolumeMixerExe, Definitions.VolumeMixerArgs);
+          //process.Kill();
+          SetForegroundWindow(process.MainWindowHandle);
         }
       }
+      else
+      {
+        RunExe(Definitions.VolumeMixerExe, Definitions.VolumeMixerArgs);
+      }
+    }
+
+    private string GetVolumeMixerProcessName()
+    {
+       return Definitions.VolumeMixerExe.Substring(
+         0, 
+         Definitions.VolumeMixerExe.LastIndexOf(".exe", StringComparison.Ordinal)
+         );
     }
 
     private static void RunExe(string exeName, string args = "")
