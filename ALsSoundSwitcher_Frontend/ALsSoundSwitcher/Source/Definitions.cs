@@ -1,4 +1,6 @@
-﻿namespace ALsSoundSwitcher
+﻿using System.Drawing;
+
+namespace ALsSoundSwitcher
 {
   public static class Definitions
   {
@@ -11,7 +13,7 @@
     public const string DevicesFile = "devices.txt";
 
     public static int BalloonTime = 1500;
-    public static string ActiveMarker = " 🎵";
+    public static Color ActiveColour = Color.DodgerBlue;
     public static int BestNameMatchPercentageMinimum = 15;
 
     public const string ConfigFile = "config.ini";

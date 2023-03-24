@@ -18,11 +18,11 @@ namespace ALsSoundSwitcher
     private static string[] ar;
     private static int lastIndex;
 
-    private ContextMenu contextMenu1;
-    private MenuItem menuItemExit;
-    private MenuItem menuItemRefresh;
-    private MenuItem menuItemEdit;
-    private MenuItem menuItemRestart;
+    private ContextMenuStrip contextMenu;
+    private ToolStripMenuItem menuItemExit;
+    private ToolStripMenuItem menuItemRefresh;
+    private ToolStripMenuItem menuItemEdit;
+    private ToolStripMenuItem menuItemRestart;
 
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetForegroundWindow(IntPtr hwnd);
@@ -72,49 +72,51 @@ namespace ALsSoundSwitcher
 
       }
 
-      contextMenu1 = new ContextMenu();
+      contextMenu = new ContextMenuStrip();
+      contextMenu.BackColor = SystemColors.Control;
 
-      text = text.Trim();
-      ar = text.Split('\n');
+      var index = 0;
+
+      ar = text.Trim().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
       for (var i = 0; i < ar.Length; i += 2)
       {
-        listBox1.Items.Add(ar[i]);
+        var name = ar[i];
 
-        var menuItem = new MenuItem();
-        menuItem.Text = ar[i];
+        var iconFile = GetBestMatchIcon(name);
+        var iconBitmap = Icon.ToBitmap();
+        if (iconFile.Length > 0)
+        {
+          var icon = GetIconByRawName(iconFile);
+          iconBitmap = icon.ToBitmap();
+        }
+
+        var menuItem = new ToolStripMenuItem(name, iconBitmap);
         menuItem.Click += menuItem_Click;
-        contextMenu1.MenuItems.Add(menuItem);
+        menuItem.MergeIndex = index++;
+        
+        contextMenu.Items.Add(menuItem);
       }
 
-      contextMenu1.MenuItems.Add("-");
-
-      menuItemRefresh = new MenuItem();
-      menuItemRefresh.Index = 0;
-      menuItemRefresh.Text = Resources.Form1_SetupContextMenu_R_efresh;
+      menuItemRefresh = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_R_efresh);
       menuItemRefresh.Click += menuItemRefresh_Click;
-      contextMenu1.MenuItems.AddRange(new[] { menuItemRefresh });
 
-      menuItemEdit = new MenuItem();
-      menuItemEdit.Index = 0;
-      menuItemEdit.Text = Resources.Form1_SetupContextMenu_E_dit;
+      menuItemEdit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_E_dit);
       menuItemEdit.Click += menuItemEdit_Click;
-      contextMenu1.MenuItems.AddRange(new[] { menuItemEdit });
 
-      menuItemRestart = new MenuItem();
-      menuItemRestart.Index = 0;
-      menuItemRestart.Text = Resources.Form1_SetupContextMenu_Res_tart;
+      menuItemRestart = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Res_tart);
       menuItemRestart.Click += menuItemRestart_Click;
-      contextMenu1.MenuItems.AddRange(new[] { menuItemRestart });
 
-      contextMenu1.MenuItems.Add("-");
-
-      menuItemExit = new MenuItem();
-      menuItemExit.Index = 0;
-      menuItemExit.Text = Resources.Form1_SetupContextMenu_Ex_it;
+      menuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Ex_it);
       menuItemExit.Click += menuItemExit_Click;
-      contextMenu1.MenuItems.AddRange(new[] { menuItemExit });
 
-      notifyIcon1.ContextMenu = contextMenu1;
+      contextMenu.Items.Add("-");
+      contextMenu.Items.Add(menuItemRefresh);
+      contextMenu.Items.Add(menuItemEdit);
+      contextMenu.Items.Add(menuItemRestart);
+      contextMenu.Items.Add("-");
+      contextMenu.Items.Add(menuItemExit);
+
+      notifyIcon1.ContextMenuStrip = contextMenu;
     }
 
     private void ReadConfig()
@@ -123,7 +125,11 @@ namespace ALsSoundSwitcher
       {
         var items = File.ReadAllText(Definitions.ConfigFile).Split();
         Definitions.BalloonTime = Convert.ToInt32(items[0]);
-        Definitions.ActiveMarker = " " + items[1];
+        var tryColour = Color.FromName(items[1]);
+        if (tryColour.ToArgb() != 0)
+        {
+          Definitions.ActiveColour = tryColour;
+        }
         Definitions.BestNameMatchPercentageMinimum = Convert.ToInt32(items[2]);
       }
       catch (Exception)
@@ -137,27 +143,10 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private void listBox1_Click(object sender, EventArgs e)
-    {
-      var index = ((ListBox)sender).SelectedIndex;
-      PerformSwitch(index);
-      lastIndex = index;
-    }
-
-    /*
-    private void InvokeRightClick()
-    {
-      MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu",
-        BindingFlags.Instance | BindingFlags.NonPublic);
-      mi.Invoke(notifyIcon1, null);
-    }
-    */
-
     private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
       if (e.Button == MouseButtons.Left)
       {
-        //InvokeRightClick();
         Toggle();
       }
       else if (e.Button == MouseButtons.Middle)
@@ -174,7 +163,6 @@ namespace ALsSoundSwitcher
       {
         foreach (var process in processes)
         {
-          //process.Kill();
           SetForegroundWindow(process.MainWindowHandle);
         }
       }
@@ -206,7 +194,7 @@ namespace ALsSoundSwitcher
 
     private void menuItem_Click(object Sender, EventArgs e)
     {
-      var index = ((MenuItem)Sender).Index;
+      var index = ((ToolStripMenuItem)Sender).MergeIndex;
       PerformSwitch(index);
       lastIndex = index;
     }
@@ -318,15 +306,12 @@ namespace ALsSoundSwitcher
 
     private void SetActiveMenuItemMarker(int index)
     {
-      foreach (MenuItem item in notifyIcon1.ContextMenu.MenuItems)
+      foreach (ToolStripItem item in notifyIcon1.ContextMenuStrip.Items)
       {
-        var i = item.Text.IndexOf(Definitions.ActiveMarker, StringComparison.Ordinal);
-        if (i >= 0)
-        {
-          item.Text = item.Text.Substring(0, i);
-        }
+        item.BackColor = SystemColors.Control;
       }
-      notifyIcon1.ContextMenu.MenuItems[index].Text += Definitions.ActiveMarker;
+
+      notifyIcon1.ContextMenuStrip.Items[index].BackColor = Definitions.ActiveColour;
     }
 
     private void Form1_LocationChanged(object sender, EventArgs e)
@@ -356,20 +341,9 @@ namespace ALsSoundSwitcher
     {
       notifyIcon1.Icon = Resources.Icon;
 
-      var alIcons = GetAllIconsInFolder();
-      if (alIcons.Count == 0)
-      {
-        return;
-      }
+      var bestMatch = GetBestMatchIcon(iconName);
 
-      var matches = GetMatchPercentages(iconName.Trim(), alIcons);
-      var bestMatch = matches.OrderByDescending(it => it.Item2).First();
-      if (bestMatch.Item2 < Definitions.BestNameMatchPercentageMinimum)
-      {
-        return;
-      }
-
-      var icon = GetIconByRawName(bestMatch.Item1);
+      var icon = GetIconByRawName(bestMatch);
       if (icon != null)
       {
         notifyIcon1.Icon = icon;
@@ -385,6 +359,25 @@ namespace ALsSoundSwitcher
       var allIcons = new List<string>(allIconFilePaths.Count);
       allIconFilePaths.ForEach(it => allIcons.Add(Path.GetFileName(it)));
       return allIcons;
+    }
+
+    private static string GetBestMatchIcon(string iconName)
+    {
+
+      var allIcons = GetAllIconsInFolder();
+      if (allIcons.Count == 0)
+      {
+        return string.Empty;
+      }
+
+      var matches = GetMatchPercentages(iconName.Trim(), allIcons);
+      var bestMatch = matches.OrderByDescending(it => it.Item2).First();
+      if (bestMatch.Item2 < Definitions.BestNameMatchPercentageMinimum)
+      {
+        return string.Empty;
+      }
+
+      return bestMatch.Item1;
     }
 
     private static List<Tuple<string, double>> GetMatchPercentages(string reference, List<string> candidates)
