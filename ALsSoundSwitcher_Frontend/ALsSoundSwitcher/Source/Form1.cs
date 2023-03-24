@@ -82,18 +82,24 @@ namespace ALsSoundSwitcher
       {
         var name = ar[i];
 
-        var iconFile = GetBestMatchIcon(name);
-        var iconBitmap = Icon.ToBitmap();
-        if (iconFile.Length > 0)
-        {
-          var icon = GetIconByRawName(iconFile);
-          iconBitmap = icon.ToBitmap();
-        }
-
-        var menuItem = new ToolStripMenuItem(name, iconBitmap);
+        var menuItem = new ToolStripMenuItem();
+        menuItem.Text = name;
         menuItem.Click += menuItem_Click;
         menuItem.MergeIndex = index++;
-        
+
+        var iconFile = GetBestMatchIcon(name);
+        if (iconFile.Length > 0)
+        {
+          try
+          {
+            menuItem.Image = Image.FromFile(iconFile);
+          }
+          catch (Exception e)
+          {
+            Console.WriteLine(e.Message);
+          }
+        }
+
         contextMenu.Items.Add(menuItem);
       }
 
