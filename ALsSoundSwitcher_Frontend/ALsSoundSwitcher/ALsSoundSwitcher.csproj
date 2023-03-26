@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\CustomRenderer.cs" />
     <Compile Include="Source\Definitions.cs" />
     <Compile Include="Source\Form1.cs">
       <SubType>Form</SubType>

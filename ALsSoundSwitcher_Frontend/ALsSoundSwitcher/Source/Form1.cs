@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using CSCore.CoreAudioAPI;
+using MenuStripRenderer;
 // ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
 
@@ -75,7 +76,6 @@ namespace ALsSoundSwitcher
       }
 
       contextMenu = new ContextMenuStrip();
-      contextMenu.BackColor = SystemColors.Control;
 
       var index = 0;
 
@@ -134,12 +134,33 @@ namespace ALsSoundSwitcher
       contextMenu.Items.Add("-");
       contextMenu.Items.Add(menuItemMore);
 
+      SetItemMargins(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
+
       HideImageMarginOnSubItems(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
+      if (Definitions.DarkMode)
+      {
+        contextMenu.Renderer = new DarkRenderer();
+      }
+      
       notifyIcon1.ContextMenuStrip = contextMenu;
+    }
 
-      //AL.
-      //contextMenu.Renderer = new DarkToolStripRenderer();
+    private static void SetItemMargins(List<ToolStripMenuItem> items)
+    {
+      items.ForEach(item =>
+      {
+        var dropdown = (ToolStripDropDownMenu)item.DropDown;
+
+        item.Padding = new Padding(item.Margin.Right, 5, item.Margin.Right, 5);
+
+        if (dropdown == null)
+        {
+          return;
+        }
+
+        SetItemMargins(item.DropDownItems.OfType<ToolStripMenuItem>().ToList());
+      });
     }
 
     private static void HideImageMarginOnSubItems(List<ToolStripMenuItem> items)
@@ -175,13 +196,18 @@ namespace ALsSoundSwitcher
       try
       {
         var items = File.ReadAllText(Definitions.ConfigFile).Split();
+        
         Definitions.BalloonTime = Convert.ToInt32(items[0]);
+        
         var tryColour = Color.FromName(items[1]);
         if (tryColour.ToArgb() != 0)
         {
           Definitions.ActiveColour = tryColour;
         }
+        
         Definitions.BestNameMatchPercentageMinimum = Convert.ToInt32(items[2]);
+        
+        Definitions.DarkMode = Convert.ToBoolean(items[3]);
       }
       catch (Exception)
       {

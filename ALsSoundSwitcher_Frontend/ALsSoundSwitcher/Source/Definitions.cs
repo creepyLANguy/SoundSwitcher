@@ -13,8 +13,9 @@ namespace ALsSoundSwitcher
     public const string DevicesFile = "devices.txt";
 
     public static int BalloonTime = 1500;
-    public static Color ActiveColour = Color.DodgerBlue;
+    public static Color ActiveColour = Color.DarkSlateGray;
     public static int BestNameMatchPercentageMinimum = 15;
+    public static bool DarkMode = true;
 
     public const string ConfigFile = "config.ini";
   }
