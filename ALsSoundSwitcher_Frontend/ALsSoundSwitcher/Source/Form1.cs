@@ -23,6 +23,8 @@ namespace ALsSoundSwitcher
     private ToolStripMenuItem menuItemRefresh;
     private ToolStripMenuItem menuItemEdit;
     private ToolStripMenuItem menuItemRestart;
+    private ToolStripMenuItem menuItemMixer;
+    private ToolStripMenuItem menuItemMore;
 
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetForegroundWindow(IntPtr hwnd);
@@ -83,7 +85,7 @@ namespace ALsSoundSwitcher
         var name = ar[i];
 
         var menuItem = new ToolStripMenuItem();
-        menuItem.Text = name;
+        menuItem.Text = GetFormattedDeviceName(name);
         menuItem.Click += menuItem_Click;
         menuItem.MergeIndex = index++;
 
@@ -115,14 +117,57 @@ namespace ALsSoundSwitcher
       menuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Ex_it);
       menuItemExit.Click += menuItemExit_Click;
 
+      menuItemMixer = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_V_olumeMixer);
+      menuItemMixer.Click += menuItemMixer_Click;
+
+      menuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_M_ore);
+
+      menuItemMore.DropDownItems.Add(menuItemRefresh);
+      menuItemMore.DropDownItems.Add("-");
+      menuItemMore.DropDownItems.Add(menuItemEdit);
+      menuItemMore.DropDownItems.Add(menuItemRestart);
+      menuItemMore.DropDownItems.Add("-");
+      menuItemMore.DropDownItems.Add(menuItemMixer);
+      menuItemMore.DropDownItems.Add("-");
+      menuItemMore.DropDownItems.Add(menuItemExit);
+
       contextMenu.Items.Add("-");
-      contextMenu.Items.Add(menuItemRefresh);
-      contextMenu.Items.Add(menuItemEdit);
-      contextMenu.Items.Add(menuItemRestart);
-      contextMenu.Items.Add("-");
-      contextMenu.Items.Add(menuItemExit);
+      contextMenu.Items.Add(menuItemMore);
+
+      HideImageMarginOnSubItems(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
       notifyIcon1.ContextMenuStrip = contextMenu;
+
+      //AL.
+      //contextMenu.Renderer = new DarkToolStripRenderer();
+    }
+
+    private static void HideImageMarginOnSubItems(List<ToolStripMenuItem> items)
+    {
+      items.ForEach(item =>
+      {
+        var dropdown = (ToolStripDropDownMenu)item.DropDown;
+
+        if (dropdown == null)
+        {
+          return;
+        }
+        
+        dropdown.ShowImageMargin = false;
+        HideImageMarginOnSubItems(item.DropDownItems.OfType<ToolStripMenuItem>().ToList());
+      });
+    }
+
+    private static string GetFormattedDeviceName(string name)
+    {
+      var buffer = "";
+
+      var indexOfOpeningParenthesis = name.IndexOf("(", StringComparison.Ordinal);
+      var deviceName = name.Substring(indexOfOpeningParenthesis + 1).TrimEnd(')');
+      buffer += deviceName;
+      //buffer += "  |  ";
+      //buffer += name.Substring(0, indexOfOpeningParenthesis).Trim();
+      return buffer;
     }
 
     private void ReadConfig()
@@ -157,11 +202,16 @@ namespace ALsSoundSwitcher
       }
       else if (e.Button == MouseButtons.Middle)
       {
-        HandleMiddleClick();
+        OpenVolumeMixer();
       }
     }
 
-    private void HandleMiddleClick()
+    private void menuItemMixer_Click(object Sender, EventArgs e)
+    {
+      OpenVolumeMixer();
+    }
+
+    private void OpenVolumeMixer()
     {
       var processName = GetVolumeMixerProcessName();
       var processes = Process.GetProcessesByName(processName);

@@ -138,6 +138,12 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_Ex_it" xml:space="preserve">
     <value>E&amp;xit</value>
   </data>
+  <data name="Form1_SetupContextMenu_M_ore" xml:space="preserve">
+    <value>&amp;More</value>
+  </data>
+  <data name="Form1_SetupContextMenu_V_olumeMixer" xml:space="preserve">
+    <value>&amp;Volume Mixer</value>
+  </data>
   <data name="Form1_menuItemRefresh_Click_Error_Refreshing_Device_List" xml:space="preserve">
     <value>Error Refreshing Device List</value>
   </data>
