@@ -127,22 +127,25 @@
 Could not start </value>
   </data>
   <data name="Form1_SetupContextMenu_R_efresh" xml:space="preserve">
-    <value>&amp;Refresh</value>
+    <value>Refresh</value>
   </data>
   <data name="Form1_SetupContextMenu_E_dit" xml:space="preserve">
-    <value>&amp;Edit</value>
+    <value>Edit</value>
   </data>
   <data name="Form1_SetupContextMenu_Res_tart" xml:space="preserve">
-    <value>Re&amp;start</value>
+    <value>Restart</value>
+  </data>
+  <data name="Form1_SetupContextMenu_Sw_itchTheme" xml:space="preserve">
+    <value>Switch Theme</value>
   </data>
   <data name="Form1_SetupContextMenu_Ex_it" xml:space="preserve">
-    <value>E&amp;xit</value>
+    <value>Exit</value>
   </data>
   <data name="Form1_SetupContextMenu_M_ore" xml:space="preserve">
-    <value>&amp;More</value>
+    <value>More</value>
   </data>
   <data name="Form1_SetupContextMenu_V_olumeMixer" xml:space="preserve">
-    <value>&amp;Volume Mixer</value>
+    <value>Volume Mixer</value>
   </data>
   <data name="Form1_menuItemRefresh_Click_Error_Refreshing_Device_List" xml:space="preserve">
     <value>Error Refreshing Device List</value>

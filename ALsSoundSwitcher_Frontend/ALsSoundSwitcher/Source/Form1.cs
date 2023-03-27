@@ -25,6 +25,7 @@ namespace ALsSoundSwitcher
     private ToolStripMenuItem menuItemRefresh;
     private ToolStripMenuItem menuItemEdit;
     private ToolStripMenuItem menuItemRestart;
+    private ToolStripMenuItem menuItemToggleTheme;
     private ToolStripMenuItem menuItemMixer;
     private ToolStripMenuItem menuItemMore;
 
@@ -117,6 +118,10 @@ namespace ALsSoundSwitcher
       menuItemRestart = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Res_tart);
       menuItemRestart.Click += menuItemRestart_Click;
 
+
+      menuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Sw_itchTheme);
+      menuItemToggleTheme.Click += menuItemSwitchTheme_Click;
+
       menuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Ex_it);
       menuItemExit.Click += menuItemExit_Click;
 
@@ -129,6 +134,8 @@ namespace ALsSoundSwitcher
       menuItemMore.DropDownItems.Add("-");
       menuItemMore.DropDownItems.Add(menuItemEdit);
       menuItemMore.DropDownItems.Add(menuItemRestart);
+      menuItemMore.DropDownItems.Add("-");
+      menuItemMore.DropDownItems.Add(menuItemToggleTheme);
       menuItemMore.DropDownItems.Add("-");
       menuItemMore.DropDownItems.Add(menuItemMixer);
       menuItemMore.DropDownItems.Add("-");
@@ -336,6 +343,11 @@ namespace ALsSoundSwitcher
           ToolTipIcon.Error
           );
       }
+    }
+
+    private void menuItemSwitchTheme_Click(object Sender, EventArgs e)
+    {
+      //TODO
     }
 
     private void PerformSwitch(int index)

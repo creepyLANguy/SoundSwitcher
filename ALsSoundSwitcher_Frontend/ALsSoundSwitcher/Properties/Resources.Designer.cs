@@ -154,7 +154,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Edit.
+        ///   Looks up a localized string similar to Edit.
         /// </summary>
         internal static string Form1_SetupContextMenu_E_dit {
             get {
@@ -163,7 +163,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E&amp;xit.
+        ///   Looks up a localized string similar to Exit.
         /// </summary>
         internal static string Form1_SetupContextMenu_Ex_it {
             get {
@@ -172,7 +172,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;More.
+        ///   Looks up a localized string similar to More.
         /// </summary>
         internal static string Form1_SetupContextMenu_M_ore {
             get {
@@ -181,7 +181,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Refresh.
+        ///   Looks up a localized string similar to Refresh.
         /// </summary>
         internal static string Form1_SetupContextMenu_R_efresh {
             get {
@@ -190,7 +190,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Re&amp;start.
+        ///   Looks up a localized string similar to Restart.
         /// </summary>
         internal static string Form1_SetupContextMenu_Res_tart {
             get {
@@ -199,7 +199,16 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Volume Mixer.
+        ///   Looks up a localized string similar to Switch Theme.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_Sw_itchTheme {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_Sw_itchTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume Mixer.
         /// </summary>
         internal static string Form1_SetupContextMenu_V_olumeMixer {
             get {
