@@ -130,16 +130,18 @@ namespace ALsSoundSwitcher
 
       menuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_M_ore);
 
-      menuItemMore.DropDownItems.Add(menuItemRefresh);
+      menuItemMore.DropDownItems.Add(menuItemExit);
       menuItemMore.DropDownItems.Add("-");
-      menuItemMore.DropDownItems.Add(menuItemEdit);
-      menuItemMore.DropDownItems.Add(menuItemRestart);
-      menuItemMore.DropDownItems.Add("-");
+      //menuItemMore.DropDownItems.Add(menuItemEdit);
+      //menuItemMore.DropDownItems.Add(menuItemRestart);
+      //menuItemMore.DropDownItems.Add("-");
       menuItemMore.DropDownItems.Add(menuItemToggleTheme);
       menuItemMore.DropDownItems.Add("-");
       menuItemMore.DropDownItems.Add(menuItemMixer);
       menuItemMore.DropDownItems.Add("-");
-      menuItemMore.DropDownItems.Add(menuItemExit);
+      menuItemMore.DropDownItems.Add(menuItemRefresh);
+
+      menuItemMore.ShowShortcutKeys = true;
 
       contextMenu.Items.Add("-");
       contextMenu.Items.Add(menuItemMore);
