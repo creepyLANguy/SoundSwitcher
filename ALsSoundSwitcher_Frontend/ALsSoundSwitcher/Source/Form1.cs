@@ -7,8 +7,9 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
+using ALsSoundSwitcher.Theming;
 using CSCore.CoreAudioAPI;
-using MenuStripRenderer;
+
 // ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
 
@@ -26,6 +27,8 @@ namespace ALsSoundSwitcher
     private ToolStripMenuItem menuItemRestart;
     private ToolStripMenuItem menuItemMixer;
     private ToolStripMenuItem menuItemMore;
+
+    private CustomRenderer theme;
 
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetForegroundWindow(IntPtr hwnd);
@@ -138,11 +141,9 @@ namespace ALsSoundSwitcher
 
       HideImageMarginOnSubItems(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
-      if (Definitions.DarkMode)
-      {
-        contextMenu.Renderer = new DarkRenderer();
-      }
-      
+      theme = Definitions.DarkMode ? (CustomRenderer)new DarkRenderer() : new LightRenderer();
+      contextMenu.Renderer = theme;
+
       notifyIcon1.ContextMenuStrip = contextMenu;
     }
 
@@ -198,16 +199,10 @@ namespace ALsSoundSwitcher
         var items = File.ReadAllText(Definitions.ConfigFile).Split();
         
         Definitions.BalloonTime = Convert.ToInt32(items[0]);
+
+        Definitions.BestNameMatchPercentageMinimum = Convert.ToInt32(items[1]);
         
-        var tryColour = Color.FromName(items[1]);
-        if (tryColour.ToArgb() != 0)
-        {
-          Definitions.ActiveColour = tryColour;
-        }
-        
-        Definitions.BestNameMatchPercentageMinimum = Convert.ToInt32(items[2]);
-        
-        Definitions.DarkMode = Convert.ToBoolean(items[3]);
+        Definitions.DarkMode = Convert.ToBoolean(items[2]);
       }
       catch (Exception)
       {
@@ -393,7 +388,7 @@ namespace ALsSoundSwitcher
         item.BackColor = SystemColors.Control;
       }
 
-      notifyIcon1.ContextMenuStrip.Items[index].BackColor = Definitions.ActiveColour;
+      notifyIcon1.ContextMenuStrip.Items[index].BackColor = theme.GetActiveSelectionColour();
     }
 
     private void Form1_LocationChanged(object sender, EventArgs e)

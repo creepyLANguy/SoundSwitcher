@@ -1,13 +1,14 @@
 ﻿using System.Drawing;
-using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
-namespace MenuStripRenderer
+namespace ALsSoundSwitcher.Theming
 {
-  public class DarkRenderer : ToolStripProfessionalRenderer
+  public class DarkRenderer : CustomRenderer
   {
     #region Colors
 
+    private readonly Color _activeSelectionColor = Color.DarkSlateGray;
     private readonly Color _colorMenuArrow = Color.FromArgb(237, 237, 237);
     private readonly Color _colorCheckSquare = Color.FromArgb(0, 122, 204);
     private readonly Color _colorCheckMark = Color.FromArgb(237, 237, 237);
@@ -25,58 +26,63 @@ namespace MenuStripRenderer
 
     #region Overridden Methods
 
+    public override Color GetActiveSelectionColour()
+    {
+      return _activeSelectionColor;
+    }
     protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
     {
-      if (e != null) e.ArrowColor = _colorMenuArrow;
+      e.ArrowColor = _colorMenuArrow;
       base.OnRenderArrow(e);
     }
 
     protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
     {
-      if (e != null)
+      var g = e.Graphics;
+      g.SmoothingMode = SmoothingMode.AntiAlias;
+
+      var rectImage = new Rectangle(e.ImageRectangle.Location, e.ImageRectangle.Size);
+      rectImage.Inflate(-1, -1);
+
+      using (var p = new Pen(_colorCheckSquare, 1))
       {
-        var g = e.Graphics;
-        g.SmoothingMode = SmoothingMode.AntiAlias;
+        g.DrawRectangle(p, rectImage);
+      }
 
-        var rectImage = new Rectangle(e.ImageRectangle.Location, e.ImageRectangle.Size);
-        rectImage.Inflate(-1, -1);
+      var rectCheck = rectImage;
+      rectCheck.Width = rectImage.Width - 6;
+      rectCheck.Height = rectImage.Height - 8;
+      rectCheck.X += 3;
+      rectCheck.Y += 4;
 
-        using (var p = new Pen(_colorCheckSquare, 1))
-        {
-          g.DrawRectangle(p, rectImage);
-        }
-
-        var rectCheck = rectImage;
-        rectCheck.Width = rectImage.Width - 6;
-        rectCheck.Height = rectImage.Height - 8;
-        rectCheck.X += 3;
-        rectCheck.Y += 4;
-
-        using (var p = new Pen(_colorCheckMark, 2))
-        {
-          g.DrawLines(p, new[] { new Point(rectCheck.Left, rectCheck.Bottom - (int)(rectCheck.Height / 2)), new Point(rectCheck.Left + (int)(rectCheck.Width / 3), rectCheck.Bottom), new Point(rectCheck.Right, rectCheck.Top) });
-        }
+      using (var p = new Pen(_colorCheckMark, 2))
+      {
+        g.DrawLines(p, new[] {
+            new Point(rectCheck.Left, rectCheck.Bottom - rectCheck.Height / 2), 
+            new Point(rectCheck.Left + rectCheck.Width / 3, rectCheck.Bottom), 
+            new Point(rectCheck.Right, rectCheck.Top)
+          });
       }
     }
 
     protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
     {
-      if (e != null)
-      {
-        var textRect = e.TextRectangle;
-        textRect.Height = e.Item.Height - 4; //4 is the default difference between the item height and the text rectangle height
+      var textRect = e.TextRectangle;
+      textRect.Height = e.Item.Height - 4; //4 is the default difference between the item height and the text rectangle height
 
-        e.TextRectangle = textRect;
-        e.TextFormat = TextFormatFlags.VerticalCenter;
-        e.TextColor = _colorMenuItemText;
-      }
-
+      e.TextRectangle = textRect;
+      e.TextFormat = TextFormatFlags.VerticalCenter;
+      e.TextColor = _colorMenuItemText;
       base.OnRenderItemText(e);
     }
 
     protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
     {
-      if (e == null || !e.Item.Enabled) return;
+      if (e.Item.Enabled == false)
+      {
+        return;
+      }
+        
       base.OnRenderMenuItemBackground(e);
     }
 
