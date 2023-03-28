@@ -82,11 +82,19 @@ namespace ALsSoundSwitcher
     {
       try
       {
-        using (var stream = new MemoryStream(File.ReadAllBytes(iconName)))
+        //.ico files look much better when using the specific constructor so keep this branching logic.  
+        if (iconName.EndsWith(".ico"))
         {
-          using (var bitmap = new Bitmap(stream))
+          return new Icon(iconName);
+        }
+        else
+        {
+          using (var stream = new MemoryStream(File.ReadAllBytes(iconName)))
           {
-            return Icon.FromHandle(bitmap.GetHicon());
+            using (var bitmap = new Bitmap(stream))
+            {
+              return Icon.FromHandle(bitmap.GetHicon());
+            }
           }
         }
       }
