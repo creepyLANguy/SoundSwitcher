@@ -41,7 +41,16 @@ namespace ALsSoundSwitcher
 
     private void Form1_Load(object sender, EventArgs e)
     {
-      ReadConfig();
+      if (ConfigUtils.ReadAllConfig() == false)
+      {
+        notifyIcon1.ShowBalloonTip(
+          Definitions.BalloonTime,
+          Resources.Form1_ReadConfig_Error_reading_config_file_ + Definitions.ConfigFile,
+          Resources.Form1_ReadConfig_Will_use_default_values + Definitions.GetDevicesExe,
+          ToolTipIcon.Error
+        );
+      }
+
       SetupContextMenu();
       SetCurrentDeviceIconAndIndicatorOnStartup();
       Minimize();
@@ -93,7 +102,7 @@ namespace ALsSoundSwitcher
         menuItem.Click += menuItem_Click;
         menuItem.MergeIndex = index++;
 
-        var iconFile = GetBestMatchIcon(name);
+        var iconFile = IconUtils.GetBestMatchIcon(name);
         if (iconFile.Length > 0)
         {
           try
@@ -199,29 +208,6 @@ namespace ALsSoundSwitcher
       //buffer += "  |  ";
       //buffer += name.Substring(0, indexOfOpeningParenthesis).Trim();
       return buffer;
-    }
-
-    private void ReadConfig()
-    {
-      try
-      {
-        var items = File.ReadAllText(Definitions.ConfigFile).Split();
-        
-        Definitions.BalloonTime = Convert.ToInt32(items[0]);
-
-        Definitions.BestNameMatchPercentageMinimum = Convert.ToInt32(items[1]);
-        
-        Definitions.DarkMode = Convert.ToBoolean(items[2]);
-      }
-      catch (Exception)
-      {
-        notifyIcon1.ShowBalloonTip(
-          Definitions.BalloonTime,
-          Resources.Form1_ReadConfig_Error_reading_config_file_ + Definitions.ConfigFile,
-          Resources.Form1_ReadConfig_Will_use_default_values + Definitions.GetDevicesExe,
-          ToolTipIcon.Error
-        );
-      }
     }
 
     private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
@@ -370,7 +356,7 @@ namespace ALsSoundSwitcher
         
         var name = ar[index * 2];
 
-        SetIcon(name);
+        IconUtils.SetIcon(name, notifyIcon1);
 
         notifyIcon1.ShowBalloonTip(
           Definitions.BalloonTime, 
@@ -428,83 +414,6 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private void SetIcon(string iconName)
-    {
-      notifyIcon1.Icon = Resources.Icon;
-
-      var bestMatch = GetBestMatchIcon(iconName);
-
-      var icon = GetIconByRawName(bestMatch);
-      if (icon != null)
-      {
-        notifyIcon1.Icon = icon;
-      }
-    }
-
-    private static List<string> GetAllIconsInFolder()
-    { 
-      var allIconFilePaths = 
-        Directory.GetFiles(Directory.GetCurrentDirectory(), "*", SearchOption.AllDirectories)
-          .Where(it => it.Contains(".ico")).ToList();
-      
-      var allIcons = new List<string>(allIconFilePaths.Count);
-      allIconFilePaths.ForEach(it => allIcons.Add(Path.GetFileName(it)));
-      return allIcons;
-    }
-
-    private static string GetBestMatchIcon(string iconName)
-    {
-
-      var allIcons = GetAllIconsInFolder();
-      if (allIcons.Count == 0)
-      {
-        return string.Empty;
-      }
-
-      var matches = GetMatchPercentages(iconName.Trim(), allIcons);
-      var bestMatch = matches.OrderByDescending(it => it.Item2).First();
-      if (bestMatch.Item2 < Definitions.BestNameMatchPercentageMinimum)
-      {
-        return string.Empty;
-      }
-
-      return bestMatch.Item1;
-    }
-
-    private static List<Tuple<string, double>> GetMatchPercentages(string reference, List<string> candidates)
-    {
-      var list = new List<Tuple<string, double>>();
-
-      foreach (var candidate in candidates)
-      {
-        var matchPercentage = GetMatchPercentage(reference, candidate);
-        list.Add(new Tuple<string, double>(candidate, matchPercentage));
-      }
-
-      return list;
-    }
-
-    private static double GetMatchPercentage(string reference, string candidate)
-    {
-      var largerStringLength = Math.Max(reference.Length, candidate.Length);
-
-      var editDistance = LevenshteinDistance.Calculate(reference, candidate);
-
-      return (double)(largerStringLength - editDistance) / largerStringLength * 100;
-    }
-
-    private static Icon GetIconByRawName(string iconName)
-    {
-      try
-      {
-        return new Icon(iconName);
-      }
-      catch (Exception)
-      {
-        return null;
-      }
-    }
-
     //AL.
     //TODO - Fix bug where if you remove the active device from the devices text file, it will likely show the wrong menuitem (and icon) as active. 
     private void SetCurrentDeviceIconAndIndicatorOnStartup()
@@ -519,7 +428,7 @@ namespace ALsSoundSwitcher
       var highestMatchIndex = 0;
       for(var i = 0; i < ar.Length; i+=2)
       {
-        var currentMatchPercentage = GetMatchPercentage(currentDeviceName, ar[i]);
+        var currentMatchPercentage = IconUtils.GetMatchPercentage(currentDeviceName, ar[i]);
         if (currentMatchPercentage > highestMatchPercentage)
         {
           highestMatchPercentage = currentMatchPercentage;
@@ -533,7 +442,7 @@ namespace ALsSoundSwitcher
       }
 
       SetActiveMenuItemMarker(highestMatchIndex/2);
-      SetIcon(currentDeviceName);
+      IconUtils.SetIcon(currentDeviceName, notifyIcon1);
       notifyIcon1.Text = currentDeviceName.Trim();
 
       lastIndex = highestMatchIndex / 2;

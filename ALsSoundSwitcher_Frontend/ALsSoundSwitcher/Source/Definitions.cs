@@ -17,5 +17,10 @@ namespace ALsSoundSwitcher
     public static bool DarkMode = true;
 
     public const string ConfigFile = "config.ini";
+    public const string ConfigDelimiter = "=";
+    public const string Config_BalloonTime = "BalloonTime";
+    public const string Config_BestNameMatchPercentageMinimum = "BestNameMatchPercentageMinimum";
+    public const string Config_DarkMode = "DarkMode";
+
   }
 }
