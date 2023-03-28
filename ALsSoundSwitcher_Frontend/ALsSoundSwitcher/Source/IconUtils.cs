@@ -48,8 +48,8 @@ namespace ALsSoundSwitcher
     private static List<string> GetAllIconsInFolder()
     {
       var allIconFilePaths =
-        Directory.GetFiles(Directory.GetCurrentDirectory(), "*", SearchOption.AllDirectories)
-          .Where(it => it.Contains(".ico")).ToList();
+        Directory.GetFiles(Directory.GetCurrentDirectory(), "*", SearchOption.AllDirectories).ToList();
+          //Where(it => it.Contains(supportedIconFiletypes)).ToList();
 
       var allIcons = new List<string>(allIconFilePaths.Count);
       allIconFilePaths.ForEach(it => allIcons.Add(Path.GetFileName(it)));
@@ -82,7 +82,13 @@ namespace ALsSoundSwitcher
     {
       try
       {
-        return new Icon(iconName);
+        using (var stream = new MemoryStream(File.ReadAllBytes(iconName)))
+        {
+          using (var bitmap = new Bitmap(stream))
+          {
+            return Icon.FromHandle(bitmap.GetHicon());
+          }
+        }
       }
       catch (Exception)
       {
