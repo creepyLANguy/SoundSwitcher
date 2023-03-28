@@ -41,10 +41,10 @@ namespace ALsSoundSwitcher
 
     private void Form1_Load(object sender, EventArgs e)
     {
-      if (ConfigUtils.ReadAllConfig() == false)
+      if (Config.Read() == false)
       {
         notifyIcon1.ShowBalloonTip(
-          Definitions.BalloonTime,
+          Settings.Current.BalloonTime,
           Resources.Form1_ReadConfig_Error_reading_config_file_ + Definitions.ConfigFile,
           Resources.Form1_ReadConfig_Will_use_default_values + Definitions.GetDevicesExe,
           ToolTipIcon.Error
@@ -59,7 +59,7 @@ namespace ALsSoundSwitcher
     private void Minimize()
     {
       WindowState = FormWindowState.Minimized;
-      notifyIcon1.ShowBalloonTip(Definitions.BalloonTime);
+      notifyIcon1.ShowBalloonTip(Settings.Current.BalloonTime);
       ShowInTaskbar = false;
       Visible = false;
     }
@@ -159,7 +159,7 @@ namespace ALsSoundSwitcher
 
       HideImageMarginOnSubItems(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
-      theme = Definitions.DarkMode ? (CustomRenderer)new DarkRenderer() : new LightRenderer();
+      theme = Settings.Current.DarkMode == 1 ? (CustomRenderer)new DarkRenderer() : new LightRenderer();
       contextMenu.Renderer = theme;
 
       notifyIcon1.ContextMenuStrip = contextMenu;
@@ -287,7 +287,7 @@ namespace ALsSoundSwitcher
         catch (Exception)
         {
           notifyIcon1.ShowBalloonTip(
-            Definitions.BalloonTime, 
+            Settings.Current.BalloonTime, 
             Resources.Form1_menuItemRefresh_Click_Error_Refreshing_Device_List,
             Resources.Form1_menuItemRefresh_Click_Could_not_start_ + Definitions.GetDevicesExe,
             ToolTipIcon.Error
@@ -308,7 +308,7 @@ namespace ALsSoundSwitcher
       catch (Exception)
       {
         notifyIcon1.ShowBalloonTip(
-          Definitions.BalloonTime, 
+          Settings.Current.BalloonTime, 
           Resources.Form1_menuItemRestart_Click_Error_Restarting_Application, 
           Resources.Form1_menuItemRestart_Click_Please_try_manually_closing_and_starting_the_application_, 
           ToolTipIcon.Error
@@ -325,7 +325,7 @@ namespace ALsSoundSwitcher
       catch (Exception)
       {
         notifyIcon1.ShowBalloonTip(
-          Definitions.BalloonTime, 
+          Settings.Current.BalloonTime, 
           Resources.Form1_menuItemEdit_Click_Error_Opening_Device_List_File, 
           "Try navigating to file from .exe location.", 
           ToolTipIcon.Error
@@ -335,7 +335,10 @@ namespace ALsSoundSwitcher
 
     private void menuItemSwitchTheme_Click(object Sender, EventArgs e)
     {
+      //AL.
       //TODO
+
+      Config.Save();
     }
 
     private void PerformSwitch(int index)
@@ -359,7 +362,7 @@ namespace ALsSoundSwitcher
         IconUtils.SetIcon(name, notifyIcon1);
 
         notifyIcon1.ShowBalloonTip(
-          Definitions.BalloonTime, 
+          Settings.Current.BalloonTime, 
           "Switched Audio Device",
           name,
           ToolTipIcon.None
@@ -373,7 +376,7 @@ namespace ALsSoundSwitcher
       {
         Console.WriteLine(ex.ToString());
         notifyIcon1.ShowBalloonTip(
-          Definitions.BalloonTime, 
+          Settings.Current.BalloonTime, 
           Resources.Form1_PerformSwitch_Error_Switching_Audio_Device, 
           Resources.Form1_menuItemRefresh_Click_Could_not_start_ + Definitions.SetDeviceExe, 
           ToolTipIcon.Error
@@ -414,7 +417,6 @@ namespace ALsSoundSwitcher
       }
     }
 
-    //AL.
     //TODO - Fix bug where if you remove the active device from the devices text file, it will likely show the wrong menuitem (and icon) as active. 
     private void SetCurrentDeviceIconAndIndicatorOnStartup()
     {
@@ -436,7 +438,7 @@ namespace ALsSoundSwitcher
         }
       }
 
-      if (highestMatchPercentage < Definitions.BestNameMatchPercentageMinimum)
+      if (highestMatchPercentage < Settings.Current.BestNameMatchPercentageMinimum)
       {
         return;
       }

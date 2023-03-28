@@ -37,7 +37,7 @@ namespace ALsSoundSwitcher
 
       var matches = GetMatchPercentages(iconName.Trim(), allIcons);
       var bestMatch = matches.OrderByDescending(it => it.Item2).First();
-      if (bestMatch.Item2 < Definitions.BestNameMatchPercentageMinimum)
+      if (bestMatch.Item2 < Settings.Current.BestNameMatchPercentageMinimum)
       {
         return string.Empty;
       }

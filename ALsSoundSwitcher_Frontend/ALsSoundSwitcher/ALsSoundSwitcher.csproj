@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Source\ConfigIO.cs" />
     <Compile Include="Source\IconUtils.cs" />
+    <Compile Include="Source\Settings.cs" />
     <Compile Include="Source\Theming\LightRenderer.cs" />
     <Compile Include="Source\Theming\DarkRenderer.cs" />
     <Compile Include="Source\Definitions.cs" />
