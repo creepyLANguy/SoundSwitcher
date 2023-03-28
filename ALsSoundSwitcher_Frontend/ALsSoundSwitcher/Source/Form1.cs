@@ -18,7 +18,7 @@ namespace ALsSoundSwitcher
   public partial class Form1 : Form
   {
     private static string[] ar;
-    private static int lastIndex;
+    private static int lastIndex = - 1;
 
     private ContextMenuStrip contextMenu;
     private ToolStripMenuItem menuItemExit;
@@ -159,8 +159,7 @@ namespace ALsSoundSwitcher
 
       HideImageMarginOnSubItems(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
-      theme = Settings.Current.DarkMode == 1 ? (CustomRenderer)new DarkRenderer() : new LightRenderer();
-      contextMenu.Renderer = theme;
+      SetTheme();
 
       notifyIcon1.ContextMenuStrip = contextMenu;
     }
@@ -196,6 +195,14 @@ namespace ALsSoundSwitcher
         dropdown.ShowImageMargin = false;
         HideImageMarginOnSubItems(item.DropDownItems.OfType<ToolStripMenuItem>().ToList());
       });
+    }
+
+    private void SetTheme()
+    {
+      theme = Settings.Current.DarkMode == 1 ? (CustomRenderer)new DarkRenderer() : new LightRenderer();
+      contextMenu.Renderer = theme;
+
+      SetActiveMenuItemMarker(lastIndex);
     }
 
     private static string GetFormattedDeviceName(string name)
@@ -335,9 +342,8 @@ namespace ALsSoundSwitcher
 
     private void menuItemSwitchTheme_Click(object Sender, EventArgs e)
     {
-      //AL.
-      //TODO
-
+      Settings.Current.DarkMode = (Settings.Current.DarkMode + 1) % 2;
+      SetTheme();
       Config.Save();
     }
 
@@ -386,9 +392,14 @@ namespace ALsSoundSwitcher
 
     private void SetActiveMenuItemMarker(int index)
     {
+      if (index < 0)
+      {
+        return;
+      }
+
       foreach (ToolStripItem item in notifyIcon1.ContextMenuStrip.Items)
       {
-        item.BackColor = SystemColors.Control;
+        item.ResetBackColor();
       }
 
       notifyIcon1.ContextMenuStrip.Items[index].BackColor = theme.GetActiveSelectionColour();

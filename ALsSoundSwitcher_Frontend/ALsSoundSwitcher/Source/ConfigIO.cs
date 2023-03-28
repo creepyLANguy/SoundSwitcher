@@ -67,7 +67,7 @@ namespace ALsSoundSwitcher
       {
         foreach (var field in typeof(Settings.SettingsStruct).GetFields())
         {
-          var buff = field.Name + Definitions.ConfigDelimiter + field.GetValue(Settings.Current) + "yahoo";
+          var buff = field.Name + Definitions.ConfigDelimiter + field.GetValue(Settings.Current);
           sw.WriteLine(buff);
         }
       }
