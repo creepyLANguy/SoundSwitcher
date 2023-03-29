@@ -57,13 +57,5 @@ namespace ALsSoundSwitcher
       ShowInTaskbar = false;
       Visible = false;
     }
-
-    private void Form1_LocationChanged(object sender, EventArgs e)
-    {
-      if (WindowState == FormWindowState.Minimized)
-      {
-        Minimize();
-      }
-    }
   }
 }

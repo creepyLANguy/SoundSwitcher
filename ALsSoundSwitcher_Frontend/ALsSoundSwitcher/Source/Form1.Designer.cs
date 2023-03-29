@@ -55,7 +55,6 @@
       this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
       this.Text = "AL\'s Sound Switcher";
       this.Load += new System.EventHandler(this.Form1_Load);
-      this.LocationChanged += new System.EventHandler(this.Form1_LocationChanged);
       this.ResumeLayout(false);
 
     }
