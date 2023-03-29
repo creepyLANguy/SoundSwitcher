@@ -33,7 +33,7 @@ namespace ALsSoundSwitcher
       {
         foreach (var process in processes)
         {
-          ALsSoundSwitcher.Form1.SetForegroundWindow(process.MainWindowHandle);
+          SetForegroundWindow(process.MainWindowHandle);
         }
       }
       else
