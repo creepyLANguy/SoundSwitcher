@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
+using static ALsSoundSwitcher.Globals;
 
 namespace ALsSoundSwitcher
 {
@@ -19,12 +20,12 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private void menuItemMixer_Click(object sender, EventArgs e)
+    private static void menuItemMixer_Click(object sender, EventArgs e)
     {
       OpenVolumeMixer();
     }
 
-    private void OpenVolumeMixer()
+    private static void OpenVolumeMixer()
     {
       var processName = GetVolumeMixerProcessName();
       var processes = Process.GetProcessesByName(processName);
@@ -37,15 +38,15 @@ namespace ALsSoundSwitcher
       }
       else
       {
-        ProcessUtils.RunExe(Globals.VolumeMixerExe, Globals.VolumeMixerArgs);
+        ProcessUtils.RunExe(VolumeMixerExe, VolumeMixerArgs);
       }
     }
 
-    private string GetVolumeMixerProcessName()
+    private static string GetVolumeMixerProcessName()
     {
-      return Globals.VolumeMixerExe.Substring(
+      return VolumeMixerExe.Substring(
         0,
-        Globals.VolumeMixerExe.LastIndexOf(".exe", StringComparison.Ordinal)
+        VolumeMixerExe.LastIndexOf(".exe", StringComparison.Ordinal)
       );
     }
 
@@ -53,35 +54,35 @@ namespace ALsSoundSwitcher
     {
       var index = ((ToolStripMenuItem) sender).MergeIndex;
       PerformSwitch(index);
-      lastIndex = index;
+      LastIndex = index;
     }
 
-    private void menuItemExit_Click(object sender, EventArgs e)
+    private static void menuItemExit_Click(object sender, EventArgs e)
     {
-      Close();
+      Instance.Close();
     }
 
-    private void menuItemRefresh_Click(object sender, EventArgs e)
+    private static void menuItemRefresh_Click(object sender, EventArgs e)
     {
       {
         try
         {
-          ProcessUtils.RunExe(Globals.GetDevicesExe);
-          Close();
+          ProcessUtils.RunExe(GetDevicesExe);
+            Instance.Close();
         }
         catch (Exception)
         {
           notifyIcon1.ShowBalloonTip(
             Settings.Current.BalloonTime,
             Resources.Form1_menuItemRefresh_Click_Error_Refreshing_Device_List,
-            Resources.Form1_menuItemRefresh_Click_Could_not_start_ + Globals.GetDevicesExe,
+            Resources.Form1_menuItemRefresh_Click_Could_not_start_ + GetDevicesExe,
             ToolTipIcon.Error
           );
         }
       }
     }
 
-    private void menuItemRestart_Click(object sender, EventArgs e)
+    private static void menuItemRestart_Click(object sender, EventArgs e)
     {
       try
       {
@@ -101,11 +102,11 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private void menuItemEdit_Click(object sender, EventArgs e)
+    private static void menuItemEdit_Click(object sender, EventArgs e)
     {
       try
       {
-        Process.Start(Globals.DevicesFile);
+        Process.Start(DevicesFile);
       }
       catch (Exception)
       {
@@ -118,16 +119,16 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private void menuItemSwitchTheme_Click(object sender, EventArgs e)
+    private static void menuItemSwitchTheme_Click(object sender, EventArgs e)
     {
       Settings.Current.DarkMode = (Settings.Current.DarkMode + 1) % 2;
       SetTheme();
       Config.Save();
     }
 
-    private void menuItemHelp_Click(object sender, EventArgs e)
+    private static void menuItemHelp_Click(object sender, EventArgs e)
     {
-      Process.Start(Globals.GithubUrl);
+      Process.Start(GithubUrl);
     }
   }
 }

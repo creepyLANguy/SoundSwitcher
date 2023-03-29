@@ -1,13 +1,15 @@
+using static ALsSoundSwitcher.Globals;
+
 namespace ALsSoundSwitcher
 {
   public partial class Form1
   {
-    private void SetTheme()
+    private static void SetTheme()
     {
-      theme = Settings.Current.DarkMode == 1 ? (CustomRenderer) new DarkRenderer() : new LightRenderer();
-      contextMenu.Renderer = theme;
+      Theme = Settings.Current.DarkMode == 1 ? (CustomRenderer) new DarkRenderer() : new LightRenderer();
+      Globals.ContextMenu.Renderer = Theme;
 
-      SetActiveMenuItemMarker(lastIndex);
+      SetActiveMenuItemMarker(LastIndex);
     }
   }
 }

@@ -10,21 +10,6 @@ namespace ALsSoundSwitcher
 {
   public partial class Form1 : Form
   {
-    private static string[] ar;
-    private static int lastIndex = -1;
-
-    private ContextMenuStrip contextMenu;
-    private ToolStripMenuItem menuItemExit;
-    private ToolStripMenuItem menuItemHelp;
-    private ToolStripMenuItem menuItemRefresh;
-    private ToolStripMenuItem menuItemEdit;
-    private ToolStripMenuItem menuItemRestart;
-    private ToolStripMenuItem menuItemToggleTheme;
-    private ToolStripMenuItem menuItemMixer;
-    private ToolStripMenuItem menuItemMore;
-
-    private CustomRenderer theme;
-
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetForegroundWindow(IntPtr hwnd);
 
@@ -35,6 +20,8 @@ namespace ALsSoundSwitcher
 
     private void Form1_Load(object sender, EventArgs e)
     {
+      Globals.Instance = this;
+
       if (Config.Read() == false)
       {
         notifyIcon1.ShowBalloonTip(

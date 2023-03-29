@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using CSCore.CoreAudioAPI;
+using static ALsSoundSwitcher.Globals;
 
 namespace ALsSoundSwitcher
 {
@@ -19,11 +20,11 @@ namespace ALsSoundSwitcher
       {
         //Console.WriteLine(ar[index * 2]);
 
-        var id = ar[(index * 2) + 1].TrimEnd();
+        var id = Ar[(index * 2) + 1].TrimEnd();
 
-        ProcessUtils.RunExe(Globals.SetDeviceExe, id);
+        ProcessUtils.RunExe(SetDeviceExe, id);
 
-        var name = ar[index * 2];
+        var name = Ar[index * 2];
 
         IconUtils.SetIcon(name, notifyIcon1);
 
@@ -44,13 +45,13 @@ namespace ALsSoundSwitcher
         notifyIcon1.ShowBalloonTip(
           Settings.Current.BalloonTime,
           Resources.Form1_PerformSwitch_Error_Switching_Audio_Device,
-          Resources.Form1_menuItemRefresh_Click_Could_not_start_ + Globals.SetDeviceExe,
+          Resources.Form1_menuItemRefresh_Click_Could_not_start_ + SetDeviceExe,
           ToolTipIcon.Error
         );
       }
     }
 
-    private void SetActiveMenuItemMarker(int index)
+    private static void SetActiveMenuItemMarker(int index)
     {
       if (index < 0)
       {
@@ -62,21 +63,21 @@ namespace ALsSoundSwitcher
         item.ResetBackColor();
       }
 
-      notifyIcon1.ContextMenuStrip.Items[index].BackColor = theme.GetActiveSelectionColour();
+      notifyIcon1.ContextMenuStrip.Items[index].BackColor = Theme.GetActiveSelectionColour();
     }
 
     private void Toggle()
     {
       IncrementLastIndex();
-      PerformSwitch(lastIndex);
+      PerformSwitch(LastIndex);
     }
 
     private void IncrementLastIndex()
     {
-      ++lastIndex;
-      if (lastIndex == ar.Length / 2)
+      ++LastIndex;
+      if (LastIndex == Ar.Length / 2)
       {
-        lastIndex = 0;
+        LastIndex = 0;
       }
     }
 
@@ -91,9 +92,9 @@ namespace ALsSoundSwitcher
 
       var highestMatchPercentage = 0.0;
       var highestMatchIndex = 0;
-      for (var i = 0; i < ar.Length; i += 2)
+      for (var i = 0; i < Ar.Length; i += 2)
       {
-        var currentMatchPercentage = IconUtils.GetMatchPercentage(currentDeviceName, ar[i]);
+        var currentMatchPercentage = IconUtils.GetMatchPercentage(currentDeviceName, Ar[i]);
         if (currentMatchPercentage > highestMatchPercentage)
         {
           highestMatchPercentage = currentMatchPercentage;
@@ -110,7 +111,7 @@ namespace ALsSoundSwitcher
       IconUtils.SetIcon(currentDeviceName, notifyIcon1);
       notifyIcon1.Text = currentDeviceName.Trim();
 
-      lastIndex = highestMatchIndex / 2;
+      LastIndex = highestMatchIndex / 2;
     }
   }
 }

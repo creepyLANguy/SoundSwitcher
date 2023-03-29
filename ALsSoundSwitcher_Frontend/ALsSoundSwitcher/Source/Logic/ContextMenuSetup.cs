@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
+using static ALsSoundSwitcher.Globals;
+using static ALsSoundSwitcher.Globals.MenuItems;
 
 namespace ALsSoundSwitcher
 {
@@ -14,7 +16,7 @@ namespace ALsSoundSwitcher
 
     private void SetupContextMenu()
     {
-      contextMenu = new ContextMenuStrip();
+      Globals.ContextMenu = new ContextMenuStrip();
 
       TryReadingAllAudioDevices();
 
@@ -24,20 +26,20 @@ namespace ALsSoundSwitcher
 
       AddAdditionalMenuItems();
 
-      SetItemMargins(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
+      SetItemMargins(Globals.ContextMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
-      HideImageMarginOnSubItems(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
+      HideImageMarginOnSubItems(Globals.ContextMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
       SetTheme();
 
-      notifyIcon1.ContextMenuStrip = contextMenu;
+      notifyIcon1.ContextMenuStrip = Globals.ContextMenu;
     }
 
     private void TryReadingAllAudioDevices()
     {
       try
       {
-        _allAudioDevices = File.ReadAllText(Globals.DevicesFile);
+        _allAudioDevices = File.ReadAllText(DevicesFile);
         //Console.WriteLine(text);
 
         if (_allAudioDevices.Trim().Length == 0)
@@ -49,12 +51,12 @@ namespace ALsSoundSwitcher
       {
         try
         {
-          ProcessUtils.RunExe(Globals.GetDevicesExe);
+          ProcessUtils.RunExe(GetDevicesExe);
           Close();
         }
         catch (Exception)
         {
-          MessageBox.Show(Resources.Form1_SetupContextMenu_ + Globals.GetDevicesExe);
+          MessageBox.Show(Resources.Form1_SetupContextMenu_ + GetDevicesExe);
           Close();
         }
       }
@@ -64,11 +66,11 @@ namespace ALsSoundSwitcher
     {
       var index = 0;
 
-      ar = _allAudioDevices.Trim().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+      Ar = _allAudioDevices.Trim().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
-      for (var i = 0; i < ar.Length; i += 2)
+      for (var i = 0; i < Ar.Length; i += 2)
       {
-        var name = ar[i];
+        var name = Ar[i];
 
         var menuItem = new ToolStripMenuItem();
         menuItem.Text = GetFormattedDeviceName(name);
@@ -88,54 +90,54 @@ namespace ALsSoundSwitcher
           }
         }
 
-        contextMenu.Items.Add(menuItem);
+        Globals.ContextMenu.Items.Add(menuItem);
       }
     }
 
-    private void SetupAdditionalMenuItems()
+    private static void SetupAdditionalMenuItems()
     {
-      menuItemRefresh = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_R_efresh);
-      menuItemRefresh.Click += menuItemRefresh_Click;
+      MenuItemRefresh = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_R_efresh);
+      MenuItemRefresh.Click += menuItemRefresh_Click;
 
-      menuItemEdit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_E_dit);
-      menuItemEdit.Click += menuItemEdit_Click;
+      MenuItemEdit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_E_dit);
+      MenuItemEdit.Click += menuItemEdit_Click;
 
-      menuItemRestart = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Res_tart);
-      menuItemRestart.Click += menuItemRestart_Click;
+      MenuItemRestart = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Res_tart);
+      MenuItemRestart.Click += menuItemRestart_Click;
 
 
-      menuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Sw_itchTheme);
-      menuItemToggleTheme.Click += menuItemSwitchTheme_Click;
+      MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Sw_itchTheme);
+      MenuItemToggleTheme.Click += menuItemSwitchTheme_Click;
 
-      menuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Ex_it);
-      menuItemExit.Click += menuItemExit_Click;
+      MenuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Ex_it);
+      MenuItemExit.Click += menuItemExit_Click;
 
-      menuItemHelp = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_H_elp);
-      menuItemHelp.Click += menuItemHelp_Click;
+      MenuItemHelp = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_H_elp);
+      MenuItemHelp.Click += menuItemHelp_Click;
 
-      menuItemMixer = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_V_olumeMixer);
-      menuItemMixer.Click += menuItemMixer_Click;
+      MenuItemMixer = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_V_olumeMixer);
+      MenuItemMixer.Click += menuItemMixer_Click;
 
-      menuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_M_ore);
+      MenuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_M_ore);
     }
 
     private void AddAdditionalMenuItems()
     {
-      menuItemMore.DropDownItems.Add(menuItemExit);
-      menuItemMore.DropDownItems.Add("-");
-      menuItemMore.DropDownItems.Add(menuItemHelp);
-      menuItemMore.DropDownItems.Add("-");
+      MenuItemMore.DropDownItems.Add(MenuItemExit);
+      MenuItemMore.DropDownItems.Add("-");
+      MenuItemMore.DropDownItems.Add(MenuItemHelp);
+      MenuItemMore.DropDownItems.Add("-");
       //menuItemMore.DropDownItems.Add(menuItemEdit);
       //menuItemMore.DropDownItems.Add(menuItemRestart);
       //menuItemMore.DropDownItems.Add("-");
-      menuItemMore.DropDownItems.Add(menuItemToggleTheme);
-      menuItemMore.DropDownItems.Add("-");
-      menuItemMore.DropDownItems.Add(menuItemMixer);
-      menuItemMore.DropDownItems.Add("-");
-      menuItemMore.DropDownItems.Add(menuItemRefresh);
+      MenuItemMore.DropDownItems.Add(MenuItemToggleTheme);
+      MenuItemMore.DropDownItems.Add("-");
+      MenuItemMore.DropDownItems.Add(MenuItemMixer);
+      MenuItemMore.DropDownItems.Add("-");
+      MenuItemMore.DropDownItems.Add(MenuItemRefresh);
 
-      contextMenu.Items.Add("-");
-      contextMenu.Items.Add(menuItemMore);
+      Globals.ContextMenu.Items.Add("-");
+      Globals.ContextMenu.Items.Add(MenuItemMore);
     }
 
     private static string GetFormattedDeviceName(string name)
