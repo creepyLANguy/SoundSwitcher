@@ -124,6 +124,7 @@ namespace ALsSoundSwitcher
       SetTheme();
       Config.Save();
     }
+
     private void menuItemHelp_Click(object sender, EventArgs e)
     {
       Process.Start(Globals.GithubUrl);
