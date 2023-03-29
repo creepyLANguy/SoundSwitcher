@@ -22,6 +22,7 @@ namespace ALsSoundSwitcher
 
     private ContextMenuStrip contextMenu;
     private ToolStripMenuItem menuItemExit;
+    private ToolStripMenuItem menuItemHelp;
     private ToolStripMenuItem menuItemRefresh;
     private ToolStripMenuItem menuItemEdit;
     private ToolStripMenuItem menuItemRestart;
@@ -134,12 +135,17 @@ namespace ALsSoundSwitcher
       menuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Ex_it);
       menuItemExit.Click += menuItemExit_Click;
 
+      menuItemHelp = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_H_elp);
+      menuItemHelp.Click += menuItemHelp_Click;
+
       menuItemMixer = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_V_olumeMixer);
       menuItemMixer.Click += menuItemMixer_Click;
 
       menuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_M_ore);
 
       menuItemMore.DropDownItems.Add(menuItemExit);
+      menuItemMore.DropDownItems.Add("-");      
+      menuItemMore.DropDownItems.Add(menuItemHelp);
       menuItemMore.DropDownItems.Add("-");
       //menuItemMore.DropDownItems.Add(menuItemEdit);
       //menuItemMore.DropDownItems.Add(menuItemRestart);
@@ -229,6 +235,11 @@ namespace ALsSoundSwitcher
       }
     }
 
+    private void menuItemHelp_Click(object Sender, EventArgs e)
+    {
+      Process.Start(Definitions.GithubURL);
+    }    
+    
     private void menuItemMixer_Click(object Sender, EventArgs e)
     {
       OpenVolumeMixer();

@@ -172,6 +172,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_H_elp {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_H_elp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More.
         /// </summary>
         internal static string Form1_SetupContextMenu_M_ore {
