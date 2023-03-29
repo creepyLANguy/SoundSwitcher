@@ -237,7 +237,7 @@ namespace ALsSoundSwitcher
 
     private void menuItemHelp_Click(object Sender, EventArgs e)
     {
-      Process.Start(Definitions.GithubURL);
+      Process.Start(Definitions.GithubUrl);
     }    
     
     private void menuItemMixer_Click(object Sender, EventArgs e)

@@ -13,7 +13,7 @@
     public const string ConfigFile = "config.ini";
     public const string ConfigDelimiter = "=";
 
-    public const string GithubURL = "https://github.com/creepyLANguy/SoundSwitcher";
+    public const string GithubUrl = "https://github.com/creepyLANguy/SoundSwitcher";
 
     public struct ConfigKeys
     {
