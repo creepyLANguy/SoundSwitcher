@@ -10,14 +10,40 @@ namespace ALsSoundSwitcher
 {
   public partial class Form1
   {
+    private string  _allAudioDevices = "";
+
     private void SetupContextMenu()
     {
-      var text = "";
+      contextMenu = new ContextMenuStrip();
 
+      TryReadingAllAudioDevices();
+
+      AddAudioDevicesAsMenuItems();
+
+      SetupAdditionalMenuItems();
+
+      AddAdditionalMenuItems();
+
+      SetItemMargins(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
+
+      HideImageMarginOnSubItems(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
+
+      SetTheme();
+
+      notifyIcon1.ContextMenuStrip = contextMenu;
+    }
+
+    private void TryReadingAllAudioDevices()
+    {
       try
       {
-        text = File.ReadAllText(Globals.DevicesFile);
+        _allAudioDevices = File.ReadAllText(Globals.DevicesFile);
         //Console.WriteLine(text);
+
+        if (_allAudioDevices.Trim().Length == 0)
+        {
+          throw new Exception();
+        }
       }
       catch (Exception)
       {
@@ -32,12 +58,14 @@ namespace ALsSoundSwitcher
           Close();
         }
       }
+    }
 
-      contextMenu = new ContextMenuStrip();
-
+    private void AddAudioDevicesAsMenuItems()
+    {
       var index = 0;
 
-      ar = text.Trim().Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None);
+      ar = _allAudioDevices.Trim().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
       for (var i = 0; i < ar.Length; i += 2)
       {
         var name = ar[i];
@@ -62,7 +90,10 @@ namespace ALsSoundSwitcher
 
         contextMenu.Items.Add(menuItem);
       }
+    }
 
+    private void SetupAdditionalMenuItems()
+    {
       menuItemRefresh = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_R_efresh);
       menuItemRefresh.Click += menuItemRefresh_Click;
 
@@ -86,7 +117,10 @@ namespace ALsSoundSwitcher
       menuItemMixer.Click += menuItemMixer_Click;
 
       menuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_M_ore);
+    }
 
+    private void AddAdditionalMenuItems()
+    {
       menuItemMore.DropDownItems.Add(menuItemExit);
       menuItemMore.DropDownItems.Add("-");
       menuItemMore.DropDownItems.Add(menuItemHelp);
@@ -100,18 +134,8 @@ namespace ALsSoundSwitcher
       menuItemMore.DropDownItems.Add("-");
       menuItemMore.DropDownItems.Add(menuItemRefresh);
 
-      menuItemMore.ShowShortcutKeys = true;
-
       contextMenu.Items.Add("-");
       contextMenu.Items.Add(menuItemMore);
-
-      SetItemMargins(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
-
-      HideImageMarginOnSubItems(contextMenu.Items.OfType<ToolStripMenuItem>().ToList());
-
-      SetTheme();
-
-      notifyIcon1.ContextMenuStrip = contextMenu;
     }
 
     private static string GetFormattedDeviceName(string name)
