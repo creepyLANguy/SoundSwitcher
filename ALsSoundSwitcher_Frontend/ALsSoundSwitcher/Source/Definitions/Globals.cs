@@ -1,6 +1,6 @@
 ﻿namespace ALsSoundSwitcher
 {
-  public static class Definitions
+  public static class Globals
   {
     public const string GetDevicesExe = "GetPlaybackDevices.exe";
     public const string SetDeviceExe = "SetPlaybackDevice.exe";

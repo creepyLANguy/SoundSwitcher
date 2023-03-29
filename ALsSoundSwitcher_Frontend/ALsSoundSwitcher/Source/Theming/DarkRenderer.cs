@@ -2,7 +2,7 @@
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace ALsSoundSwitcher.Theming
+namespace ALsSoundSwitcher
 {
   public class DarkRenderer : CustomRenderer
   {

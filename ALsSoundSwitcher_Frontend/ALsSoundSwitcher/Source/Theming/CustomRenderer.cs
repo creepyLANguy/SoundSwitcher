@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace ALsSoundSwitcher.Theming
+namespace ALsSoundSwitcher
 {
   public abstract class CustomRenderer : ToolStripProfessionalRenderer
   {
