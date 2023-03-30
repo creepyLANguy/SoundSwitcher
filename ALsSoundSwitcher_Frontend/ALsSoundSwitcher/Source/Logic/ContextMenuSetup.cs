@@ -104,8 +104,7 @@ namespace ALsSoundSwitcher
 
       MenuItemRestart = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Res_tart);
       MenuItemRestart.Click += menuItemRestart_Click;
-
-
+      
       MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Sw_itchTheme);
       MenuItemToggleTheme.Click += menuItemSwitchTheme_Click;
 
@@ -123,18 +122,18 @@ namespace ALsSoundSwitcher
 
     private void AddAdditionalMenuItems()
     {
+      //menuItemMore.DropDownItems.Add(menuItemEdit);
+      //menuItemMore.DropDownItems.Add(menuItemRestart);
+
       MenuItemMore.DropDownItems.Add(MenuItemExit);
       MenuItemMore.DropDownItems.Add("-");
       MenuItemMore.DropDownItems.Add(MenuItemHelp);
       MenuItemMore.DropDownItems.Add("-");
-      //menuItemMore.DropDownItems.Add(menuItemEdit);
-      //menuItemMore.DropDownItems.Add(menuItemRestart);
-      //menuItemMore.DropDownItems.Add("-");
+      MenuItemMore.DropDownItems.Add(MenuItemRefresh);
+      MenuItemMore.DropDownItems.Add("-");
       MenuItemMore.DropDownItems.Add(MenuItemToggleTheme);
       MenuItemMore.DropDownItems.Add("-");
       MenuItemMore.DropDownItems.Add(MenuItemMixer);
-      MenuItemMore.DropDownItems.Add("-");
-      MenuItemMore.DropDownItems.Add(MenuItemRefresh);
 
       ContextMenuAudioDevices.Items.Add("-");
       ContextMenuAudioDevices.Items.Add(MenuItemMore);

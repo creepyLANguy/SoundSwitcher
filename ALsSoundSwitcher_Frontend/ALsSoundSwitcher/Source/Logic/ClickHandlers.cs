@@ -64,21 +64,18 @@ namespace ALsSoundSwitcher
 
     private static void menuItemRefresh_Click(object sender, EventArgs e)
     {
+      try
       {
-        try
-        {
-          ProcessUtils.RunExe(GetDevicesExe);
-            Instance.Close();
-        }
-        catch (Exception)
-        {
-          notifyIcon1.ShowBalloonTip(
-            Settings.Current.BalloonTime,
-            Resources.Form1_menuItemRefresh_Click_Error_Refreshing_Device_List,
-            Resources.Form1_menuItemRefresh_Click_Could_not_start_ + GetDevicesExe,
-            ToolTipIcon.Error
-          );
-        }
+        ProcessUtils.ForceRefreshApplication();
+      }
+      catch (Exception)
+      {
+        notifyIcon1.ShowBalloonTip(
+          Settings.Current.BalloonTime,
+          Resources.Form1_menuItemRefresh_Click_Error_Refreshing_Device_List,
+          Resources.Form1_menuItemRefresh_Click_Could_not_start_ + GetDevicesExe,
+          ToolTipIcon.Error
+        );
       }
     }
 
@@ -123,7 +120,6 @@ namespace ALsSoundSwitcher
     {
       Process.Start(GithubUrl);
     }
-
 
     private static void menuItemSwitchTheme_Click(object sender, EventArgs e)
     {

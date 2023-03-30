@@ -55,6 +55,7 @@
     <Compile Include="Source\Logic\ClickHandlers.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Source\Logic\DevicesWatcher.cs" />
     <Compile Include="Source\Theming\ThemeSwitchingLogic.cs">
       <SubType>Form</SubType>
     </Compile>

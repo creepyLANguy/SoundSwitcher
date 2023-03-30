@@ -36,7 +36,6 @@ namespace ALsSoundSwitcher
 
     public struct MenuItems
     {
-
       public static ToolStripMenuItem MenuItemExit;
       public static ToolStripMenuItem MenuItemHelp;
       public static ToolStripMenuItem MenuItemRefresh;
