@@ -119,16 +119,18 @@ namespace ALsSoundSwitcher
       }
     }
 
+    private static void menuItemHelp_Click(object sender, EventArgs e)
+    {
+      Process.Start(GithubUrl);
+    }
+
+
     private static void menuItemSwitchTheme_Click(object sender, EventArgs e)
     {
       Settings.Current.DarkMode = (Settings.Current.DarkMode + 1) % 2;
       SetTheme();
+      ContextMenuAudioDevices.Show();
       Config.Save();
-    }
-
-    private static void menuItemHelp_Click(object sender, EventArgs e)
-    {
-      Process.Start(GithubUrl);
     }
   }
 }

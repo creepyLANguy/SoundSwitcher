@@ -16,7 +16,7 @@ namespace ALsSoundSwitcher
 
     private void SetupContextMenu()
     {
-      Globals.ContextMenu = new ContextMenuStrip();
+      ContextMenuAudioDevices = new ContextMenuStrip();
 
       TryReadingAllAudioDevices();
 
@@ -26,13 +26,13 @@ namespace ALsSoundSwitcher
 
       AddAdditionalMenuItems();
 
-      SetItemMargins(Globals.ContextMenu.Items.OfType<ToolStripMenuItem>().ToList());
+      SetItemMargins(ContextMenuAudioDevices.Items.OfType<ToolStripMenuItem>().ToList());
 
-      HideImageMarginOnSubItems(Globals.ContextMenu.Items.OfType<ToolStripMenuItem>().ToList());
+      HideImageMarginOnSubItems(ContextMenuAudioDevices.Items.OfType<ToolStripMenuItem>().ToList());
 
       SetTheme();
 
-      notifyIcon1.ContextMenuStrip = Globals.ContextMenu;
+      notifyIcon1.ContextMenuStrip = ContextMenuAudioDevices;
     }
 
     private void TryReadingAllAudioDevices()
@@ -90,7 +90,7 @@ namespace ALsSoundSwitcher
           }
         }
 
-        Globals.ContextMenu.Items.Add(menuItem);
+        ContextMenuAudioDevices.Items.Add(menuItem);
       }
     }
 
@@ -136,8 +136,8 @@ namespace ALsSoundSwitcher
       MenuItemMore.DropDownItems.Add("-");
       MenuItemMore.DropDownItems.Add(MenuItemRefresh);
 
-      Globals.ContextMenu.Items.Add("-");
-      Globals.ContextMenu.Items.Add(MenuItemMore);
+      ContextMenuAudioDevices.Items.Add("-");
+      ContextMenuAudioDevices.Items.Add(MenuItemMore);
     }
 
     private static string GetFormattedDeviceName(string name)

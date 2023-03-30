@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace ALsSoundSwitcher
 {
@@ -31,7 +32,7 @@ namespace ALsSoundSwitcher
 
     public static CustomRenderer Theme;
 
-    public static ContextMenuStrip ContextMenu;
+    public static ContextMenuStrip ContextMenuAudioDevices;
 
     public struct MenuItems
     {
