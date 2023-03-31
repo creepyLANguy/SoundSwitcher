@@ -28,6 +28,7 @@ namespace ALsSoundSwitcher
         }
 
         string buff;
+
         if (TryGetValue(ConfigKeys.BalloonTime, out buff))
         {
           Settings.Current.BalloonTime = Convert.ToInt32(buff);

@@ -27,24 +27,22 @@ namespace ALsSoundSwitcher
         notifyIcon1.ShowBalloonTip(
           Settings.Current.BalloonTime,
           Resources.Form1_ReadConfig_Error_reading_config_file_ + Globals.ConfigFile,
-          Resources.Form1_ReadConfig_Will_use_default_values + Globals.GetDevicesExe,
+          Resources.Form1_ReadConfig_Will_use_default_values,
           ToolTipIcon.Error
         );
       }
 
-      SetupContextMenu();
+      DeviceUtils.Monitor(SetupContextMenu);
+      DeviceUtils.RefreshActiveDevices();
+
       SetCurrentDeviceIconAndIndicatorOnStartup();
       Minimize();
-
-      DeviceUtils.Monitor();
     }
 
     private void Minimize()
     {
       WindowState = FormWindowState.Minimized;
-      //AL.
-      //TODO - add this back in once we get rid of the need to completely restart app for refreshes. 
-      //notifyIcon1.ShowBalloonTip(Settings.Current.BalloonTime);
+      notifyIcon1.ShowBalloonTip(Settings.Current.BalloonTime);
       ShowInTaskbar = false;
       Visible = false;
     }

@@ -10,24 +10,30 @@ namespace ALsSoundSwitcher
 {
   public class IconUtils
   {
-    public static bool SetIcon(string iconName, NotifyIcon notifyIcon)
+    public static bool SetTrayIcon(string iconName, NotifyIcon notifyIcon)
     {
       notifyIcon.Icon = Resources.Icon;
 
       var bestMatch = GetBestMatchIcon(iconName);
 
       var icon = GetIconByRawName(bestMatch);
+
       if (icon == null)
       {
         return false;
       }
 
       notifyIcon.Icon = icon;
+
       return true;
     }
 
     public static string GetBestMatchIcon(string iconName)
     {
+      if (iconName.Length == 0)
+      {
+        return string.Empty;
+      }
 
       var allIcons = GetAllIconsInFolder();
       if (allIcons.Count == 0)
@@ -49,7 +55,6 @@ namespace ALsSoundSwitcher
     {
       var allIconFilePaths =
         Directory.GetFiles(Directory.GetCurrentDirectory(), "*", SearchOption.AllDirectories).ToList();
-          //Where(it => it.Contains(supportedIconFiletypes)).ToList();
 
       var allIcons = new List<string>(allIconFilePaths.Count);
       allIconFilePaths.ForEach(it => allIcons.Add(Path.GetFileName(it)));
@@ -80,6 +85,11 @@ namespace ALsSoundSwitcher
 
     private static Icon GetIconByRawName(string iconName)
     {
+      if (iconName.Length == 0)
+      {
+        return null;
+      }
+
       try
       {
         //.ico files look much better when using the specific constructor so keep this branching logic.  

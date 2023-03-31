@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Windows.Forms;
 
 namespace ALsSoundSwitcher
 {
@@ -15,24 +14,6 @@ namespace ALsSoundSwitcher
       process.StartInfo.CreateNoWindow = true;
       process.StartInfo.Arguments = args;
       process.Start();
-    }
-
-    public static void ForceRefreshApplication()
-    {
-      RunExe(Globals.GetDevicesExe);
-      CloseApplication_ThreadSafe();
-    }
-
-    public static void CloseApplication_ThreadSafe()
-    {
-      if (Globals.Instance.InvokeRequired)
-      {
-        Globals.Instance.Invoke(new MethodInvoker(CloseApplication_ThreadSafe));
-      }
-      else
-      {
-        Globals.Instance.Close();
-      }
     }
   }
 }

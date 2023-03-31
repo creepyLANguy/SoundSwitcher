@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
@@ -12,13 +11,9 @@ namespace ALsSoundSwitcher
 {
   public partial class Form1
   {
-    private string  _allAudioDevices = "";
-
     private void SetupContextMenu()
     {
       ContextMenuAudioDevices = new ContextMenuStrip();
-
-      TryReadingAllAudioDevices();
 
       AddAudioDevicesAsMenuItems();
 
@@ -30,54 +25,23 @@ namespace ALsSoundSwitcher
 
       HideImageMarginOnSubItems(ContextMenuAudioDevices.Items.OfType<ToolStripMenuItem>().ToList());
 
-      SetTheme();
-
       notifyIcon1.ContextMenuStrip = ContextMenuAudioDevices;
-    }
 
-    private void TryReadingAllAudioDevices()
-    {
-      try
-      {
-        _allAudioDevices = File.ReadAllText(DevicesFile);
-        //Console.WriteLine(text);
-
-        if (_allAudioDevices.Trim().Length == 0)
-        {
-          throw new Exception();
-        }
-      }
-      catch (Exception)
-      {
-        try
-        {
-          ProcessUtils.RunExe(GetDevicesExe);
-          Close();
-        }
-        catch (Exception)
-        {
-          MessageBox.Show(Resources.Form1_SetupContextMenu_ + GetDevicesExe);
-          Close();
-        }
-      }
+      SetTheme();
     }
 
     private void AddAudioDevicesAsMenuItems()
     {
       var index = 0;
 
-      Ar = _allAudioDevices.Trim().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-
-      for (var i = 0; i < Ar.Length; i += 2)
+      foreach (var device in ActiveDevices)
       {
-        var name = Ar[i];
-
         var menuItem = new ToolStripMenuItem();
-        menuItem.Text = GetFormattedDeviceName(name);
+        menuItem.Text = GetFormattedDeviceName(device.Key);
         menuItem.Click += menuItem_Click;
         menuItem.MergeIndex = index++;
 
-        var iconFile = IconUtils.GetBestMatchIcon(name);
+        var iconFile = IconUtils.GetBestMatchIcon(device.Key);
         if (iconFile.Length > 0)
         {
           try
@@ -96,35 +60,26 @@ namespace ALsSoundSwitcher
 
     private static void SetupAdditionalMenuItems()
     {
-      MenuItemRefresh = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_R_efresh);
+      MenuItemRefresh = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Refresh);
       MenuItemRefresh.Click += menuItemRefresh_Click;
 
-      MenuItemEdit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_E_dit);
-      MenuItemEdit.Click += menuItemEdit_Click;
-
-      MenuItemRestart = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Res_tart);
-      MenuItemRestart.Click += menuItemRestart_Click;
-      
-      MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Sw_itchTheme);
+      MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_SwitchTheme);
       MenuItemToggleTheme.Click += menuItemSwitchTheme_Click;
 
-      MenuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Ex_it);
+      MenuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Exit);
       MenuItemExit.Click += menuItemExit_Click;
 
-      MenuItemHelp = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_H_elp);
+      MenuItemHelp = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Help);
       MenuItemHelp.Click += menuItemHelp_Click;
 
       MenuItemMixer = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_V_olumeMixer);
       MenuItemMixer.Click += menuItemMixer_Click;
 
-      MenuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_M_ore);
+      MenuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_More);
     }
 
-    private void AddAdditionalMenuItems()
+    private static void AddAdditionalMenuItems()
     {
-      //menuItemMore.DropDownItems.Add(menuItemEdit);
-      //menuItemMore.DropDownItems.Add(menuItemRestart);
-
       MenuItemMore.DropDownItems.Add(MenuItemExit);
       MenuItemMore.DropDownItems.Add("-");
       MenuItemMore.DropDownItems.Add(MenuItemHelp);
@@ -141,14 +96,9 @@ namespace ALsSoundSwitcher
 
     private static string GetFormattedDeviceName(string name)
     {
-      var buffer = "";
-
       var indexOfOpeningParenthesis = name.IndexOf("(", StringComparison.Ordinal);
       var deviceName = name.Substring(indexOfOpeningParenthesis + 1).TrimEnd(')');
-      buffer += deviceName;
-      //buffer += "  |  ";
-      //buffer += name.Substring(0, indexOfOpeningParenthesis).Trim();
-      return buffer;
+      return deviceName;
     }
 
     private static void SetItemMargins(List<ToolStripMenuItem> items)
