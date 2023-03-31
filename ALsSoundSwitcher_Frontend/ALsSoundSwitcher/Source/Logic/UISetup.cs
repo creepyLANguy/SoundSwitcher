@@ -11,7 +11,13 @@ namespace ALsSoundSwitcher
 {
   public partial class Form1
   {
-    private void SetupContextMenu()
+    private static void SetupUI()
+    {
+      SetupContextMenu();
+      SetCurrentDeviceIconAndIndicators();
+    }
+
+    private static void SetupContextMenu()
     {
       ContextMenuAudioDevices = new ContextMenuStrip();
 
@@ -30,7 +36,7 @@ namespace ALsSoundSwitcher
       SetTheme();
     }
 
-    private void AddAudioDevicesAsMenuItems()
+    private static void AddAudioDevicesAsMenuItems()
     {
       var index = 0;
 
@@ -40,6 +46,7 @@ namespace ALsSoundSwitcher
         menuItem.Text = GetFormattedDeviceName(device.Key);
         menuItem.Click += menuItem_Click;
         menuItem.MergeIndex = index++;
+        menuItem.Tag = device.Value;
 
         var iconFile = IconUtils.GetBestMatchIcon(device.Key);
         if (iconFile.Length > 0)
@@ -132,6 +139,17 @@ namespace ALsSoundSwitcher
         dropdown.ShowImageMargin = false;
         HideImageMarginOnSubItems(item.DropDownItems.OfType<ToolStripMenuItem>().ToList());
       });
+    }
+
+    private static void SetCurrentDeviceIconAndIndicators()
+    {
+      var currentDeviceName = DeviceUtils.GetCurrentDefaultDeviceName();
+      var items = ContextMenuAudioDevices.Items.OfType<ToolStripMenuItem>().ToList();
+      ActiveMenuItem = items.FirstOrDefault(it => currentDeviceName.Contains(it.Text));
+      SetActiveMenuItemMarker();
+
+      IconUtils.SetTrayIcon(currentDeviceName, notifyIcon1);
+      notifyIcon1.Text = currentDeviceName.Trim();
     }
   }
 }

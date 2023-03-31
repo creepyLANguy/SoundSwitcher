@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using static ALsSoundSwitcher.Globals;
@@ -12,7 +11,7 @@ namespace ALsSoundSwitcher
     {
       try
       {
-        DeviceUtils.SetDeviceAsDefault((string)menuItem.Tag);
+        DeviceUtils.SetDefaultAudioDevice((string)menuItem.Tag);
 
         ActiveMenuItem = menuItem;
 
@@ -56,36 +55,32 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private void Toggle()
+    //AL.
+    //TODO - test with more than 2 devices. 
+    private static void Toggle()
     {
-      var deviceCount = 0;
-      foreach (ToolStripMenuItem item in ContextMenuAudioDevices.Items)
+      if (ActiveDevices.Count <= 1)
       {
-        if (item.DropDown == null)
+        return;
+      }
+
+      var items = ContextMenuAudioDevices.Items;
+
+      var index = items.IndexOf(ActiveMenuItem);
+      while (true)
+      {
+        ++index;
+        if (index == items.Count)
         {
-          ++deviceCount;
+          index = 0;
+        }
+
+        if (items[index].Tag != null)
+        {
+          PerformSwitch((ToolStripMenuItem)items[index]);
+          return;
         }
       }
-
-      var index = ContextMenuAudioDevices.Items.IndexOf(ActiveMenuItem) + 1;
-
-      if (index <= deviceCount)
-      {
-        index = 0;
-      }
-
-      PerformSwitch((ToolStripMenuItem)ContextMenuAudioDevices.Items[index]);
-    }
-    
-    private static void SetCurrentDeviceIconAndIndicatorOnStartup()
-    {
-      var currentDeviceName = DeviceUtils.GetCurrentDefaultDeviceName();
-      var items = ContextMenuAudioDevices.Items.OfType<ToolStripMenuItem>().ToList();
-      ActiveMenuItem = items.FirstOrDefault(it => it.Text == currentDeviceName);
-      SetActiveMenuItemMarker();
-
-      IconUtils.SetTrayIcon(currentDeviceName, notifyIcon1);
-      notifyIcon1.Text = currentDeviceName.Trim();
     }
   }
 }

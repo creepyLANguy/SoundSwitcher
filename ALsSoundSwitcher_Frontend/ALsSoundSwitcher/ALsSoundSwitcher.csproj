@@ -66,7 +66,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\Utils\ConfigUtils.cs" />
-    <Compile Include="Source\Logic\ContextMenuSetup.cs">
+    <Compile Include="Source\Logic\UISetup.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Source\Utils\IconUtils.cs" />

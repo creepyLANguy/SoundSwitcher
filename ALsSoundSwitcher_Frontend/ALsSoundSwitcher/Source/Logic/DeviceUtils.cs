@@ -25,6 +25,19 @@ namespace ALsSoundSwitcher
         return false;
       }
 
+      //AL.
+      //TODO - do the fancy thing here 
+      /*
+        if (Globals.Instance.InvokeRequired)
+        {
+          Globals.Instance.Invoke(new MethodInvoker(CloseApplication_ThreadSafe));
+        }
+        else
+        {
+          Globals.Instance.Close();
+        }
+       */
+
       _callback();
       return true;
     }
@@ -37,21 +50,26 @@ namespace ALsSoundSwitcher
       }
     }
 
-    //AL.
-    //TODO - implement
     public static void RefreshActiveDevices()
     {
       Globals.ActiveDevices.Clear();
-      //Globals.ActiveDevices = ...
+
+      using (var deviceEnumerator = new MMDeviceEnumerator())
+      {
+        foreach (var device in deviceEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
+        {
+          Globals.ActiveDevices.Add(device.FriendlyName, device.DeviceID);
+        }
+      }
 
       TryExecuteCallback();
     }
 
     //AL.
     //TODO - implement
-    public static void SetDeviceAsDefault(string deviceId)
+    public static void SetDefaultAudioDevice(string deviceId)
     {
-
+      
     }
   }
 
@@ -82,7 +100,14 @@ namespace ALsSoundSwitcher
     {
       Console.WriteLine(Resources.EndpointNotificationCallback_OnDefaultDeviceChanged, defaultDeviceId);
       //AL.
-      //TODO - this should be useful going forward.
+      //TODO - Use this to keep state correct when external apps mess with audio devices.
+      /*
+      eg, When performing a switch, set a global flag to 1
+      then, when UI has been refreshed, set it back to 0
+      In this function, if the flag is 0, it means we did not set the device (was external) and so trigger a UI refresh
+      Important, make sure we do NOT update UI from this function if the flag is 1, as that would be an extra UI update
+       */ 
+
     }
 
     public void OnPropertyValueChanged(string deviceId, PropertyKey propertyKey)

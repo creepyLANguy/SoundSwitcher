@@ -32,10 +32,9 @@ namespace ALsSoundSwitcher
         );
       }
 
-      DeviceUtils.Monitor(SetupContextMenu);
+      DeviceUtils.Monitor(SetupUI);
       DeviceUtils.RefreshActiveDevices();
-
-      SetCurrentDeviceIconAndIndicatorOnStartup();
+      ;
       Minimize();
     }
 
