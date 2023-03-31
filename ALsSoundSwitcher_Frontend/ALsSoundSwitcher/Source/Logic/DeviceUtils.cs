@@ -1,19 +1,25 @@
 ﻿using System;
-using System.Windows.Forms;
 using CSCore.CoreAudioAPI;
 using CSCore.Win32;
 
 namespace ALsSoundSwitcher
 {
-  public static class DevicesWatcher
+  public static class DeviceUtils
   {
-    public static void Run()
+    public static void Monitor()
     {
       var enumerator = new MMDeviceEnumerator();
       enumerator.RegisterEndpointNotificationCallback(new EndpointNotificationCallback());
 
-      Console.WriteLine("DevicesWatcher running");
       Console.WriteLine("Monitoring for audio device changes...");
+    }
+
+    public static string GetCurrentDefaultDeviceName()
+    {
+      using (var enumerator = new MMDeviceEnumerator())
+      {
+        return enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia).FriendlyName;
+      }
     }
   }
 
@@ -43,12 +49,13 @@ namespace ALsSoundSwitcher
     public void OnDefaultDeviceChanged(DataFlow flow, Role role, string defaultDeviceId)
     {
       Console.WriteLine($"Audio device {defaultDeviceId} set as default");
+      //AL.
+      //TODO - this should be useful going forward.
     }
 
     public void OnPropertyValueChanged(string deviceId, PropertyKey propertyKey)
     {
       //Console.WriteLine($"Audio device {deviceId} property {propertyKey} value changed");
     }
-
   }
 }

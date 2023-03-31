@@ -1,7 +1,6 @@
 using System;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
-using CSCore.CoreAudioAPI;
 using static ALsSoundSwitcher.Globals;
 
 namespace ALsSoundSwitcher
@@ -84,12 +83,8 @@ namespace ALsSoundSwitcher
     //TODO - Fix bug where if you remove the active device from the devices text file, it will likely show the wrong menuitem (and icon) as active. 
     private void SetCurrentDeviceIconAndIndicatorOnStartup()
     {
-      string currentDeviceName;
-      using (var enumerator = new MMDeviceEnumerator())
-      {
-        currentDeviceName = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia).FriendlyName;
-      }
-
+      var currentDeviceName = DeviceUtils.GetCurrentDefaultDeviceName();
+      
       var highestMatchPercentage = 0.0;
       var highestMatchIndex = 0;
       for (var i = 0; i < Ar.Length; i += 2)
