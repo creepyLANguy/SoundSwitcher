@@ -32,10 +32,11 @@ namespace ALsSoundSwitcher
         );
       }
 
-      DeviceUtils.Monitor(SetupUI);
-      DeviceUtils.RefreshActiveDevices();
-      ;
+      SetupUI();
+
       Minimize();
+
+      DeviceUtils.Monitor();
     }
 
     private void Minimize()

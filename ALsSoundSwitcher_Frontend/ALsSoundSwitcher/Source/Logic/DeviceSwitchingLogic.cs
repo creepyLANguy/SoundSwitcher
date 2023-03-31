@@ -55,8 +55,6 @@ namespace ALsSoundSwitcher
       }
     }
 
-    //AL.
-    //TODO - test with more than 2 devices. 
     private static void Toggle()
     {
       if (ActiveDevices.Count <= 1)

@@ -13,6 +13,7 @@ namespace ALsSoundSwitcher
   {
     private static void SetupUI()
     {
+      DeviceUtils.GetDeviceList();
       SetupContextMenu();
       SetCurrentDeviceIconAndIndicators();
     }
@@ -143,7 +144,7 @@ namespace ALsSoundSwitcher
 
     private static void SetCurrentDeviceIconAndIndicators()
     {
-      var currentDeviceName = DeviceUtils.GetCurrentDefaultDeviceName();
+      var currentDeviceName = GetFormattedDeviceName(DeviceUtils.GetCurrentDefaultDeviceName());
       var items = ContextMenuAudioDevices.Items.OfType<ToolStripMenuItem>().ToList();
       ActiveMenuItem = items.FirstOrDefault(it => currentDeviceName.Contains(it.Text));
       SetActiveMenuItemMarker();

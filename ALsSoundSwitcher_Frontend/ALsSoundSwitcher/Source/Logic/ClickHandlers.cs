@@ -61,7 +61,10 @@ namespace ALsSoundSwitcher
 
     private static void menuItemRefresh_Click(object sender, EventArgs e)
     {
-      DeviceUtils.RefreshActiveDevices();
+      //I know refreshing in-place with SetupUI would be awesome, but it does lack visual feedback. 
+      //Could do a ContextMenuAudioDevices.Show() but for some reason its location is wrong, even after re-assigning it.
+      Application.Restart();
+      //SetupUI();
     }
 
     private static void menuItemHelp_Click(object sender, EventArgs e)
@@ -71,7 +74,7 @@ namespace ALsSoundSwitcher
 
     private static void menuItemSwitchTheme_Click(object sender, EventArgs e)
     {
-      Settings.Current.DarkMode = (Settings.Current.DarkMode + 1) % 2;
+      Settings.Current.DarkMode ^= 1; //Flip-flop between 0 and 1 on each execution. 
       SetTheme();
       ContextMenuAudioDevices.Show();
       Config.Save();

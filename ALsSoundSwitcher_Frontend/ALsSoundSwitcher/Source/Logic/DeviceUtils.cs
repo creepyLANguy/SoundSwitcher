@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using CSCore.CoreAudioAPI;
 using CSCore.Win32;
@@ -7,39 +9,38 @@ namespace ALsSoundSwitcher
 {
   public static class DeviceUtils
   {
-    private static Action _callback;
-
-    public static void Monitor(Action callback)
+    public static void Monitor()
     {
-      _callback = callback;
-      
-      new MMDeviceEnumerator().RegisterEndpointNotificationCallback(new EndpointNotificationCallback());
+      var enumerator = new MMDeviceEnumerator();
+      var notificationCallback = new EndpointNotificationCallback();
+      enumerator.RegisterEndpointNotificationCallbackNative(notificationCallback);
 
       Console.WriteLine(Resources.DeviceUtils_Monitor);
     }
 
-    public static bool TryExecuteCallback()
+    public static void Restart_ThreadSafe()
     {
-      if (_callback == null)
+      if (Globals.Instance.InvokeRequired)
       {
-        return false;
+        Globals.Instance.Invoke(new MethodInvoker(Restart_ThreadSafe));
       }
+      else
+      {
+        Application.Restart();
+      }
+    }
 
-      //AL.
-      //TODO - do the fancy thing here 
-      /*
-        if (Globals.Instance.InvokeRequired)
-        {
-          Globals.Instance.Invoke(new MethodInvoker(CloseApplication_ThreadSafe));
-        }
-        else
-        {
-          Globals.Instance.Close();
-        }
-       */
+    public static void GetDeviceList()
+    {
+      Globals.ActiveDevices.Clear();
 
-      _callback();
-      return true;
+      using (var enumerator = new MMDeviceEnumerator())
+      {
+        foreach (var device in enumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
+        {
+          Globals.ActiveDevices.Add(device.FriendlyName, device.DeviceID);
+        }
+      }
     }
 
     public static string GetCurrentDefaultDeviceName()
@@ -48,21 +49,6 @@ namespace ALsSoundSwitcher
       {
         return enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia).FriendlyName;
       }
-    }
-
-    public static void RefreshActiveDevices()
-    {
-      Globals.ActiveDevices.Clear();
-
-      using (var deviceEnumerator = new MMDeviceEnumerator())
-      {
-        foreach (var device in deviceEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
-        {
-          Globals.ActiveDevices.Add(device.FriendlyName, device.DeviceID);
-        }
-      }
-
-      TryExecuteCallback();
     }
 
     //AL.
@@ -79,21 +65,22 @@ namespace ALsSoundSwitcher
     {
       Console.WriteLine(Resources.EndpointNotificationCallback_OnDeviceStateChanged, deviceId, newState);
 
-      DeviceUtils.RefreshActiveDevices();
+      Thread.Sleep(1000); //Have to avoid multiple calls on dying instance... orz
+      DeviceUtils.Restart_ThreadSafe();
     }
 
     public void OnDeviceAdded(string deviceId)
     {
       Console.WriteLine(Resources.EndpointNotificationCallback_OnDeviceAdded, deviceId);
 
-      DeviceUtils.RefreshActiveDevices();
+      DeviceUtils.Restart_ThreadSafe();
     }
 
     public void OnDeviceRemoved(string deviceId)
     {
       Console.WriteLine(Resources.EndpointNotificationCallback_OnDeviceRemoved, deviceId);
 
-      DeviceUtils.RefreshActiveDevices();
+      DeviceUtils.Restart_ThreadSafe();
     }
 
     public void OnDefaultDeviceChanged(DataFlow flow, Role role, string defaultDeviceId)
