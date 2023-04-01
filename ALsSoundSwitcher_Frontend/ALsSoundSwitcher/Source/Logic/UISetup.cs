@@ -39,14 +39,12 @@ namespace ALsSoundSwitcher
 
     private static void AddAudioDevicesAsMenuItems()
     {
-      var index = 0;
-
       foreach (var device in ActiveDevices)
       {
         var menuItem = new ToolStripMenuItem();
         menuItem.Text = GetFormattedDeviceName(device.Key);
         menuItem.Click += menuItem_Click;
-        menuItem.MergeIndex = index++;
+        menuItem.MergeIndex = ContextMenuAudioDevices.Items.Count;
         menuItem.Tag = device.Value;
 
         var iconFile = IconUtils.GetBestMatchIcon(device.Key);
