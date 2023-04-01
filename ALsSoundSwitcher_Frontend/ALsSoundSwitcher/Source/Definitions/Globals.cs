@@ -9,6 +9,8 @@ namespace ALsSoundSwitcher
 
     public const string GithubUrl = "https://github.com/creepyLANguy/SoundSwitcher";
 
+    public const string SetDeviceExe = "SetPlaybackDevice.exe";
+
     public const string VolumeMixerExe = "sndvol.exe";
     public const string VolumeMixerArgs = "-r 88888888"; //TODO - figure out exactly why this works and do something better.
     

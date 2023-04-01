@@ -50,13 +50,6 @@ namespace ALsSoundSwitcher
         return enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia).FriendlyName;
       }
     }
-
-    //AL.
-    //TODO - implement
-    public static void SetDefaultAudioDevice(string deviceId)
-    {
-      
-    }
   }
 
   internal class EndpointNotificationCallback : IMMNotificationClient

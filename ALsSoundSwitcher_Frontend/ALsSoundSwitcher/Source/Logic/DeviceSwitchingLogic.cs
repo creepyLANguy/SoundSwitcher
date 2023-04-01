@@ -11,7 +11,7 @@ namespace ALsSoundSwitcher
     {
       try
       {
-        DeviceUtils.SetDefaultAudioDevice((string)menuItem.Tag);
+        ProcessUtils.RunExe(SetDeviceExe, (string)menuItem.Tag);
 
         ActiveMenuItem = menuItem;
 
