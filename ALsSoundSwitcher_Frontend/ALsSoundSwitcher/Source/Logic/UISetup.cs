@@ -50,7 +50,11 @@ namespace ALsSoundSwitcher
         menuItem.Tag = device.Value;
 
         var iconFile = IconUtils.GetBestMatchIcon(device.Key);
-        if (iconFile.Length > 0)
+        if (iconFile.Length == 0)
+        {
+          menuItem.Image = IconUtils.GetDefaultIcon().ToBitmap();
+        }
+        else
         {
           try
           {

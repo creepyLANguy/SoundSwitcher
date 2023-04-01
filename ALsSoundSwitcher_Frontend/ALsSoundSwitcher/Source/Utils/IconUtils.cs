@@ -12,7 +12,7 @@ namespace ALsSoundSwitcher
   {
     public static bool SetTrayIcon(string iconName, NotifyIcon notifyIcon)
     {
-      notifyIcon.Icon = Resources.Icon;
+      notifyIcon.Icon = GetDefaultIcon();
 
       var bestMatch = GetBestMatchIcon(iconName);
 
@@ -26,6 +26,11 @@ namespace ALsSoundSwitcher
       notifyIcon.Icon = icon;
 
       return true;
+    }
+
+    public static Icon GetDefaultIcon()
+    {
+      return Settings.Current.DefaultIcon.Length > 0 ? CreateIconFromImageFile(Settings.Current.DefaultIcon) : Resources.Icon;
     }
 
     public static string GetBestMatchIcon(string iconName)
@@ -99,18 +104,24 @@ namespace ALsSoundSwitcher
         }
         else
         {
-          using (var stream = new MemoryStream(File.ReadAllBytes(iconName)))
-          {
-            using (var bitmap = new Bitmap(stream))
-            {
-              return Icon.FromHandle(bitmap.GetHicon());
-            }
-          }
+          return CreateIconFromImageFile(iconName);
         }
       }
-      catch (Exception)
+      catch (Exception e)
       {
+        Console.WriteLine(e.Message);
         return null;
+      }
+    }
+
+    public static Icon CreateIconFromImageFile(string imageFilename)
+    {
+      using (var stream = new MemoryStream(File.ReadAllBytes(imageFilename)))
+      {
+        using (var bitmap = new Bitmap(stream))
+        {
+          return Icon.FromHandle(bitmap.GetHicon());
+        }
       }
     }
   }

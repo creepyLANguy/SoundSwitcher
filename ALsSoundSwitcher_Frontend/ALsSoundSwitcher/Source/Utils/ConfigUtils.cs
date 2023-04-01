@@ -29,21 +29,28 @@ namespace ALsSoundSwitcher
 
         string buff;
 
-        if (TryGetValue(ConfigKeys.BalloonTime, out buff))
+        if (TryGetValue(Settings.Keys.BalloonTime, out buff))
         {
           Settings.Current.BalloonTime = Convert.ToInt32(buff);
         }
 
-        if (TryGetValue(ConfigKeys.BestNameMatchPercentageMinimum, out buff))
+        if (TryGetValue(Settings.Keys.BestNameMatchPercentageMinimum, out buff))
         {
           Settings.Current.BestNameMatchPercentageMinimum = Convert.ToInt32(buff);
         }
 
-        if (TryGetValue(ConfigKeys.DarkMode, out buff))
+        if (TryGetValue(Settings.Keys.DarkMode, out buff))
         {
           Settings.Current.DarkMode = Convert.ToInt32(buff);
         }
 
+        if (TryGetValue(Settings.Keys.DefaultIcon, out buff))
+        {
+          if (buff.Length > 0)
+          {
+            Settings.Current.DefaultIcon = buff;
+          }
+        }
       }
       catch (Exception)
       {

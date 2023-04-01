@@ -19,13 +19,6 @@ namespace ALsSoundSwitcher
 
     public static bool WeAreSwitching = false;
 
-    public struct ConfigKeys
-    {
-      public const string BalloonTime = "BalloonTime";
-      public const string BestNameMatchPercentageMinimum = "BestNameMatchPercentageMinimum";
-      public const string DarkMode = "DarkMode";
-    }
-
     public static Dictionary<string, string> ActiveDevices = new Dictionary<string, string>();
 
     public static CustomRenderer Theme;
