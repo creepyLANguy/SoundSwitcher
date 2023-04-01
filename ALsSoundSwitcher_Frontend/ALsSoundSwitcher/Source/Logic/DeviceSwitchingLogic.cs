@@ -11,6 +11,8 @@ namespace ALsSoundSwitcher
     {
       try
       {
+        WeAreSwitching = true;
+
         ProcessUtils.RunExe(SetDeviceExe, (string)menuItem.Tag);
 
         ActiveMenuItem = menuItem;
@@ -32,7 +34,10 @@ namespace ALsSoundSwitcher
       }
       catch (Exception ex)
       {
+        WeAreSwitching = false;
+        
         Console.WriteLine(ex.ToString());
+        
         notifyIcon1.ShowBalloonTip(
           Settings.Current.BalloonTime,
           Resources.Form1_PerformSwitch_Error_Switching_Audio_Device,

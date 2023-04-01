@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace ALsSoundSwitcher
 {
@@ -14,6 +15,18 @@ namespace ALsSoundSwitcher
       process.StartInfo.CreateNoWindow = true;
       process.StartInfo.Arguments = args;
       process.Start();
+    }
+
+    public static void Restart_ThreadSafe()
+    {
+      if (Globals.Instance.InvokeRequired)
+      {
+        Globals.Instance.Invoke(new MethodInvoker(Restart_ThreadSafe));
+      }
+      else
+      {
+        Application.Restart();
+      }
     }
   }
 }

@@ -17,6 +17,8 @@ namespace ALsSoundSwitcher
     public const string ConfigFile = "config.ini";
     public const string ConfigDelimiter = "=";
 
+    public static bool WeAreSwitching = false;
+
     public struct ConfigKeys
     {
       public const string BalloonTime = "BalloonTime";
