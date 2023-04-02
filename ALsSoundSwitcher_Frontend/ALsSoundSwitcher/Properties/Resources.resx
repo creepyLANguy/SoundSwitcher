@@ -126,43 +126,55 @@
 
 Could not start </value>
   </data>
-  <data name="Form1_SetupContextMenu_R_efresh" xml:space="preserve">
-    <value>&amp;Refresh</value>
+  <data name="Form1_SetupContextMenu_Refresh" xml:space="preserve">
+    <value>Refresh</value>
   </data>
-  <data name="Form1_SetupContextMenu_E_dit" xml:space="preserve">
-    <value>&amp;Edit</value>
+  <data name="Form1_SetupContextMenu_Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
-  <data name="Form1_SetupContextMenu_Res_tart" xml:space="preserve">
-    <value>Re&amp;start</value>
+  <data name="Form1_SetupContextMenu_Restart" xml:space="preserve">
+    <value>Restart</value>
   </data>
-  <data name="Form1_SetupContextMenu_Ex_it" xml:space="preserve">
-    <value>E&amp;xit</value>
+  <data name="Form1_SetupContextMenu_SwitchTheme" xml:space="preserve">
+    <value>Switch Theme</value>
   </data>
-  <data name="Form1_menuItemRefresh_Click_Error_Refreshing_Device_List" xml:space="preserve">
-    <value>Error Refreshing Device List</value>
+  <data name="Form1_SetupContextMenu_Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>  
+  <data name="Form1_SetupContextMenu_Help" xml:space="preserve">
+    <value>Help</value>
   </data>
-  <data name="Form1_menuItemRefresh_Click_Could_not_start_" xml:space="preserve">
-    <value>Could not start </value>
+  <data name="Form1_SetupContextMenu_More" xml:space="preserve">
+    <value>More</value>
   </data>
-  <data name="Form1_menuItemRestart_Click_Error_Restarting_Application" xml:space="preserve">
-    <value>Error Restarting Application</value>
-  </data>
-  <data name="Form1_menuItemRestart_Click_Please_try_manually_closing_and_starting_the_application_" xml:space="preserve">
-    <value>Please try manually closing and starting the application.</value>
-  </data>
-  <data name="Form1_menuItemEdit_Click_Error_Opening_Device_List_File" xml:space="preserve">
-    <value>Error Opening Device List File</value>
-  </data>
-  <data name="Form1_PerformSwitch_Invalid_index___1___selected_" xml:space="preserve">
-    <value>Invalid index (-1?) selected.</value>
+  <data name="Form1_SetupContextMenu_V_olumeMixer" xml:space="preserve">
+    <value>Volume Mixer</value>
   </data>
   <data name="Form1_PerformSwitch_Error_Switching_Audio_Device" xml:space="preserve">
     <value>Error Switching Audio Device</value>
+  </data>  
+  <data name="Form1_PerformSwitch_could_not_set_default_device" xml:space="preserve">
+    <value>Could not set default device</value>
   </data>
   <data name="Form1_ReadConfig_Error_reading_config_file_" xml:space="preserve">
     <value>Error reading config file </value>
   </data>
   <data name="Form1_ReadConfig_Will_use_default_values" xml:space="preserve">
     <value>Will use default values</value>
+  </data>
+  <data name="EndpointNotificationCallback_OnDeviceAdded" xml:space="preserve">
+    <value>Audio device {0} added</value>
+  </data>
+  <data name="EndpointNotificationCallback_OnDeviceStateChanged" xml:space="preserve">
+    <value>Audio device {0} state changed to {1}</value>
+  </data>
+  <data name="EndpointNotificationCallback_OnDeviceRemoved" xml:space="preserve">
+    <value>Audio device {0} removed</value>
+  </data>
+  <data name="EndpointNotificationCallback_OnDefaultDeviceChanged" xml:space="preserve">
+    <value>Audio device {0} set as default</value>
+  </data>
+  <data name="DeviceUtils_Monitor" xml:space="preserve">
+    <value>Monitoring for audio device changes...</value>
   </data>
 </root>
