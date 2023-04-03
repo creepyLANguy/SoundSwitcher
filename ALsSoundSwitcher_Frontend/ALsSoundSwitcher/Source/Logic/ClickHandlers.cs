@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using static ALsSoundSwitcher.Globals;
 
@@ -7,6 +8,9 @@ namespace ALsSoundSwitcher
 {
   public partial class Form1
   {
+    [DllImport("user32.dll", SetLastError = true)]
+    private static extern bool SetForegroundWindow(IntPtr hwnd);
+
     private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
       if (e.Button == MouseButtons.Left)

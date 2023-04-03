@@ -39,10 +39,14 @@ namespace ALsSoundSwitcher
 
     private static void AddAudioDevicesAsMenuItems()
     {
-      foreach (var device in ActiveDevices)
+      var sortedDevices = ActiveDevices
+        .Select(device => new KeyValuePair<string, string>(GetFormattedDeviceName(device.Key), device.Value))
+        .OrderBy(pair => pair.Key);
+
+      foreach (var device in sortedDevices)
       {
         var menuItem = new ToolStripMenuItem();
-        menuItem.Text = GetFormattedDeviceName(device.Key);
+        menuItem.Text = device.Key;
         menuItem.Click += menuItem_Click;
         menuItem.MergeIndex = ContextMenuAudioDevices.Items.Count;
         menuItem.Tag = device.Value;
@@ -142,13 +146,13 @@ namespace ALsSoundSwitcher
 
     private static void SetCurrentDeviceIconAndIndicators()
     {
-      var currentDeviceName = GetFormattedDeviceName(DeviceUtils.GetCurrentDefaultDeviceName());
+      var currentDevice = DeviceUtils.GetCurrentDefaultDevice();
       var items = ContextMenuAudioDevices.Items.OfType<ToolStripMenuItem>().ToList();
-      ActiveMenuItem = items.FirstOrDefault(it => currentDeviceName.Contains(it.Text));
+      ActiveMenuItem = items.First(it => (string)it.Tag == currentDevice.DeviceID);
       SetActiveMenuItemMarker();
 
-      IconUtils.SetTrayIcon(currentDeviceName, notifyIcon1);
-      notifyIcon1.Text = currentDeviceName.Trim();
+      IconUtils.SetTrayIcon(ActiveMenuItem.Text, notifyIcon1);
+      notifyIcon1.Text = ActiveMenuItem.Text.Trim();
     }
   }
 }
