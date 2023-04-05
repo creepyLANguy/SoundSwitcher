@@ -82,8 +82,11 @@ namespace ALsSoundSwitcher
       MenuItemHelp = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Help);
       MenuItemHelp.Click += menuItemHelp_Click;
 
-      MenuItemMixer = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_V_olumeMixer);
+      MenuItemMixer = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_VolumeMixer);
       MenuItemMixer.Click += menuItemMixer_Click;
+      
+      MenuItemDeviceManager = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_ManageDevices);
+      MenuItemDeviceManager.Click += menuItemDeviceManager_Click;
 
       MenuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_More);
     }
@@ -99,6 +102,8 @@ namespace ALsSoundSwitcher
       MenuItemMore.DropDownItems.Add(MenuItemToggleTheme);
       MenuItemMore.DropDownItems.Add("-");
       MenuItemMore.DropDownItems.Add(MenuItemMixer);
+      MenuItemMore.DropDownItems.Add("-");
+      MenuItemMore.DropDownItems.Add(MenuItemDeviceManager);
 
       ContextMenuAudioDevices.Items.Add("-");
       ContextMenuAudioDevices.Items.Add(MenuItemMore);

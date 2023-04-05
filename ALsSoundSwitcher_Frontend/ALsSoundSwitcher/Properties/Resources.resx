@@ -147,8 +147,11 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_More" xml:space="preserve">
     <value>More</value>
   </data>
-  <data name="Form1_SetupContextMenu_V_olumeMixer" xml:space="preserve">
+  <data name="Form1_SetupContextMenu_VolumeMixer" xml:space="preserve">
     <value>Volume Mixer</value>
+  </data>
+  <data name="Form1_SetupContextMenu_ManageDevices" xml:space="preserve">
+    <value>Manage Devices</value>
   </data>
   <data name="Form1_PerformSwitch_Error_Switching_Audio_Device" xml:space="preserve">
     <value>Error Switching Audio Device</value>
