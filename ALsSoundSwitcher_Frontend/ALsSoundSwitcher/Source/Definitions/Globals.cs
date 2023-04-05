@@ -24,7 +24,7 @@ namespace ALsSoundSwitcher
 
     public static Dictionary<string, string> ActiveDevices = new Dictionary<string, string>();
 
-    public static CustomRenderer Theme;
+    public static CustomRenderer Theme = new CustomRenderer();
 
     public static ContextMenuStrip ContextMenuAudioDevices;
 

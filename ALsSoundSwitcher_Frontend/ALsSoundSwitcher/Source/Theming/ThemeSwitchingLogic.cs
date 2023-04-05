@@ -6,7 +6,8 @@ namespace ALsSoundSwitcher
   {
     private static void SetTheme()
     {
-      Theme = Settings.Current.DarkMode == 1 ? (CustomRenderer) new DarkRenderer() : new LightRenderer();
+      //AL.
+      //Theme = Settings.Current.DarkMode == 1 ? (CustomRenderer) new DarkRenderer() : new LightRenderer();
       ContextMenuAudioDevices.Renderer = Theme;
 
       SetActiveMenuItemMarker();

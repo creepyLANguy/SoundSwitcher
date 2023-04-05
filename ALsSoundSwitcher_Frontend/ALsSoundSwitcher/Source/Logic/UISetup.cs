@@ -74,8 +74,6 @@ namespace ALsSoundSwitcher
       MenuItemRefresh.Click += menuItemRefresh_Click;
 
       MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_SwitchTheme);
-      //AL.
-      //MenuItemToggleTheme.Click += menuItemSwitchTheme_Click;
       SetupThemeSubmenu();
 
       MenuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Exit);
@@ -96,9 +94,19 @@ namespace ALsSoundSwitcher
     private static void SetupThemeSubmenu()
     {
       //AL.
-      MenuItemToggleTheme.DropDownItems.Add("Dark");
-      MenuItemToggleTheme.DropDownItems.Add("Light");
-      MenuItemToggleTheme.DropDownItems.Add("Pink");
+      //GetAllThemes(); //read all .theme files 
+      //foreach theme : 
+      var dark = new ToolStripMenuItem("Dark");
+      dark.Click += menuItemTheme_Click;
+      MenuItemToggleTheme.DropDownItems.Add(dark);
+
+      var light = new ToolStripMenuItem("Light");
+      light.Click += menuItemTheme_Click;
+      MenuItemToggleTheme.DropDownItems.Add(light);
+
+      var pink = new ToolStripMenuItem("Pink");
+      light.Click += menuItemTheme_Click;
+      MenuItemToggleTheme.DropDownItems.Add(pink);
     }
 
     private static void AddAdditionalMenuItems()
