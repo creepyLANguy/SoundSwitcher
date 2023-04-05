@@ -74,7 +74,9 @@ namespace ALsSoundSwitcher
       MenuItemRefresh.Click += menuItemRefresh_Click;
 
       MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_SwitchTheme);
-      MenuItemToggleTheme.Click += menuItemSwitchTheme_Click;
+      //AL.
+      //MenuItemToggleTheme.Click += menuItemSwitchTheme_Click;
+      SetupThemeSubmenu();
 
       MenuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Exit);
       MenuItemExit.Click += menuItemExit_Click;
@@ -91,15 +93,23 @@ namespace ALsSoundSwitcher
       MenuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_More);
     }
 
+    private static void SetupThemeSubmenu()
+    {
+      //AL.
+      MenuItemToggleTheme.DropDownItems.Add("Dark");
+      MenuItemToggleTheme.DropDownItems.Add("Light");
+      MenuItemToggleTheme.DropDownItems.Add("Pink");
+    }
+
     private static void AddAdditionalMenuItems()
     {
       MenuItemMore.DropDownItems.Add(MenuItemExit);
       MenuItemMore.DropDownItems.Add("-");
       MenuItemMore.DropDownItems.Add(MenuItemHelp);
       MenuItemMore.DropDownItems.Add("-");
-      MenuItemMore.DropDownItems.Add(MenuItemRefresh);
-      MenuItemMore.DropDownItems.Add("-");
       MenuItemMore.DropDownItems.Add(MenuItemToggleTheme);
+      MenuItemMore.DropDownItems.Add("-");
+      MenuItemMore.DropDownItems.Add(MenuItemRefresh);
       MenuItemMore.DropDownItems.Add("-");
       MenuItemMore.DropDownItems.Add(MenuItemMixer);
       MenuItemMore.DropDownItems.Add("-");

@@ -77,9 +77,12 @@ namespace ALsSoundSwitcher
       Process.Start(GithubUrl);
     }
 
-    private static void menuItemSwitchTheme_Click(object sender, EventArgs e)
+    private static void menuItemTheme_Click(object sender, EventArgs e)
     {
-      Settings.Current.DarkMode ^= 1; //Flip-flop between 0 and 1 on each execution. 
+      //AL.
+      //Settings.Current.DarkMode ^= 1; //Flip-flop between 0 and 1 on each execution. 
+      //TODO - get the current theme and load it in
+      //Theme = sender.tag //or something like that
       SetTheme();
       ContextMenuAudioDevices.Show();
       Config.Save();

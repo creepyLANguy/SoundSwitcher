@@ -216,7 +216,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Switch Theme.
+        ///   Looks up a localized string similar to Theme.
         /// </summary>
         internal static string Form1_SetupContextMenu_SwitchTheme {
             get {
