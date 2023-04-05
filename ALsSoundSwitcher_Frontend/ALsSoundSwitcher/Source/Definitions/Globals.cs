@@ -14,7 +14,7 @@ namespace ALsSoundSwitcher
     public const string VolumeMixerExe = "sndvol.exe";
     public const string VolumeMixerArgs = "-r 88888888"; //TODO - figure out exactly why this works and do something better.
     
-    public const string ConfigFile = "config.ini";
+    public const string ConfigFile = "settings.json";
     public const string ConfigDelimiter = "=";
 
     public static bool WeAreSwitching = false;
