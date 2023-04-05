@@ -17,10 +17,6 @@ namespace ALsSoundSwitcher
       {
         Toggle();
       }
-      else if (e.Button == MouseButtons.Middle)
-      {
-        OpenVolumeMixer();
-      }
     }
 
     private static void menuItemMixer_Click(object sender, EventArgs e)
@@ -53,6 +49,11 @@ namespace ALsSoundSwitcher
       );
     }
 
+    private static void menuItemDeviceManager_Click(object sender, EventArgs e)
+    {
+      ProcessUtils.RunExe(DeviceManagerExe, DeviceManagerArgs);
+    }
+    
     private static void menuItem_Click(object sender, EventArgs e)
     {
       PerformSwitch((ToolStripMenuItem)sender);

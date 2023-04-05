@@ -180,6 +180,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Devices.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_ManageDevices {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_ManageDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More.
         /// </summary>
         internal static string Form1_SetupContextMenu_More {
@@ -218,9 +227,9 @@ namespace ALsSoundSwitcher.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Volume Mixer.
         /// </summary>
-        internal static string Form1_SetupContextMenu_V_olumeMixer {
+        internal static string Form1_SetupContextMenu_VolumeMixer {
             get {
-                return ResourceManager.GetString("Form1_SetupContextMenu_V_olumeMixer", resourceCulture);
+                return ResourceManager.GetString("Form1_SetupContextMenu_VolumeMixer", resourceCulture);
             }
         }
         
