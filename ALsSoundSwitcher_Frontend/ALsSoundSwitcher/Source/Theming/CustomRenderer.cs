@@ -21,7 +21,6 @@ namespace ALsSoundSwitcher
     public CustomRenderer(ColourPack colourPack) : base(ColorTable)
     {
       SetColours(colourPack);
-      ColorTable.SetColours(colourPack);
     }
     
     public Color GetActiveSelectionColour()
@@ -29,13 +28,15 @@ namespace ALsSoundSwitcher
       return _activeSelectionColor;
     }
 
-    public void SetColours(ColourPack colourPack)
+    private void SetColours(ColourPack colourPack)
     {
       _activeSelectionColor = colourPack.ActiveSelectionColor;
       _colorMenuArrow = colourPack.ColorMenuArrow;
       _colorCheckSquare = colourPack.ColorCheckSquare;
       _colorCheckMark = colourPack.ColorCheckMark;
       _colorMenuItemText = colourPack.ColorMenuItemText;
+
+      ColorTable.SetColours(colourPack);
     }
 
     protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)

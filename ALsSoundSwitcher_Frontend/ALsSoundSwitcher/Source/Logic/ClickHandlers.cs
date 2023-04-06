@@ -70,6 +70,12 @@ namespace ALsSoundSwitcher
       Process.Start(GithubUrl);
     }
 
+    //Not sure why it behaves incorrectly without this.
+    private static void menuItemTheme_Hover(object sender, EventArgs e)
+    {
+      ((ToolStripMenuItem) sender)?.ShowDropDown();
+    }
+
     private static void menuItemTheme_Click(object sender, EventArgs e)
     {
       Settings.Current.Theme = ((ToolStripMenuItem) sender).Text;

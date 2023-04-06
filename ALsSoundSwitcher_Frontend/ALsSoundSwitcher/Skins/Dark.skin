@@ -1,0 +1,14 @@
+{
+  "ActiveSelectionColor" : "47,79,79",
+  "ColorMenuArrow" : "237, 237, 237",
+  "ColorCheckSquare" : "0, 122, 204",
+  "ColorCheckMark" : "237, 237, 237",
+  "ColorMenuItemText" : "237, 237, 237",
+  "ColorMenuBorder" : "61, 61, 67",
+  "ColorMenuItemSelected" : "76, 76, 77",
+  "ColorBackground" : "43, 43, 43",
+  "ColorSeparator" : "61, 61, 67",
+  "ColorStatusStripGradient" : "234, 237, 241",
+  "ColorButtonSelected" : "88, 146, 226",
+  "ColorButtonPressed" : "110, 160, 230"
+}

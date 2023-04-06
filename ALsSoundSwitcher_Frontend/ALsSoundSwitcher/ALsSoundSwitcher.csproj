@@ -108,6 +108,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Skins\Dark.skin" />
+    <None Include="Skins\Light.skin" />
+    <None Include="Skins\Peachy.skin" />
+    <None Include="Skins\Sapphire.skin" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icons\icon.ico" />

@@ -15,20 +15,14 @@ namespace ALsSoundSwitcher
     {
       try
       {
+        Theme = new CustomRenderer();
+
         if (Settings.Current.Theme.Length > 0)
         {
           var themeFilename = ThemeFilenamePattern.Replace("*", Settings.Current.Theme);
           var colourPack = GetColourPackFromThemeFile(themeFilename);
           Theme = new CustomRenderer(colourPack);
         }
-        else
-        {
-          Theme = new CustomRenderer();
-        }
-
-        ContextMenuAudioDevices.Renderer = Theme;
-
-        SetActiveMenuItemMarker();
       }
       catch (Exception e)
       {
@@ -41,6 +35,9 @@ namespace ALsSoundSwitcher
           ToolTipIcon.Error
         );
       }
+
+      ContextMenuAudioDevices.Renderer = Theme;
+      SetActiveMenuItemMarker();
     }
 
     private static ColourPack GetColourPackFromThemeFile(string filename)
@@ -79,24 +76,6 @@ namespace ALsSoundSwitcher
       var colour = Color.FromArgb(red, green, blue);
 
       return colour;
-    }
-
-    //AL.
-    //TODO - use to make next theme
-    void al()
-    {
-      var ActiveSelectionColor  = Color.FromArgb(255, 192, 203);
-      var ColorMenuArrow        = Color.FromArgb(18, 18, 18);
-      var ColorCheckSquare      = Color.FromArgb(0, 122, 204);
-      var ColorCheckMark        = Color.FromArgb(237, 237, 237);
-      var ColorMenuItemText     = Color.FromArgb(255, 192, 203);
-      var ColorMenuBorder       = Color.FromArgb(255, 192, 203);
-      var ColorMenuItemSelected = Color.FromArgb(255, 192, 203);
-      var ColorBackground       = Color.FromArgb(255, 192, 203);
-      var ColorSeparator        = Color.FromArgb(255, 255, 203);
-      var ColorStatusStripGradient = Color.FromArgb(234, 237, 241);
-      var ColorButtonSelected   = Color.FromArgb(88, 146, 226);
-      var ColorButtonPressed    = Color.FromArgb(110, 160, 230);
     }
   }
 }
