@@ -124,6 +124,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error Switching Theme.
+        /// </summary>
+        internal static string Form1_PerformSwitch_Error_Switching_Theme {
+            get {
+                return ResourceManager.GetString("Form1_PerformSwitch_Error_Switching_Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error reading config file .
         /// </summary>
         internal static string Form1_ReadConfig_Error_reading_config_file_ {
@@ -216,7 +225,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Switch Theme.
+        ///   Looks up a localized string similar to Theme.
         /// </summary>
         internal static string Form1_SetupContextMenu_SwitchTheme {
             get {

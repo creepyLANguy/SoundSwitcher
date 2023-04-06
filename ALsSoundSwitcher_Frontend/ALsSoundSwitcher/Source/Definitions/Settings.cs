@@ -6,7 +6,7 @@
     {
       public int BalloonTime;
       public int BestNameMatchPercentageMinimum;
-      public int DarkMode;
+      public string Theme;
       public string DefaultIcon;
     }
 
@@ -14,7 +14,7 @@
     {
       BalloonTime = 1500,
       BestNameMatchPercentageMinimum = 15,
-      DarkMode = 1,
+      Theme = "",
       DefaultIcon = ""
     };
 
@@ -22,7 +22,7 @@
     {
       public const string BalloonTime = "BalloonTime";
       public const string BestNameMatchPercentageMinimum = "BestNameMatchPercentageMinimum";
-      public const string DarkMode = "DarkMode";
+      public const string Theme = "Theme";
       public const string DefaultIcon = "DefaultIcon";
     }
   }

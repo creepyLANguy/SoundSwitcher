@@ -15,9 +15,12 @@ namespace ALsSoundSwitcher
       {
         return ProcessJsonSettings();
       }
-      catch (Exception)
+      catch (Exception e)
       {
+        Console.WriteLine(e.ToString());
+
         Save();
+
         return false;
       }
     }
@@ -45,9 +48,12 @@ namespace ALsSoundSwitcher
         Settings.Current.BestNameMatchPercentageMinimum = Convert.ToInt32(buff);
       }
 
-      if (jsonDict.TryGetValue(Settings.Keys.DarkMode, out buff))
+      if (jsonDict.TryGetValue(Settings.Keys.Theme, out buff))
       {
-        Settings.Current.DarkMode = Convert.ToInt32(buff);
+        if (buff.Length > 0)
+        {
+          Settings.Current.Theme = buff;
+        }
       }
 
       if (jsonDict.TryGetValue(Settings.Keys.DefaultIcon, out buff))

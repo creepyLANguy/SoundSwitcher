@@ -18,13 +18,14 @@ namespace ALsSoundSwitcher
     public const string DeviceManagerArgs = "ms-settings:bluetooth";
     
     public const string ConfigFile = "settings.json";
-    public const string ConfigDelimiter = "=";
+    
+    public const string ThemeFilenamePattern = "*.skin";
 
     public static bool WeAreSwitching = false;
 
     public static Dictionary<string, string> ActiveDevices = new Dictionary<string, string>();
 
-    public static CustomRenderer Theme;
+    public static CustomRenderer Theme = new CustomRenderer();
 
     public static ContextMenuStrip ContextMenuAudioDevices;
 
