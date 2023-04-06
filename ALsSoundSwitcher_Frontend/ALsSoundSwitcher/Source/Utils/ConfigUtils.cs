@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using static ALsSoundSwitcher.Globals;
+using static ALsSoundSwitcher.Settings;
 
 namespace ALsSoundSwitcher
 {
@@ -28,41 +28,8 @@ namespace ALsSoundSwitcher
     private static bool ProcessJsonSettings()
     {
       var jsonString = File.ReadAllText(ConfigFile);
-      var jsonObject = JObject.Parse(jsonString);
-      var jsonDict = jsonObject.ToObject<Dictionary<string, string>>();
 
-      if (jsonDict == null)
-      {
-        throw new Exception();
-      }
-
-      string buff;
-
-      if (jsonDict.TryGetValue(Settings.Keys.BalloonTime, out buff))
-      {
-        Settings.Current.BalloonTime = Convert.ToInt32(buff);
-      }
-
-      if (jsonDict.TryGetValue(Settings.Keys.BestNameMatchPercentageMinimum, out buff))
-      {
-        Settings.Current.BestNameMatchPercentageMinimum = Convert.ToInt32(buff);
-      }
-
-      if (jsonDict.TryGetValue(Settings.Keys.Theme, out buff))
-      {
-        if (buff.Length > 0)
-        {
-          Settings.Current.Theme = buff;
-        }
-      }
-
-      if (jsonDict.TryGetValue(Settings.Keys.DefaultIcon, out buff))
-      {
-        if (buff.Length > 0)
-        {
-          Settings.Current.DefaultIcon = buff;
-        }
-      }
+      Current = JsonConvert.DeserializeObject<SettingsStruct>(jsonString);
 
       return true;
     }
