@@ -58,7 +58,7 @@ namespace ALsSoundSwitcher
 
     private static List<string> GetAllIconsInFolder()
     {
-      return Directory.GetFiles(Directory.GetCurrentDirectory(), "*", SearchOption.AllDirectories)
+      return Directory.GetFiles(Directory.GetCurrentDirectory(), "*")
         .Select(Path.GetFileName)
         .ToList();
     }

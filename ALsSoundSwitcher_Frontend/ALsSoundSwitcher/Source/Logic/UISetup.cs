@@ -110,7 +110,7 @@ namespace ALsSoundSwitcher
 
     private static List<string> GetAllThemesInFolder()
     {
-      return Directory.GetFiles(Directory.GetCurrentDirectory(), ThemeFilenamePattern, SearchOption.AllDirectories)
+      return Directory.GetFiles(Directory.GetCurrentDirectory(), ThemeFilenamePattern)
       .Select(Path.GetFileName)
       .ToList();
     }

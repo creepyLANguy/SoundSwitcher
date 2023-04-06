@@ -1,4 +1,3 @@
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System;
 using System.Drawing;
@@ -6,6 +5,7 @@ using System.IO;
 using static ALsSoundSwitcher.Globals;
 using ALsSoundSwitcher.Properties;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace ALsSoundSwitcher
 {
@@ -42,40 +42,39 @@ namespace ALsSoundSwitcher
 
     private static ColourPack GetColourPackFromThemeFile(string filename)
     {
-      var colourPack = new ColourPack();
-
       var jsonString = File.ReadAllText(filename);
-      var jsonObject = JObject.Parse(jsonString);
-      var jsonDict = jsonObject.ToObject<Dictionary<string, string>>();
 
-      if (jsonDict == null)
+      var settings = new JsonSerializerSettings
       {
-        throw new Exception();
-      }
+        Converters = new List<JsonConverter> { new ColorConverter() }
+      };
 
-      foreach (var kvp in jsonDict)
-      {
-        var colour = GetColour(kvp.Value);
-
-        var field = typeof(ColourPack).GetField( kvp.Key);
-
-        field.SetValueDirect(__makeref(colourPack), colour);
-      }
-
-      return colourPack;
+      return JsonConvert.DeserializeObject<ColourPack>(jsonString, settings);
     }
 
-    private static Color GetColour(string rgbString)
+    public class ColorConverter : JsonConverter<Color>
     {
-      var colorComponents = rgbString.Split(',');
+      public override Color ReadJson(JsonReader reader, Type objectType, Color existingValue, bool hasExistingValue, JsonSerializer serializer)
+      {
+        var str = (string)reader.Value;
+        if (str == null)
+        {
+          throw new NullReferenceException();
+        }
 
-      var red = int.Parse(colorComponents[0]);
-      var green = int.Parse(colorComponents[1]);
-      var blue = int.Parse(colorComponents[2]);
+        var values = str.Split(',');
 
-      var colour = Color.FromArgb(red, green, blue);
+        var r = int.Parse(values[0].Trim());
+        var g = int.Parse(values[1].Trim());
+        var b = int.Parse(values[2].Trim());
+        
+        return Color.FromArgb(r, g, b);
+      }
 
-      return colour;
+      public override void WriteJson(JsonWriter writer, Color value, JsonSerializer serializer)
+      {
+        writer.WriteValue($"{value.R}, {value.G}, {value.B}");
+      }
     }
   }
 }
