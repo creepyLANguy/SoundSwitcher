@@ -14,7 +14,7 @@
     {
       BalloonTime = 1500,
       BestNameMatchPercentageMinimum = 15,
-      Theme = "Dark.theme",
+      Theme = "",
       DefaultIcon = ""
     };
 

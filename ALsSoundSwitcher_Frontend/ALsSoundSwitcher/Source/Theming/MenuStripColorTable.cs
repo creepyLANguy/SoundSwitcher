@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace ALsSoundSwitcher.Source.Theming
+namespace ALsSoundSwitcher
 {
   internal class MenuStripColorTable : ProfessionalColorTable
   {

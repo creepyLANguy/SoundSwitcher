@@ -58,12 +58,9 @@ namespace ALsSoundSwitcher
 
     private static List<string> GetAllIconsInFolder()
     {
-      var allIconFilePaths =
-        Directory.GetFiles(Directory.GetCurrentDirectory(), "*", SearchOption.AllDirectories).ToList();
-
-      var allIcons = new List<string>(allIconFilePaths.Count);
-      allIconFilePaths.ForEach(it => allIcons.Add(Path.GetFileName(it)));
-      return allIcons;
+      return Directory.GetFiles(Directory.GetCurrentDirectory(), "*", SearchOption.AllDirectories)
+        .Select(Path.GetFileName)
+        .ToList();
     }
 
     private static List<Tuple<string, double>> GetMatchPercentages(string reference, List<string> candidates)

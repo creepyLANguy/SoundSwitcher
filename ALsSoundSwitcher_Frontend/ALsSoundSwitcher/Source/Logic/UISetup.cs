@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
@@ -34,7 +35,7 @@ namespace ALsSoundSwitcher
 
       notifyIcon1.ContextMenuStrip = ContextMenuAudioDevices;
 
-      SetTheme();
+      RefreshUITheme();
     }
 
     private static void AddAudioDevicesAsMenuItems()
@@ -93,34 +94,46 @@ namespace ALsSoundSwitcher
 
     private static void SetupThemeSubmenu()
     {
-      //AL.
-      //GetAllThemes(); //read all .theme files 
-      //foreach theme : 
-      var dark = new ToolStripMenuItem("Dark");
-      dark.Click += menuItemTheme_Click;
-      MenuItemToggleTheme.DropDownItems.Add(dark);
+      var allThemeFiles = GetAllThemesInFolder();
+      allThemeFiles.Sort();
 
-      var light = new ToolStripMenuItem("Light");
-      light.Click += menuItemTheme_Click;
-      MenuItemToggleTheme.DropDownItems.Add(light);
+      foreach (var themeFile in allThemeFiles)
+      {
+        var themeName = Path.GetFileNameWithoutExtension(themeFile);
+        var theme = new ToolStripMenuItem(themeName);
+        theme.Click += menuItemTheme_Click;
 
-      var pink = new ToolStripMenuItem("Pink");
-      light.Click += menuItemTheme_Click;
-      MenuItemToggleTheme.DropDownItems.Add(pink);
+        MenuItemToggleTheme.DropDownItems.Add(theme);
+      }
+    }
+
+    private static List<string> GetAllThemesInFolder()
+    {
+      return Directory.GetFiles(Directory.GetCurrentDirectory(), ThemeFilenamePattern, SearchOption.AllDirectories)
+      .Select(Path.GetFileName)
+      .ToList();
     }
 
     private static void AddAdditionalMenuItems()
     {
       MenuItemMore.DropDownItems.Add(MenuItemExit);
       MenuItemMore.DropDownItems.Add("-");
+
       MenuItemMore.DropDownItems.Add(MenuItemHelp);
       MenuItemMore.DropDownItems.Add("-");
-      MenuItemMore.DropDownItems.Add(MenuItemToggleTheme);
-      MenuItemMore.DropDownItems.Add("-");
+      
+      if (MenuItemToggleTheme.DropDownItems.Count > 0)
+      {
+        MenuItemMore.DropDownItems.Add(MenuItemToggleTheme);
+        MenuItemMore.DropDownItems.Add("-");
+      }
+
       MenuItemMore.DropDownItems.Add(MenuItemRefresh);
       MenuItemMore.DropDownItems.Add("-");
+
       MenuItemMore.DropDownItems.Add(MenuItemMixer);
       MenuItemMore.DropDownItems.Add("-");
+
       MenuItemMore.DropDownItems.Add(MenuItemDeviceManager);
 
       ContextMenuAudioDevices.Items.Add("-");

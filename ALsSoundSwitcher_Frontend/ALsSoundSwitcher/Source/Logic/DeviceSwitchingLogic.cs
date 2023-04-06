@@ -32,11 +32,11 @@ namespace ALsSoundSwitcher
           ToolTipIcon.None
         );
       }
-      catch (Exception ex)
+      catch (Exception e)
       {
         WeAreSwitching = false;
         
-        Console.WriteLine(ex.ToString());
+        Console.WriteLine(e.ToString());
         
         notifyIcon1.ShowBalloonTip(
           Settings.Current.BalloonTime,

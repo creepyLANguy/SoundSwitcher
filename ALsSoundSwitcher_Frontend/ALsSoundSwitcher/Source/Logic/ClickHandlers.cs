@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using static ALsSoundSwitcher.Globals;
@@ -26,7 +27,7 @@ namespace ALsSoundSwitcher
 
     private static void OpenVolumeMixer()
     {
-      var processName = GetVolumeMixerProcessName();
+      var processName = Path.GetFileNameWithoutExtension(VolumeMixerExe);
       var processes = Process.GetProcessesByName(processName);
       if (processes.Length > 0)
       {
@@ -39,14 +40,6 @@ namespace ALsSoundSwitcher
       {
         ProcessUtils.RunExe(VolumeMixerExe, VolumeMixerArgs);
       }
-    }
-
-    private static string GetVolumeMixerProcessName()
-    {
-      return VolumeMixerExe.Substring(
-        0,
-        VolumeMixerExe.LastIndexOf(".exe", StringComparison.Ordinal)
-      );
     }
 
     private static void menuItemDeviceManager_Click(object sender, EventArgs e)
@@ -79,10 +72,12 @@ namespace ALsSoundSwitcher
 
     private static void menuItemTheme_Click(object sender, EventArgs e)
     {
-      //AL.
-      //Settings.Current.Theme = sender.tag //or something like that
-      SetTheme();
+      Settings.Current.Theme = ((ToolStripMenuItem) sender).Text;
+
+      RefreshUITheme();
+      
       ContextMenuAudioDevices.Show();
+      
       Config.Save();
     }
   }

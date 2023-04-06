@@ -15,9 +15,12 @@ namespace ALsSoundSwitcher
       {
         return ProcessJsonSettings();
       }
-      catch (Exception)
+      catch (Exception e)
       {
+        Console.WriteLine(e.ToString());
+
         Save();
+
         return false;
       }
     }

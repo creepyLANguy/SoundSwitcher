@@ -159,6 +159,9 @@ Could not start </value>
   <data name="Form1_PerformSwitch_could_not_set_default_device" xml:space="preserve">
     <value>Could not set default device</value>
   </data>
+  <data name="Form1_PerformSwitch_Error_Switching_Theme" xml:space="preserve">
+    <value>Error Switching Theme</value>
+  </data>  
   <data name="Form1_ReadConfig_Error_reading_config_file_" xml:space="preserve">
     <value>Error reading config file </value>
   </data>

@@ -18,7 +18,8 @@ namespace ALsSoundSwitcher
     public const string DeviceManagerArgs = "ms-settings:bluetooth";
     
     public const string ConfigFile = "settings.json";
-    public const string ConfigDelimiter = "=";
+    
+    public const string ThemeFilenamePattern = "*.skin";
 
     public static bool WeAreSwitching = false;
 
