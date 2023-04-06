@@ -38,10 +38,10 @@ namespace ALsSoundSwitcher
     {
       var jsonDict = new Dictionary<string, object>();
 
-      foreach (var setting in typeof(Settings.SettingsStruct).GetFields())
+      foreach (var setting in typeof(SettingsStruct).GetFields())
       {
         var key = setting.Name;
-        var value = setting.GetValue(Settings.Current).ToString();
+        var value = setting.GetValue(Current).ToString();
         jsonDict[key] = value;
       }
 
