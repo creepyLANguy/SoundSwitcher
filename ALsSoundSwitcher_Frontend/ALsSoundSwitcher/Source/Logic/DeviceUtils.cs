@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ALsSoundSwitcher.Properties;
 using CSCore.CoreAudioAPI;
-using CSCore.Win32;
+using ALsSoundSwitcher.Properties;
+using static ALsSoundSwitcher.Globals;
 
 namespace ALsSoundSwitcher
 {
@@ -11,36 +11,28 @@ namespace ALsSoundSwitcher
   {
     public static void Monitor()
     {
-      var enumerator = new MMDeviceEnumerator();
-      var notificationCallback = new EndpointNotificationCallback();
-      enumerator.RegisterEndpointNotificationCallbackNative(notificationCallback);
+      DeviceEnumerator.RegisterEndpointNotificationCallbackNative(NotificationCallback);
 
       Console.WriteLine(Resources.DeviceUtils_Monitor);
     }
     public static MMDevice GetCurrentDefaultDevice()
     {
-      using (var enumerator = new MMDeviceEnumerator())
-      {
-        return enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-      }
+      return DeviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
     }
 
     public static void GetDeviceList()
     {
-      Globals.ActiveDevices.Clear();
+      ActiveDevices.Clear();
 
-      using (var enumerator = new MMDeviceEnumerator())
+      var deviceCollection = DeviceEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active);
+
+      var deviceInfoList = deviceCollection.Select(device => Tuple.Create(device.FriendlyName, device.DeviceID)).ToList();
+
+      UpdateDuplicates(deviceInfoList);
+
+      foreach (var device in deviceInfoList)
       {
-        var deviceCollection = enumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active);
-
-        var deviceInfoList = deviceCollection.Select(device => Tuple.Create(device.FriendlyName, device.DeviceID)).ToList();
-
-        UpdateDuplicates(deviceInfoList);
-
-        foreach (var device in deviceInfoList)
-        {
-          Globals.ActiveDevices.Add(device.Item1, device.Item2);
-        }
+        ActiveDevices.Add(device.Item1, device.Item2);
       }
     }
 
@@ -76,65 +68,6 @@ namespace ALsSoundSwitcher
           count++;
         }
       }
-    }
-  }
-
-  internal class EndpointNotificationCallback : IMMNotificationClient
-  {
-    public static string LastMonitoredDeviceUpdate;
-
-    public void OnDeviceStateChanged(string deviceId, DeviceState newState)
-    {
-      Console.WriteLine(Resources.EndpointNotificationCallback_OnDeviceStateChanged, deviceId, newState);
-
-      if (LastMonitoredDeviceUpdate == deviceId)
-      {
-        return;
-      }
-      
-      LastMonitoredDeviceUpdate = deviceId;
-
-      ProcessUtils.Restart_ThreadSafe();
-    }
-
-    public void OnDeviceAdded(string deviceId)
-    {
-      Console.WriteLine(Resources.EndpointNotificationCallback_OnDeviceAdded, deviceId);
-
-      ProcessUtils.Restart_ThreadSafe();
-    }
-
-    public void OnDeviceRemoved(string deviceId)
-    {
-      Console.WriteLine(Resources.EndpointNotificationCallback_OnDeviceRemoved, deviceId);
-
-      ProcessUtils.Restart_ThreadSafe();
-    }
-
-    public void OnDefaultDeviceChanged(DataFlow flow, Role role, string defaultDeviceId)
-    {
-      Console.WriteLine(Resources.EndpointNotificationCallback_OnDefaultDeviceChanged, defaultDeviceId);
-
-      if (LastMonitoredDeviceUpdate == defaultDeviceId)
-      {
-        return;
-      }
-
-      LastMonitoredDeviceUpdate = defaultDeviceId;
-
-      if (Globals.WeAreSwitching)
-      {
-        Globals.WeAreSwitching = false;
-      }
-      else
-      {
-        ProcessUtils.Restart_ThreadSafe();
-      }
-    }
-
-    public void OnPropertyValueChanged(string deviceId, PropertyKey propertyKey)
-    {
-      //Console.WriteLine($"Audio device {deviceId} property {propertyKey} value changed");
     }
   }
 }

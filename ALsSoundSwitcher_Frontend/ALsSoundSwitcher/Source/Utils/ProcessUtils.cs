@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Windows.Forms;
+using static ALsSoundSwitcher.Globals;
 
 namespace ALsSoundSwitcher
 {
@@ -19,9 +20,11 @@ namespace ALsSoundSwitcher
 
     public static void Restart_ThreadSafe()
     {
-      if (Globals.Instance.InvokeRequired)
+      DeviceEnumerator.UnregisterEndpointNotificationCallback(NotificationCallback);
+
+      if (Instance.InvokeRequired)
       {
-        Globals.Instance.Invoke(new MethodInvoker(Restart_ThreadSafe));
+        Instance.Invoke(new MethodInvoker(Restart_ThreadSafe));
       }
       else
       {

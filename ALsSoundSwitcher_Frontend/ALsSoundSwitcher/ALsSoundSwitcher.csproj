@@ -71,6 +71,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Source\Logic\DeviceUtils.cs" />
+    <Compile Include="Source\Definitions\DeviceUpdateCallbacks.cs" />
     <Compile Include="Source\Theming\ColourPack.cs" />
     <Compile Include="Source\Theming\MenuStripColorTable.cs" />
     <Compile Include="Source\Theming\ThemeSwitchingLogic.cs">

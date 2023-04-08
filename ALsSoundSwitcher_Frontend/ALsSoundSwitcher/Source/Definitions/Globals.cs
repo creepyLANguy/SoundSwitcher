@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CSCore.CoreAudioAPI;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace ALsSoundSwitcher
@@ -22,6 +23,10 @@ namespace ALsSoundSwitcher
     public const string ThemeFilenamePattern = "*.skin";
 
     public static bool WeAreSwitching = false;
+
+    public static MMDeviceEnumerator DeviceEnumerator = new MMDeviceEnumerator();
+
+    public static DeviceUpdateCallbacks NotificationCallback = new DeviceUpdateCallbacks();
 
     public static Dictionary<string, string> ActiveDevices = new Dictionary<string, string>();
 
