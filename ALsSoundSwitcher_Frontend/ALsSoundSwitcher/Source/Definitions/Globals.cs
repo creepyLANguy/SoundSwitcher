@@ -34,7 +34,7 @@ namespace ALsSoundSwitcher
 
     public static CustomRenderer Theme = new CustomRenderer();
 
-    public static ContextMenuStrip MainMenu;
+    public static ContextMenuStrip BaseMenu;
 
     public static ToolStripMenuItem ActiveMenuItemOutput;
 

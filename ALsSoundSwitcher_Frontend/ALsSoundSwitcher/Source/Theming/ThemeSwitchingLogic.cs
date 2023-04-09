@@ -47,7 +47,7 @@ namespace ALsSoundSwitcher
         );
       }
 
-      Globals.MainMenu.Renderer = Theme;
+      BaseMenu.Renderer = Theme;
       SetActiveMenuItemMarkers();
     }
 

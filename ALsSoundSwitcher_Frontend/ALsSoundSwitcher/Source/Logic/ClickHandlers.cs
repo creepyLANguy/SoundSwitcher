@@ -83,7 +83,7 @@ namespace ALsSoundSwitcher
       //AL.
       //TODO - which menus we show after a theme switch, and if we want to use a delay.
       Thread.Sleep(ThemeSwitchUIRefreshDelay);
-      Globals.MainMenu.Show();
+      BaseMenu.Show();
       MenuItems.MenuItemToggleTheme.GetCurrentParent().Show();
       MenuItems.MenuItemToggleTheme.DropDown.Show();
 

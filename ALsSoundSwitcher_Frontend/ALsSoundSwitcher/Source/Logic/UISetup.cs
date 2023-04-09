@@ -21,7 +21,7 @@ namespace ALsSoundSwitcher
 
     private static void SetupContextMenu()
     {
-      Globals.MainMenu = new ContextMenuStrip();
+      BaseMenu = new ContextMenuStrip();
 
       AddAudioDevicesAsMenuItems();
 
@@ -29,11 +29,11 @@ namespace ALsSoundSwitcher
 
       AddAdditionalMenuItems();
 
-      SetItemMargins(Globals.MainMenu.Items.OfType<ToolStripMenuItem>().ToList());
+      SetItemMargins(BaseMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
-      HideImageMarginOnSubItems(Globals.MainMenu.Items.OfType<ToolStripMenuItem>().ToList());
+      HideImageMarginOnSubItems(BaseMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
-      notifyIcon1.ContextMenuStrip = Globals.MainMenu;
+      notifyIcon1.ContextMenuStrip = BaseMenu;
 
       RefreshUITheme();
     }
@@ -49,7 +49,7 @@ namespace ALsSoundSwitcher
         var menuItem = new ToolStripMenuItem();
         menuItem.Text = device.Key;
         menuItem.Click += menuItem_Click;
-        menuItem.MergeIndex = Globals.MainMenu.Items.Count;
+        menuItem.MergeIndex = BaseMenu.Items.Count;
         menuItem.Tag = device.Value;
 
         var iconFile = IconUtils.GetBestMatchIcon(device.Key);
@@ -65,7 +65,7 @@ namespace ALsSoundSwitcher
           }
         }
 
-        Globals.MainMenu.Items.Add(menuItem);
+        BaseMenu.Items.Add(menuItem);
       }
     }
 
@@ -137,8 +137,8 @@ namespace ALsSoundSwitcher
 
       MenuItemMore.DropDownItems.Add(MenuItemDeviceManager);
 
-      Globals.MainMenu.Items.Add("-");
-      Globals.MainMenu.Items.Add(MenuItemMore);
+      BaseMenu.Items.Add("-");
+      BaseMenu.Items.Add(MenuItemMore);
     }
 
     private static string GetFormattedDeviceName(string name)
@@ -184,7 +184,7 @@ namespace ALsSoundSwitcher
     private static void SetCurrentDeviceIconAndIndicators()
     {
       var currentDevice = DeviceUtils.GetCurrentDefaultDevice();
-      var items = Globals.MainMenu.Items.OfType<ToolStripMenuItem>().ToList();
+      var items = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
       ActiveMenuItemOutput = items.First(it => (string)it.Tag == currentDevice.DeviceID);
       SetActiveMenuItemMarkers();
 

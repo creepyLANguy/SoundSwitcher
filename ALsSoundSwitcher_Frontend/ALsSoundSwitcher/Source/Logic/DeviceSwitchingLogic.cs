@@ -50,7 +50,7 @@ namespace ALsSoundSwitcher
 
     private static void SetActiveMenuItemMarkers()
     {
-      var menuItems = Globals.MainMenu.Items.OfType<ToolStripMenuItem>().ToList();
+      var menuItems = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
 
       foreach (var item in menuItems)
       {
@@ -83,7 +83,7 @@ namespace ALsSoundSwitcher
         return;
       }
 
-      var items = Globals.MainMenu.Items;
+      var items = BaseMenu.Items;
 
       var index = items.IndexOf(ActiveMenuItemOutput);
       while (true)
