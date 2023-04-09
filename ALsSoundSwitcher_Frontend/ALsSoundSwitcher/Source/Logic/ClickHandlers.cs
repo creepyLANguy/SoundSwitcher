@@ -86,6 +86,7 @@ namespace ALsSoundSwitcher
       BaseMenu.Show();
       MenuItems.MenuItemToggleTheme.GetCurrentParent().Show();
       MenuItems.MenuItemToggleTheme.DropDown.Show();
+      ((ToolStripItem) sender).Select();
 
       Config.Save();
     }
