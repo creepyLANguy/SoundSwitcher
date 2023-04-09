@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 using static ALsSoundSwitcher.Globals;
 
@@ -59,10 +60,7 @@ namespace ALsSoundSwitcher
 
     private static void menuItemRefresh_Click(object sender, EventArgs e)
     {
-      //I know refreshing in-place with SetupUI would be awesome, but it does lack visual feedback. 
-      //Could do a ContextMenuAudioDevices.Show() but for some reason its location is wrong, even after re-assigning it.
       Application.Restart();
-      //SetupUI();
     }
 
     private static void menuItemHelp_Click(object sender, EventArgs e)
@@ -81,9 +79,14 @@ namespace ALsSoundSwitcher
       Settings.Current.Theme = ((ToolStripMenuItem) sender).Text;
 
       RefreshUITheme();
-      
-      ContextMenuAudioDevices.Show();
-      
+
+      //AL.
+      //TODO - which menus we show after a theme switch, and if we want to use a delay.
+      Thread.Sleep(ThemeSwitchUIRefreshDelay);
+      Globals.MainMenu.Show();
+      MenuItems.MenuItemToggleTheme.GetCurrentParent().Show();
+      MenuItems.MenuItemToggleTheme.DropDown.Show();
+
       Config.Save();
     }
   }

@@ -21,7 +21,7 @@ namespace ALsSoundSwitcher
 
     private static void SetupContextMenu()
     {
-      ContextMenuAudioDevices = new ContextMenuStrip();
+      Globals.MainMenu = new ContextMenuStrip();
 
       AddAudioDevicesAsMenuItems();
 
@@ -29,11 +29,11 @@ namespace ALsSoundSwitcher
 
       AddAdditionalMenuItems();
 
-      SetItemMargins(ContextMenuAudioDevices.Items.OfType<ToolStripMenuItem>().ToList());
+      SetItemMargins(Globals.MainMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
-      HideImageMarginOnSubItems(ContextMenuAudioDevices.Items.OfType<ToolStripMenuItem>().ToList());
+      HideImageMarginOnSubItems(Globals.MainMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
-      notifyIcon1.ContextMenuStrip = ContextMenuAudioDevices;
+      notifyIcon1.ContextMenuStrip = Globals.MainMenu;
 
       RefreshUITheme();
     }
@@ -49,7 +49,7 @@ namespace ALsSoundSwitcher
         var menuItem = new ToolStripMenuItem();
         menuItem.Text = device.Key;
         menuItem.Click += menuItem_Click;
-        menuItem.MergeIndex = ContextMenuAudioDevices.Items.Count;
+        menuItem.MergeIndex = Globals.MainMenu.Items.Count;
         menuItem.Tag = device.Value;
 
         var iconFile = IconUtils.GetBestMatchIcon(device.Key);
@@ -65,7 +65,7 @@ namespace ALsSoundSwitcher
           }
         }
 
-        ContextMenuAudioDevices.Items.Add(menuItem);
+        Globals.MainMenu.Items.Add(menuItem);
       }
     }
 
@@ -137,8 +137,8 @@ namespace ALsSoundSwitcher
 
       MenuItemMore.DropDownItems.Add(MenuItemDeviceManager);
 
-      ContextMenuAudioDevices.Items.Add("-");
-      ContextMenuAudioDevices.Items.Add(MenuItemMore);
+      Globals.MainMenu.Items.Add("-");
+      Globals.MainMenu.Items.Add(MenuItemMore);
     }
 
     private static string GetFormattedDeviceName(string name)
@@ -184,12 +184,12 @@ namespace ALsSoundSwitcher
     private static void SetCurrentDeviceIconAndIndicators()
     {
       var currentDevice = DeviceUtils.GetCurrentDefaultDevice();
-      var items = ContextMenuAudioDevices.Items.OfType<ToolStripMenuItem>().ToList();
-      ActiveMenuItem = items.First(it => (string)it.Tag == currentDevice.DeviceID);
-      SetActiveMenuItemMarker();
+      var items = Globals.MainMenu.Items.OfType<ToolStripMenuItem>().ToList();
+      ActiveMenuItemOutput = items.First(it => (string)it.Tag == currentDevice.DeviceID);
+      SetActiveMenuItemMarkers();
 
-      IconUtils.SetTrayIcon(ActiveMenuItem.Text, notifyIcon1);
-      notifyIcon1.Text = ActiveMenuItem.Text.Trim();
+      IconUtils.SetTrayIcon(ActiveMenuItemOutput.Text, notifyIcon1);
+      notifyIcon1.Text = ActiveMenuItemOutput.Text.Trim();
     }
   }
 }

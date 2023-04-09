@@ -22,6 +22,8 @@ namespace ALsSoundSwitcher
     
     public const string ThemeFilenamePattern = "*.skin";
 
+    public const int ThemeSwitchUIRefreshDelay = 120;
+
     public static bool WeAreSwitching = false;
 
     public static MMDeviceEnumerator DeviceEnumerator = new MMDeviceEnumerator();
@@ -32,9 +34,11 @@ namespace ALsSoundSwitcher
 
     public static CustomRenderer Theme = new CustomRenderer();
 
-    public static ContextMenuStrip ContextMenuAudioDevices;
+    public static ContextMenuStrip MainMenu;
 
-    public static ToolStripMenuItem ActiveMenuItem;
+    public static ToolStripMenuItem ActiveMenuItemOutput;
+
+    public static ToolStripMenuItem ActiveMenuItemTheme;
 
     public struct MenuItems
     {

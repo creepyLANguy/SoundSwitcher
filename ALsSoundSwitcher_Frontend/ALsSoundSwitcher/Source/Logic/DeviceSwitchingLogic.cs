@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using static ALsSoundSwitcher.Globals;
@@ -15,7 +16,7 @@ namespace ALsSoundSwitcher
 
         ProcessUtils.RunExe(SetDeviceExe, (string)menuItem.Tag);
 
-        ActiveMenuItem = menuItem;
+        ActiveMenuItemOutput = menuItem;
 
         var deviceName = menuItem.Text;
 
@@ -23,7 +24,7 @@ namespace ALsSoundSwitcher
 
         notifyIcon1.Text = deviceName;
 
-        SetActiveMenuItemMarker();
+        SetActiveMenuItemMarkers();
 
         notifyIcon1.ShowBalloonTip(
           Settings.Current.BalloonTime,
@@ -47,16 +48,31 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private static void SetActiveMenuItemMarker()
+    private static void SetActiveMenuItemMarkers()
     {
-      foreach (ToolStripItem item in notifyIcon1.ContextMenuStrip.Items)
+      var menuItems = Globals.MainMenu.Items.OfType<ToolStripMenuItem>().ToList();
+
+      foreach (var item in menuItems)
       {
         item.ResetBackColor();
       }
 
-      if (ActiveMenuItem != null)
+      if (ActiveMenuItemOutput != null)
       {
-        ActiveMenuItem.BackColor = Theme.GetActiveSelectionColour();
+        ActiveMenuItemOutput.BackColor = Theme.GetActiveSelectionColour();
+      }
+
+      if (MenuItems.MenuItemToggleTheme.HasDropDownItems)
+      {
+        foreach (ToolStripMenuItem item in MenuItems.MenuItemToggleTheme.DropDownItems)
+        {
+          item.ResetBackColor();
+        }
+      }
+
+      if (ActiveMenuItemTheme != null)
+      {
+        ActiveMenuItemTheme.BackColor = Theme.GetActiveSelectionColour();
       }
     }
 
@@ -67,9 +83,9 @@ namespace ALsSoundSwitcher
         return;
       }
 
-      var items = ContextMenuAudioDevices.Items;
+      var items = Globals.MainMenu.Items;
 
-      var index = items.IndexOf(ActiveMenuItem);
+      var index = items.IndexOf(ActiveMenuItemOutput);
       while (true)
       {
         ++index;
