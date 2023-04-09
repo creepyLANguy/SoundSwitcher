@@ -1,6 +1,6 @@
 ﻿namespace ALsSoundSwitcher
 {
-  public class Settings
+  public partial class Settings
   {
     public struct SettingsStruct
     {
@@ -8,6 +8,7 @@
       public int BestNameMatchPercentageMinimum;
       public string Theme;
       public string DefaultIcon;
+      public DeviceMode Mode;
     }
 
     public static SettingsStruct Current = new SettingsStruct
@@ -15,7 +16,8 @@
       BalloonTime = 1500,
       BestNameMatchPercentageMinimum = 15,
       Theme = "",
-      DefaultIcon = ""
+      DefaultIcon = "",
+      Mode = DeviceMode.Output
     };
 
     public struct Keys
@@ -24,6 +26,7 @@
       public const string BestNameMatchPercentageMinimum = "BestNameMatchPercentageMinimum";
       public const string Theme = "Theme";
       public const string DefaultIcon = "DefaultIcon";
+      public const string DeviceMode = "DeviceMode";
     }
   }
 }

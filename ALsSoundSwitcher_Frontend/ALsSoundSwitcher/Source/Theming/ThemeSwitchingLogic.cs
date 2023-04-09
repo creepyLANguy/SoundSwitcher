@@ -6,6 +6,7 @@ using static ALsSoundSwitcher.Globals;
 using ALsSoundSwitcher.Properties;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using static ALsSoundSwitcher.Globals.MoreMenuItems;
 
 namespace ALsSoundSwitcher
 {
@@ -23,9 +24,9 @@ namespace ALsSoundSwitcher
           var colourPack = GetColourPackFromThemeFile(themeFilename);
           Theme = new CustomRenderer(colourPack);
 
-          if (MenuItems.MenuItemToggleTheme.HasDropDownItems)
+          if (MenuItemToggleTheme.HasDropDownItems)
           {
-            foreach (ToolStripMenuItem item in MenuItems.MenuItemToggleTheme.DropDownItems)
+            foreach (ToolStripMenuItem item in MenuItemToggleTheme.DropDownItems)
             {
               if (item.Text == Settings.Current.Theme)
               {

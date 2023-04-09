@@ -198,6 +198,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mode.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_Mode {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More.
         /// </summary>
         internal static string Form1_SetupContextMenu_More {

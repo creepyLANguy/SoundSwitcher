@@ -69,7 +69,7 @@ namespace ALsSoundSwitcher
     }
 
     //Not sure why it behaves incorrectly without this.
-    private static void menuItemTheme_Hover(object sender, EventArgs e)
+    private static void menuItemExpandable_Hover(object sender, EventArgs e)
     {
       ((ToolStripMenuItem) sender)?.ShowDropDown();
     }
@@ -84,11 +84,22 @@ namespace ALsSoundSwitcher
       //TODO - which menus we show after a theme switch, and if we want to use a delay.
       Thread.Sleep(ThemeSwitchUIRefreshDelay);
       BaseMenu.Show();
-      MenuItems.MenuItemToggleTheme.GetCurrentParent().Show();
-      MenuItems.MenuItemToggleTheme.DropDown.Show();
+      MoreMenuItems.MenuItemToggleTheme.GetCurrentParent().Show();
+      MoreMenuItems.MenuItemToggleTheme.DropDown.Show();
       ((ToolStripItem) sender).Select();
 
       Config.Save();
+    }
+
+    private static void menuItemMode_Click(object sender, EventArgs e)
+    {
+      var selection = ((ToolStripMenuItem) sender).Text;
+      var selectedMode = Enum.Parse(typeof(DeviceMode), selection);
+      Settings.Current.Mode = (DeviceMode)selectedMode;
+
+      Config.Save();
+
+      Application.Restart();
     }
   }
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using static ALsSoundSwitcher.Globals;
-using static ALsSoundSwitcher.Globals.MenuItems;
+using static ALsSoundSwitcher.Globals.MoreMenuItems;
 
 namespace ALsSoundSwitcher
 {
@@ -75,7 +76,7 @@ namespace ALsSoundSwitcher
       MenuItemRefresh.Click += menuItemRefresh_Click;
 
       MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_SwitchTheme);
-      MenuItemToggleTheme.MouseHover += menuItemTheme_Hover;
+      MenuItemToggleTheme.MouseHover += menuItemExpandable_Hover;
       SetupThemeSubmenu();
 
       MenuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Exit);
@@ -89,6 +90,10 @@ namespace ALsSoundSwitcher
       
       MenuItemDeviceManager = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_ManageDevices);
       MenuItemDeviceManager.Click += menuItemDeviceManager_Click;
+      
+      MenuItemMode = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Mode);
+      MenuItemMode.MouseHover += menuItemExpandable_Hover;
+      SetupDeviceModesSubmenu();
 
       MenuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_More);
     }
@@ -108,6 +113,17 @@ namespace ALsSoundSwitcher
       }
     }
 
+    private static void SetupDeviceModesSubmenu()
+    {
+      foreach (var deviceModeName in Enum.GetNames(typeof(DeviceMode)))
+      {
+        var mode = new ToolStripMenuItem(deviceModeName);
+        mode.Click += menuItemMode_Click;
+
+        MenuItemMode.DropDownItems.Add(mode);
+      }
+    }
+
     private static List<string> GetAllThemesInFolder()
     {
       return Directory.GetFiles(Directory.GetCurrentDirectory(), ThemeFilenamePattern)
@@ -117,28 +133,35 @@ namespace ALsSoundSwitcher
 
     private static void AddAdditionalMenuItems()
     {
-      MenuItemMore.DropDownItems.Add(MenuItemExit);
-      MenuItemMore.DropDownItems.Add("-");
-
-      MenuItemMore.DropDownItems.Add(MenuItemHelp);
-      MenuItemMore.DropDownItems.Add("-");
-      
-      if (MenuItemToggleTheme.DropDownItems.Count > 0)
-      {
-        MenuItemMore.DropDownItems.Add(MenuItemToggleTheme);
-        MenuItemMore.DropDownItems.Add("-");
-      }
-
-      MenuItemMore.DropDownItems.Add(MenuItemRefresh);
-      MenuItemMore.DropDownItems.Add("-");
-
-      MenuItemMore.DropDownItems.Add(MenuItemMixer);
-      MenuItemMore.DropDownItems.Add("-");
-
-      MenuItemMore.DropDownItems.Add(MenuItemDeviceManager);
-
       BaseMenu.Items.Add("-");
       BaseMenu.Items.Add(MenuItemMore);
+
+      var menuItemFields = typeof(MoreMenuItems).GetFields(BindingFlags.Public | BindingFlags.Static);
+
+      foreach (var field in menuItemFields)
+      {
+        var item = (ToolStripMenuItem)field.GetValue(null);
+
+        if (item == null)
+        {
+          continue;
+        }
+
+        if (item.GetCurrentParent() == null)
+        {
+          MenuItemMore.DropDownItems.Add(item);
+          MenuItemMore.DropDownItems.Add("-");
+        } 
+      }
+
+      if (MenuItemToggleTheme.HasDropDownItems == false)
+      {
+        var index = MenuItemMore.DropDownItems.IndexOf(MenuItemToggleTheme);
+        MenuItemMore.DropDownItems.RemoveAt(index);
+        MenuItemMore.DropDownItems.RemoveAt(index);
+      }
+
+      MenuItemMore.DropDownItems.RemoveAt(MenuItemMore.DropDownItems.Count - 1);
     }
 
     private static string GetFormattedDeviceName(string name)

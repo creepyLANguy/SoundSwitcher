@@ -153,6 +153,9 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_ManageDevices" xml:space="preserve">
     <value>Manage Devices</value>
   </data>
+  <data name="Form1_SetupContextMenu_Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
   <data name="Form1_PerformSwitch_Error_Switching_Audio_Device" xml:space="preserve">
     <value>Error Switching Audio Device</value>
   </data>  

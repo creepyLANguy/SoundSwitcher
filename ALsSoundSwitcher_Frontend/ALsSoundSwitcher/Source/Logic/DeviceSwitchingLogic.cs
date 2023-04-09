@@ -62,9 +62,9 @@ namespace ALsSoundSwitcher
         ActiveMenuItemOutput.BackColor = Theme.GetActiveSelectionColour();
       }
 
-      if (MenuItems.MenuItemToggleTheme.HasDropDownItems)
+      if (MoreMenuItems.MenuItemToggleTheme.HasDropDownItems)
       {
-        foreach (ToolStripMenuItem item in MenuItems.MenuItemToggleTheme.DropDownItems)
+        foreach (ToolStripMenuItem item in MoreMenuItems.MenuItemToggleTheme.DropDownItems)
         {
           item.ResetBackColor();
         }

@@ -40,15 +40,17 @@ namespace ALsSoundSwitcher
 
     public static ToolStripMenuItem ActiveMenuItemTheme;
 
-    public struct MenuItems
+    public static ToolStripMenuItem MenuItemMore;
+
+    public struct MoreMenuItems
     {
       public static ToolStripMenuItem MenuItemExit;
       public static ToolStripMenuItem MenuItemHelp;
       public static ToolStripMenuItem MenuItemRefresh;
+      public static ToolStripMenuItem MenuItemMode;
       public static ToolStripMenuItem MenuItemToggleTheme;
       public static ToolStripMenuItem MenuItemMixer;
       public static ToolStripMenuItem MenuItemDeviceManager;
-      public static ToolStripMenuItem MenuItemMore;
     }
   }
 }

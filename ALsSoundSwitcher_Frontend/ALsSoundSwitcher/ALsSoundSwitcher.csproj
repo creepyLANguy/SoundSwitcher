@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\Definitions\DeviceMode.cs" />
     <Compile Include="Source\Logic\ClickHandlers.cs">
       <SubType>Form</SubType>
     </Compile>
