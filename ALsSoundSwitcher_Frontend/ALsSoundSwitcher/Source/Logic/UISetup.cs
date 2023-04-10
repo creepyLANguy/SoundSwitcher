@@ -208,11 +208,11 @@ namespace ALsSoundSwitcher
     {
       var currentDevice = DeviceUtils.GetCurrentDefaultDevice();
       var items = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
-      ActiveMenuItemOutput = items.First(it => (string)it.Tag == currentDevice.DeviceID);
+      ActiveMenuItemDevice = items.First(it => (string)it.Tag == currentDevice.DeviceID);
       SetActiveMenuItemMarkers();
 
-      IconUtils.SetTrayIcon(ActiveMenuItemOutput.Text, notifyIcon1);
-      notifyIcon1.Text = ActiveMenuItemOutput.Text.Trim();
+      IconUtils.SetTrayIcon(ActiveMenuItemDevice.Text, notifyIcon1);
+      notifyIcon1.Text = ActiveMenuItemDevice.Text.Trim();
     }
   }
 }

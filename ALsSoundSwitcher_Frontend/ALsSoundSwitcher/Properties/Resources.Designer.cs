@@ -133,6 +133,24 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Switched Audio Input Device.
+        /// </summary>
+        internal static string Form1_PerformSwitch_Switched_Audio_Input_Device {
+            get {
+                return ResourceManager.GetString("Form1_PerformSwitch_Switched_Audio_Input_Device", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switched Audio Output Device.
+        /// </summary>
+        internal static string Form1_PerformSwitch_Switched_Audio_Output_Device {
+            get {
+                return ResourceManager.GetString("Form1_PerformSwitch_Switched_Audio_Output_Device", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error reading config file .
         /// </summary>
         internal static string Form1_ReadConfig_Error_reading_config_file_ {

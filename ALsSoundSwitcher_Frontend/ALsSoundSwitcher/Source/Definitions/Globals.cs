@@ -36,7 +36,7 @@ namespace ALsSoundSwitcher
 
     public static ContextMenuStrip BaseMenu;
 
-    public static ToolStripMenuItem ActiveMenuItemOutput;
+    public static ToolStripMenuItem ActiveMenuItemDevice;
 
     public static ToolStripMenuItem ActiveMenuItemTheme;
 

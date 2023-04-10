@@ -156,6 +156,12 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_Mode" xml:space="preserve">
     <value>Mode</value>
   </data>
+  <data name="Form1_PerformSwitch_Switched_Audio_Input_Device" xml:space="preserve">
+    <value>Switched Audio Input Device</value>
+  </data>
+  <data name="Form1_PerformSwitch_Switched_Audio_Output_Device" xml:space="preserve">
+    <value>Switched Audio Output Device</value>
+  </data>
   <data name="Form1_PerformSwitch_Error_Switching_Audio_Device" xml:space="preserve">
     <value>Error Switching Audio Device</value>
   </data>  
