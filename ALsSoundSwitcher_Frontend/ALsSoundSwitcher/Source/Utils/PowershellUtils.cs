@@ -44,5 +44,15 @@ namespace ALsSoundSwitcher
 
       return true;
     }
+
+    public static void SetInputDeviceCmdlet(string deviceId)
+    {
+      using (var ps = PowerShell.Create())
+      {
+        ps.AddCommand("Set-AudioDevice");
+        ps.AddParameter("-ID", deviceId);
+        ps.Invoke();
+      }
+    }
   }
 }

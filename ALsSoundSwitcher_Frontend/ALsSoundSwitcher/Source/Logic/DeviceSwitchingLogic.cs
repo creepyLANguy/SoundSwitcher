@@ -15,13 +15,15 @@ namespace ALsSoundSwitcher
       {
         WeAreSwitching = true;
 
+        var deviceId = (string) menuItem.Tag;
+
         if (Settings.Current.Mode == DeviceMode.Output)
         {
-          ProcessUtils.RunExe(SetDeviceExe, (string)menuItem.Tag);
+          ProcessUtils.RunExe(SetDeviceExe, deviceId);
         }
         else
         {
-          SetInputDevice((string)menuItem.Tag);
+          PowershellUtils.SetInputDeviceCmdlet(deviceId);
         }
 
         ActiveMenuItemDevice = menuItem;
@@ -43,16 +45,6 @@ namespace ALsSoundSwitcher
         Console.WriteLine(e.ToString());
 
         NotifyUserOfSwitchResult();
-      }
-    }
-
-    private static void SetInputDevice(string id)
-    {
-      using (var ps = PowerShell.Create())
-      {
-        ps.AddCommand("Set-AudioDevice");
-        ps.AddParameter("-ID", id);
-        ps.Invoke();
       }
     }
 
