@@ -2,7 +2,7 @@
 {
   public enum DeviceMode
   {
-    Input,
-    Output
+    Output,
+    Input
   }
 }
