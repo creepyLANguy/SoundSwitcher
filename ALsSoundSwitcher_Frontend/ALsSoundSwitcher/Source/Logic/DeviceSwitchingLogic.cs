@@ -23,7 +23,7 @@ namespace ALsSoundSwitcher
         }
         else
         {
-          PowershellUtils.SetInputDeviceCmdlet(deviceId);
+          PowerShellUtils.SetInputDeviceCmdlet(deviceId);
         }
 
         ActiveMenuItemDevice = menuItem;
@@ -50,8 +50,7 @@ namespace ALsSoundSwitcher
 
     private static void SetActiveMenuItemMarkers()
     {
-      var menuItems = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
-      foreach (var item in menuItems)
+      foreach (var item in BaseMenu.Items.OfType<ToolStripMenuItem>().ToList())
       {
         item.ResetBackColor();
       }
@@ -59,7 +58,6 @@ namespace ALsSoundSwitcher
       {
         ActiveMenuItemDevice.BackColor = Theme.GetActiveSelectionColour();
       }
-
 
       if (MoreMenuItems.MenuItemToggleTheme.HasDropDownItems)
       {
@@ -73,7 +71,6 @@ namespace ALsSoundSwitcher
           }
         }
       }
-
 
       if (MoreMenuItems.MenuItemMode.HasDropDownItems)
       {

@@ -3,24 +3,15 @@ using System.Windows.Forms;
 
 namespace ALsSoundSwitcher
 {
-  public class PowershellUtils
+  public class PowerShellUtils
   {
-    //AL.
     public static bool AudioCmdletsNeedsInstallation()
     {
       using (var powerShell = PowerShell.Create())
       {
-        powerShell.AddCommand("Get-Module");
-        powerShell.AddParameter("Name", "AudioDeviceCmdlets");
-
+        powerShell.AddCommand("Get-Command");
+        powerShell.AddParameter("-Name", "Set-AudioDevice");
         var results = powerShell.Invoke();
-        if (powerShell.HadErrors)
-        {
-          MessageBox.Show(@"Error checking.");
-
-          return true;
-        }
-
         return results.Count == 0;
       }
     }
@@ -31,8 +22,8 @@ namespace ALsSoundSwitcher
       using (var powerShell = PowerShell.Create())
       {
         powerShell.AddCommand("Install-Module");
-        powerShell.AddParameter("Name", "AudioDeviceCmdlets");
-        powerShell.AddParameter("Scope", "CurrentUser");
+        powerShell.AddParameter("-Name", "AudioDeviceCmdlets");
+        powerShell.AddParameter("-Scope", "CurrentUser");
 
         var results = powerShell.Invoke();
         if (powerShell.HadErrors)

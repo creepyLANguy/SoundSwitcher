@@ -97,9 +97,9 @@ namespace ALsSoundSwitcher
 
       if (selectedMode == DeviceMode.Input)
       {
-        if (PowershellUtils.AudioCmdletsNeedsInstallation())
+        if (PowerShellUtils.AudioCmdletsNeedsInstallation())
         {
-          if (PowershellUtils.InstallAudioCmdlets() == false)
+          if (PowerShellUtils.InstallAudioCmdlets() == false)
           { 
             MessageBox.Show(@"Could not install necessary component for this mode to function.");
             return;

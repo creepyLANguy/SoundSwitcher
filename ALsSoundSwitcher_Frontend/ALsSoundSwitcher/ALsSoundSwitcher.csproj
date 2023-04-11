@@ -96,7 +96,7 @@
     <Compile Include="Source\Logic\DeviceSwitchingLogic.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Utils\PowershellUtils.cs" />
+    <Compile Include="Source\Utils\PowerShellUtils.cs" />
     <Compile Include="Source\Utils\ProcessUtils.cs" />
     <Compile Include="Source\Definitions\Settings.cs" />
     <Compile Include="Source\Theming\CustomRenderer.cs" />
