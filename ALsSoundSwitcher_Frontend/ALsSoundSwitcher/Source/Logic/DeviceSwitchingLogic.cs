@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using System.Management.Automation;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using static ALsSoundSwitcher.Globals;
@@ -45,44 +43,6 @@ namespace ALsSoundSwitcher
         Console.WriteLine(e.ToString());
 
         NotifyUserOfSwitchResult();
-      }
-    }
-
-    private static void SetActiveMenuItemMarkers()
-    {
-      foreach (var item in BaseMenu.Items.OfType<ToolStripMenuItem>().ToList())
-      {
-        item.ResetBackColor();
-      }
-      if (ActiveMenuItemDevice != null)
-      {
-        ActiveMenuItemDevice.BackColor = Theme.GetActiveSelectionColour();
-      }
-
-      if (MoreMenuItems.MenuItemToggleTheme.HasDropDownItems)
-      {
-        foreach (ToolStripMenuItem item in MoreMenuItems.MenuItemToggleTheme.DropDownItems)
-        {
-          item.ResetBackColor();
-
-          if (item.Text == Settings.Current.Theme)
-          {
-            item.BackColor = Theme.GetActiveSelectionColour();
-          }
-        }
-      }
-
-      if (MoreMenuItems.MenuItemMode.HasDropDownItems)
-      {
-        foreach (ToolStripMenuItem item in MoreMenuItems.MenuItemMode.DropDownItems)
-        {
-          item.ResetBackColor();
-
-          if (item.Text == Settings.Current.Mode.ToString())
-          {
-            item.BackColor = Theme.GetActiveSelectionColour();
-          }
-        }
       }
     }
 

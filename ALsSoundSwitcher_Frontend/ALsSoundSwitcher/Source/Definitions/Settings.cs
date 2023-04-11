@@ -1,6 +1,6 @@
 ﻿namespace ALsSoundSwitcher
 {
-  public partial class Settings
+  public class Settings
   {
     public struct SettingsStruct
     {
@@ -19,14 +19,5 @@
       DefaultIcon = "",
       Mode = DeviceMode.Output
     };
-
-    public struct Keys
-    {
-      public const string BalloonTime = "BalloonTime";
-      public const string BestNameMatchPercentageMinimum = "BestNameMatchPercentageMinimum";
-      public const string Theme = "Theme";
-      public const string DefaultIcon = "DefaultIcon";
-      public const string DeviceMode = "DeviceMode";
-    }
   }
 }

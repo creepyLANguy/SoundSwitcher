@@ -209,10 +209,49 @@ namespace ALsSoundSwitcher
       var currentDevice = DeviceUtils.GetCurrentDefaultDevice();
       var items = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
       ActiveMenuItemDevice = items.First(it => (string)it.Tag == currentDevice.DeviceID);
+      
       SetActiveMenuItemMarkers();
 
       IconUtils.SetTrayIcon(ActiveMenuItemDevice.Text, notifyIcon1);
       notifyIcon1.Text = ActiveMenuItemDevice.Text.Trim();
+    }
+
+    private static void SetActiveMenuItemMarkers()
+    {
+      foreach (var item in BaseMenu.Items.OfType<ToolStripMenuItem>().ToList())
+      {
+        item.ResetBackColor();
+      }
+      if (ActiveMenuItemDevice != null)
+      {
+        ActiveMenuItemDevice.BackColor = Theme.GetActiveSelectionColour();
+      }
+
+      if (MenuItemToggleTheme.HasDropDownItems)
+      {
+        foreach (ToolStripMenuItem item in MenuItemToggleTheme.DropDownItems)
+        {
+          item.ResetBackColor();
+
+          if (item.Text == Settings.Current.Theme)
+          {
+            item.BackColor = Theme.GetActiveSelectionColour();
+          }
+        }
+      }
+
+      if (MenuItemMode.HasDropDownItems)
+      {
+        foreach (ToolStripMenuItem item in MenuItemMode.DropDownItems)
+        {
+          item.ResetBackColor();
+
+          if (item.Text == Settings.Current.Mode.ToString())
+          {
+            item.BackColor = Theme.GetActiveSelectionColour();
+          }
+        }
+      }
     }
   }
 }

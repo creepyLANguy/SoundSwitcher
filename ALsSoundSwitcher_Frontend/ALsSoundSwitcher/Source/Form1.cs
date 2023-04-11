@@ -20,6 +20,14 @@ namespace ALsSoundSwitcher
         NotifyUserOfConfigReadFail();
       }
 
+      if (Settings.Current.Mode == DeviceMode.Input)
+      {
+        if (PowerShellUtils.VerifyAudioCmdletsAvailability() == false)
+        {
+          Settings.Current.Mode = DeviceMode.Output;
+        }
+      }
+      
       SetupUI();
 
       Minimize();

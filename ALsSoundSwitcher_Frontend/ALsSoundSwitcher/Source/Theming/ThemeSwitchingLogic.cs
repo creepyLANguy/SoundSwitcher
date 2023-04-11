@@ -6,7 +6,6 @@ using static ALsSoundSwitcher.Globals;
 using ALsSoundSwitcher.Properties;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using static ALsSoundSwitcher.Globals.MoreMenuItems;
 
 namespace ALsSoundSwitcher
 {

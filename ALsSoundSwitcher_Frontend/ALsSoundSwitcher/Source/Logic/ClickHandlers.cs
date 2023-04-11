@@ -89,7 +89,6 @@ namespace ALsSoundSwitcher
       Config.Save();
     }
 
-    //AL.
     private static void menuItemMode_Click(object sender, EventArgs e)
     {
       var selection = ((ToolStripMenuItem) sender).Text;
@@ -97,13 +96,9 @@ namespace ALsSoundSwitcher
 
       if (selectedMode == DeviceMode.Input)
       {
-        if (PowerShellUtils.AudioCmdletsNeedsInstallation())
+        if (PowerShellUtils.VerifyAudioCmdletsAvailability() == false)
         {
-          if (PowerShellUtils.InstallAudioCmdlets() == false)
-          { 
-            MessageBox.Show(@"Could not install necessary component for this mode to function.");
-            return;
-          }
+          return;
         }
       }
       

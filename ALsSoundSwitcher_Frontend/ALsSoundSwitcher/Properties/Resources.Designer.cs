@@ -278,5 +278,23 @@ namespace ALsSoundSwitcher.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional Installation Required.
+        /// </summary>
+        internal static string PowerShellUtils_InstallAudioCmdlets_Caption {
+            get {
+                return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To proceed, please allow PowerShell to launch with admin rights..
+        /// </summary>
+        internal static string PowerShellUtils_InstallAudioCmdlets_Message {
+            get {
+                return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Message", resourceCulture);
+            }
+        }
     }
 }

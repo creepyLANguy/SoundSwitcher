@@ -192,4 +192,10 @@ Could not start </value>
   <data name="DeviceUtils_Monitor" xml:space="preserve">
     <value>Monitoring for audio device changes...</value>
   </data>
+  <data name="PowerShellUtils_InstallAudioCmdlets_Message" xml:space="preserve">
+    <value>To proceed, please allow PowerShell to launch with admin rights.</value>
+  </data>
+  <data name="PowerShellUtils_InstallAudioCmdlets_Caption" xml:space="preserve">
+    <value>Additional Installation Required</value>
+  </data>
 </root>
