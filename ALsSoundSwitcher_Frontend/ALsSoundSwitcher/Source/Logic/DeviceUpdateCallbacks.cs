@@ -11,6 +11,11 @@ namespace ALsSoundSwitcher
 
     public void OnDeviceStateChanged(string deviceId, DeviceState newState)
     {
+      if (IgnoreThisUpdate(deviceId))
+      {
+        return;
+      }
+
       Console.WriteLine(Resources.EndpointNotificationCallback_OnDeviceStateChanged, deviceId, newState);
 
       if (LastMonitoredDeviceUpdate == deviceId)
@@ -25,6 +30,11 @@ namespace ALsSoundSwitcher
 
     public void OnDeviceAdded(string deviceId)
     {
+      if (IgnoreThisUpdate(deviceId))
+      {
+        return;
+      }
+
       Console.WriteLine(Resources.EndpointNotificationCallback_OnDeviceAdded, deviceId);
 
       ProcessUtils.Restart_ThreadSafe();
@@ -32,19 +42,29 @@ namespace ALsSoundSwitcher
 
     public void OnDeviceRemoved(string deviceId)
     {
-      Console.WriteLine(Resources.EndpointNotificationCallback_OnDeviceRemoved, deviceId);
-    }
-
-    public void OnDefaultDeviceChanged(DataFlow flow, Role role, string defaultDeviceId)
-    {
-      Console.WriteLine(Resources.EndpointNotificationCallback_OnDefaultDeviceChanged, defaultDeviceId);
-
-      if (LastMonitoredDeviceUpdate == defaultDeviceId)
+      if (IgnoreThisUpdate(deviceId))
       {
         return;
       }
 
-      LastMonitoredDeviceUpdate = defaultDeviceId;
+      Console.WriteLine(Resources.EndpointNotificationCallback_OnDeviceRemoved, deviceId);
+    }
+
+    public void OnDefaultDeviceChanged(DataFlow flow, Role role, string deviceId)
+    {
+      if (IgnoreThisUpdate(deviceId))
+      {
+        return;
+      }
+
+      Console.WriteLine(Resources.EndpointNotificationCallback_OnDefaultDeviceChanged, deviceId);
+
+      if (LastMonitoredDeviceUpdate == deviceId)
+      {
+        return;
+      }
+
+      LastMonitoredDeviceUpdate = deviceId;
 
       if (Globals.WeAreSwitching)
       {
@@ -59,6 +79,13 @@ namespace ALsSoundSwitcher
     public void OnPropertyValueChanged(string deviceId, PropertyKey propertyKey)
     {
       //Console.WriteLine($"Audio device {deviceId} property {propertyKey} value changed");
+    }
+
+    private static bool IgnoreThisUpdate(string deviceId)
+    {
+      var device = Globals.DeviceEnumerator.GetDevice(deviceId);
+      var dataFlow = Settings.Current.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;
+      return device.DataFlow != dataFlow;
     }
   }
 }

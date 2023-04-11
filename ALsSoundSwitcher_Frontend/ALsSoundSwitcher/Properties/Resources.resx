@@ -153,6 +153,15 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_ManageDevices" xml:space="preserve">
     <value>Manage Devices</value>
   </data>
+  <data name="Form1_SetupContextMenu_Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="Form1_PerformSwitch_Switched_Audio_Input_Device" xml:space="preserve">
+    <value>Switched Audio Input Device</value>
+  </data>
+  <data name="Form1_PerformSwitch_Switched_Audio_Output_Device" xml:space="preserve">
+    <value>Switched Audio Output Device</value>
+  </data>
   <data name="Form1_PerformSwitch_Error_Switching_Audio_Device" xml:space="preserve">
     <value>Error Switching Audio Device</value>
   </data>  
@@ -182,5 +191,17 @@ Could not start </value>
   </data>
   <data name="DeviceUtils_Monitor" xml:space="preserve">
     <value>Monitoring for audio device changes...</value>
+  </data>
+  <data name="PowerShellUtils_InstallAudioCmdlets_Message" xml:space="preserve">
+    <value>For Input mode to function, please allow PowerShell to install the required components.</value>
+  </data>
+  <data name="PowerShellUtils_InstallAudioCmdlets_Caption" xml:space="preserve">
+    <value>AL's Sound Switcher</value>
+  </data>
+  <data name="PowerShellUtils_InstallAudioCmdlets_Error_Message" xml:space="preserve">
+    <value>For Input mode to function, allow PowerShell to install the required components. Please try again.</value>
+  </data>
+  <data name="PowerShellUtils_InstallAudioCmdlets_Error_Caption" xml:space="preserve">
+    <value>AL's Sound Switcher</value>
   </data>
 </root>

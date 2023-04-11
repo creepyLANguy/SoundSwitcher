@@ -17,19 +17,32 @@ namespace ALsSoundSwitcher
 
       if (Config.Read() == false)
       {
-        notifyIcon1.ShowBalloonTip(
-          Settings.Current.BalloonTime,
-          Resources.Form1_ReadConfig_Error_reading_config_file_ + Globals.ConfigFile,
-          Resources.Form1_ReadConfig_Will_use_default_values,
-          ToolTipIcon.Error
-        );
+        NotifyUserOfConfigReadFail();
       }
 
+      if (Settings.Current.Mode == DeviceMode.Input)
+      {
+        if (PowerShellUtils.VerifyAudioCmdletsAvailability() == false)
+        {
+          Settings.Current.Mode = DeviceMode.Output;
+        }
+      }
+      
       SetupUI();
 
       Minimize();
 
       DeviceUtils.Monitor();
+    }
+
+    private void NotifyUserOfConfigReadFail()
+    {
+      notifyIcon1.ShowBalloonTip(
+        Settings.Current.BalloonTime,
+        Resources.Form1_ReadConfig_Error_reading_config_file_ + Globals.ConfigFile,
+        Resources.Form1_ReadConfig_Will_use_default_values,
+        ToolTipIcon.Error
+        );
     }
 
     private void Minimize()

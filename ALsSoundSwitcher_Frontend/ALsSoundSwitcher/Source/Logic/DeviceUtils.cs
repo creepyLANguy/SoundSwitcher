@@ -17,14 +17,18 @@ namespace ALsSoundSwitcher
     }
     public static MMDevice GetCurrentDefaultDevice()
     {
-      return DeviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+      var dataFlow = Settings.Current.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;
+
+      return DeviceEnumerator.GetDefaultAudioEndpoint(dataFlow, Role.Multimedia);
     }
 
     public static void GetDeviceList()
     {
       ActiveDevices.Clear();
 
-      var deviceCollection = DeviceEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active);
+      var dataFlow = Settings.Current.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;
+
+      var deviceCollection = DeviceEnumerator.EnumAudioEndpoints(dataFlow, DeviceState.Active);
 
       var deviceInfoList = deviceCollection.Select(device => Tuple.Create(device.FriendlyName, device.DeviceID)).ToList();
 

@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using static ALsSoundSwitcher.Globals;
@@ -14,9 +13,18 @@ namespace ALsSoundSwitcher
       {
         WeAreSwitching = true;
 
-        ProcessUtils.RunExe(SetDeviceExe, (string)menuItem.Tag);
+        var deviceId = (string) menuItem.Tag;
 
-        ActiveMenuItemOutput = menuItem;
+        if (Settings.Current.Mode == DeviceMode.Output)
+        {
+          ProcessUtils.RunExe(SetDeviceExe, deviceId);
+        }
+        else
+        {
+          PowerShellUtils.SetInputDeviceCmdlet(deviceId);
+        }
+
+        ActiveMenuItemDevice = menuItem;
 
         var deviceName = menuItem.Text;
 
@@ -26,53 +34,15 @@ namespace ALsSoundSwitcher
 
         SetActiveMenuItemMarkers();
 
-        notifyIcon1.ShowBalloonTip(
-          Settings.Current.BalloonTime,
-          "Switched Audio Device",
-          deviceName,
-          ToolTipIcon.None
-        );
+        NotifyUserOfSwitchResult(deviceName);
       }
       catch (Exception e)
       {
         WeAreSwitching = false;
         
         Console.WriteLine(e.ToString());
-        
-        notifyIcon1.ShowBalloonTip(
-          Settings.Current.BalloonTime,
-          Resources.Form1_PerformSwitch_Error_Switching_Audio_Device,
-          Resources.Form1_PerformSwitch_could_not_set_default_device,
-          ToolTipIcon.Error
-        );
-      }
-    }
 
-    private static void SetActiveMenuItemMarkers()
-    {
-      var menuItems = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
-
-      foreach (var item in menuItems)
-      {
-        item.ResetBackColor();
-      }
-
-      if (ActiveMenuItemOutput != null)
-      {
-        ActiveMenuItemOutput.BackColor = Theme.GetActiveSelectionColour();
-      }
-
-      if (MenuItems.MenuItemToggleTheme.HasDropDownItems)
-      {
-        foreach (ToolStripMenuItem item in MenuItems.MenuItemToggleTheme.DropDownItems)
-        {
-          item.ResetBackColor();
-        }
-      }
-
-      if (ActiveMenuItemTheme != null)
-      {
-        ActiveMenuItemTheme.BackColor = Theme.GetActiveSelectionColour();
+        NotifyUserOfSwitchResult();
       }
     }
 
@@ -85,7 +55,7 @@ namespace ALsSoundSwitcher
 
       var items = BaseMenu.Items;
 
-      var index = items.IndexOf(ActiveMenuItemOutput);
+      var index = items.IndexOf(ActiveMenuItemDevice);
       while (true)
       {
         ++index;
@@ -99,6 +69,32 @@ namespace ALsSoundSwitcher
           PerformSwitch((ToolStripMenuItem)items[index]);
           return;
         }
+      }
+    }
+
+    private static void NotifyUserOfSwitchResult(string deviceName = null)
+    {
+      if (deviceName != null)
+      {
+        var title = Settings.Current.Mode == DeviceMode.Output
+          ? Resources.Form1_PerformSwitch_Switched_Audio_Output_Device
+          : Resources.Form1_PerformSwitch_Switched_Audio_Input_Device;
+
+        notifyIcon1.ShowBalloonTip(
+          Settings.Current.BalloonTime,
+          title,
+          deviceName,
+          ToolTipIcon.None
+        );
+      }
+      else
+      {
+        notifyIcon1.ShowBalloonTip(
+          Settings.Current.BalloonTime,
+          Resources.Form1_PerformSwitch_Error_Switching_Audio_Device,
+          Resources.Form1_PerformSwitch_could_not_set_default_device,
+          ToolTipIcon.Error
+        );
       }
     }
   }

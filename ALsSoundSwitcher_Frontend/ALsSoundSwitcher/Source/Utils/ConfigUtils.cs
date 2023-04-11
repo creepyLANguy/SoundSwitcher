@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using static ALsSoundSwitcher.Globals;
-using static ALsSoundSwitcher.Settings;
 
 namespace ALsSoundSwitcher
 {
@@ -29,7 +28,7 @@ namespace ALsSoundSwitcher
     {
       var jsonString = File.ReadAllText(ConfigFile);
 
-      Current = JsonConvert.DeserializeObject<SettingsStruct>(jsonString);
+      Settings.Current = JsonConvert.DeserializeObject<Settings.SettingsStruct>(jsonString);
 
       return true;
     }
@@ -38,10 +37,10 @@ namespace ALsSoundSwitcher
     {
       var jsonDict = new Dictionary<string, object>();
 
-      foreach (var setting in typeof(SettingsStruct).GetFields())
+      foreach (var setting in typeof(Settings.SettingsStruct).GetFields())
       {
         var key = setting.Name;
-        var value = setting.GetValue(Current).ToString();
+        var value = setting.GetValue(Settings.Current).ToString();
         jsonDict[key] = value;
       }
 

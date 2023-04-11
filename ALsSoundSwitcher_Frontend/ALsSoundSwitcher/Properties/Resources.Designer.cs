@@ -133,6 +133,24 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Switched Audio Input Device.
+        /// </summary>
+        internal static string Form1_PerformSwitch_Switched_Audio_Input_Device {
+            get {
+                return ResourceManager.GetString("Form1_PerformSwitch_Switched_Audio_Input_Device", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switched Audio Output Device.
+        /// </summary>
+        internal static string Form1_PerformSwitch_Switched_Audio_Output_Device {
+            get {
+                return ResourceManager.GetString("Form1_PerformSwitch_Switched_Audio_Output_Device", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error reading config file .
         /// </summary>
         internal static string Form1_ReadConfig_Error_reading_config_file_ {
@@ -198,6 +216,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mode.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_Mode {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More.
         /// </summary>
         internal static string Form1_SetupContextMenu_More {
@@ -249,6 +276,42 @@ namespace ALsSoundSwitcher.Properties {
             get {
                 object obj = ResourceManager.GetObject("Icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AL&apos;s Sound Switcher.
+        /// </summary>
+        internal static string PowerShellUtils_InstallAudioCmdlets_Caption {
+            get {
+                return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AL&apos;s Sound Switcher.
+        /// </summary>
+        internal static string PowerShellUtils_InstallAudioCmdlets_Error_Caption {
+            get {
+                return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Error_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For Input mode to function, allow PowerShell to install the required components. Please try again..
+        /// </summary>
+        internal static string PowerShellUtils_InstallAudioCmdlets_Error_Message {
+            get {
+                return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Error_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For Input mode to function, please allow PowerShell to install the required components..
+        /// </summary>
+        internal static string PowerShellUtils_InstallAudioCmdlets_Message {
+            get {
+                return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Message", resourceCulture);
             }
         }
     }
