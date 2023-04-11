@@ -34,7 +34,7 @@ namespace ALsSoundSwitcher
 
         SetActiveMenuItemMarkers();
 
-        ShowBalloonTip(deviceName);
+        NotifyUserOfSwitchResult(deviceName);
       }
       catch (Exception e)
       {
@@ -42,7 +42,7 @@ namespace ALsSoundSwitcher
         
         Console.WriteLine(e.ToString());
 
-        ShowBalloonTip();
+        NotifyUserOfSwitchResult();
       }
     }
 
@@ -59,28 +59,41 @@ namespace ALsSoundSwitcher
     private static void SetActiveMenuItemMarkers()
     {
       var menuItems = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
-
       foreach (var item in menuItems)
       {
         item.ResetBackColor();
       }
-
       if (ActiveMenuItemDevice != null)
       {
         ActiveMenuItemDevice.BackColor = Theme.GetActiveSelectionColour();
       }
+
 
       if (MoreMenuItems.MenuItemToggleTheme.HasDropDownItems)
       {
         foreach (ToolStripMenuItem item in MoreMenuItems.MenuItemToggleTheme.DropDownItems)
         {
           item.ResetBackColor();
+
+          if (item.Text == Settings.Current.Theme)
+          {
+            item.BackColor = Theme.GetActiveSelectionColour();
+          }
         }
       }
 
-      if (ActiveMenuItemTheme != null)
+
+      if (MoreMenuItems.MenuItemMode.HasDropDownItems)
       {
-        ActiveMenuItemTheme.BackColor = Theme.GetActiveSelectionColour();
+        foreach (ToolStripMenuItem item in MoreMenuItems.MenuItemMode.DropDownItems)
+        {
+          item.ResetBackColor();
+
+          if (item.Text == Settings.Current.Mode.ToString())
+          {
+            item.BackColor = Theme.GetActiveSelectionColour();
+          }
+        }
       }
     }
 
@@ -110,7 +123,7 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private static void ShowBalloonTip(string deviceName = null)
+    private static void NotifyUserOfSwitchResult(string deviceName = null)
     {
       if (deviceName != null)
       {

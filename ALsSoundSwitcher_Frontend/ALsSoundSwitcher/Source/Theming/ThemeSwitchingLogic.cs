@@ -23,17 +23,6 @@ namespace ALsSoundSwitcher
           var themeFilename = ThemeFilenamePattern.Replace("*", Settings.Current.Theme);
           var colourPack = GetColourPackFromThemeFile(themeFilename);
           Theme = new CustomRenderer(colourPack);
-
-          if (MenuItemToggleTheme.HasDropDownItems)
-          {
-            foreach (ToolStripMenuItem item in MenuItemToggleTheme.DropDownItems)
-            {
-              if (item.Text == Settings.Current.Theme)
-              {
-                ActiveMenuItemTheme = item;
-              }
-            }
-          }
         }
       }
       catch (Exception e)

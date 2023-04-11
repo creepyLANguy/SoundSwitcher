@@ -80,8 +80,6 @@ namespace ALsSoundSwitcher
 
       RefreshUITheme();
 
-      //AL.
-      //TODO - which menus we show after a theme switch, and if we want to use a delay.
       Thread.Sleep(ThemeSwitchUIRefreshDelay);
       BaseMenu.Show();
       MoreMenuItems.MenuItemToggleTheme.GetCurrentParent().Show();
@@ -91,11 +89,25 @@ namespace ALsSoundSwitcher
       Config.Save();
     }
 
+    //AL.
     private static void menuItemMode_Click(object sender, EventArgs e)
     {
       var selection = ((ToolStripMenuItem) sender).Text;
-      var selectedMode = Enum.Parse(typeof(DeviceMode), selection);
-      Settings.Current.Mode = (DeviceMode)selectedMode;
+      var selectedMode = (DeviceMode)Enum.Parse(typeof(DeviceMode), selection);
+
+      if (selectedMode == DeviceMode.Input)
+      {
+        if (PowershellUtils.AudioCmdletsNeedsInstallation())
+        {
+          if (PowershellUtils.InstallAudioCmdlets() == false)
+          { 
+            MessageBox.Show(@"Could not install necessary component for this mode to function.");
+            return;
+          }
+        }
+      }
+      
+      Settings.Current.Mode = selectedMode;
 
       Config.Save();
 
