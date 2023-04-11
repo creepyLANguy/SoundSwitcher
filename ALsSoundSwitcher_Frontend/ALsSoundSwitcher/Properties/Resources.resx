@@ -193,9 +193,15 @@ Could not start </value>
     <value>Monitoring for audio device changes...</value>
   </data>
   <data name="PowerShellUtils_InstallAudioCmdlets_Message" xml:space="preserve">
-    <value>To proceed, please allow PowerShell to launch with admin rights.</value>
+    <value>For Input mode to function, please allow PowerShell to install the required components.</value>
   </data>
   <data name="PowerShellUtils_InstallAudioCmdlets_Caption" xml:space="preserve">
-    <value>Additional Installation Required</value>
+    <value>AL's Sound Switcher</value>
+  </data>
+  <data name="PowerShellUtils_InstallAudioCmdlets_Error_Message" xml:space="preserve">
+    <value>For Input mode to function, allow PowerShell to install the required components. Please try again.</value>
+  </data>
+  <data name="PowerShellUtils_InstallAudioCmdlets_Error_Caption" xml:space="preserve">
+    <value>AL's Sound Switcher</value>
   </data>
 </root>

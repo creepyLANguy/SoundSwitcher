@@ -44,7 +44,8 @@ namespace ALsSoundSwitcher
       var result = MessageBox.Show(
         Resources.PowerShellUtils_InstallAudioCmdlets_Message,
         Resources.PowerShellUtils_InstallAudioCmdlets_Caption,
-        MessageBoxButtons.OKCancel
+        MessageBoxButtons.OKCancel, 
+        MessageBoxIcon.Asterisk
       );
 
       if (result == DialogResult.Cancel)
@@ -52,24 +53,36 @@ namespace ALsSoundSwitcher
         return false;
       }
 
-      var startInfo = new ProcessStartInfo
+      var process = new Process();
+      process.StartInfo = new ProcessStartInfo
       {
         FileName = "powershell.exe",
         Verb = "runas",
         UseShellExecute = true,
         Arguments = "-Command \"Install-Module -Name AudioDeviceCmdlets -Force\""
       };
-      var process = new Process();
-      process.StartInfo = startInfo;
 
       try
       {
         process.Start();
         process.WaitForExit();
+
+        if (AudioCmdletsNeedsInstallation())
+        {
+          throw new Exception();
+        }
       }
       catch (Exception e)
       {
         Console.WriteLine(e);
+        
+        MessageBox.Show(
+          Resources.PowerShellUtils_InstallAudioCmdlets_Error_Message,
+          Resources.PowerShellUtils_InstallAudioCmdlets_Error_Caption,
+          MessageBoxButtons.OK,
+          MessageBoxIcon.Error
+        );
+
         return false;
       }
 

@@ -280,7 +280,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Additional Installation Required.
+        ///   Looks up a localized string similar to AL&apos;s Sound Switcher.
         /// </summary>
         internal static string PowerShellUtils_InstallAudioCmdlets_Caption {
             get {
@@ -289,7 +289,25 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To proceed, please allow PowerShell to launch with admin rights..
+        ///   Looks up a localized string similar to AL&apos;s Sound Switcher.
+        /// </summary>
+        internal static string PowerShellUtils_InstallAudioCmdlets_Error_Caption {
+            get {
+                return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Error_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For Input mode to function, allow PowerShell to install the required components. Please try again..
+        /// </summary>
+        internal static string PowerShellUtils_InstallAudioCmdlets_Error_Message {
+            get {
+                return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Error_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For Input mode to function, please allow PowerShell to install the required components..
         /// </summary>
         internal static string PowerShellUtils_InstallAudioCmdlets_Message {
             get {
