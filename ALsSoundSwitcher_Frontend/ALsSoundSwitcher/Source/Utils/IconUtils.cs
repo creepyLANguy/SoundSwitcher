@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,7 +16,7 @@ namespace ALsSoundSwitcher
     {
       notifyIcon.Icon = GetDefaultIcon();
 
-      var bestMatch = GetBestMatchIcon(iconName);
+      var bestMatch = GetBestMatchIconFileName(iconName);
 
       var icon = GetIconByRawName(bestMatch);
 
@@ -33,7 +35,7 @@ namespace ALsSoundSwitcher
       return Settings.Current.DefaultIcon.Length > 0 ? CreateIconFromImageFile(Settings.Current.DefaultIcon) : Resources.Icon;
     }
 
-    public static string GetBestMatchIcon(string iconName)
+    public static string GetBestMatchIconFileName(string iconName)
     {
       if (iconName.Length == 0)
       {
@@ -76,7 +78,7 @@ namespace ALsSoundSwitcher
       return list;
     }
 
-    public static double GetMatchPercentage(string reference, string candidate)
+    private static double GetMatchPercentage(string reference, string candidate)
     {
       var largerStringLength = Math.Max(reference.Length, candidate.Length);
 
@@ -85,7 +87,7 @@ namespace ALsSoundSwitcher
       return (double)(largerStringLength - editDistance) / largerStringLength * 100;
     }
 
-    private static Icon GetIconByRawName(string iconName)
+    public static Icon GetIconByRawName(string iconName)
     {
       if (iconName.Length == 0)
       {
@@ -95,14 +97,7 @@ namespace ALsSoundSwitcher
       try
       {
         //.ico files look much better when using the specific constructor so keep this branching logic.  
-        if (iconName.EndsWith(".ico"))
-        {
-          return new Icon(iconName);
-        }
-        else
-        {
-          return CreateIconFromImageFile(iconName);
-        }
+        return iconName.EndsWith(".ico") ? new Icon(iconName) : CreateIconFromImageFile(iconName);
       }
       catch (Exception e)
       {
@@ -113,12 +108,67 @@ namespace ALsSoundSwitcher
 
     public static Icon CreateIconFromImageFile(string imageFilename)
     {
-      using (var stream = new MemoryStream(File.ReadAllBytes(imageFilename)))
+      var paddedImage = GetPaddedImage(imageFilename);
+      var bitmap = new Bitmap(paddedImage);
+      return BitmapToIcon(bitmap);
+    }
+
+    public static Image GetPaddedImage(string imageFilename)
+    {
+      var originalImage = Image.FromFile(imageFilename);
+      if (originalImage.Width == originalImage.Height)
       {
-        using (var bitmap = new Bitmap(stream))
+        return originalImage;
+      }
+
+      var largestDimension = Math.Max(originalImage.Height, originalImage.Width);
+      var squareImage = new Bitmap(largestDimension, largestDimension);
+
+      using (var graphics = Graphics.FromImage(squareImage))
+      {
+        graphics.CompositingQuality = CompositingQuality.HighQuality;
+        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        graphics.SmoothingMode = SmoothingMode.HighQuality;
+
+        var x = (largestDimension / 2) - (originalImage.Width / 2);
+        var y = (largestDimension / 2) - (originalImage.Height / 2);
+        graphics.DrawImage(originalImage, x, y, originalImage.Width, originalImage.Height);
+      }
+
+      return squareImage;
+    }
+
+    //Based on: https://gist.github.com/darkfall/1656050
+    public static Icon BitmapToIcon(Bitmap input, int size = 16)
+    {
+      using (var output = new MemoryStream())
+      {
+        var newBitmap = new Bitmap(input, new Size(size, size));
+
+        using (var memoryStream = new MemoryStream())
         {
-          return Icon.FromHandle(bitmap.GetHicon());
+          newBitmap.Save(memoryStream, ImageFormat.Png);
+
+          var iconWriter = new BinaryWriter(output);
+
+          iconWriter.Write((byte)0);
+          iconWriter.Write((byte)0);
+          iconWriter.Write((short)1);
+          iconWriter.Write((short)1);
+          iconWriter.Write((byte)size);
+          iconWriter.Write((byte)size);
+          iconWriter.Write((byte)0);
+          iconWriter.Write((byte)0);
+          iconWriter.Write((short)0);
+          iconWriter.Write((short)32);
+          iconWriter.Write((int)memoryStream.Length);
+          iconWriter.Write(6 + 16);
+          iconWriter.Write(memoryStream.ToArray());
+          iconWriter.Flush();
         }
+
+        output.Position = 0;
+        return new Icon(output);
       }
     }
   }

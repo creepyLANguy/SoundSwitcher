@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -53,12 +52,12 @@ namespace ALsSoundSwitcher
         menuItem.MergeIndex = BaseMenu.Items.Count;
         menuItem.Tag = device.Value;
 
-        var iconFile = IconUtils.GetBestMatchIcon(device.Key);
+        var iconFile = IconUtils.GetBestMatchIconFileName(device.Key);
         if (iconFile.Length > 0)
         {
           try
           {
-            menuItem.Image = Image.FromFile(iconFile);
+            menuItem.Image = IconUtils.GetPaddedImage(iconFile);
           }
           catch (Exception e)
           {
