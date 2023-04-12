@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -126,15 +127,19 @@ namespace ALsSoundSwitcher
         return originalImage;
       }
 
-      var maxDimension = Math.Max(originalImage.Width, originalImage.Height);
+      var largestDimension = Math.Max(originalImage.Height, originalImage.Width);
+      var squareImage = new Bitmap(largestDimension, largestDimension);
 
-      var squareImage = new Bitmap(maxDimension, maxDimension);
-      var graphics = Graphics.FromImage(squareImage);
+      using (var graphics = Graphics.FromImage(squareImage))
+      {
+        graphics.CompositingQuality = CompositingQuality.HighQuality;
+        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-      var xOffset = (maxDimension - originalImage.Width) / 2;
-      var yOffset = (maxDimension - originalImage.Height) / 2;
-
-      graphics.DrawImage(originalImage, xOffset, yOffset);
+        var x = (largestDimension / 2) - (originalImage.Width / 2);
+        var y = (largestDimension / 2) - (originalImage.Height / 2);
+        graphics.DrawImage(originalImage, x, y, originalImage.Width, originalImage.Height);
+      }
 
       return squareImage;
     }
