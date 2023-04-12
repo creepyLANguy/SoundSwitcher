@@ -138,6 +138,7 @@ namespace ALsSoundSwitcher
       return squareImage;
     }
 
+    //Based on: https://gist.github.com/darkfall/1656050
     public static Icon BitmapToIcon(Bitmap input, int size = 16)
     {
       using (var output = new MemoryStream())
