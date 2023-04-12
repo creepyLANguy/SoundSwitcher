@@ -57,7 +57,7 @@ namespace ALsSoundSwitcher
         {
           try
           {
-            menuItem.Image = IconUtils.GetSquarePaddedImage(iconFile);
+            menuItem.Image = IconUtils.GetPaddedImage(iconFile);
           }
           catch (Exception e)
           {

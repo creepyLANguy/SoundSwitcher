@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -96,14 +97,7 @@ namespace ALsSoundSwitcher
       try
       {
         //.ico files look much better when using the specific constructor so keep this branching logic.  
-        if (iconName.EndsWith(".ico"))
-        {
-          return new Icon(iconName);
-        }
-        else
-        {
-          return CreateIconFromImageFile(iconName);
-        }
+        return iconName.EndsWith(".ico") ? new Icon(iconName) : CreateIconFromImageFile(iconName);
       }
       catch (Exception e)
       {
@@ -114,12 +108,12 @@ namespace ALsSoundSwitcher
 
     public static Icon CreateIconFromImageFile(string imageFilename)
     {
-      var padded = GetSquarePaddedImage(imageFilename);
-
-      return Icon.FromHandle(new Bitmap(padded).GetHicon());
+      var paddedImage = GetPaddedImage(imageFilename);
+      var bitmap = new Bitmap(paddedImage);
+      return BitmapToIcon(bitmap);
     }
 
-    public static Image GetSquarePaddedImage(string imageFilename)
+    public static Image GetPaddedImage(string imageFilename)
     {
       var originalImage = Image.FromFile(imageFilename);
       if (originalImage.Width == originalImage.Height)
@@ -142,6 +136,39 @@ namespace ALsSoundSwitcher
       }
 
       return squareImage;
+    }
+
+    public static Icon BitmapToIcon(Bitmap input, int size = 16)
+    {
+      using (var output = new MemoryStream())
+      {
+        var newBitmap = new Bitmap(input, new Size(size, size));
+
+        using (var memoryStream = new MemoryStream())
+        {
+          newBitmap.Save(memoryStream, ImageFormat.Png);
+
+          var iconWriter = new BinaryWriter(output);
+
+          iconWriter.Write((byte)0);
+          iconWriter.Write((byte)0);
+          iconWriter.Write((short)1);
+          iconWriter.Write((short)1);
+          iconWriter.Write((byte)size);
+          iconWriter.Write((byte)size);
+          iconWriter.Write((byte)0);
+          iconWriter.Write((byte)0);
+          iconWriter.Write((short)0);
+          iconWriter.Write((short)32);
+          iconWriter.Write((int)memoryStream.Length);
+          iconWriter.Write(6 + 16);
+          iconWriter.Write(memoryStream.ToArray());
+          iconWriter.Flush();
+        }
+
+        output.Position = 0;
+        return new Icon(output);
+      }
     }
   }
 }
