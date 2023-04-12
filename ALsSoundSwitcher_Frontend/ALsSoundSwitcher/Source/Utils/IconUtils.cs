@@ -14,7 +14,7 @@ namespace ALsSoundSwitcher
     {
       notifyIcon.Icon = GetDefaultIcon();
 
-      var bestMatch = GetBestMatchIcon(iconName);
+      var bestMatch = GetBestMatchIconFileName(iconName);
 
       var icon = GetIconByRawName(bestMatch);
 
@@ -33,7 +33,7 @@ namespace ALsSoundSwitcher
       return Settings.Current.DefaultIcon.Length > 0 ? CreateIconFromImageFile(Settings.Current.DefaultIcon) : Resources.Icon;
     }
 
-    public static string GetBestMatchIcon(string iconName)
+    public static string GetBestMatchIconFileName(string iconName)
     {
       if (iconName.Length == 0)
       {
@@ -76,7 +76,7 @@ namespace ALsSoundSwitcher
       return list;
     }
 
-    public static double GetMatchPercentage(string reference, string candidate)
+    private static double GetMatchPercentage(string reference, string candidate)
     {
       var largerStringLength = Math.Max(reference.Length, candidate.Length);
 
@@ -85,7 +85,7 @@ namespace ALsSoundSwitcher
       return (double)(largerStringLength - editDistance) / largerStringLength * 100;
     }
 
-    private static Icon GetIconByRawName(string iconName)
+    public static Icon GetIconByRawName(string iconName)
     {
       if (iconName.Length == 0)
       {
@@ -113,13 +113,30 @@ namespace ALsSoundSwitcher
 
     public static Icon CreateIconFromImageFile(string imageFilename)
     {
-      using (var stream = new MemoryStream(File.ReadAllBytes(imageFilename)))
+      var padded = GetSquarePaddedImage(imageFilename);
+
+      return Icon.FromHandle(new Bitmap(padded).GetHicon());
+    }
+
+    public static Image GetSquarePaddedImage(string imageFilename)
+    {
+      var originalImage = Image.FromFile(imageFilename);
+      if (originalImage.Width == originalImage.Height)
       {
-        using (var bitmap = new Bitmap(stream))
-        {
-          return Icon.FromHandle(bitmap.GetHicon());
-        }
+        return originalImage;
       }
+
+      var maxDimension = Math.Max(originalImage.Width, originalImage.Height);
+
+      var squareImage = new Bitmap(maxDimension, maxDimension);
+      var graphics = Graphics.FromImage(squareImage);
+
+      var xOffset = (maxDimension - originalImage.Width) / 2;
+      var yOffset = (maxDimension - originalImage.Height) / 2;
+
+      graphics.DrawImage(originalImage, xOffset, yOffset);
+
+      return squareImage;
     }
   }
 }
