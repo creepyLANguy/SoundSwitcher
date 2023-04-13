@@ -22,8 +22,6 @@ namespace ALsSoundSwitcher
     
     public const string ThemeFilenamePattern = "*.skin";
 
-    public const int ThemeSwitchUIRefreshDelay = 120;
-
     public static bool WeAreSwitching = false;
 
     public static MMDeviceEnumerator DeviceEnumerator = new MMDeviceEnumerator();

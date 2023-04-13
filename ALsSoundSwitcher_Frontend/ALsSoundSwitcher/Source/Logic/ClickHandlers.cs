@@ -80,7 +80,7 @@ namespace ALsSoundSwitcher
 
       RefreshUITheme();
 
-      Thread.Sleep(ThemeSwitchUIRefreshDelay);
+      Thread.Sleep(Settings.Current.ThemeSwitchUIRefreshDelay);
       BaseMenu.Show();
       MoreMenuItems.MenuItemToggleTheme.GetCurrentParent().Show();
       MoreMenuItems.MenuItemToggleTheme.DropDown.Show();
