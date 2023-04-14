@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ALsSoundSwitcher.Properties;
 
 namespace ALsSoundSwitcher
 {
@@ -29,13 +30,13 @@ namespace ALsSoundSwitcher
 
     private static readonly Bitmap[] Masks =
     {
-      Properties.Resources.mask_background,
-      Properties.Resources.mask_border,
-       Properties.Resources.mask_active,
-      Properties.Resources.mask_selected,
-      Properties.Resources.mask_separator,
-      Properties.Resources.mask_arrow,
-      Properties.Resources.mask_text
+      Resources.mask_background,
+      Resources.mask_border,
+      Resources.mask_active,
+      Resources.mask_selected,
+      Resources.mask_separator,
+      Resources.mask_arrow,
+      Resources.mask_text
     };
 
     public ThemeCreator()
@@ -50,8 +51,6 @@ namespace ALsSoundSwitcher
       btn_ColorMenuArrow.BackColor        = ColorMenuArrow.Colour;
       btn_ColorMenuBorder.BackColor       = ColorMenuBorder.Colour;
 
-      label_updating.Visible = false;
-
       textBox_ThemeName.Text = TextBoxDefault;
 
       GeneratePreview();
@@ -59,9 +58,7 @@ namespace ALsSoundSwitcher
 
     public void GeneratePreview()
     {
-      label_updating.Visible = true;
-
-      var buffer = new Bitmap(Properties.Resources.mask_border.Width, Properties.Resources.mask_border.Height);
+      var buffer = new Bitmap(Resources.mask_border.Width, Resources.mask_border.Height);
 
       for (var index = 0; index < Masks.Length; index++)
       {
@@ -83,14 +80,10 @@ namespace ALsSoundSwitcher
       }
 
       pictureBox1.Image = buffer;
-
-      label_updating.Visible = false;
     }
 
     public void UpdatePreview(Bitmap mask, Color colour)
     {
-      label_updating.Visible = true;
-
       var buffer = (Bitmap)pictureBox1.Image;
 
       for (var x = 0; x < mask.Width; x++)
@@ -106,8 +99,6 @@ namespace ALsSoundSwitcher
       }
 
       pictureBox1.Image = buffer;
-
-      label_updating.Visible = false;
     }
 
     private bool ColourIsWithinTolerance(Color color1, Color color2, float tolerance)
@@ -125,8 +116,8 @@ namespace ALsSoundSwitcher
       var colour = GetColour(button.BackColor);
       button.BackColor = colour;
       ActiveSelectionColor.Colour = colour;
-      UpdatePreview(Properties.Resources.mask_active, colour);
-      UpdatePreview(Properties.Resources.mask_text, ColorMenuItemText.Colour);
+      UpdatePreview(Resources.mask_active, colour);
+      UpdatePreview(Resources.mask_text, ColorMenuItemText.Colour);
     }
 
     private void btn_ColorMenuItemSelected_Click(object sender, EventArgs e)
@@ -135,8 +126,8 @@ namespace ALsSoundSwitcher
       var colour = GetColour(button.BackColor);
       button.BackColor = colour;
       ColorMenuItemSelected.Colour = colour;
-      UpdatePreview(Properties.Resources.mask_selected, colour);
-      UpdatePreview(Properties.Resources.mask_text, ColorMenuItemText.Colour);
+      UpdatePreview(Resources.mask_selected, colour);
+      UpdatePreview(Resources.mask_text, ColorMenuItemText.Colour);
     }
 
     private void btn_ColorBackground_Click(object sender, EventArgs e)
@@ -145,8 +136,8 @@ namespace ALsSoundSwitcher
       var colour = GetColour(button.BackColor);
       button.BackColor = colour;
       ColorBackground.Colour = colour;
-      UpdatePreview(Properties.Resources.mask_background, colour);
-      UpdatePreview(Properties.Resources.mask_text, ColorMenuItemText.Colour);
+      UpdatePreview(Resources.mask_background, colour);
+      UpdatePreview(Resources.mask_text, ColorMenuItemText.Colour);
     }
 
     private void btn_ColorMenuItemText_Click(object sender, EventArgs e)
@@ -155,7 +146,7 @@ namespace ALsSoundSwitcher
       var colour = GetColour(button.BackColor);
       button.BackColor = colour;
       ColorMenuItemText.Colour = colour;
-      UpdatePreview(Properties.Resources.mask_text, colour);
+      UpdatePreview(Resources.mask_text, colour);
     }
 
     private void btn_ColorSeparator_Click(object sender, EventArgs e)
@@ -164,7 +155,7 @@ namespace ALsSoundSwitcher
       var colour = GetColour(button.BackColor);
       button.BackColor = colour;
       ColorSeparator.Colour = colour;
-      UpdatePreview(Properties.Resources.mask_separator, colour);
+      UpdatePreview(Resources.mask_separator, colour);
     }
 
     private void btn_ColorMenuArrow_Click(object sender, EventArgs e)
@@ -173,7 +164,7 @@ namespace ALsSoundSwitcher
       var colour = GetColour(button.BackColor);
       button.BackColor = colour;
       ColorMenuArrow.Colour = colour;
-      UpdatePreview(Properties.Resources.mask_arrow, colour);
+      UpdatePreview(Resources.mask_arrow, colour);
     }
 
     private void btn_ColorMenuBorder_Click(object sender, EventArgs e)
@@ -182,7 +173,7 @@ namespace ALsSoundSwitcher
       var colour = GetColour(button.BackColor);
       button.BackColor = colour;
       ColorMenuBorder.Colour = colour;
-      UpdatePreview(Properties.Resources.mask_border, colour);
+      UpdatePreview(Resources.mask_border, colour);
     }
 
     private static Color GetColour(Color defaultColour)

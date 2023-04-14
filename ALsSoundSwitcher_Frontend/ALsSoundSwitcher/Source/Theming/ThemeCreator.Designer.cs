@@ -49,13 +49,13 @@
       this.textBox_ThemeName = new System.Windows.Forms.TextBox();
       this.panel1 = new System.Windows.Forms.Panel();
       this.panel2 = new System.Windows.Forms.Panel();
-      this.label_updating = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.SuspendLayout();
       // 
       // pictureBox1
       // 
-      this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.pictureBox1.Image = global::ALsSoundSwitcher.Properties.Resources.mask_border;
       this.pictureBox1.Location = new System.Drawing.Point(13, 33);
@@ -68,15 +68,17 @@
       // label_preview
       // 
       this.label_preview.AutoSize = true;
-      this.label_preview.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_preview.Location = new System.Drawing.Point(12, 13);
+      this.label_preview.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_preview.Location = new System.Drawing.Point(12, 9);
       this.label_preview.Name = "label_preview";
-      this.label_preview.Size = new System.Drawing.Size(57, 17);
+      this.label_preview.Size = new System.Drawing.Size(54, 13);
       this.label_preview.TabIndex = 1;
-      this.label_preview.Text = "Preview";
+      this.label_preview.Text = "Preview : ";
       // 
       // btn_ActiveSelectionColor
       // 
+      this.btn_ActiveSelectionColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ActiveSelectionColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.btn_ActiveSelectionColor.Location = new System.Drawing.Point(13, 229);
       this.btn_ActiveSelectionColor.Name = "btn_ActiveSelectionColor";
@@ -87,6 +89,7 @@
       // 
       // label_ActiveSelectionColor
       // 
+      this.label_ActiveSelectionColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ActiveSelectionColor.AutoSize = true;
       this.label_ActiveSelectionColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ActiveSelectionColor.Location = new System.Drawing.Point(10, 206);
@@ -97,6 +100,7 @@
       // 
       // label_ColorMenuItemSelected
       // 
+      this.label_ColorMenuItemSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorMenuItemSelected.AutoSize = true;
       this.label_ColorMenuItemSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ColorMenuItemSelected.Location = new System.Drawing.Point(10, 281);
@@ -107,6 +111,8 @@
       // 
       // btn_ColorMenuItemSelected
       // 
+      this.btn_ColorMenuItemSelected.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorMenuItemSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.btn_ColorMenuItemSelected.Location = new System.Drawing.Point(13, 304);
       this.btn_ColorMenuItemSelected.Name = "btn_ColorMenuItemSelected";
@@ -117,6 +123,8 @@
       // 
       // btn_ColorBackground
       // 
+      this.btn_ColorBackground.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorBackground.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.btn_ColorBackground.Location = new System.Drawing.Point(14, 380);
       this.btn_ColorBackground.Name = "btn_ColorBackground";
@@ -127,6 +135,7 @@
       // 
       // label_ColorBackground
       // 
+      this.label_ColorBackground.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorBackground.AutoSize = true;
       this.label_ColorBackground.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ColorBackground.Location = new System.Drawing.Point(10, 357);
@@ -137,6 +146,8 @@
       // 
       // btn_ColorMenuItemText
       // 
+      this.btn_ColorMenuItemText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorMenuItemText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.btn_ColorMenuItemText.Location = new System.Drawing.Point(14, 455);
       this.btn_ColorMenuItemText.Name = "btn_ColorMenuItemText";
@@ -147,6 +158,7 @@
       // 
       // label_ColorMenuItemText
       // 
+      this.label_ColorMenuItemText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorMenuItemText.AutoSize = true;
       this.label_ColorMenuItemText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ColorMenuItemText.Location = new System.Drawing.Point(10, 432);
@@ -157,6 +169,8 @@
       // 
       // btn_ColorMenuArrow
       // 
+      this.btn_ColorMenuArrow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorMenuArrow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.btn_ColorMenuArrow.Location = new System.Drawing.Point(14, 606);
       this.btn_ColorMenuArrow.Name = "btn_ColorMenuArrow";
@@ -167,6 +181,8 @@
       // 
       // btn_ColorSeparator
       // 
+      this.btn_ColorSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorSeparator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.btn_ColorSeparator.Location = new System.Drawing.Point(13, 530);
       this.btn_ColorSeparator.Name = "btn_ColorSeparator";
@@ -177,6 +193,7 @@
       // 
       // label_ColorMenuArrow
       // 
+      this.label_ColorMenuArrow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorMenuArrow.AutoSize = true;
       this.label_ColorMenuArrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ColorMenuArrow.Location = new System.Drawing.Point(10, 583);
@@ -187,6 +204,8 @@
       // 
       // btn_ColorMenuBorder
       // 
+      this.btn_ColorMenuBorder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorMenuBorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.btn_ColorMenuBorder.Location = new System.Drawing.Point(13, 681);
       this.btn_ColorMenuBorder.Name = "btn_ColorMenuBorder";
@@ -197,6 +216,7 @@
       // 
       // label_ColorSeparator
       // 
+      this.label_ColorSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorSeparator.AutoSize = true;
       this.label_ColorSeparator.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ColorSeparator.Location = new System.Drawing.Point(10, 507);
@@ -207,6 +227,7 @@
       // 
       // label_ColorMenuBorder
       // 
+      this.label_ColorMenuBorder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorMenuBorder.AutoSize = true;
       this.label_ColorMenuBorder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ColorMenuBorder.Location = new System.Drawing.Point(10, 658);
@@ -217,6 +238,8 @@
       // 
       // btn_save
       // 
+      this.btn_save.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.btn_save.Location = new System.Drawing.Point(13, 783);
       this.btn_save.Name = "btn_save";
@@ -227,6 +250,8 @@
       // 
       // textBox_ThemeName
       // 
+      this.textBox_ThemeName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.textBox_ThemeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.textBox_ThemeName.ForeColor = System.Drawing.Color.Gray;
       this.textBox_ThemeName.Location = new System.Drawing.Point(13, 751);
@@ -239,6 +264,8 @@
       // 
       // panel1
       // 
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.Color.LightGray;
       this.panel1.Location = new System.Drawing.Point(13, 182);
       this.panel1.Name = "panel1";
@@ -247,23 +274,13 @@
       // 
       // panel2
       // 
+      this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.panel2.BackColor = System.Drawing.Color.LightGray;
       this.panel2.Location = new System.Drawing.Point(13, 731);
       this.panel2.Name = "panel2";
       this.panel2.Size = new System.Drawing.Size(281, 4);
       this.panel2.TabIndex = 9;
-      // 
-      // label_updating
-      // 
-      this.label_updating.AutoSize = true;
-      this.label_updating.BackColor = System.Drawing.Color.Transparent;
-      this.label_updating.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_updating.ForeColor = System.Drawing.Color.Gray;
-      this.label_updating.Location = new System.Drawing.Point(43, 80);
-      this.label_updating.Name = "label_updating";
-      this.label_updating.Size = new System.Drawing.Size(227, 31);
-      this.label_updating.TabIndex = 10;
-      this.label_updating.Text = "Updating Preview";
       // 
       // ThemeCreator
       // 
@@ -271,7 +288,6 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.White;
       this.ClientSize = new System.Drawing.Size(307, 850);
-      this.Controls.Add(this.label_updating);
       this.Controls.Add(this.panel2);
       this.Controls.Add(this.panel1);
       this.Controls.Add(this.textBox_ThemeName);
@@ -292,8 +308,9 @@
       this.Controls.Add(this.btn_ActiveSelectionColor);
       this.Controls.Add(this.label_preview);
       this.Controls.Add(this.pictureBox1);
-      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+      this.MaximizeBox = false;
+      this.MinimizeBox = false;
       this.Name = "ThemeCreator";
       this.Text = "AL\'s Sound Switcher - Theme Creator (beta)";
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -324,6 +341,5 @@
     private System.Windows.Forms.TextBox textBox_ThemeName;
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.Panel panel2;
-    private System.Windows.Forms.Label label_updating;
   }
 }
