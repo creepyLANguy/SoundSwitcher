@@ -144,7 +144,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icons\icon.ico" />
-    <None Include="Resources\PreviewMask.png" />
+    <None Include="Resources\mask_text.png" />
+    <None Include="Resources\mask_separator.png" />
+    <None Include="Resources\mask_selected.png" />
+    <None Include="Resources\mask_border.png" />
+    <None Include="Resources\mask_background.png" />
+    <None Include="Resources\mask_arrow.png" />
+    <None Include="Resources\mask_active.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

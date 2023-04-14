@@ -280,6 +280,76 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask_active {
+            get {
+                object obj = ResourceManager.GetObject("mask_active", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask_arrow {
+            get {
+                object obj = ResourceManager.GetObject("mask_arrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask_background {
+            get {
+                object obj = ResourceManager.GetObject("mask_background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask_border {
+            get {
+                object obj = ResourceManager.GetObject("mask_border", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask_selected {
+            get {
+                object obj = ResourceManager.GetObject("mask_selected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask_separator {
+            get {
+                object obj = ResourceManager.GetObject("mask_separator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask_text {
+            get {
+                object obj = ResourceManager.GetObject("mask_text", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AL&apos;s Sound Switcher.
         /// </summary>
         internal static string PowerShellUtils_InstallAudioCmdlets_Caption {
@@ -312,16 +382,6 @@ namespace ALsSoundSwitcher.Properties {
         internal static string PowerShellUtils_InstallAudioCmdlets_Message {
             get {
                 return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap PreviewMask {
-            get {
-                object obj = ResourceManager.GetObject("PreviewMask", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
