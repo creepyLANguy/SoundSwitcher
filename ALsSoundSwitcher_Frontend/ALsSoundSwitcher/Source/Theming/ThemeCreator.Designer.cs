@@ -228,13 +228,14 @@
       // textBox_ThemeName
       // 
       this.textBox_ThemeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.textBox_ThemeName.ForeColor = System.Drawing.Color.Black;
+      this.textBox_ThemeName.ForeColor = System.Drawing.Color.Gray;
       this.textBox_ThemeName.Location = new System.Drawing.Point(13, 751);
       this.textBox_ThemeName.Name = "textBox_ThemeName";
       this.textBox_ThemeName.Size = new System.Drawing.Size(281, 26);
       this.textBox_ThemeName.TabIndex = 7;
       this.textBox_ThemeName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
       this.textBox_ThemeName.Enter += new System.EventHandler(this.textBox_ThemeName_Enter);
+      this.textBox_ThemeName.Leave += new System.EventHandler(this.textBox_ThemeName_Leave);
       // 
       // panel1
       // 

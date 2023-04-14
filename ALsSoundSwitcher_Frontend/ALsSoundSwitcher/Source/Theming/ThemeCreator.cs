@@ -196,7 +196,17 @@ namespace ALsSoundSwitcher
     {
       if (textBox_ThemeName.Text == TextBoxDefault)
       {
+        textBox_ThemeName.ForeColor = Color.Black;
         textBox_ThemeName.Text = string.Empty;
+      }
+    }
+
+    private void textBox_ThemeName_Leave(object sender, EventArgs e)
+    {
+      if (textBox_ThemeName.Text == string.Empty)
+      {
+        textBox_ThemeName.ForeColor = Color.Gray;
+        textBox_ThemeName.Text = TextBoxDefault;
       }
     }
   }
