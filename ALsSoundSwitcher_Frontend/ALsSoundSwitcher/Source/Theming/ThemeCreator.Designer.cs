@@ -1,0 +1,321 @@
+﻿namespace ALsSoundSwitcher
+{
+  partial class ThemeCreator
+  {
+    /// <summary>
+    /// Required designer variable.
+    /// </summary>
+    private System.ComponentModel.IContainer components = null;
+
+    /// <summary>
+    /// Clean up any resources being used.
+    /// </summary>
+    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+    protected override void Dispose(bool disposing)
+    {
+      if (disposing && (components != null))
+      {
+        components.Dispose();
+      }
+      base.Dispose(disposing);
+    }
+
+    #region Windows Form Designer generated code
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ThemeCreator));
+      this.pictureBox1 = new System.Windows.Forms.PictureBox();
+      this.label_preview = new System.Windows.Forms.Label();
+      this.btn_ActiveSelectionColor = new System.Windows.Forms.Button();
+      this.label_ActiveSelectionColor = new System.Windows.Forms.Label();
+      this.label_ColorMenuItemSelected = new System.Windows.Forms.Label();
+      this.btn_ColorMenuItemSelected = new System.Windows.Forms.Button();
+      this.btn_ColorBackground = new System.Windows.Forms.Button();
+      this.label_ColorBackground = new System.Windows.Forms.Label();
+      this.btn_ColorMenuItemText = new System.Windows.Forms.Button();
+      this.label_ColorMenuItemText = new System.Windows.Forms.Label();
+      this.btn_ColorMenuArrow = new System.Windows.Forms.Button();
+      this.btn_ColorSeparator = new System.Windows.Forms.Button();
+      this.label_ColorMenuArrow = new System.Windows.Forms.Label();
+      this.btn_ColorMenuBorder = new System.Windows.Forms.Button();
+      this.label_ColorSeparator = new System.Windows.Forms.Label();
+      this.label_ColorMenuBorder = new System.Windows.Forms.Label();
+      this.btn_save = new System.Windows.Forms.Button();
+      this.textBox_ThemeName = new System.Windows.Forms.TextBox();
+      this.panel1 = new System.Windows.Forms.Panel();
+      this.panel2 = new System.Windows.Forms.Panel();
+      this.label_updating = new System.Windows.Forms.Label();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+      this.SuspendLayout();
+      // 
+      // pictureBox1
+      // 
+      this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.pictureBox1.Image = global::ALsSoundSwitcher.Properties.Resources.PreviewMask;
+      this.pictureBox1.Location = new System.Drawing.Point(13, 33);
+      this.pictureBox1.Name = "pictureBox1";
+      this.pictureBox1.Size = new System.Drawing.Size(432, 195);
+      this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+      this.pictureBox1.TabIndex = 0;
+      this.pictureBox1.TabStop = false;
+      // 
+      // label_preview
+      // 
+      this.label_preview.AutoSize = true;
+      this.label_preview.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_preview.Location = new System.Drawing.Point(9, 10);
+      this.label_preview.Name = "label_preview";
+      this.label_preview.Size = new System.Drawing.Size(63, 20);
+      this.label_preview.TabIndex = 1;
+      this.label_preview.Text = "Preview";
+      // 
+      // btn_ActiveSelectionColor
+      // 
+      this.btn_ActiveSelectionColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btn_ActiveSelectionColor.Location = new System.Drawing.Point(13, 304);
+      this.btn_ActiveSelectionColor.Name = "btn_ActiveSelectionColor";
+      this.btn_ActiveSelectionColor.Size = new System.Drawing.Size(432, 33);
+      this.btn_ActiveSelectionColor.TabIndex = 2;
+      this.btn_ActiveSelectionColor.UseVisualStyleBackColor = true;
+      // 
+      // label_ActiveSelectionColor
+      // 
+      this.label_ActiveSelectionColor.AutoSize = true;
+      this.label_ActiveSelectionColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_ActiveSelectionColor.Location = new System.Drawing.Point(10, 281);
+      this.label_ActiveSelectionColor.Name = "label_ActiveSelectionColor";
+      this.label_ActiveSelectionColor.Size = new System.Drawing.Size(155, 20);
+      this.label_ActiveSelectionColor.TabIndex = 3;
+      this.label_ActiveSelectionColor.Text = "ActiveSelectionColor";
+      // 
+      // label_ColorMenuItemSelected
+      // 
+      this.label_ColorMenuItemSelected.AutoSize = true;
+      this.label_ColorMenuItemSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_ColorMenuItemSelected.Location = new System.Drawing.Point(10, 356);
+      this.label_ColorMenuItemSelected.Name = "label_ColorMenuItemSelected";
+      this.label_ColorMenuItemSelected.Size = new System.Drawing.Size(181, 20);
+      this.label_ColorMenuItemSelected.TabIndex = 5;
+      this.label_ColorMenuItemSelected.Text = "ColorMenuItemSelected";
+      // 
+      // btn_ColorMenuItemSelected
+      // 
+      this.btn_ColorMenuItemSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btn_ColorMenuItemSelected.Location = new System.Drawing.Point(13, 379);
+      this.btn_ColorMenuItemSelected.Name = "btn_ColorMenuItemSelected";
+      this.btn_ColorMenuItemSelected.Size = new System.Drawing.Size(432, 33);
+      this.btn_ColorMenuItemSelected.TabIndex = 4;
+      this.btn_ColorMenuItemSelected.UseVisualStyleBackColor = true;
+      // 
+      // btn_ColorBackground
+      // 
+      this.btn_ColorBackground.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btn_ColorBackground.Location = new System.Drawing.Point(14, 455);
+      this.btn_ColorBackground.Name = "btn_ColorBackground";
+      this.btn_ColorBackground.Size = new System.Drawing.Size(432, 33);
+      this.btn_ColorBackground.TabIndex = 2;
+      this.btn_ColorBackground.UseVisualStyleBackColor = true;
+      // 
+      // label_ColorBackground
+      // 
+      this.label_ColorBackground.AutoSize = true;
+      this.label_ColorBackground.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_ColorBackground.Location = new System.Drawing.Point(10, 432);
+      this.label_ColorBackground.Name = "label_ColorBackground";
+      this.label_ColorBackground.Size = new System.Drawing.Size(132, 20);
+      this.label_ColorBackground.TabIndex = 3;
+      this.label_ColorBackground.Text = "ColorBackground";
+      // 
+      // btn_ColorMenuItemText
+      // 
+      this.btn_ColorMenuItemText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btn_ColorMenuItemText.Location = new System.Drawing.Point(14, 530);
+      this.btn_ColorMenuItemText.Name = "btn_ColorMenuItemText";
+      this.btn_ColorMenuItemText.Size = new System.Drawing.Size(432, 33);
+      this.btn_ColorMenuItemText.TabIndex = 4;
+      this.btn_ColorMenuItemText.UseVisualStyleBackColor = true;
+      // 
+      // label_ColorMenuItemText
+      // 
+      this.label_ColorMenuItemText.AutoSize = true;
+      this.label_ColorMenuItemText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_ColorMenuItemText.Location = new System.Drawing.Point(10, 507);
+      this.label_ColorMenuItemText.Name = "label_ColorMenuItemText";
+      this.label_ColorMenuItemText.Size = new System.Drawing.Size(148, 20);
+      this.label_ColorMenuItemText.TabIndex = 5;
+      this.label_ColorMenuItemText.Text = "ColorMenuItemText";
+      // 
+      // btn_ColorMenuArrow
+      // 
+      this.btn_ColorMenuArrow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btn_ColorMenuArrow.Location = new System.Drawing.Point(14, 681);
+      this.btn_ColorMenuArrow.Name = "btn_ColorMenuArrow";
+      this.btn_ColorMenuArrow.Size = new System.Drawing.Size(432, 33);
+      this.btn_ColorMenuArrow.TabIndex = 2;
+      this.btn_ColorMenuArrow.UseVisualStyleBackColor = true;
+      // 
+      // btn_ColorSeparator
+      // 
+      this.btn_ColorSeparator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btn_ColorSeparator.Location = new System.Drawing.Point(13, 605);
+      this.btn_ColorSeparator.Name = "btn_ColorSeparator";
+      this.btn_ColorSeparator.Size = new System.Drawing.Size(432, 33);
+      this.btn_ColorSeparator.TabIndex = 4;
+      this.btn_ColorSeparator.UseVisualStyleBackColor = true;
+      // 
+      // label_ColorMenuArrow
+      // 
+      this.label_ColorMenuArrow.AutoSize = true;
+      this.label_ColorMenuArrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_ColorMenuArrow.Location = new System.Drawing.Point(10, 658);
+      this.label_ColorMenuArrow.Name = "label_ColorMenuArrow";
+      this.label_ColorMenuArrow.Size = new System.Drawing.Size(127, 20);
+      this.label_ColorMenuArrow.TabIndex = 3;
+      this.label_ColorMenuArrow.Text = "ColorMenuArrow";
+      // 
+      // btn_ColorMenuBorder
+      // 
+      this.btn_ColorMenuBorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btn_ColorMenuBorder.Location = new System.Drawing.Point(13, 756);
+      this.btn_ColorMenuBorder.Name = "btn_ColorMenuBorder";
+      this.btn_ColorMenuBorder.Size = new System.Drawing.Size(432, 33);
+      this.btn_ColorMenuBorder.TabIndex = 4;
+      this.btn_ColorMenuBorder.UseVisualStyleBackColor = true;
+      // 
+      // label_ColorSeparator
+      // 
+      this.label_ColorSeparator.AutoSize = true;
+      this.label_ColorSeparator.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_ColorSeparator.Location = new System.Drawing.Point(10, 582);
+      this.label_ColorSeparator.Name = "label_ColorSeparator";
+      this.label_ColorSeparator.Size = new System.Drawing.Size(117, 20);
+      this.label_ColorSeparator.TabIndex = 5;
+      this.label_ColorSeparator.Text = "ColorSeparator";
+      // 
+      // label_ColorMenuBorder
+      // 
+      this.label_ColorMenuBorder.AutoSize = true;
+      this.label_ColorMenuBorder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_ColorMenuBorder.Location = new System.Drawing.Point(10, 733);
+      this.label_ColorMenuBorder.Name = "label_ColorMenuBorder";
+      this.label_ColorMenuBorder.Size = new System.Drawing.Size(134, 20);
+      this.label_ColorMenuBorder.TabIndex = 5;
+      this.label_ColorMenuBorder.Text = "ColorMenuBorder";
+      // 
+      // btn_save
+      // 
+      this.btn_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.btn_save.Location = new System.Drawing.Point(14, 876);
+      this.btn_save.Name = "btn_save";
+      this.btn_save.Size = new System.Drawing.Size(432, 54);
+      this.btn_save.TabIndex = 6;
+      this.btn_save.Text = "Save, Apply and Exit";
+      this.btn_save.UseVisualStyleBackColor = true;
+      // 
+      // textBox_ThemeName
+      // 
+      this.textBox_ThemeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.textBox_ThemeName.ForeColor = System.Drawing.Color.Black;
+      this.textBox_ThemeName.Location = new System.Drawing.Point(15, 844);
+      this.textBox_ThemeName.Name = "textBox_ThemeName";
+      this.textBox_ThemeName.Size = new System.Drawing.Size(431, 26);
+      this.textBox_ThemeName.TabIndex = 7;
+      this.textBox_ThemeName.Text = "Enter a name for your theme...";
+      this.textBox_ThemeName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+      // 
+      // panel1
+      // 
+      this.panel1.BackColor = System.Drawing.Color.LightGray;
+      this.panel1.Location = new System.Drawing.Point(14, 252);
+      this.panel1.Name = "panel1";
+      this.panel1.Size = new System.Drawing.Size(431, 4);
+      this.panel1.TabIndex = 8;
+      // 
+      // panel2
+      // 
+      this.panel2.BackColor = System.Drawing.Color.LightGray;
+      this.panel2.Location = new System.Drawing.Point(12, 814);
+      this.panel2.Name = "panel2";
+      this.panel2.Size = new System.Drawing.Size(431, 4);
+      this.panel2.TabIndex = 9;
+      // 
+      // label_updating
+      // 
+      this.label_updating.AutoSize = true;
+      this.label_updating.BackColor = System.Drawing.Color.Transparent;
+      this.label_updating.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_updating.ForeColor = System.Drawing.Color.DarkSlateGray;
+      this.label_updating.Location = new System.Drawing.Point(103, 100);
+      this.label_updating.Name = "label_updating";
+      this.label_updating.Size = new System.Drawing.Size(226, 46);
+      this.label_updating.TabIndex = 10;
+      this.label_updating.Text = "UPDATING";
+      // 
+      // ThemeCreator
+      // 
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+      this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.BackColor = System.Drawing.Color.White;
+      this.ClientSize = new System.Drawing.Size(456, 940);
+      this.Controls.Add(this.label_updating);
+      this.Controls.Add(this.panel2);
+      this.Controls.Add(this.panel1);
+      this.Controls.Add(this.textBox_ThemeName);
+      this.Controls.Add(this.btn_save);
+      this.Controls.Add(this.label_ColorMenuBorder);
+      this.Controls.Add(this.label_ColorMenuItemText);
+      this.Controls.Add(this.label_ColorSeparator);
+      this.Controls.Add(this.label_ColorMenuItemSelected);
+      this.Controls.Add(this.btn_ColorMenuBorder);
+      this.Controls.Add(this.btn_ColorMenuItemText);
+      this.Controls.Add(this.label_ColorMenuArrow);
+      this.Controls.Add(this.label_ColorBackground);
+      this.Controls.Add(this.btn_ColorSeparator);
+      this.Controls.Add(this.btn_ColorMenuArrow);
+      this.Controls.Add(this.btn_ColorMenuItemSelected);
+      this.Controls.Add(this.btn_ColorBackground);
+      this.Controls.Add(this.label_ActiveSelectionColor);
+      this.Controls.Add(this.btn_ActiveSelectionColor);
+      this.Controls.Add(this.label_preview);
+      this.Controls.Add(this.pictureBox1);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+      this.Name = "ThemeCreator";
+      this.Text = "AL\'s Sound Switcher - Theme Creator (beta)";
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+      this.ResumeLayout(false);
+      this.PerformLayout();
+
+    }
+
+    #endregion
+
+    private System.Windows.Forms.PictureBox pictureBox1;
+    private System.Windows.Forms.Label label_preview;
+    private System.Windows.Forms.Button btn_ActiveSelectionColor;
+    private System.Windows.Forms.Label label_ActiveSelectionColor;
+    private System.Windows.Forms.Label label_ColorMenuItemSelected;
+    private System.Windows.Forms.Button btn_ColorMenuItemSelected;
+    private System.Windows.Forms.Button btn_ColorBackground;
+    private System.Windows.Forms.Label label_ColorBackground;
+    private System.Windows.Forms.Button btn_ColorMenuItemText;
+    private System.Windows.Forms.Label label_ColorMenuItemText;
+    private System.Windows.Forms.Button btn_ColorMenuArrow;
+    private System.Windows.Forms.Button btn_ColorSeparator;
+    private System.Windows.Forms.Label label_ColorMenuArrow;
+    private System.Windows.Forms.Button btn_ColorMenuBorder;
+    private System.Windows.Forms.Label label_ColorSeparator;
+    private System.Windows.Forms.Label label_ColorMenuBorder;
+    private System.Windows.Forms.Button btn_save;
+    private System.Windows.Forms.TextBox textBox_ThemeName;
+    private System.Windows.Forms.Panel panel1;
+    private System.Windows.Forms.Panel panel2;
+    private System.Windows.Forms.Label label_updating;
+  }
+}

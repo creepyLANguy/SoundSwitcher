@@ -314,5 +314,15 @@ namespace ALsSoundSwitcher.Properties {
                 return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Message", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PreviewMask {
+            get {
+                object obj = ResourceManager.GetObject("PreviewMask", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
