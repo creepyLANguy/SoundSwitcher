@@ -85,7 +85,7 @@
       this.btn_ActiveSelectionColor.Size = new System.Drawing.Size(281, 33);
       this.btn_ActiveSelectionColor.TabIndex = 0;
       this.btn_ActiveSelectionColor.UseVisualStyleBackColor = true;
-      this.btn_ActiveSelectionColor.Click += new System.EventHandler(this.btn_ActiveSelectionColor_Click);
+      this.btn_ActiveSelectionColor.Click += new System.EventHandler(this.HandleButtonClick);
       // 
       // label_ActiveSelectionColor
       // 
@@ -119,7 +119,7 @@
       this.btn_ColorMenuItemSelected.Size = new System.Drawing.Size(281, 33);
       this.btn_ColorMenuItemSelected.TabIndex = 1;
       this.btn_ColorMenuItemSelected.UseVisualStyleBackColor = true;
-      this.btn_ColorMenuItemSelected.Click += new System.EventHandler(this.btn_ColorMenuItemSelected_Click);
+      this.btn_ColorMenuItemSelected.Click += new System.EventHandler(this.HandleButtonClick);
       // 
       // btn_ColorBackground
       // 
@@ -131,7 +131,7 @@
       this.btn_ColorBackground.Size = new System.Drawing.Size(280, 33);
       this.btn_ColorBackground.TabIndex = 2;
       this.btn_ColorBackground.UseVisualStyleBackColor = true;
-      this.btn_ColorBackground.Click += new System.EventHandler(this.btn_ColorBackground_Click);
+      this.btn_ColorBackground.Click += new System.EventHandler(this.HandleButtonClick);
       // 
       // label_ColorBackground
       // 
@@ -154,7 +154,7 @@
       this.btn_ColorMenuItemText.Size = new System.Drawing.Size(280, 33);
       this.btn_ColorMenuItemText.TabIndex = 3;
       this.btn_ColorMenuItemText.UseVisualStyleBackColor = true;
-      this.btn_ColorMenuItemText.Click += new System.EventHandler(this.btn_ColorMenuItemText_Click);
+      this.btn_ColorMenuItemText.Click += new System.EventHandler(this.HandleButtonClick);
       // 
       // label_ColorMenuItemText
       // 
@@ -177,7 +177,7 @@
       this.btn_ColorMenuArrow.Size = new System.Drawing.Size(280, 33);
       this.btn_ColorMenuArrow.TabIndex = 5;
       this.btn_ColorMenuArrow.UseVisualStyleBackColor = true;
-      this.btn_ColorMenuArrow.Click += new System.EventHandler(this.btn_ColorMenuArrow_Click);
+      this.btn_ColorMenuArrow.Click += new System.EventHandler(this.HandleButtonClick);
       // 
       // btn_ColorSeparator
       // 
@@ -189,7 +189,7 @@
       this.btn_ColorSeparator.Size = new System.Drawing.Size(281, 33);
       this.btn_ColorSeparator.TabIndex = 4;
       this.btn_ColorSeparator.UseVisualStyleBackColor = true;
-      this.btn_ColorSeparator.Click += new System.EventHandler(this.btn_ColorSeparator_Click);
+      this.btn_ColorSeparator.Click += new System.EventHandler(this.HandleButtonClick);
       // 
       // label_ColorMenuArrow
       // 
@@ -212,7 +212,7 @@
       this.btn_ColorMenuBorder.Size = new System.Drawing.Size(281, 33);
       this.btn_ColorMenuBorder.TabIndex = 6;
       this.btn_ColorMenuBorder.UseVisualStyleBackColor = true;
-      this.btn_ColorMenuBorder.Click += new System.EventHandler(this.btn_ColorMenuBorder_Click);
+      this.btn_ColorMenuBorder.Click += new System.EventHandler(this.HandleButtonClick);
       // 
       // label_ColorSeparator
       // 
