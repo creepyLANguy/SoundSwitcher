@@ -81,7 +81,7 @@
       this.btn_ActiveSelectionColor.Location = new System.Drawing.Point(13, 229);
       this.btn_ActiveSelectionColor.Name = "btn_ActiveSelectionColor";
       this.btn_ActiveSelectionColor.Size = new System.Drawing.Size(281, 33);
-      this.btn_ActiveSelectionColor.TabIndex = 2;
+      this.btn_ActiveSelectionColor.TabIndex = 0;
       this.btn_ActiveSelectionColor.UseVisualStyleBackColor = true;
       this.btn_ActiveSelectionColor.Click += new System.EventHandler(this.btn_ActiveSelectionColor_Click);
       // 
@@ -111,7 +111,7 @@
       this.btn_ColorMenuItemSelected.Location = new System.Drawing.Point(13, 304);
       this.btn_ColorMenuItemSelected.Name = "btn_ColorMenuItemSelected";
       this.btn_ColorMenuItemSelected.Size = new System.Drawing.Size(281, 33);
-      this.btn_ColorMenuItemSelected.TabIndex = 4;
+      this.btn_ColorMenuItemSelected.TabIndex = 1;
       this.btn_ColorMenuItemSelected.UseVisualStyleBackColor = true;
       this.btn_ColorMenuItemSelected.Click += new System.EventHandler(this.btn_ColorMenuItemSelected_Click);
       // 
@@ -141,7 +141,7 @@
       this.btn_ColorMenuItemText.Location = new System.Drawing.Point(14, 455);
       this.btn_ColorMenuItemText.Name = "btn_ColorMenuItemText";
       this.btn_ColorMenuItemText.Size = new System.Drawing.Size(280, 33);
-      this.btn_ColorMenuItemText.TabIndex = 4;
+      this.btn_ColorMenuItemText.TabIndex = 3;
       this.btn_ColorMenuItemText.UseVisualStyleBackColor = true;
       this.btn_ColorMenuItemText.Click += new System.EventHandler(this.btn_ColorMenuItemText_Click);
       // 
@@ -161,7 +161,7 @@
       this.btn_ColorMenuArrow.Location = new System.Drawing.Point(14, 606);
       this.btn_ColorMenuArrow.Name = "btn_ColorMenuArrow";
       this.btn_ColorMenuArrow.Size = new System.Drawing.Size(280, 33);
-      this.btn_ColorMenuArrow.TabIndex = 2;
+      this.btn_ColorMenuArrow.TabIndex = 5;
       this.btn_ColorMenuArrow.UseVisualStyleBackColor = true;
       this.btn_ColorMenuArrow.Click += new System.EventHandler(this.btn_ColorMenuArrow_Click);
       // 
@@ -191,7 +191,7 @@
       this.btn_ColorMenuBorder.Location = new System.Drawing.Point(13, 681);
       this.btn_ColorMenuBorder.Name = "btn_ColorMenuBorder";
       this.btn_ColorMenuBorder.Size = new System.Drawing.Size(281, 33);
-      this.btn_ColorMenuBorder.TabIndex = 4;
+      this.btn_ColorMenuBorder.TabIndex = 6;
       this.btn_ColorMenuBorder.UseVisualStyleBackColor = true;
       this.btn_ColorMenuBorder.Click += new System.EventHandler(this.btn_ColorMenuBorder_Click);
       // 
@@ -221,8 +221,8 @@
       this.btn_save.Location = new System.Drawing.Point(13, 783);
       this.btn_save.Name = "btn_save";
       this.btn_save.Size = new System.Drawing.Size(281, 55);
-      this.btn_save.TabIndex = 6;
-      this.btn_save.Text = "Save, Apply and Exit";
+      this.btn_save.TabIndex = 8;
+      this.btn_save.Text = "Save and Apply";
       this.btn_save.UseVisualStyleBackColor = true;
       // 
       // textBox_ThemeName
@@ -258,7 +258,7 @@
       this.label_updating.AutoSize = true;
       this.label_updating.BackColor = System.Drawing.Color.Transparent;
       this.label_updating.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_updating.ForeColor = System.Drawing.Color.Black;
+      this.label_updating.ForeColor = System.Drawing.Color.Gray;
       this.label_updating.Location = new System.Drawing.Point(43, 80);
       this.label_updating.Name = "label_updating";
       this.label_updating.Size = new System.Drawing.Size(227, 31);
