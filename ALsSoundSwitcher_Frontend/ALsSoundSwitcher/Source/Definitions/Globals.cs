@@ -37,6 +37,10 @@ namespace ALsSoundSwitcher
     public static ToolStripMenuItem ActiveMenuItemDevice;
 
     public static ToolStripMenuItem MenuItemMore;
+    
+    public static ToolStripMenuItem MenuItemCreateTheme;
+
+    public static ThemeCreator ThemeCreatorForm = null;
 
     public struct MoreMenuItems
     {

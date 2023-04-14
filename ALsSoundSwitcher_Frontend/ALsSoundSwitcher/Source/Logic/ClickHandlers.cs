@@ -108,5 +108,15 @@ namespace ALsSoundSwitcher
 
       Application.Restart();
     }
+
+    private static void menuItemCreateTheme_Click(object sender, EventArgs e)
+    {
+      if (ThemeCreatorForm == null)
+      {
+        ThemeCreatorForm = new ThemeCreator();
+      }
+
+      ThemeCreatorForm.Show();
+    }
   }
 }

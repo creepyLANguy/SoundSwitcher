@@ -13,14 +13,6 @@ namespace ALsSoundSwitcher
 
     private void Form1_Load(object sender, EventArgs e)
     {
-      //AL.
-      //TODO - remove
-      var tc = new ThemeCreator();
-      tc.Show();
-      Minimize();
-      return;
-      //
-
       Globals.Instance = this;
 
       if (Config.Read() == false)

@@ -150,6 +150,9 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_SwitchTheme" xml:space="preserve">
     <value>Theme</value>
   </data>
+  <data name="Form1_SetupContextMenu_CreateTheme" xml:space="preserve">
+    <value>+ [Add]</value>
+  </data>
   <data name="Form1_SetupContextMenu_Mode" xml:space="preserve">
     <value>Mode</value>
   </data>

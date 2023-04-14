@@ -180,6 +180,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to + [Add].
+        /// </summary>
+        internal static string Form1_SetupContextMenu_CreateTheme {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_CreateTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         internal static string Form1_SetupContextMenu_Edit {

@@ -76,6 +76,8 @@ namespace ALsSoundSwitcher
 
       MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_SwitchTheme);
       MenuItemToggleTheme.MouseHover += menuItemExpandable_Hover;
+      MenuItemCreateTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_CreateTheme);
+      MenuItemCreateTheme.Click += menuItemCreateTheme_Click;
       SetupThemeSubmenu();
 
       MenuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Exit);
@@ -110,6 +112,9 @@ namespace ALsSoundSwitcher
 
         MenuItemToggleTheme.DropDownItems.Add(theme);
       }
+
+      MenuItemToggleTheme.DropDownItems.Add("-");
+      MenuItemToggleTheme.DropDownItems.Add(MenuItemCreateTheme);
     }
 
     private static void SetupDeviceModesSubmenu()
@@ -227,8 +232,8 @@ namespace ALsSoundSwitcher
       }
 
       if (MenuItemToggleTheme.HasDropDownItems)
-      {
-        foreach (ToolStripMenuItem item in MenuItemToggleTheme.DropDownItems)
+      { 
+        foreach (var item in MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>().ToList())
         {
           item.ResetBackColor();
 

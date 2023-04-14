@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using ALsSoundSwitcher.Properties;
 
 namespace ALsSoundSwitcher
@@ -28,6 +29,8 @@ namespace ALsSoundSwitcher
       SetupButtons();
 
       textBox_ThemeName.Text = TextBoxDefault;
+
+      btn_save.Enabled = false;
 
       GenerateFullPreview();
     }
@@ -88,13 +91,6 @@ namespace ALsSoundSwitcher
         button.BackColor = colorDialog.Color;
         bundle.Colour = colorDialog.Color;
         UpdatePreview(bundle.Mask, bundle.Colour);
-        
-        //AL.
-        //TODO 
-        //Should fix the masks... 
-        //Also, must adjust the masks on the right border by 1px
-        UpdatePreview(Resources.mask_text, btn_ColorMenuItemText.BackColor);
-        //
       }
     }
 
@@ -115,9 +111,52 @@ namespace ALsSoundSwitcher
         textBox_ThemeName.ForeColor = Color.Gray;
       }
     }
+
+    private void btn_save_Click(object sender, EventArgs e)
+    {
+      var input = textBox_ThemeName.Text.Trim();
+      var filename = Globals.ThemeFilenamePattern.Replace("*", input);
+      WriteThemeToFile(AllColourBundles.ToList(), filename);
+
+      Settings.Current.Theme = input;
+      Config.Save();
+
+      Application.Restart();
+    }
+
+    private void textBox_ThemeName_TextChanged(object sender, EventArgs e)
+    {
+      var input = textBox_ThemeName.Text.Trim();
+      var filename = Globals.ThemeFilenamePattern.Replace("*", input);
+
+      if (input != TextBoxDefault && input != string.Empty && !File.Exists(filename))
+      {
+        btn_save.Enabled = true;
+      }
+      else
+      {
+        btn_save.Enabled = false;
+      }
+    }
+
+    public static void WriteThemeToFile(List<ColourBundle> bundles, string filePath)
+    {
+      using (var file = new StreamWriter(filePath))
+      {
+        file.WriteLine("{");
+        foreach (var bundle in bundles)
+        {
+          var key = $"\"{bundle.JsonKey}\"";
+          var colourString = $"\"{bundle.Colour.R}, {bundle.Colour.G}, {bundle.Colour.B}\"";
+          var item = "  " + key + " : " + colourString + ",";
+          file.WriteLine(item);
+        }
+        file.WriteLine("}");
+      }
+    }
   }
 
-  internal class ColourBundle
+  public class ColourBundle
   {
     public ColourBundle(Color colour, string jsonKey, Bitmap mask)
     {
