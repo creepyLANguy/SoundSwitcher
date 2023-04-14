@@ -12,15 +12,7 @@ namespace ALsSoundSwitcher
   {
     private const string TextBoxDefault = "Enter a name for your theme...";
 
-    private static readonly ColourBundle[] AllColourBundles = {
-      new ColourBundle(Color.FromArgb(43, 43, 43), "ColorBackground", Resources.mask_background),
-      new ColourBundle(Color.FromArgb(61, 61, 67), "ColorMenuBorder", Resources.mask_border),
-      new ColourBundle(Color.FromArgb(47, 79, 79), "ActiveSelectionColor", Resources.mask_active),
-      new ColourBundle(Color.FromArgb(76, 76, 77), "ColorMenuItemSelected", Resources.mask_selected),
-      new ColourBundle(Color.FromArgb(61, 61, 67), "ColorSeparator", Resources.mask_separator),
-      new ColourBundle(Color.FromArgb(237, 237, 237), "ColorMenuArrow", Resources.mask_arrow),
-      new ColourBundle(Color.FromArgb(237, 237, 237), "ColorMenuItemText", Resources.mask_text)
-    };
+    private static ColourBundle[] _allColourBundles;
 
     public ThemeCreator()
     {
@@ -37,7 +29,19 @@ namespace ALsSoundSwitcher
 
     private void SetupButtons()
     {
-      foreach (var bundle in AllColourBundles)
+      var colours = Globals.Theme.GetPertinentColours();
+      _allColourBundles = new[]
+      {
+        new ColourBundle(colours["ColorBackground"], "ColorBackground", Resources.mask_background),
+        new ColourBundle(colours["ColorMenuBorder"], "ColorMenuBorder", Resources.mask_border),
+        new ColourBundle(colours["ActiveSelectionColor"], "ActiveSelectionColor", Resources.mask_active),
+        new ColourBundle(colours["ColorMenuItemSelected"], "ColorMenuItemSelected", Resources.mask_selected),
+        new ColourBundle(colours["ColorSeparator"], "ColorSeparator", Resources.mask_separator),
+        new ColourBundle(colours["ColorMenuArrow"], "ColorMenuArrow", Resources.mask_arrow),
+        new ColourBundle(colours["ColorMenuItemText"], "ColorMenuItemText", Resources.mask_text)
+      };
+
+      foreach (var bundle in _allColourBundles)
       {
         var button = Controls.Find($"btn_{bundle.JsonKey}", true)[0];
         button.BackColor = bundle.Colour;
@@ -46,7 +50,7 @@ namespace ALsSoundSwitcher
 
     public void GenerateFullPreview()
     {
-      foreach (var bundle in AllColourBundles)
+      foreach (var bundle in _allColourBundles)
       {
         UpdatePreview(bundle.Mask, bundle.Colour);
       }
@@ -82,7 +86,7 @@ namespace ALsSoundSwitcher
     private void HandleButtonClick(object sender, EventArgs e)
     {
       var button = (Button)sender;
-      var bundle = AllColourBundles.First(x => button.Name.EndsWith(x.JsonKey));
+      var bundle = _allColourBundles.First(x => button.Name.EndsWith(x.JsonKey));
 
       var colorDialog = new ColorDialog();
       colorDialog.Color = button.BackColor;
@@ -116,12 +120,14 @@ namespace ALsSoundSwitcher
     {
       var input = textBox_ThemeName.Text.Trim();
       var filename = Globals.ThemeFilenamePattern.Replace("*", input);
-      WriteThemeToFile(AllColourBundles.ToList(), filename);
+      WriteThemeToFile(_allColourBundles.ToList(), filename);
 
       Settings.Current.Theme = input;
       Config.Save();
 
-      Application.Restart();
+      var args = Globals.LastBaseMenuInvokedPosition.X + " " + Globals.LastBaseMenuInvokedPosition.Y;
+      ProcessUtils.RunExe(Application.ExecutablePath, args);
+      Application.Exit();
     }
 
     private void textBox_ThemeName_TextChanged(object sender, EventArgs e)
@@ -154,19 +160,5 @@ namespace ALsSoundSwitcher
         file.WriteLine("}");
       }
     }
-  }
-
-  public class ColourBundle
-  {
-    public ColourBundle(Color colour, string jsonKey, Bitmap mask)
-    {
-      Colour = colour;
-      JsonKey = jsonKey;
-      Mask = mask;
-    }
-
-    public Color Colour;
-    public string JsonKey;
-    public Bitmap Mask;
   }
 }

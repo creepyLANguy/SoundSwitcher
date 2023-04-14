@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -17,6 +18,14 @@ namespace ALsSoundSwitcher
       DeviceUtils.GetDeviceList();
       SetupContextMenu();
       SetCurrentDeviceIconAndIndicators();
+
+      if (LastBaseMenuInvokedPosition != Point.Empty)
+      {
+        BaseMenu.Show(LastBaseMenuInvokedPosition, ToolStripDropDownDirection.Left);
+        MenuItemToggleTheme.GetCurrentParent().Show();
+        MenuItemToggleTheme.DropDown.Show();
+        MenuItemCreateTheme.Select();
+      }
     }
 
     private static void SetupContextMenu()

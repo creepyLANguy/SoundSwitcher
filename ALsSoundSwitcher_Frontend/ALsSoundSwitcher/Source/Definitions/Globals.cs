@@ -1,5 +1,6 @@
 ﻿using CSCore.CoreAudioAPI;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ALsSoundSwitcher
@@ -24,6 +25,8 @@ namespace ALsSoundSwitcher
 
     public static bool WeAreSwitching = false;
 
+    public static Point LastBaseMenuInvokedPosition;
+
     public static MMDeviceEnumerator DeviceEnumerator = new MMDeviceEnumerator();
 
     public static DeviceUpdateCallbacks NotificationCallback = new DeviceUpdateCallbacks();
@@ -39,8 +42,6 @@ namespace ALsSoundSwitcher
     public static ToolStripMenuItem MenuItemMore;
     
     public static ToolStripMenuItem MenuItemCreateTheme;
-
-    public static ThemeCreator ThemeCreatorForm = null;
 
     public struct MoreMenuItems
     {
