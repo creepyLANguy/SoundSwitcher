@@ -95,6 +95,12 @@ namespace ALsSoundSwitcher
         button.BackColor = colorDialog.Color;
         bundle.Colour = colorDialog.Color;
         UpdatePreview(bundle.Mask, bundle.Colour);
+
+        var topLayer = _allColourBundles[_allColourBundles.Length - 1];
+        if (bundle.Mask != topLayer.Mask)
+        {
+          UpdatePreview(topLayer.Mask, topLayer.Colour);
+        }
       }
     }
 

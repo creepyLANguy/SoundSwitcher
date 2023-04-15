@@ -122,7 +122,10 @@ namespace ALsSoundSwitcher
         MenuItemToggleTheme.DropDownItems.Add(theme);
       }
 
-      MenuItemToggleTheme.DropDownItems.Add("-");
+      if(allThemeFiles.Count > 0)
+      {
+        MenuItemToggleTheme.DropDownItems.Add("-");
+      }
       MenuItemToggleTheme.DropDownItems.Add(MenuItemCreateTheme);
     }
 
@@ -165,13 +168,6 @@ namespace ALsSoundSwitcher
           MenuItemMore.DropDownItems.Add(item);
           MenuItemMore.DropDownItems.Add("-");
         } 
-      }
-
-      if (MenuItemToggleTheme.HasDropDownItems == false)
-      {
-        var index = MenuItemMore.DropDownItems.IndexOf(MenuItemToggleTheme);
-        MenuItemMore.DropDownItems.RemoveAt(index);
-        MenuItemMore.DropDownItems.RemoveAt(index);
       }
 
       MenuItemMore.DropDownItems.RemoveAt(MenuItemMore.DropDownItems.Count - 1);
@@ -240,16 +236,13 @@ namespace ALsSoundSwitcher
         ActiveMenuItemDevice.BackColor = Theme.GetActiveSelectionColour();
       }
 
-      if (MenuItemToggleTheme.HasDropDownItems)
-      { 
-        foreach (var item in MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>().ToList())
-        {
-          item.ResetBackColor();
+      foreach (var item in MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>().ToList())
+      {
+        item.ResetBackColor();
 
-          if (item.Text == Settings.Current.Theme)
-          {
-            item.BackColor = Theme.GetActiveSelectionColour();
-          }
+        if (item.Text == Settings.Current.Theme)
+        {
+          item.BackColor = Theme.GetActiveSelectionColour();
         }
       }
 
