@@ -116,20 +116,6 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private void btn_save_Click(object sender, EventArgs e)
-    {
-      var input = textBox_ThemeName.Text.Trim();
-      var filename = Globals.ThemeFilenamePattern.Replace("*", input);
-      WriteThemeToFile(_allColourBundles.ToList(), filename);
-
-      Settings.Current.Theme = input;
-      Config.Save();
-
-      var args = Globals.LastBaseMenuInvokedPosition.X + " " + Globals.LastBaseMenuInvokedPosition.Y;
-      ProcessUtils.RunExe(Application.ExecutablePath, args);
-      Application.Exit();
-    }
-
     private void textBox_ThemeName_TextChanged(object sender, EventArgs e)
     {
       var input = textBox_ThemeName.Text.Trim();
@@ -145,7 +131,34 @@ namespace ALsSoundSwitcher
       }
     }
 
-    public static void WriteThemeToFile(List<ColourBundle> bundles, string filePath)
+    private void btn_save_Click(object sender, EventArgs e)
+    {
+      PerformSaveOperations();
+    }
+    
+    private void textBox_ThemeName_KeyUp(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Enter)
+      {
+        PerformSaveOperations();
+      }
+    }
+
+    private void PerformSaveOperations()
+    {
+      var input = textBox_ThemeName.Text.Trim();
+      var filename = Globals.ThemeFilenamePattern.Replace("*", input);
+      WriteThemeToFile(_allColourBundles.ToList(), filename);
+
+      Settings.Current.Theme = input;
+      Config.Save();
+
+      var args = Globals.LastBaseMenuInvokedPosition.X + " " + Globals.LastBaseMenuInvokedPosition.Y;
+      ProcessUtils.RunExe(Application.ExecutablePath, args);
+      Application.Exit();
+    }
+
+    private static void WriteThemeToFile(List<ColourBundle> bundles, string filePath)
     {
       using (var file = new StreamWriter(filePath))
       {

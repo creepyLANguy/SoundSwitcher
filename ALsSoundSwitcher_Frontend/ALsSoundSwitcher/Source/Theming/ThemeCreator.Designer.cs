@@ -262,6 +262,7 @@
       this.textBox_ThemeName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
       this.textBox_ThemeName.TextChanged += new System.EventHandler(this.textBox_ThemeName_TextChanged);
       this.textBox_ThemeName.Enter += new System.EventHandler(this.textBox_ThemeName_Enter);
+      this.textBox_ThemeName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_ThemeName_KeyUp);
       this.textBox_ThemeName.Leave += new System.EventHandler(this.textBox_ThemeName_Leave);
       // 
       // panel1
