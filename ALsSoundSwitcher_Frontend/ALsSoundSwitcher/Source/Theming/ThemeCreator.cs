@@ -20,6 +20,8 @@ namespace ALsSoundSwitcher
 
     private static ColourBundle[] _allColourBundles;
 
+    private static ColorDialog ColourPicker = new ColorDialog();
+
     public ThemeCreator()
     {
       InitializeComponent();
@@ -93,7 +95,7 @@ namespace ALsSoundSwitcher
     private void HandleButtonClick(object sender, EventArgs e)
     {
       var button = (Button)sender;
-      var colorDialog = new ColorDialog();
+      var colorDialog = ColourPicker;
       colorDialog.Color = button.BackColor;
       
       if (colorDialog.ShowDialog() != DialogResult.OK)
