@@ -1,4 +1,4 @@
-﻿//AL.
+//AL.
 /*
  * 15/4/2023
  * There's room for a lot more refinement, but I think this is perfectly usable as of commit d26f92 
@@ -92,21 +92,24 @@ namespace ALsSoundSwitcher
     private void HandleButtonClick(object sender, EventArgs e)
     {
       var button = (Button)sender;
-      var bundle = _allColourBundles.First(x => button.Name.EndsWith(x.JsonKey));
-
       var colorDialog = new ColorDialog();
       colorDialog.Color = button.BackColor;
-      if (colorDialog.ShowDialog() == DialogResult.OK)
+      
+      if (colorDialog.ShowDialog() != DialogResult.OK)
       {
-        button.BackColor = colorDialog.Color;
-        bundle.Colour = colorDialog.Color;
-        UpdatePreview(bundle.Mask, bundle.Colour);
+        return;
+      }
 
-        var topLayer = _allColourBundles[_allColourBundles.Length - 1];
-        if (bundle.Mask != topLayer.Mask)
-        {
-          UpdatePreview(topLayer.Mask, topLayer.Colour);
-        }
+      var bundle = _allColourBundles.First(x => button.Name.EndsWith(x.JsonKey));
+      button.BackColor = colorDialog.Color;
+      bundle.Colour = colorDialog.Color;
+
+      UpdatePreview(bundle.Mask, bundle.Colour);
+
+      var topLayer = _allColourBundles[_allColourBundles.Length - 1];
+      if (bundle.Mask != topLayer.Mask)
+      {
+        UpdatePreview(topLayer.Mask, topLayer.Colour);
       }
     }
 
@@ -185,5 +188,19 @@ namespace ALsSoundSwitcher
         file.WriteLine("}");
       }
     }
+  }
+
+  internal class ColourBundle
+  {
+    public ColourBundle(Color colour, string jsonKey, Bitmap mask)
+    {
+      Colour = colour;
+      JsonKey = jsonKey;
+      Mask = mask;
+    }
+
+    public Color Colour;
+    public string JsonKey;
+    public Bitmap Mask;
   }
 }
