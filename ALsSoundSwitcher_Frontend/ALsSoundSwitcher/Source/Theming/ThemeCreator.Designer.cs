@@ -49,6 +49,7 @@
       this.textBox_ThemeName = new System.Windows.Forms.TextBox();
       this.panel1 = new System.Windows.Forms.Panel();
       this.panel2 = new System.Windows.Forms.Panel();
+      this.label_errorFileName = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.SuspendLayout();
       // 
@@ -285,12 +286,25 @@
       this.panel2.Size = new System.Drawing.Size(323, 2);
       this.panel2.TabIndex = 9;
       // 
+      // label_errorFileName
+      // 
+      this.label_errorFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.label_errorFileName.AutoSize = true;
+      this.label_errorFileName.ForeColor = System.Drawing.Color.Red;
+      this.label_errorFileName.Location = new System.Drawing.Point(56, 767);
+      this.label_errorFileName.Name = "label_errorFileName";
+      this.label_errorFileName.Size = new System.Drawing.Size(182, 13);
+      this.label_errorFileName.TabIndex = 10;
+      this.label_errorFileName.Text = "[Theme with this name already exists]";
+      // 
       // ThemeCreator
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.White;
       this.ClientSize = new System.Drawing.Size(307, 850);
+      this.Controls.Add(this.label_errorFileName);
       this.Controls.Add(this.panel2);
       this.Controls.Add(this.panel1);
       this.Controls.Add(this.textBox_ThemeName);
@@ -345,5 +359,6 @@
     private System.Windows.Forms.TextBox textBox_ThemeName;
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.Panel panel2;
+    private System.Windows.Forms.Label label_errorFileName;
   }
 }

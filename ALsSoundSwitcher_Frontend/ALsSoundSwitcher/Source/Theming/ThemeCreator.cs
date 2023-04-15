@@ -29,6 +29,7 @@ namespace ALsSoundSwitcher
       textBox_ThemeName.Text = TextBoxDefault;
 
       btn_save.Enabled = false;
+      label_errorFileName.Visible = false;
 
       GenerateFullPreview();
     }
@@ -117,6 +118,7 @@ namespace ALsSoundSwitcher
     {
       if (textBox_ThemeName.Text == TextBoxDefault)
       {
+        label_errorFileName.Visible = false;
         textBox_ThemeName.Text = "";
         textBox_ThemeName.ForeColor = Color.Black;
       }
@@ -128,6 +130,7 @@ namespace ALsSoundSwitcher
       {
         textBox_ThemeName.Text = TextBoxDefault;
         textBox_ThemeName.ForeColor = Color.Gray;
+        label_errorFileName.Visible = false;
       }
     }
 
@@ -138,10 +141,16 @@ namespace ALsSoundSwitcher
 
       if (input != TextBoxDefault && input != string.Empty && !File.Exists(filename))
       {
+        label_errorFileName.Visible = false;
         btn_save.Enabled = true;
       }
       else
       {
+        if (File.Exists(filename))
+        {
+          label_errorFileName.Visible = true;
+        }
+        
         btn_save.Enabled = false;
       }
     }
