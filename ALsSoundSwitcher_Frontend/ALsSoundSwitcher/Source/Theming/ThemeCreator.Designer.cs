@@ -94,9 +94,9 @@
       this.label_ActiveSelectionColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ActiveSelectionColor.Location = new System.Drawing.Point(10, 195);
       this.label_ActiveSelectionColor.Name = "label_ActiveSelectionColor";
-      this.label_ActiveSelectionColor.Size = new System.Drawing.Size(137, 17);
+      this.label_ActiveSelectionColor.Size = new System.Drawing.Size(93, 17);
       this.label_ActiveSelectionColor.TabIndex = 3;
-      this.label_ActiveSelectionColor.Text = "ActiveSelectionColor";
+      this.label_ActiveSelectionColor.Text = "Active Device";
       // 
       // label_ColorMenuItemSelected
       // 
@@ -105,9 +105,9 @@
       this.label_ColorMenuItemSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ColorMenuItemSelected.Location = new System.Drawing.Point(10, 270);
       this.label_ColorMenuItemSelected.Name = "label_ColorMenuItemSelected";
-      this.label_ColorMenuItemSelected.Size = new System.Drawing.Size(157, 17);
+      this.label_ColorMenuItemSelected.Size = new System.Drawing.Size(69, 17);
       this.label_ColorMenuItemSelected.TabIndex = 5;
-      this.label_ColorMenuItemSelected.Text = "ColorMenuItemSelected";
+      this.label_ColorMenuItemSelected.Text = "Hovering ";
       // 
       // btn_ColorMenuItemSelected
       // 
@@ -140,9 +140,9 @@
       this.label_ColorBackground.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ColorBackground.Location = new System.Drawing.Point(10, 346);
       this.label_ColorBackground.Name = "label_ColorBackground";
-      this.label_ColorBackground.Size = new System.Drawing.Size(117, 17);
+      this.label_ColorBackground.Size = new System.Drawing.Size(84, 17);
       this.label_ColorBackground.TabIndex = 3;
-      this.label_ColorBackground.Text = "ColorBackground";
+      this.label_ColorBackground.Text = "Background";
       // 
       // btn_ColorMenuItemText
       // 
@@ -163,9 +163,9 @@
       this.label_ColorMenuItemText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ColorMenuItemText.Location = new System.Drawing.Point(10, 421);
       this.label_ColorMenuItemText.Name = "label_ColorMenuItemText";
-      this.label_ColorMenuItemText.Size = new System.Drawing.Size(129, 17);
+      this.label_ColorMenuItemText.Size = new System.Drawing.Size(35, 17);
       this.label_ColorMenuItemText.TabIndex = 5;
-      this.label_ColorMenuItemText.Text = "ColorMenuItemText";
+      this.label_ColorMenuItemText.Text = "Text";
       // 
       // btn_ColorMenuArrow
       // 
@@ -200,7 +200,7 @@
       this.label_ColorMenuArrow.Name = "label_ColorMenuArrow";
       this.label_ColorMenuArrow.Size = new System.Drawing.Size(112, 17);
       this.label_ColorMenuArrow.TabIndex = 3;
-      this.label_ColorMenuArrow.Text = "ColorMenuArrow";
+      this.label_ColorMenuArrow.Text = "Dropdown Arrow";
       // 
       // btn_ColorMenuBorder
       // 
@@ -221,9 +221,9 @@
       this.label_ColorSeparator.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ColorSeparator.Location = new System.Drawing.Point(10, 496);
       this.label_ColorSeparator.Name = "label_ColorSeparator";
-      this.label_ColorSeparator.Size = new System.Drawing.Size(104, 17);
+      this.label_ColorSeparator.Size = new System.Drawing.Size(71, 17);
       this.label_ColorSeparator.TabIndex = 5;
-      this.label_ColorSeparator.Text = "ColorSeparator";
+      this.label_ColorSeparator.Text = "Separator";
       // 
       // label_ColorMenuBorder
       // 
@@ -232,9 +232,9 @@
       this.label_ColorMenuBorder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label_ColorMenuBorder.Location = new System.Drawing.Point(10, 647);
       this.label_ColorMenuBorder.Name = "label_ColorMenuBorder";
-      this.label_ColorMenuBorder.Size = new System.Drawing.Size(119, 17);
+      this.label_ColorMenuBorder.Size = new System.Drawing.Size(90, 17);
       this.label_ColorMenuBorder.TabIndex = 5;
-      this.label_ColorMenuBorder.Text = "ColorMenuBorder";
+      this.label_ColorMenuBorder.Text = "Menu Border";
       // 
       // btn_save
       // 

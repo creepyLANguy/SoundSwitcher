@@ -21,10 +21,7 @@ namespace ALsSoundSwitcher
 
       if (LastBaseMenuInvokedPosition != Point.Empty)
       {
-        BaseMenu.Show(LastBaseMenuInvokedPosition, ToolStripDropDownDirection.Left);
-        MenuItemToggleTheme.GetCurrentParent().Show();
-        MenuItemToggleTheme.DropDown.Show();
-        MenuItemCreateTheme.Select();
+        ExpandMenusOnThemeCreation();
       }
     }
 
@@ -211,6 +208,19 @@ namespace ALsSoundSwitcher
         dropdown.ShowImageMargin = false;
         HideImageMarginOnSubItems(item.DropDownItems.OfType<ToolStripMenuItem>().ToList());
       });
+    }
+
+    private static void ExpandMenusOnThemeCreation()
+    {
+      BaseMenu.Show(LastBaseMenuInvokedPosition, ToolStripDropDownDirection.Left);
+      MenuItemToggleTheme.GetCurrentParent().Show();
+      MenuItemToggleTheme.DropDown.Show();
+      BaseMenu.Focus();
+      MenuItemToggleTheme.GetCurrentParent().Focus();
+      MenuItemToggleTheme.DropDown.Focus();
+      BaseMenu.Select();
+      MenuItemMore.Select();
+      MenuItemToggleTheme.Select();
     }
 
     private static void SetCurrentDeviceIconAndIndicators()
