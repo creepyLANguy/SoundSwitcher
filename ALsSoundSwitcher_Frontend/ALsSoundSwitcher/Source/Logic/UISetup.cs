@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using static ALsSoundSwitcher.Globals;
@@ -212,15 +213,10 @@ namespace ALsSoundSwitcher
 
     private static void ExpandMenusOnThemeCreation()
     {
+      Thread.Sleep(Settings.Current.ThemeSwitchUIRefreshDelay);
       BaseMenu.Show(LastBaseMenuInvokedPosition, ToolStripDropDownDirection.Left);
       MenuItemToggleTheme.GetCurrentParent().Show();
-      MenuItemToggleTheme.DropDown.Show();
-      BaseMenu.Focus();
       MenuItemToggleTheme.GetCurrentParent().Focus();
-      MenuItemToggleTheme.DropDown.Focus();
-      BaseMenu.Select();
-      MenuItemMore.Select();
-      MenuItemToggleTheme.Select();
     }
 
     private static void SetCurrentDeviceIconAndIndicators()
