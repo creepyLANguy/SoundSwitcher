@@ -19,7 +19,7 @@ namespace ALsSoundSwitcher
 
         if (Settings.Current.Theme.Length > 0)
         {
-          var themeFilename = ThemeFilenamePattern.Replace("*", Settings.Current.Theme);
+          var themeFilename = Settings.Current.Theme + ThemeFileExtension;
           var colourPack = GetColourPackFromThemeFile(themeFilename);
           Theme = new CustomRenderer(colourPack);
         }

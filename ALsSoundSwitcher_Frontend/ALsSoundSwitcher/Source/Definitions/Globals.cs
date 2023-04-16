@@ -21,7 +21,7 @@ namespace ALsSoundSwitcher
     
     public const string ConfigFile = "settings.json";
     
-    public const string ThemeFilenamePattern = "*.skin";
+    public const string ThemeFileExtension = ".skin";
 
     public static bool WeAreSwitching = false;
 

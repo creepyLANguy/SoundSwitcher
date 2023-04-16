@@ -41,13 +41,13 @@ namespace ALsSoundSwitcher
       var colours = Globals.Theme.GetPertinentColours();
       _allColourBundles = new[]
       {
-        new ColourBundle(colours["ColorBackground"], "ColorBackground", Resources.mask_background),
-        new ColourBundle(colours["ColorMenuBorder"], "ColorMenuBorder", Resources.mask_border),
-        new ColourBundle(colours["ActiveSelectionColor"], "ActiveSelectionColor", Resources.mask_active),
+        new ColourBundle(colours["ColorBackground"],       "ColorBackground",       Resources.mask_background),
+        new ColourBundle(colours["ColorMenuBorder"],       "ColorMenuBorder",       Resources.mask_border),
+        new ColourBundle(colours["ActiveSelectionColor"],  "ActiveSelectionColor",  Resources.mask_active),
         new ColourBundle(colours["ColorMenuItemSelected"], "ColorMenuItemSelected", Resources.mask_selected),
-        new ColourBundle(colours["ColorSeparator"], "ColorSeparator", Resources.mask_separator),
-        new ColourBundle(colours["ColorMenuArrow"], "ColorMenuArrow", Resources.mask_arrow),
-        new ColourBundle(colours["ColorMenuItemText"], "ColorMenuItemText", Resources.mask_text)
+        new ColourBundle(colours["ColorSeparator"],        "ColorSeparator",        Resources.mask_separator),
+        new ColourBundle(colours["ColorMenuArrow"],        "ColorMenuArrow",        Resources.mask_arrow),
+        new ColourBundle(colours["ColorMenuItemText"],     "ColorMenuItemText",     Resources.mask_text)
       };
 
       foreach (var bundle in _allColourBundles)
@@ -139,7 +139,7 @@ namespace ALsSoundSwitcher
     private void textBox_ThemeName_TextChanged(object sender, EventArgs e)
     {
       var input = textBox_ThemeName.Text.Trim();
-      var filename = Globals.ThemeFilenamePattern.Replace("*", input);
+      var filename = input + Globals.ThemeFileExtension;
 
       if (input != TextBoxDefault && input != string.Empty && !File.Exists(filename))
       {
@@ -173,7 +173,7 @@ namespace ALsSoundSwitcher
     private void PerformSaveOperations()
     {
       var input = textBox_ThemeName.Text.Trim();
-      var filename = Globals.ThemeFilenamePattern.Replace("*", input);
+      var filename = input + Globals.ThemeFileExtension;
       WriteThemeToFile(_allColourBundles.ToList(), filename);
 
       Settings.Current.Theme = input;
