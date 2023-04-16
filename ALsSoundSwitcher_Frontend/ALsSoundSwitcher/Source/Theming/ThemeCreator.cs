@@ -39,16 +39,17 @@ namespace ALsSoundSwitcher
     private void SetupButtons()
     {
       var colours = Globals.Theme.GetPertinentColours();
+
       _allColourBundles = new[]
-      {
-        new ColourBundle(colours["ColorBackground"],       "ColorBackground",       Resources.mask_background),
-        new ColourBundle(colours["ColorMenuBorder"],       "ColorMenuBorder",       Resources.mask_border),
-        new ColourBundle(colours["ActiveSelectionColor"],  "ActiveSelectionColor",  Resources.mask_active),
-        new ColourBundle(colours["ColorMenuItemSelected"], "ColorMenuItemSelected", Resources.mask_selected),
-        new ColourBundle(colours["ColorSeparator"],        "ColorSeparator",        Resources.mask_separator),
-        new ColourBundle(colours["ColorMenuArrow"],        "ColorMenuArrow",        Resources.mask_arrow),
-        new ColourBundle(colours["ColorMenuItemText"],     "ColorMenuItemText",     Resources.mask_text)
-      };
+      {               
+        new ColourBundle(colours["ColorBackground"],       "ColorBackground",       Resources.mask_background, LayerType.BACKGROUND),
+        new ColourBundle(colours["ColorMenuBorder"],       "ColorMenuBorder",       Resources.mask_border,     LayerType.NORMAL),
+        new ColourBundle(colours["ActiveSelectionColor"],  "ActiveSelectionColor",  Resources.mask_active,     LayerType.NORMAL),
+        new ColourBundle(colours["ColorMenuItemSelected"], "ColorMenuItemSelected", Resources.mask_selected,   LayerType.NORMAL),
+        new ColourBundle(colours["ColorSeparator"],        "ColorSeparator",        Resources.mask_separator,  LayerType.NORMAL),
+        new ColourBundle(colours["ColorMenuArrow"],        "ColorMenuArrow",        Resources.mask_arrow,      LayerType.NORMAL),
+        new ColourBundle(colours["ColorMenuItemText"],     "ColorMenuItemText",     Resources.mask_text,       LayerType.TOPMOST)
+      }.OrderBy(cb => cb.Layer).ToArray();
 
       foreach (var bundle in _allColourBundles)
       {
@@ -111,10 +112,10 @@ namespace ALsSoundSwitcher
 
       UpdatePreview(bundle.Mask, bundle.Colour);
 
-      var topLayer = _allColourBundles[_allColourBundles.Length - 1];
-      if (bundle.Mask != topLayer.Mask)
+      if (bundle.Layer != LayerType.TOPMOST)
       {
-        UpdatePreview(topLayer.Mask, topLayer.Colour);
+        var topMostBundle = _allColourBundles.First(cb => cb.Layer == LayerType.TOPMOST);
+        UpdatePreview(topMostBundle.Mask, topMostBundle.Colour);
       }
 
       Cursor.Current = Cursors.Default;
@@ -211,15 +212,25 @@ namespace ALsSoundSwitcher
 
   internal class ColourBundle
   {
-    public ColourBundle(Color colour, string jsonKey, Bitmap mask)
+    public ColourBundle(Color colour, string jsonKey, Bitmap mask, LayerType layer)
     {
       Colour = colour;
       JsonKey = jsonKey;
       Mask = mask;
+      Layer = layer;
+
     }
 
     public Color Colour;
     public string JsonKey;
     public Bitmap Mask;
+    public LayerType Layer;
+  }
+
+  public enum LayerType
+  {
+    BACKGROUND,
+    NORMAL,
+    TOPMOST
   }
 }
