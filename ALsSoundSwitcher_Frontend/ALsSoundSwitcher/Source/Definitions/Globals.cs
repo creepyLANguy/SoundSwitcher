@@ -1,5 +1,6 @@
 ﻿using CSCore.CoreAudioAPI;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ALsSoundSwitcher
@@ -20,9 +21,13 @@ namespace ALsSoundSwitcher
     
     public const string ConfigFile = "settings.json";
     
-    public const string ThemeFilenamePattern = "*.skin";
+    public const string ThemeFileExtension = ".skin";
+
+    public const string ShowMenusPostThemeRestartFlag = "showMenusPostThemeSaveRestartFlag";
 
     public static bool WeAreSwitching = false;
+
+    public static Point LastBaseMenuInvokedPosition;
 
     public static MMDeviceEnumerator DeviceEnumerator = new MMDeviceEnumerator();
 
@@ -37,6 +42,8 @@ namespace ALsSoundSwitcher
     public static ToolStripMenuItem ActiveMenuItemDevice;
 
     public static ToolStripMenuItem MenuItemMore;
+    
+    public static ToolStripMenuItem MenuItemCreateTheme;
 
     public struct MoreMenuItems
     {

@@ -19,6 +19,10 @@ namespace ALsSoundSwitcher
       {
         Toggle();
       }
+      else if (e.Button == MouseButtons.Right)
+      {
+        LastBaseMenuInvokedPosition = Cursor.Position;
+      }
     }
 
     private static void menuItemMixer_Click(object sender, EventArgs e)
@@ -107,6 +111,11 @@ namespace ALsSoundSwitcher
       Config.Save();
 
       Application.Restart();
+    }
+
+    private static void menuItemCreateTheme_Click(object sender, EventArgs e)
+    {
+      new ThemeCreator().Show();
     }
   }
 }

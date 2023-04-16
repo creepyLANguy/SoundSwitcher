@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using static ALsSoundSwitcher.Globals;
@@ -17,6 +19,11 @@ namespace ALsSoundSwitcher
       DeviceUtils.GetDeviceList();
       SetupContextMenu();
       SetCurrentDeviceIconAndIndicators();
+
+      if (LastBaseMenuInvokedPosition != Point.Empty)
+      {
+        ExpandMenusOnThemeCreation();
+      }
     }
 
     private static void SetupContextMenu()
@@ -76,6 +83,8 @@ namespace ALsSoundSwitcher
 
       MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_SwitchTheme);
       MenuItemToggleTheme.MouseHover += menuItemExpandable_Hover;
+      MenuItemCreateTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_CreateTheme);
+      MenuItemCreateTheme.Click += menuItemCreateTheme_Click;
       SetupThemeSubmenu();
 
       MenuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Exit);
@@ -110,6 +119,12 @@ namespace ALsSoundSwitcher
 
         MenuItemToggleTheme.DropDownItems.Add(theme);
       }
+
+      if(allThemeFiles.Count > 0)
+      {
+        MenuItemToggleTheme.DropDownItems.Add("-");
+      }
+      MenuItemToggleTheme.DropDownItems.Add(MenuItemCreateTheme);
     }
 
     private static void SetupDeviceModesSubmenu()
@@ -125,7 +140,7 @@ namespace ALsSoundSwitcher
 
     private static List<string> GetAllThemesInFolder()
     {
-      return Directory.GetFiles(Directory.GetCurrentDirectory(), ThemeFilenamePattern)
+      return Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + ThemeFileExtension)
       .Select(Path.GetFileName)
       .ToList();
     }
@@ -151,13 +166,6 @@ namespace ALsSoundSwitcher
           MenuItemMore.DropDownItems.Add(item);
           MenuItemMore.DropDownItems.Add("-");
         } 
-      }
-
-      if (MenuItemToggleTheme.HasDropDownItems == false)
-      {
-        var index = MenuItemMore.DropDownItems.IndexOf(MenuItemToggleTheme);
-        MenuItemMore.DropDownItems.RemoveAt(index);
-        MenuItemMore.DropDownItems.RemoveAt(index);
       }
 
       MenuItemMore.DropDownItems.RemoveAt(MenuItemMore.DropDownItems.Count - 1);
@@ -203,6 +211,14 @@ namespace ALsSoundSwitcher
       });
     }
 
+    private static void ExpandMenusOnThemeCreation()
+    {
+      Thread.Sleep(Settings.Current.ThemeSwitchUIRefreshDelay);
+      BaseMenu.Show(LastBaseMenuInvokedPosition, ToolStripDropDownDirection.Left);
+      MenuItemToggleTheme.GetCurrentParent().Show();
+      MenuItemToggleTheme.GetCurrentParent().Focus();
+    }
+
     private static void SetCurrentDeviceIconAndIndicators()
     {
       var currentDevice = DeviceUtils.GetCurrentDefaultDevice();
@@ -226,16 +242,13 @@ namespace ALsSoundSwitcher
         ActiveMenuItemDevice.BackColor = Theme.GetActiveSelectionColour();
       }
 
-      if (MenuItemToggleTheme.HasDropDownItems)
+      foreach (var item in MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>().ToList())
       {
-        foreach (ToolStripMenuItem item in MenuItemToggleTheme.DropDownItems)
-        {
-          item.ResetBackColor();
+        item.ResetBackColor();
 
-          if (item.Text == Settings.Current.Theme)
-          {
-            item.BackColor = Theme.GetActiveSelectionColour();
-          }
+        if (item.Text == Settings.Current.Theme)
+        {
+          item.BackColor = Theme.GetActiveSelectionColour();
         }
       }
 

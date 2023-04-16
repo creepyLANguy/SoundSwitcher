@@ -5,48 +5,48 @@ namespace ALsSoundSwitcher
 {
   internal class MenuStripColorTable : ProfessionalColorTable
   {
-    private Color _colorMenuBorder = Color.FromArgb(61, 61, 67);
-    private Color _colorMenuItemSelected = Color.FromArgb(76, 76, 77);
-    private Color _colorBackground = Color.FromArgb(43, 43, 43);
-    private Color _colorSeparator = Color.FromArgb(61, 61, 67);
-    private Color _colorStatusStripGradient = Color.FromArgb(234, 237, 241);
-    private Color _colorButtonSelected = Color.FromArgb(88, 146, 226);
-    private Color _colorButtonPressed = Color.FromArgb(110, 160, 230);
+    public Color ColorMenuBorder = Color.FromArgb(61, 61, 67);
+    public Color ColorMenuItemSelected = Color.FromArgb(76, 76, 77);
+    public Color ColorBackground = Color.FromArgb(43, 43, 43);
+    public Color ColorSeparator = Color.FromArgb(61, 61, 67);
+    public Color ColorStatusStripGradient = Color.FromArgb(234, 237, 241);
+    public Color ColorButtonSelected = Color.FromArgb(88, 146, 226);
+    public Color ColorButtonPressed = Color.FromArgb(110, 160, 230);
 
     public void SetColours(ColourPack colourPack)
     {
-      _colorMenuBorder = colourPack.ColorMenuBorder;
-      _colorMenuItemSelected = colourPack.ColorMenuItemSelected;
-      _colorBackground = colourPack.ColorBackground;
-      _colorSeparator = colourPack.ColorSeparator;
-      _colorStatusStripGradient = colourPack.ColorStatusStripGradient;
-      _colorButtonSelected = colourPack.ColorButtonSelected;
-      _colorButtonPressed = colourPack.ColorButtonPressed;
+      ColorMenuBorder = colourPack.ColorMenuBorder;
+      ColorMenuItemSelected = colourPack.ColorMenuItemSelected;
+      ColorBackground = colourPack.ColorBackground;
+      ColorSeparator = colourPack.ColorSeparator;
+      ColorStatusStripGradient = colourPack.ColorStatusStripGradient;
+      ColorButtonSelected = colourPack.ColorButtonSelected;
+      ColorButtonPressed = colourPack.ColorButtonPressed;
     }
 
-    public override Color ToolStripDropDownBackground => _colorBackground;
-    public override Color MenuStripGradientBegin => _colorBackground;
-    public override Color MenuStripGradientEnd => _colorBackground;
-    public override Color CheckBackground => _colorBackground;
-    public override Color CheckPressedBackground => _colorBackground;
-    public override Color CheckSelectedBackground => _colorBackground;
-    public override Color MenuItemSelected => _colorMenuItemSelected;
-    public override Color ImageMarginGradientBegin => _colorBackground;
-    public override Color ImageMarginGradientMiddle => _colorBackground;
-    public override Color ImageMarginGradientEnd => _colorBackground;
-    public override Color MenuItemBorder => _colorMenuItemSelected;
-    public override Color MenuBorder => _colorMenuBorder;
-    public override Color SeparatorDark => _colorSeparator;
-    public override Color SeparatorLight => _colorSeparator;
-    public override Color StatusStripGradientBegin => _colorStatusStripGradient;
-    public override Color StatusStripGradientEnd => _colorStatusStripGradient;
-    public override Color ButtonSelectedGradientBegin => _colorButtonSelected;
-    public override Color ButtonSelectedGradientMiddle => _colorButtonSelected;
-    public override Color ButtonSelectedGradientEnd => _colorButtonSelected;
-    public override Color ButtonSelectedBorder => _colorButtonSelected;
-    public override Color ButtonPressedGradientBegin => _colorButtonPressed;
-    public override Color ButtonPressedGradientMiddle => _colorButtonPressed;
-    public override Color ButtonPressedGradientEnd => _colorButtonPressed;
-    public override Color ButtonPressedBorder => _colorButtonPressed;
+    public override Color ToolStripDropDownBackground => ColorBackground;
+    public override Color MenuStripGradientBegin => ColorBackground;
+    public override Color MenuStripGradientEnd => ColorBackground;
+    public override Color CheckBackground => ColorBackground;
+    public override Color CheckPressedBackground => ColorBackground;
+    public override Color CheckSelectedBackground => ColorBackground;
+    public override Color MenuItemSelected => ColorMenuItemSelected;
+    public override Color ImageMarginGradientBegin => ColorBackground;
+    public override Color ImageMarginGradientMiddle => ColorBackground;
+    public override Color ImageMarginGradientEnd => ColorBackground;
+    public override Color MenuItemBorder => ColorMenuItemSelected;
+    public override Color MenuBorder => ColorMenuBorder;
+    public override Color SeparatorDark => ColorSeparator;
+    public override Color SeparatorLight => ColorSeparator;
+    public override Color StatusStripGradientBegin => ColorStatusStripGradient;
+    public override Color StatusStripGradientEnd => ColorStatusStripGradient;
+    public override Color ButtonSelectedGradientBegin => ColorButtonSelected;
+    public override Color ButtonSelectedGradientMiddle => ColorButtonSelected;
+    public override Color ButtonSelectedGradientEnd => ColorButtonSelected;
+    public override Color ButtonSelectedBorder => ColorButtonSelected;
+    public override Color ButtonPressedGradientBegin => ColorButtonPressed;
+    public override Color ButtonPressedGradientMiddle => ColorButtonPressed;
+    public override Color ButtonPressedGradientEnd => ColorButtonPressed;
+    public override Color ButtonPressedBorder => ColorButtonPressed;
   }
 }

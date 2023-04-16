@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -8,11 +9,11 @@ namespace ALsSoundSwitcher
   {
     private new static readonly MenuStripColorTable ColorTable = new MenuStripColorTable();
 
-    private Color _activeSelectionColor = Color.DarkSlateGray;
-    private Color _colorMenuArrow = Color.FromArgb(237, 237, 237);
-    private Color _colorCheckSquare = Color.FromArgb(0, 122, 204);
-    private Color _colorCheckMark = Color.FromArgb(237, 237, 237);
-    private Color _colorMenuItemText = Color.FromArgb(237, 237, 237);
+    public Color ActiveSelectionColor = Color.DarkSlateGray;
+    public Color ColorMenuArrow = Color.FromArgb(237, 237, 237);
+    public Color ColorCheckSquare = Color.FromArgb(0, 122, 204);
+    public Color ColorCheckMark = Color.FromArgb(237, 237, 237);
+    public Color ColorMenuItemText = Color.FromArgb(237, 237, 237);
 
     public CustomRenderer() : base(new MenuStripColorTable())
     {
@@ -25,23 +26,39 @@ namespace ALsSoundSwitcher
     
     public Color GetActiveSelectionColour()
     {
-      return _activeSelectionColor;
+      return ActiveSelectionColor;
     }
+
+    public Dictionary<string, Color> GetPertinentColours()
+    {
+      return new Dictionary<string, Color>
+      {
+        {nameof(ColorTable.ColorBackground),ColorTable.ColorBackground},
+        {nameof(ColorTable.ColorMenuBorder),ColorTable.ColorMenuBorder},
+        {nameof(ActiveSelectionColor),ActiveSelectionColor},
+        {nameof(ColorTable.ColorMenuItemSelected),ColorTable.ColorMenuItemSelected},
+        {nameof(ColorTable.ColorSeparator),ColorTable.ColorSeparator},
+        {nameof(ColorMenuArrow),ColorMenuArrow},
+        {nameof(ColorMenuItemText),ColorMenuItemText}
+      };
+    }
+
+    
 
     private void SetColours(ColourPack colourPack)
     {
-      _activeSelectionColor = colourPack.ActiveSelectionColor;
-      _colorMenuArrow = colourPack.ColorMenuArrow;
-      _colorCheckSquare = colourPack.ColorCheckSquare;
-      _colorCheckMark = colourPack.ColorCheckMark;
-      _colorMenuItemText = colourPack.ColorMenuItemText;
+      ActiveSelectionColor = colourPack.ActiveSelectionColor;
+      ColorMenuArrow = colourPack.ColorMenuArrow;
+      ColorCheckSquare = colourPack.ColorCheckSquare;
+      ColorCheckMark = colourPack.ColorCheckMark;
+      ColorMenuItemText = colourPack.ColorMenuItemText;
 
       ColorTable.SetColours(colourPack);
     }
 
     protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
     {
-      e.ArrowColor = _colorMenuArrow;
+      e.ArrowColor = ColorMenuArrow;
       base.OnRenderArrow(e);
     }
 
@@ -53,7 +70,7 @@ namespace ALsSoundSwitcher
       var rectImage = new Rectangle(e.ImageRectangle.Location, e.ImageRectangle.Size);
       rectImage.Inflate(-1, -1);
 
-      using (var p = new Pen(_colorCheckSquare, 1))
+      using (var p = new Pen(ColorCheckSquare, 1))
       {
         g.DrawRectangle(p, rectImage);
       }
@@ -64,7 +81,7 @@ namespace ALsSoundSwitcher
       rectCheck.X += 3;
       rectCheck.Y += 4;
 
-      using (var p = new Pen(_colorCheckMark, 2))
+      using (var p = new Pen(ColorCheckMark, 2))
       {
         g.DrawLines(p, new[] {
             new Point(rectCheck.Left, rectCheck.Bottom - rectCheck.Height / 2), 
@@ -81,7 +98,7 @@ namespace ALsSoundSwitcher
 
       e.TextRectangle = textRect;
       e.TextFormat = TextFormatFlags.VerticalCenter;
-      e.TextColor = _colorMenuItemText;
+      e.TextColor = ColorMenuItemText;
       base.OnRenderItemText(e);
     }
 
