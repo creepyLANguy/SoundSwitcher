@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 
@@ -9,11 +11,8 @@ namespace ALsSoundSwitcher
   {
     public Form1(string[] args)
     {
-      if (args.Length > 0)
-      {
-        Globals.LastBaseMenuInvokedPosition = new Point(Convert.ToInt32(args[0]), Convert.ToInt32(args[1]));
-      }
-
+      ProcessArgs(args.ToList());
+    
       InitializeComponent();
     }
 
@@ -39,6 +38,21 @@ namespace ALsSoundSwitcher
       Minimize();
 
       DeviceUtils.Monitor();
+    }
+
+    private void ProcessArgs(List<string> argsList)
+    {
+      var indexOfShowMenusFlag = argsList.IndexOf(Globals.ShowMenusPostThemeRestartFlag);
+      
+      if (indexOfShowMenusFlag == -1)
+      {
+        Globals.LastBaseMenuInvokedPosition = Point.Empty;
+        return;
+      }
+
+      int x = int.Parse(argsList[++indexOfShowMenusFlag]);
+      int y = int.Parse(argsList[++indexOfShowMenusFlag]);
+      Globals.LastBaseMenuInvokedPosition = new Point(x, y);
     }
 
     private void NotifyUserOfConfigReadFail()

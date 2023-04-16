@@ -179,8 +179,12 @@ namespace ALsSoundSwitcher
       Settings.Current.Theme = input;
       Config.Save();
 
-      var args = Globals.LastBaseMenuInvokedPosition.X + " " + Globals.LastBaseMenuInvokedPosition.Y;
+      var argString = Globals.ShowMenusPostThemeRestartFlag;
+      var x = Globals.LastBaseMenuInvokedPosition.X;
+      var y = Globals.LastBaseMenuInvokedPosition.Y;
+      var args = $"\"{argString}\" {x} {y}";
       ProcessUtils.RunExe(Application.ExecutablePath, args);
+      
       Application.Exit();
     }
 
