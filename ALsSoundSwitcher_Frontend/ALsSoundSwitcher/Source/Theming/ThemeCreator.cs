@@ -95,17 +95,19 @@ namespace ALsSoundSwitcher
     private void HandleButtonClick(object sender, EventArgs e)
     {
       var button = (Button)sender;
-      var colorDialog = ColourPicker;
-      colorDialog.Color = button.BackColor;
+
+      ColourPicker.Color = button.BackColor;
       
-      if (colorDialog.ShowDialog() != DialogResult.OK)
+      if (ColourPicker.ShowDialog() != DialogResult.OK)
       {
         return;
       }
 
       var bundle = _allColourBundles.First(x => button.Name.EndsWith(x.JsonKey));
-      button.BackColor = colorDialog.Color;
-      bundle.Colour = colorDialog.Color;
+      button.BackColor = ColourPicker.Color;
+      bundle.Colour = ColourPicker.Color;
+
+      Cursor.Current = Cursors.WaitCursor;
 
       UpdatePreview(bundle.Mask, bundle.Colour);
 
@@ -114,6 +116,8 @@ namespace ALsSoundSwitcher
       {
         UpdatePreview(topLayer.Mask, topLayer.Colour);
       }
+
+      Cursor.Current = Cursors.Default;
     }
 
     private void textBox_ThemeName_Enter(object sender, EventArgs e)

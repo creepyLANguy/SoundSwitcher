@@ -330,6 +330,7 @@
       this.MinimizeBox = false;
       this.MinimumSize = new System.Drawing.Size(200, 830);
       this.Name = "ThemeCreator";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "AL\'s Sound Switcher - Theme Creator (beta)";
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
       this.ResumeLayout(false);
