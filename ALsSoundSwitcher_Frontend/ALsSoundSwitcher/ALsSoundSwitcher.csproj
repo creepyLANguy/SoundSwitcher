@@ -137,11 +137,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Skins\Dark.skin" />
-    <None Include="Skins\Light.skin" />
-    <None Include="Skins\Ocean.skin" />
-    <None Include="Skins\Sapphire.skin" />
-    <None Include="Skins\Spumoni.skin" />
+  </ItemGroup>
+  <ItemGroup>
+    <ContentWithTargetPath Include="Skins\**">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <TargetPath>%(Filename)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icons\icon.ico" />
