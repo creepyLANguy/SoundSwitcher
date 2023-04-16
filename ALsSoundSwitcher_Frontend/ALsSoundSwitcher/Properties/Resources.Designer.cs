@@ -393,5 +393,14 @@ namespace ALsSoundSwitcher.Properties {
                 return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Message", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a name for your theme....
+        /// </summary>
+        internal static string ThemeCreator_TextBoxDefault {
+            get {
+                return ResourceManager.GetString("ThemeCreator_TextBoxDefault", resourceCulture);
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace ALsSoundSwitcher
 {
   public partial class ThemeCreator : Form
   {
-    private const string TextBoxDefault = "Enter a name for your theme...";
+    private string TextBoxDefault = Resources.ThemeCreator_TextBoxDefault;
 
     private static ColourBundle[] _allColourBundles;
 
