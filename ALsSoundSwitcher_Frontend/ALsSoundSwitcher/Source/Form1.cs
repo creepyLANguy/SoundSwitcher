@@ -35,6 +35,11 @@ namespace ALsSoundSwitcher
       
       SetupUI();
 
+      if (Globals.LastBaseMenuInvokedPosition != Point.Empty)
+      {
+        ExpandMenusOnThemeCreation();
+      }
+
       Minimize();
 
       DeviceUtils.Monitor();

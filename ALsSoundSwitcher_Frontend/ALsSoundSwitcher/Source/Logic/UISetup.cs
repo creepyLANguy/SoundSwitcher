@@ -19,11 +19,6 @@ namespace ALsSoundSwitcher
       DeviceUtils.GetDeviceList();
       SetupContextMenu();
       SetCurrentDeviceIconAndIndicators();
-
-      if (LastBaseMenuInvokedPosition != Point.Empty)
-      {
-        ExpandMenusOnThemeCreation();
-      }
     }
 
     private static void SetupContextMenu()
