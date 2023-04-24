@@ -73,7 +73,7 @@ namespace ALsSoundSwitcher
     private void Minimize()
     {
       WindowState = FormWindowState.Minimized;
-      notifyIcon1.ShowBalloonTip(Settings.Current.BalloonTime);
+      //notifyIcon1.ShowBalloonTip(Settings.Current.BalloonTime);
       ShowInTaskbar = false;
       Visible = false;
     }
