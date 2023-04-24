@@ -171,23 +171,12 @@ namespace ALsSoundSwitcher
       var indexOfOpeningParenthesis = name.IndexOf("(", StringComparison.Ordinal);
       var deviceName = name.Substring(indexOfOpeningParenthesis + 1).TrimEnd(')');
 
-      //AL.
-      //TODO -
-      //Handle case where bracketed portion is identical but prefix is unique 
-      //Possible approach - check that for each friendlyname, if it occurs more than once in ActiveDevices, use the prefix for this item. 
-      var occurences = 0;
-      foreach (var item in ActiveDevices)
-      {
-        if (item.Key.Contains(deviceName))
-        {
-          ++occurences;
-        }
-      }
+      //Handle case where bracketed portion is identical but prefix is unique, e.g., systems with Realtek(R) audio.
+      var occurences = ActiveDevices.Keys.Count(key => key.Contains(deviceName));
       if (occurences > 1)
       {
         deviceName = name.Substring(0, indexOfOpeningParenthesis);
       }
-      //
 
       return deviceName;
     }
