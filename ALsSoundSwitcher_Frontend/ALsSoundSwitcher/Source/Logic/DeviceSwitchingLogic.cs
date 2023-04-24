@@ -48,7 +48,7 @@ namespace ALsSoundSwitcher
 
     private static void Toggle()
     {
-      if (ActiveDevices.Count <= 1)
+      if (ActiveDevices.Count == 0)
       {
         return;
       }
