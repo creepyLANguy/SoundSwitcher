@@ -11,7 +11,6 @@ float GetDefaultAudioDeviceVolume()
   IMMDevice* pDevice = nullptr;
   IAudioEndpointVolume* pEndpointVolume = nullptr;
 
-  // Create a device enumerator
   hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr,
     CLSCTX_INPROC_SERVER, __uuidof(IMMDeviceEnumerator),
     (LPVOID*)&pEnumerator);
@@ -21,7 +20,6 @@ float GetDefaultAudioDeviceVolume()
     return volume;
   }
 
-  // Get the default audio device
   hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eConsole, &pDevice);
   if (FAILED(hr))
   {
@@ -30,7 +28,6 @@ float GetDefaultAudioDeviceVolume()
     return volume;
   }
 
-  // Get the endpoint volume interface
   hr = pDevice->Activate(__uuidof(IAudioEndpointVolume),
     CLSCTX_INPROC_SERVER, nullptr, (LPVOID*)&pEndpointVolume);
   if (FAILED(hr))
@@ -41,14 +38,12 @@ float GetDefaultAudioDeviceVolume()
     return volume;
   }
 
-  // Get the master volume level
   hr = pEndpointVolume->GetMasterVolumeLevelScalar(&volume);
   if (FAILED(hr))
   {
     // handle error
   }
 
-  // Release resources
   pEndpointVolume->Release();
   pDevice->Release();
   pEnumerator->Release();
@@ -66,7 +61,6 @@ void SetDefaultAudioDeviceVolume(float volume)
 
   hr = CoInitialize(nullptr);
 
-  // Create a device enumerator
   hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr,
     CLSCTX_INPROC_SERVER, __uuidof(IMMDeviceEnumerator),
     (LPVOID*)&pEnumerator);
@@ -76,7 +70,6 @@ void SetDefaultAudioDeviceVolume(float volume)
     return;
   }
 
-  // Get the default audio device
   hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eConsole, &pDevice);
   if (FAILED(hr))
   {
@@ -85,7 +78,6 @@ void SetDefaultAudioDeviceVolume(float volume)
     return;
   }
 
-  // Get the endpoint volume interface
   hr = pDevice->Activate(__uuidof(IAudioEndpointVolume),
     CLSCTX_INPROC_SERVER, nullptr, (LPVOID*)&pEndpointVolume);
   if (FAILED(hr))
@@ -102,7 +94,6 @@ void SetDefaultAudioDeviceVolume(float volume)
     // handle error
   }
 
-  // Release resources
   pEndpointVolume->Release();
   pDevice->Release();
   pEnumerator->Release();
@@ -116,27 +107,44 @@ float GetDefaultMicLevel()
   IMMDevice* pDevice = NULL;
   IAudioEndpointVolume* pEndpointVolume = NULL;
 
-  // Initialize COM
   hr = CoInitialize(NULL);
 
-  // Create the device enumerator
   hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), (LPVOID*)&pEnumerator);
 
-  // Get the default recording device
   hr = pEnumerator->GetDefaultAudioEndpoint(eCapture, eConsole, &pDevice);
 
-  // Get the endpoint volume control
   hr = pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, NULL, (LPVOID*)&pEndpointVolume);
 
-  // Get the microphone level
   float level;
   hr = pEndpointVolume->GetMasterVolumeLevelScalar(&level);
 
-  // Release resources
   pEndpointVolume->Release();
   pDevice->Release();
   pEnumerator->Release();
   CoUninitialize();
 
   return level;
+}
+
+void SetDefaultMicLevel(float level)
+{
+  HRESULT hr = S_OK;
+  IMMDeviceEnumerator* pEnumerator = NULL;
+  IMMDevice* pDevice = NULL;
+  IAudioEndpointVolume* pEndpointVolume = NULL;
+
+  hr = CoInitialize(NULL);
+
+  hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), (LPVOID*)&pEnumerator);
+
+  hr = pEnumerator->GetDefaultAudioEndpoint(eCapture, eConsole, &pDevice);
+
+  hr = pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, NULL, (LPVOID*)&pEndpointVolume);
+
+  hr = pEndpointVolume->SetMasterVolumeLevelScalar(level, NULL);
+
+  pEndpointVolume->Release();
+  pDevice->Release();
+  pEnumerator->Release();
+  CoUninitialize();
 }

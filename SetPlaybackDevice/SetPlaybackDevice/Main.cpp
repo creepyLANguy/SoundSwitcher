@@ -27,7 +27,15 @@ int main(const int argc, const char * argv[])
   {
     return static_cast<int>(GetDefaultMicLevel() * 100);
   }
-	 else if (wcslen(arg)>0)
+  else if (!wcscmp(arg, L"SetMicLevel"))
+  {
+    constexpr int buffSize = 4;
+    wchar_t buff[buffSize] = { 0 };
+    MultiByteToWideChar(CP_ACP, 0, argv[2], -1, buff, buffSize);
+    float level = wcstof(buff, nullptr) / 100.0f;
+    SetDefaultMicLevel(level);
+  }
+	 else if (wcslen(arg) > 0)
 	 {
 	   SetAudioPlaybackDevice(arg);
   }
