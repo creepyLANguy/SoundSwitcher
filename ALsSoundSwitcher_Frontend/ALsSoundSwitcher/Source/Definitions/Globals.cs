@@ -14,6 +14,9 @@ namespace ALsSoundSwitcher
     public const string SetDeviceExe = "SetPlaybackDevice.exe";
     public const string GetVolumeArg = "GetVolume";
     public const string SetVolumeArg = "SetVolume ";
+    public const string GetMicLevelArg = "GetMicLevel";
+    public const string SetMicLevelArg = "SetMicLevel "; //AL. //TODO
+    public static bool WeAreRefreshingVolumeSliderValue = false;
 
     public const string VolumeMixerExe = "sndvol.exe";
     public const string VolumeMixerArgs = "-r 88888888";

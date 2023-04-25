@@ -23,6 +23,10 @@ int main(const int argc, const char * argv[])
     float vol = wcstof(buff,nullptr)/100.0f;
     SetDefaultAudioDeviceVolume(vol);
   }
+  else if (!wcscmp(arg, L"GetMicLevel"))
+  {
+    return static_cast<int>(GetDefaultMicLevel() * 100);
+  }
 	 else if (wcslen(arg)>0)
 	 {
 	   SetAudioPlaybackDevice(arg);

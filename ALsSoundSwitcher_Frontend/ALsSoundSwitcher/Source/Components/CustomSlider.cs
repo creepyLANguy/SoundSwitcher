@@ -52,9 +52,11 @@ namespace ALsSoundSwitcher
     
     public void RefreshValue()
     {
-      var volume = ProcessUtils.RunExe(Globals.SetDeviceExe, Globals.GetVolumeArg);
+      var arg = Settings.Current.Mode == DeviceMode.Output ? Globals.GetVolumeArg : Globals.GetMicLevelArg;
+      var volume = ProcessUtils.RunExe(Globals.SetDeviceExe, arg);
       if (trackBar.Value != volume)
       {
+        Globals.WeAreRefreshingVolumeSliderValue = true;
         trackBar.Value = volume;
       }
     }
@@ -71,7 +73,14 @@ namespace ALsSoundSwitcher
 
     private void trackBar_ValueChanged(object sender, EventArgs e)
     {
-      ProcessUtils.RunExe(Globals.SetDeviceExe, Globals.SetVolumeArg + trackBar.Value);
+      if (Globals.WeAreRefreshingVolumeSliderValue)
+      {
+        Globals.WeAreRefreshingVolumeSliderValue = false;
+        return;
+      }
+
+      var arg = Settings.Current.Mode == DeviceMode.Output ? Globals.SetVolumeArg : Globals.SetMicLevelArg;
+      ProcessUtils.RunExe(Globals.SetDeviceExe, arg + trackBar.Value);      
     }
   }
 }

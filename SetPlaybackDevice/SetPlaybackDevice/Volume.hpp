@@ -108,3 +108,35 @@ void SetDefaultAudioDeviceVolume(float volume)
   pEnumerator->Release();
   CoUninitialize();
 }
+
+float GetDefaultMicLevel()
+{
+  HRESULT hr = S_OK;
+  IMMDeviceEnumerator* pEnumerator = NULL;
+  IMMDevice* pDevice = NULL;
+  IAudioEndpointVolume* pEndpointVolume = NULL;
+
+  // Initialize COM
+  hr = CoInitialize(NULL);
+
+  // Create the device enumerator
+  hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), (LPVOID*)&pEnumerator);
+
+  // Get the default recording device
+  hr = pEnumerator->GetDefaultAudioEndpoint(eCapture, eConsole, &pDevice);
+
+  // Get the endpoint volume control
+  hr = pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, NULL, (LPVOID*)&pEndpointVolume);
+
+  // Get the microphone level
+  float level;
+  hr = pEndpointVolume->GetMasterVolumeLevelScalar(&level);
+
+  // Release resources
+  pEndpointVolume->Release();
+  pDevice->Release();
+  pEnumerator->Release();
+  CoUninitialize();
+
+  return level;
+}

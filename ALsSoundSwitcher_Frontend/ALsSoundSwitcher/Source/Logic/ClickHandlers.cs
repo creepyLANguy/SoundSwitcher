@@ -22,12 +22,7 @@ namespace ALsSoundSwitcher
       else if (e.Button == MouseButtons.Right)
       {
         LastBaseMenuInvokedPosition = Cursor.Position;
-        
-        var volume = ProcessUtils.RunExe(SetDeviceExe, GetVolumeArg);
-        if (MenuItem_Slider.trackBar.Value != volume)
-        {
-          MenuItem_Slider.trackBar.Value = volume;
-        }
+        MenuItem_Slider.RefreshValue();
       }      
     }
 
