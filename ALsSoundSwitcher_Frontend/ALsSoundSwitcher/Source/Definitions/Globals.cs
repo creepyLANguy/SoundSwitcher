@@ -44,6 +44,8 @@ namespace ALsSoundSwitcher
     public static ToolStripMenuItem MenuItemMore;
     
     public static ToolStripMenuItem MenuItemCreateTheme;
+    
+    public static SliderMenuItem MenuItem_Slider;
 
     public struct MoreMenuItems
     {
