@@ -29,6 +29,11 @@ namespace ALsSoundSwitcher
       return ActiveSelectionColor;
     }
 
+    public Color GetBackgroundColour()
+    {
+      return ColorTable.ColorBackground;
+    }
+
     public Dictionary<string, Color> GetPertinentColours()
     {
       return new Dictionary<string, Color>

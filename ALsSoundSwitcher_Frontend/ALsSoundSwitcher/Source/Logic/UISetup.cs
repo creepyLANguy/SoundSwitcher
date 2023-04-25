@@ -12,6 +12,35 @@ using static ALsSoundSwitcher.Globals.MoreMenuItems;
 
 namespace ALsSoundSwitcher
 {
+  public class SliderMenuItem : ToolStripControlHost
+  {
+    private TrackBar trackBar;
+
+    public SliderMenuItem(int value = 50)
+        : base(new TrackBar())
+    {
+      trackBar = Control as TrackBar;
+      trackBar.AutoSize = false;
+      trackBar.TickStyle = TickStyle.None;
+      trackBar.Height = 20;
+      trackBar.Width = BaseMenu.Width;
+      trackBar.Minimum = 0;
+      trackBar.Maximum = 100;
+      trackBar.Value = value;
+      trackBar.BackColor = Theme.GetBackgroundColour();
+
+      trackBar.Scroll += new EventHandler(trackBar_Scroll);
+
+      trackBar.TickFrequency = 0;
+    }
+
+    private void trackBar_Scroll(object sender, EventArgs e)
+    {
+      ProcessUtils.RunExe(SetDeviceExe, "SetVolume " + trackBar.Value);;
+    }
+  }
+
+
   public partial class Form1
   {
     private static void SetupUI()
@@ -38,6 +67,12 @@ namespace ALsSoundSwitcher
       notifyIcon1.ContextMenuStrip = BaseMenu;
 
       RefreshUITheme();
+
+      //AL.
+      BaseMenu.Items.Add("-");
+      var volume = ProcessUtils.RunExe(Globals.SetDeviceExe, "GetVolume");
+      BaseMenu.Items.Add(new SliderMenuItem(volume));
+      //
     }
 
     private static void AddAudioDevicesAsMenuItems()
