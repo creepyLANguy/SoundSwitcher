@@ -15,6 +15,9 @@ namespace ALsSoundSwitcher
 
     private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
+      //AL.
+      //TODO 
+      //Try doing this before actual show? 
       if (MenuItem_Slider != null)
       {
         MenuItem_Slider.Refresh();

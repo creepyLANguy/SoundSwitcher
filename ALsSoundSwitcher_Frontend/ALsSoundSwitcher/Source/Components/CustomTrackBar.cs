@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using System;
+using System.Drawing;
 
 namespace ALsSoundSwitcher
 {
@@ -30,7 +31,7 @@ namespace ALsSoundSwitcher
       trackBar.Height = 20;
       trackBar.Width = Globals.BaseMenu.Width;
       trackBar.Minimum = 0;
-      trackBar.Maximum = 100;
+      trackBar.Maximum = 100;    
 
       Refresh();
 
@@ -40,16 +41,29 @@ namespace ALsSoundSwitcher
     public void Refresh()
     {
       var backgroundColour = Globals.Theme.GetBackgroundColour();
-      //if (trackBar.BackColor != backgroundColour)
+      if (backgroundColour != trackBar.BackColor) 
       {
         trackBar.BackColor = backgroundColour;
+      }
 
-        trackBar.ThumbInnerColor = Globals.Theme.GetActiveSelectionColour();
-        trackBar.ThumbOuterColor = Globals.Theme.GetActiveSelectionColour();
-        trackBar.ThumbPenColor = Globals.Theme.GetActiveSelectionColour();
-        trackBar.ElapsedInnerColor = ((MenuStripColorTable)Globals.Theme.ColorTable).ColorSeparator;
-        trackBar.ElapsedPenColorBottom = ((MenuStripColorTable)Globals.Theme.ColorTable).ColorSeparator;
-        trackBar.ElapsedPenColorTop = ((MenuStripColorTable)Globals.Theme.ColorTable).ColorSeparator;
+      var thumbColour = Globals.Theme.GetActiveSelectionColour();
+      if (thumbColour != trackBar.ThumbInnerColor)
+      {
+        trackBar.ThumbInnerColor = thumbColour;
+        trackBar.ThumbOuterColor = thumbColour;
+        trackBar.ThumbPenColor = thumbColour;
+      }
+
+      var barColour = ((MenuStripColorTable)Globals.Theme.ColorTable).ColorSeparator;
+      if (barColour != trackBar.BarInnerColor)
+      {
+        trackBar.BarInnerColor = barColour;
+        trackBar.BarPenColorBottom = barColour;
+        trackBar.BarPenColorTop = barColour;
+
+        trackBar.ElapsedInnerColor = barColour;
+        trackBar.ElapsedPenColorBottom = barColour;
+        trackBar.ElapsedPenColorTop = barColour;
       }
 
       var volume = ProcessUtils.RunExe(Globals.SetDeviceExe, "GetVolume");
