@@ -6,7 +6,7 @@ namespace ALsSoundSwitcher
 {
   public class ProcessUtils
   {
-    public static void RunExe(string exeName, string args = "")
+    public static int RunExe(string exeName, string args = "")
     {
       var process = new Process();
       process.StartInfo.FileName = exeName;
@@ -16,6 +16,8 @@ namespace ALsSoundSwitcher
       process.StartInfo.CreateNoWindow = true;
       process.StartInfo.Arguments = args;
       process.Start();
+      process.WaitForExit();
+      return process.ExitCode;
     }
 
     public static void Restart_ThreadSafe()

@@ -1,38 +1,30 @@
-#include <stdio.h>
-#include <wchar.h>
-#include <tchar.h>
-#include "windows.h"
-#include "Mmdeviceapi.h"
-#include "PolicyConfig.h"
+#include "Device.hpp"
+#include "Volume.hpp"
 
-HRESULT SetAudioPlaybackDevice(const LPCWSTR devID)
+int main(const int argc, const char * argv[])
 {
-	CoInitialize(nullptr);
+  if (argc < 2)
+  {
+    return -1;
+  }
 
-	IPolicyConfigVista *pPolicyConfig;
+  wchar_t arg[256] = { 0 };
+  MultiByteToWideChar(CP_ACP, 0, argv[1], -1, arg, 256);
 
-  const ERole reserved = eConsole;
-
-	HRESULT hr = CoCreateInstance(__uuidof(CPolicyConfigVistaClient), nullptr, CLSCTX_ALL, __uuidof(IPolicyConfigVista), reinterpret_cast<LPVOID*>(&pPolicyConfig));
-
-	if (SUCCEEDED(hr))
-	{
-		hr = pPolicyConfig->SetDefaultEndpoint(devID, reserved);
-		pPolicyConfig->Release();
-	}
-
-	return hr;
-}
-
-void main(const int argc, const char * argv[])
-{
-	//MessageBox(nullptr, L"attach", L"attach", 0);
-
-	wchar_t id[256] = {0};
-	MultiByteToWideChar(CP_ACP, 0, argv[1], -1, id, 256);
-
-	if ((argc==2 ) && (wcslen(id)>0))
-	{
-		SetAudioPlaybackDevice(id);
-	}
+  if (!wcscmp(arg, L"GetVolume")) 
+  {
+    return static_cast<int>(GetDefaultAudioDeviceVolume() * 100);
+  }
+  else if (!wcscmp(arg, L"SetVolume"))
+  {
+    constexpr int buffSize = 4;
+    wchar_t buff[buffSize] = { 0 };
+    MultiByteToWideChar(CP_ACP, 0, argv[2], -1, buff, buffSize);
+    float vol = wcstof(buff,nullptr)/100.0f;
+    SetDefaultAudioDeviceVolume(vol);
+  }
+	 else if (wcslen(arg)>0)
+	 {
+	   SetAudioPlaybackDevice(arg);
+  }
 }

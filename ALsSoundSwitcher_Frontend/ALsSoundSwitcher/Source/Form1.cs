@@ -43,6 +43,11 @@ namespace ALsSoundSwitcher
       Minimize();
 
       DeviceUtils.Monitor();
+
+      //AL.
+      var result = ProcessUtils.RunExe(Globals.SetDeviceExe, "GetVolume");
+      ProcessUtils.RunExe(Globals.SetDeviceExe, "SetVolume " + 88);
+      //
     }
 
     private void ProcessArgs(List<string> argsList)
