@@ -6,7 +6,7 @@ namespace ALsSoundSwitcher
 {
   public class ProcessUtils
   {
-    public static int RunExe(string exeName, string args = "")
+    public static int RunExe(string exeName, string args = "", bool async = false)
     {
       var process = new Process();
       process.StartInfo.FileName = exeName;
@@ -16,6 +16,12 @@ namespace ALsSoundSwitcher
       process.StartInfo.CreateNoWindow = true;
       process.StartInfo.Arguments = args;
       process.Start();
+
+      if (async)
+      {
+        return -1;        
+      }
+
       process.WaitForExit();
       return process.ExitCode;
     }

@@ -3,7 +3,7 @@ using System;
 
 namespace ALsSoundSwitcher
 {
-  public class CustomTrackBar : TrackBar
+  public class CustomTrackBar : ColorSlider.ColorSlider
   {
     protected override void OnMouseDown(MouseEventArgs e)
     {
@@ -13,14 +13,14 @@ namespace ALsSoundSwitcher
       {
         int selectorWidth = 5;
         double ratio = (double)(e.X - selectorWidth / 2) / (Width - selectorWidth);
-        Value = (int)Math.Round(ratio * (Maximum - Minimum)) + Minimum;
+        Value = Math.Round((Decimal)ratio * (Maximum - Minimum)) + Minimum;
       }
     }
   }
 
   public class SliderMenuItem : ToolStripControlHost
   {
-    private CustomTrackBar trackBar;
+    private readonly CustomTrackBar trackBar;
 
     public SliderMenuItem() : base(new CustomTrackBar())
     {
@@ -34,15 +34,22 @@ namespace ALsSoundSwitcher
 
       Refresh();
 
-      trackBar.ValueChanged += new EventHandler(trackBar_ValueChanged);
+      trackBar.ValueChanged += trackBar_ValueChanged;
     }
 
     public void Refresh()
     {
       var backgroundColour = Globals.Theme.GetBackgroundColour();
-      if (trackBar.BackColor != backgroundColour)
+      //if (trackBar.BackColor != backgroundColour)
       {
         trackBar.BackColor = backgroundColour;
+
+        trackBar.ThumbInnerColor = Globals.Theme.GetActiveSelectionColour();
+        trackBar.ThumbOuterColor = Globals.Theme.GetActiveSelectionColour();
+        trackBar.ThumbPenColor = Globals.Theme.GetActiveSelectionColour();
+        trackBar.ElapsedInnerColor = ((MenuStripColorTable)Globals.Theme.ColorTable).ColorSeparator;
+        trackBar.ElapsedPenColorBottom = ((MenuStripColorTable)Globals.Theme.ColorTable).ColorSeparator;
+        trackBar.ElapsedPenColorTop = ((MenuStripColorTable)Globals.Theme.ColorTable).ColorSeparator;
       }
 
       var volume = ProcessUtils.RunExe(Globals.SetDeviceExe, "GetVolume");

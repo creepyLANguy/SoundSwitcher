@@ -15,7 +15,10 @@ namespace ALsSoundSwitcher
 
     private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
-      MenuItem_Slider.Refresh();
+      if (MenuItem_Slider != null)
+      {
+        MenuItem_Slider.Refresh();
+      }
 
       if (e.Button == MouseButtons.Left)
       {
