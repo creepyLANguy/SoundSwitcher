@@ -1,44 +1,27 @@
 ﻿using System.Windows.Forms;
 using System;
-using System.Drawing;
 
 namespace ALsSoundSwitcher
 {
-  public class CustomTrackBar : ColorSlider.ColorSlider
-  {
-    protected override void OnMouseDown(MouseEventArgs e)
-    {
-      base.OnMouseDown(e);
-
-      if (e.Button == MouseButtons.Left)
-      {
-        int selectorWidth = 5;
-        double ratio = (double)(e.X - selectorWidth / 2) / (Width - selectorWidth);
-        Value = Math.Round((Decimal)ratio * (Maximum - Minimum)) + Minimum;
-      }
-    }
-  }
-
   public class SliderMenuItem : ToolStripControlHost
   {
-    private readonly CustomTrackBar trackBar;
+    public readonly ColorSlider.ColorSlider trackBar;
 
-    public SliderMenuItem() : base(new CustomTrackBar())
+    public SliderMenuItem() : base(new ColorSlider.ColorSlider())
     {
-      trackBar = Control as CustomTrackBar;
-      trackBar.AutoSize = false;
+      trackBar = Control as ColorSlider.ColorSlider;
       trackBar.TickStyle = TickStyle.None;
       trackBar.Height = 20;
-      trackBar.Width = Globals.BaseMenu.Width;
       trackBar.Minimum = 0;
-      trackBar.Maximum = 100;    
+      trackBar.Maximum = 100;
 
-      Refresh();
+      RefreshColours();
+      RefreshValue();
 
       trackBar.ValueChanged += trackBar_ValueChanged;
     }
 
-    public void Refresh()
+    public void RefreshColours()
     {
       var backgroundColour = Globals.Theme.GetBackgroundColour();
       if (backgroundColour != trackBar.BackColor) 
@@ -65,17 +48,30 @@ namespace ALsSoundSwitcher
         trackBar.ElapsedPenColorBottom = barColour;
         trackBar.ElapsedPenColorTop = barColour;
       }
-
-      var volume = ProcessUtils.RunExe(Globals.SetDeviceExe, "GetVolume");
+    }    
+    
+    public void RefreshValue()
+    {
+      var volume = ProcessUtils.RunExe(Globals.SetDeviceExe, Globals.GetVolumeArg);
       if (trackBar.Value != volume)
       {
         trackBar.Value = volume;
       }
     }
 
+    protected override void OnMouseUp(MouseEventArgs e)
+    {
+      base.OnMouseUp(e);
+
+      if (e.Button == MouseButtons.Left)
+      {
+        Globals.BaseMenu.Focus();
+      }
+    }
+
     private void trackBar_ValueChanged(object sender, EventArgs e)
     {
-      ProcessUtils.RunExe(Globals.SetDeviceExe, "SetVolume " + trackBar.Value);
+      ProcessUtils.RunExe(Globals.SetDeviceExe, Globals.SetVolumeArg + trackBar.Value);
     }
   }
 }

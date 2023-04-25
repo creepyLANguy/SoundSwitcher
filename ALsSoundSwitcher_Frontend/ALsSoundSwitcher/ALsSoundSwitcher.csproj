@@ -74,7 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Components\CustomTrackBar.cs">
+    <Compile Include="Source\Components\CustomSlider.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Source\Definitions\DeviceMode.cs" />

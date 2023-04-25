@@ -30,6 +30,8 @@ namespace ALsSoundSwitcher
 
       AddAdditionalMenuItems();
 
+      AddVolumeSlider();
+
       SetItemMargins(BaseMenu.Items.OfType<ToolStripMenuItem>().ToList());
 
       HideImageMarginOnSubItems(BaseMenu.Items.OfType<ToolStripMenuItem>().ToList());
@@ -37,12 +39,6 @@ namespace ALsSoundSwitcher
       notifyIcon1.ContextMenuStrip = BaseMenu;
 
       RefreshUITheme();
-
-      //AL.
-      BaseMenu.Items.Add("-");
-      MenuItem_Slider = new SliderMenuItem();
-      BaseMenu.Items.Add(MenuItem_Slider);
-      //
     }
 
     private static void AddAudioDevicesAsMenuItems()
@@ -169,6 +165,12 @@ namespace ALsSoundSwitcher
       }
 
       MenuItemMore.DropDownItems.RemoveAt(MenuItemMore.DropDownItems.Count - 1);
+    }
+    
+    private static void AddVolumeSlider()
+    {
+      BaseMenu.Items.Add("-");
+      BaseMenu.Items.Add(MenuItem_Slider);
     }
 
     private static string GetFormattedDeviceName(string name)

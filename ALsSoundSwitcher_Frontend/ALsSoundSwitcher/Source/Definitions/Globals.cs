@@ -12,6 +12,8 @@ namespace ALsSoundSwitcher
     public const string GithubUrl = "https://github.com/creepyLANguy/SoundSwitcher";
 
     public const string SetDeviceExe = "SetPlaybackDevice.exe";
+    public const string GetVolumeArg = "GetVolume";
+    public const string SetVolumeArg = "SetVolume ";
 
     public const string VolumeMixerExe = "sndvol.exe";
     public const string VolumeMixerArgs = "-r 88888888";
@@ -45,7 +47,7 @@ namespace ALsSoundSwitcher
     
     public static ToolStripMenuItem MenuItemCreateTheme;
     
-    public static SliderMenuItem MenuItem_Slider;
+    public static SliderMenuItem MenuItem_Slider = new SliderMenuItem();
 
     public struct MoreMenuItems
     {

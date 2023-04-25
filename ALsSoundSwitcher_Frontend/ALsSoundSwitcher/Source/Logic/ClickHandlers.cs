@@ -15,14 +15,6 @@ namespace ALsSoundSwitcher
 
     private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
-      //AL.
-      //TODO 
-      //Try doing this before actual show? 
-      if (MenuItem_Slider != null)
-      {
-        MenuItem_Slider.Refresh();
-      }
-
       if (e.Button == MouseButtons.Left)
       {
         Toggle();
@@ -30,7 +22,13 @@ namespace ALsSoundSwitcher
       else if (e.Button == MouseButtons.Right)
       {
         LastBaseMenuInvokedPosition = Cursor.Position;
-      }
+        
+        var volume = ProcessUtils.RunExe(SetDeviceExe, GetVolumeArg);
+        if (MenuItem_Slider.trackBar.Value != volume)
+        {
+          MenuItem_Slider.trackBar.Value = volume;
+        }
+      }      
     }
 
     private static void menuItemMixer_Click(object sender, EventArgs e)
