@@ -40,7 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ColorSlider">
-      <HintPath>..\..\..\..\..\..\Desktop\Slider\ColorSlider\bin\Release\ColorSlider.dll</HintPath>
+      <HintPath>..\DLLs\ColorSlider.dll</HintPath>
     </Reference>
     <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
