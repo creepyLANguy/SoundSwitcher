@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 
@@ -55,15 +56,26 @@ namespace ALsSoundSwitcher
       }
     }
 
-    public void GenerateFullPreview()
+    private void GenerateFullPreview()
     {
-      foreach (var bundle in _allColourBundles)
+      var tasks = new List<Task>();
+      foreach (var bundle in _allColourBundles.Where(cb => cb.Layer != LayerType.TOPMOST))
       {
-        UpdatePreview(bundle.Mask, bundle.Colour);
+        var task = Task.Run(() => UpdatePreview(bundle.Mask, bundle.Colour));
+        tasks.Add(task);
       }
+      Task.WaitAll(tasks.ToArray());
+
+      PaintTopMostBundle();      
     }
 
-    public void UpdatePreview(Bitmap mask, Color colour)
+    private void PaintTopMostBundle()
+    {
+      var topMostBundle = _allColourBundles.First(cb => cb.Layer == LayerType.TOPMOST);
+      UpdatePreview(topMostBundle.Mask, topMostBundle.Colour);
+    }
+
+    private void UpdatePreview(Bitmap mask, Color colour)
     {
       var buffer = (Bitmap)pictureBox1.Image;
 
@@ -75,12 +87,18 @@ namespace ALsSoundSwitcher
           var sum = pixelColor.R + pixelColor.G + pixelColor.B;
           if (sum == 0)
           {
-            buffer.SetPixel(x, y, colour);
+            lock (buffer)
+            {
+              buffer.SetPixel(x, y, colour);
+            }
           }
         }
       }
 
-      pictureBox1.Image = buffer;
+      lock (pictureBox1)
+      {
+        pictureBox1.Image = buffer;
+      }
     }
 
     private void HandleButtonClick(object sender, EventArgs e)
@@ -104,8 +122,7 @@ namespace ALsSoundSwitcher
 
       if (bundle.Layer != LayerType.TOPMOST)
       {
-        var topMostBundle = _allColourBundles.First(cb => cb.Layer == LayerType.TOPMOST);
-        UpdatePreview(topMostBundle.Mask, topMostBundle.Colour);
+        PaintTopMostBundle();
       }
 
       Cursor.Current = Cursors.Default;
