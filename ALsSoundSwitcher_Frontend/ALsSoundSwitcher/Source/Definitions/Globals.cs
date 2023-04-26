@@ -50,7 +50,7 @@ namespace ALsSoundSwitcher
     
     public static ToolStripMenuItem MenuItemCreateTheme;
     
-    public static SliderMenuItem MenuItem_Slider = new SliderMenuItem();
+    public static SliderMenuItem MenuItemSlider = new SliderMenuItem();
 
     public struct MoreMenuItems
     {

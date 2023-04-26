@@ -22,7 +22,7 @@ namespace ALsSoundSwitcher
       else if (e.Button == MouseButtons.Right)
       {
         LastBaseMenuInvokedPosition = Cursor.Position;
-        MenuItem_Slider.RefreshValue();
+        MenuItemSlider.RefreshValue();
       }      
     }
 

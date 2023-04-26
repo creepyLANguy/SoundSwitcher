@@ -34,7 +34,7 @@ namespace ALsSoundSwitcher
 
         SetActiveMenuItemMarkers();
 
-        MenuItem_Slider.RefreshValue();
+        MenuItemSlider.RefreshValue();
 
         NotifyUserOfSwitchResult(deviceName);
       }

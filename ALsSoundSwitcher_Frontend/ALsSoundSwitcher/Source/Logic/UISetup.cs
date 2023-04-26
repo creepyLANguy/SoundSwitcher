@@ -174,7 +174,7 @@ namespace ALsSoundSwitcher
     private static void AddVolumeSlider()
     {
       BaseMenu.Items.Add("-");
-      BaseMenu.Items.Add(MenuItem_Slider);
+      BaseMenu.Items.Add(MenuItemSlider);
     }
 
     private static string GetFormattedDeviceName(string name)
