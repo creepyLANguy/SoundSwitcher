@@ -1,11 +1,14 @@
 ﻿using System.Windows.Forms;
 using System;
+using System.Threading;
 
 namespace ALsSoundSwitcher
 {
   public class SliderMenuItem : ToolStripControlHost
   {
     public readonly ColorSlider.ColorSlider trackBar;
+
+    private static bool WeAreCurrentlySettingTheVolume = false;
 
     public SliderMenuItem() : base(new ColorSlider.ColorSlider())
     {
@@ -79,8 +82,18 @@ namespace ALsSoundSwitcher
         return;
       }
 
+      if (WeAreCurrentlySettingTheVolume == false)
+      {
+        new Thread(SetVolume).Start();
+      }   
+    }
+
+    private void SetVolume()
+    {
+      WeAreCurrentlySettingTheVolume = true;
       var arg = Settings.Current.Mode == DeviceMode.Output ? Globals.SetVolumeArg : Globals.SetMicLevelArg;
-      ProcessUtils.RunExe(Globals.SetDeviceExe, arg + trackBar.Value);      
+      ProcessUtils.RunExe(Globals.SetDeviceExe, arg + trackBar.Value);
+      WeAreCurrentlySettingTheVolume = false;
     }
   }
 }
