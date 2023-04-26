@@ -72,7 +72,8 @@ namespace ALsSoundSwitcher
         for (var y = 0; y < mask.Height; y++)
         {
           var pixelColor = mask.GetPixel(x, y);
-          if (ColourIsWithinTolerance(pixelColor, Color.Black, 0.25f))
+          var sum = pixelColor.R + pixelColor.G + pixelColor.B;
+          if (sum == 0)
           {
             buffer.SetPixel(x, y, colour);
           }
@@ -80,14 +81,6 @@ namespace ALsSoundSwitcher
       }
 
       pictureBox1.Image = buffer;
-    }
-
-    private static bool ColourIsWithinTolerance(Color color1, Color color2, float tolerance)
-    {
-      var maxDiff = 255 * tolerance;
-      return Math.Abs(color1.R - color2.R) <= maxDiff &&
-             Math.Abs(color1.G - color2.G) <= maxDiff &&
-             Math.Abs(color1.B - color2.B) <= maxDiff;
     }
 
     private void HandleButtonClick(object sender, EventArgs e)
