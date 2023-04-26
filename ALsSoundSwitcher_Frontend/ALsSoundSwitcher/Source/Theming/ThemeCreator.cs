@@ -39,8 +39,8 @@ namespace ALsSoundSwitcher
         new ColourBundle(colours["ColorBackground"],       "ColorBackground",       Resources.mask_background, LayerType.BACKGROUND),
         new ColourBundle(colours["ColorMenuBorder"],       "ColorMenuBorder",       Resources.mask_border,     LayerType.NORMAL),
         new ColourBundle(colours["ActiveSelectionColor"],  "ActiveSelectionColor",  Resources.mask_active,     LayerType.NORMAL),
-        new ColourBundle(colours["ColorMenuItemSelected"], "ColorMenuItemSelected", Resources.mask_selected,   LayerType.NORMAL),
         new ColourBundle(colours["ColorSeparator"],        "ColorSeparator",        Resources.mask_separator,  LayerType.NORMAL),
+        new ColourBundle(colours["ColorMenuItemSelected"], "ColorMenuItemSelected", Resources.mask_selected,   LayerType.NORMAL),
         new ColourBundle(colours["ColorMenuArrow"],        "ColorMenuArrow",        Resources.mask_arrow,      LayerType.NORMAL),
         new ColourBundle(colours["ColorMenuItemText"],     "ColorMenuItemText",     Resources.mask_text,       LayerType.TOPMOST)
       }.OrderBy(cb => cb.Layer).ToArray();
@@ -69,7 +69,7 @@ namespace ALsSoundSwitcher
         for (var y = 0; y < mask.Height; y++)
         {
           var pixelColor = mask.GetPixel(x, y);
-          if (ColourIsWithinTolerance(pixelColor, Color.Black, 0.10f))
+          if (ColourIsWithinTolerance(pixelColor, Color.Black, 0.25f))
           {
             buffer.SetPixel(x, y, colour);
           }
