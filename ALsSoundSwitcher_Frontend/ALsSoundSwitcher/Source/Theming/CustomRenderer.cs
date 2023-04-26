@@ -14,6 +14,7 @@ namespace ALsSoundSwitcher
     public Color ColorCheckSquare = Color.FromArgb(0, 122, 204);
     public Color ColorCheckMark = Color.FromArgb(237, 237, 237);
     public Color ColorMenuItemText = Color.FromArgb(237, 237, 237);
+    public Color ColorBackground = Color.FromArgb(43, 43, 43);
 
     public CustomRenderer() : base(new MenuStripColorTable())
     {
@@ -23,22 +24,12 @@ namespace ALsSoundSwitcher
     {
       SetColours(colourPack);
     }
-    
-    public Color GetActiveSelectionColour()
-    {
-      return ActiveSelectionColor;
-    }
-
-    public Color GetBackgroundColour()
-    {
-      return ColorTable.ColorBackground;
-    }
 
     public Dictionary<string, Color> GetPertinentColours()
     {
       return new Dictionary<string, Color>
       {
-        {nameof(ColorTable.ColorBackground),ColorTable.ColorBackground},
+        {nameof(ColorBackground),ColorBackground},
         {nameof(ColorTable.ColorMenuBorder),ColorTable.ColorMenuBorder},
         {nameof(ActiveSelectionColor),ActiveSelectionColor},
         {nameof(ColorTable.ColorMenuItemSelected),ColorTable.ColorMenuItemSelected},
@@ -57,6 +48,7 @@ namespace ALsSoundSwitcher
       ColorCheckSquare = colourPack.ColorCheckSquare;
       ColorCheckMark = colourPack.ColorCheckMark;
       ColorMenuItemText = colourPack.ColorMenuItemText;
+      ColorBackground = colourPack.ColorBackground;
 
       ColorTable.SetColours(colourPack);
     }

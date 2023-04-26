@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace ALsSoundSwitcher
 {
-  public class MenuStripColorTable : ProfessionalColorTable
+  internal class MenuStripColorTable : ProfessionalColorTable
   {
     public Color ColorMenuBorder = Color.FromArgb(61, 61, 67);
     public Color ColorMenuItemSelected = Color.FromArgb(76, 76, 77);

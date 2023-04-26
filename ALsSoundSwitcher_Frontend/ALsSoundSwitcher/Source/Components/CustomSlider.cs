@@ -23,13 +23,13 @@ namespace ALsSoundSwitcher
 
     public void RefreshColours()
     {
-      var backgroundColour = Globals.Theme.GetBackgroundColour();
+      var backgroundColour = Globals.Theme.ColorBackground;
       if (backgroundColour != trackBar.BackColor) 
       {
         trackBar.BackColor = backgroundColour;
       }
 
-      var thumbColour = Globals.Theme.GetActiveSelectionColour();
+      var thumbColour = Globals.Theme.ActiveSelectionColor;
       if (thumbColour != trackBar.ThumbInnerColor)
       {
         trackBar.ThumbInnerColor = thumbColour;

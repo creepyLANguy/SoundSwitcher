@@ -249,7 +249,7 @@ namespace ALsSoundSwitcher
       }
       if (ActiveMenuItemDevice != null)
       {
-        ActiveMenuItemDevice.BackColor = Theme.GetActiveSelectionColour();
+        ActiveMenuItemDevice.BackColor = Theme.ActiveSelectionColor;
       }
 
       foreach (var item in MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>().ToList())
@@ -258,7 +258,7 @@ namespace ALsSoundSwitcher
 
         if (item.Text == Settings.Current.Theme)
         {
-          item.BackColor = Theme.GetActiveSelectionColour();
+          item.BackColor = Theme.ActiveSelectionColor;
         }
       }
 
@@ -270,7 +270,7 @@ namespace ALsSoundSwitcher
 
           if (item.Text == Settings.Current.Mode.ToString())
           {
-            item.BackColor = Theme.GetActiveSelectionColour();
+            item.BackColor = Theme.ActiveSelectionColor;
           }
         }
       }
