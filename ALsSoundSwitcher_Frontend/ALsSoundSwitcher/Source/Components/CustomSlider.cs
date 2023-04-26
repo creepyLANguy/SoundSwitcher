@@ -8,6 +8,7 @@ namespace ALsSoundSwitcher
   {
     public readonly ColorSlider.ColorSlider trackBar;
 
+    private static bool WeAreRefreshingVolumeSliderValue = false;
     private static bool WeAreCurrentlySettingTheVolume = false;
 
     public SliderMenuItem() : base(new ColorSlider.ColorSlider())
@@ -59,7 +60,7 @@ namespace ALsSoundSwitcher
       var volume = ProcessUtils.RunExe(Globals.SetDeviceExe, arg);
       if (trackBar.Value != volume)
       {
-        Globals.WeAreRefreshingVolumeSliderValue = true;
+        WeAreRefreshingVolumeSliderValue = true;
         trackBar.Value = volume;
       }
     }
@@ -76,9 +77,9 @@ namespace ALsSoundSwitcher
 
     private void trackBar_ValueChanged(object sender, EventArgs e)
     {
-      if (Globals.WeAreRefreshingVolumeSliderValue)
+      if (WeAreRefreshingVolumeSliderValue)
       {
-        Globals.WeAreRefreshingVolumeSliderValue = false;
+        WeAreRefreshingVolumeSliderValue = false;
         return;
       }
 
