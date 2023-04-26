@@ -201,7 +201,7 @@ namespace ALsSoundSwitcher
         if (item.DropDown is ToolStripDropDownMenu dropdown == false)
         {
           continue;
-        }          
+        }
 
         SetItemMargins(dropdown.Items.OfType<ToolStripMenuItem>().ToList());
       }
@@ -214,7 +214,7 @@ namespace ALsSoundSwitcher
         if (item.DropDown is ToolStripDropDownMenu dropdown == false)
         {
           continue;
-        }          
+        }
 
         dropdown.ShowImageMargin = false;
 
