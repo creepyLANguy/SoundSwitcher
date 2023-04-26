@@ -143,10 +143,6 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_Help" xml:space="preserve">
     <value>Help</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Icons\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Form1_SetupContextMenu_SwitchTheme" xml:space="preserve">
     <value>Theme</value>
   </data>
@@ -207,6 +203,7 @@ Could not start </value>
   <data name="Form1_PerformSwitch_Switched_Audio_Output_Device" xml:space="preserve">
     <value>Switched Audio Output Device</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="mask_active" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mask_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -230,5 +227,11 @@ Could not start </value>
   </data>
   <data name="ThemeCreator_TextBoxDefault" xml:space="preserve">
     <value>Enter a name for your theme...</value>
+  </data>
+  <data name="Headset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Headset.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Mic.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

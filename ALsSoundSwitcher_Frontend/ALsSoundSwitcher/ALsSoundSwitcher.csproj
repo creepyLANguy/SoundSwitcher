@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icons\icon.ico</ApplicationIcon>
+    <ApplicationIcon>Icons\Headset.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ColorSlider">
@@ -151,7 +151,9 @@
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icons\icon.ico" />
+    <Content Include="Icons\Headset.ico" />
+    <None Include="Icons\Mic.ico" />
+    <None Include="Resources\Headset.ico" />
     <None Include="Resources\mask_text.png" />
     <None Include="Resources\mask_separator.png" />
     <None Include="Resources\mask_selected.png" />
