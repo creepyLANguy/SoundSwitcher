@@ -22,7 +22,10 @@ namespace ALsSoundSwitcher
       else if (e.Button == MouseButtons.Right)
       {
         LastBaseMenuInvokedPosition = Cursor.Position;
-      }
+        BaseMenu.Visible = false;
+        MenuItemSlider.RefreshValue();
+        BaseMenu.Visible = true;
+      }      
     }
 
     private static void menuItemMixer_Click(object sender, EventArgs e)
@@ -43,13 +46,13 @@ namespace ALsSoundSwitcher
       }
       else
       {
-        ProcessUtils.RunExe(VolumeMixerExe, VolumeMixerArgs);
+        ProcessUtils.RunExe(VolumeMixerExe, VolumeMixerArgs, true);
       }
     }
 
     private static void menuItemDeviceManager_Click(object sender, EventArgs e)
     {
-      ProcessUtils.RunExe(DeviceManagerExe, DeviceManagerArgs);
+      ProcessUtils.RunExe(DeviceManagerExe, DeviceManagerArgs, true);
     }
     
     private static void menuItem_Click(object sender, EventArgs e)
@@ -85,10 +88,12 @@ namespace ALsSoundSwitcher
       RefreshUITheme();
 
       Thread.Sleep(Settings.Current.ThemeSwitchUIRefreshDelay);
+      
       BaseMenu.Show();
       MoreMenuItems.MenuItemToggleTheme.GetCurrentParent().Show();
       MoreMenuItems.MenuItemToggleTheme.DropDown.Show();
-      ((ToolStripItem) sender).Select();
+      MoreMenuItems.MenuItemToggleTheme.DropDown.Focus();
+      ((ToolStripItem)sender).Select();
 
       Config.Save();
     }

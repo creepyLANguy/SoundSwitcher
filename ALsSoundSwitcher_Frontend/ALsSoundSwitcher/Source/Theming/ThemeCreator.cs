@@ -1,9 +1,3 @@
-//AL.
-/*
- * 15/4/2023
- * There's room for a lot more refinement, but I think this is perfectly usable as of commit d26f92 
- * Shipping as a beta feature in v2.0 
- */
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -188,7 +182,7 @@ namespace ALsSoundSwitcher
       var x = Globals.LastBaseMenuInvokedPosition.X;
       var y = Globals.LastBaseMenuInvokedPosition.Y;
       var args = $"\"{argString}\" {x} {y}";
-      ProcessUtils.RunExe(Application.ExecutablePath, args);
+      ProcessUtils.RunExe(Application.ExecutablePath, args, true);
       
       Application.Exit();
     }

@@ -38,6 +38,8 @@ namespace ALsSoundSwitcher
 
       BaseMenu.Renderer = Theme;
       SetActiveMenuItemMarkers();
+
+      MenuItemSlider.RefreshColours();
     }
 
     private static ColourPack GetColourPackFromThemeFile(string filename)

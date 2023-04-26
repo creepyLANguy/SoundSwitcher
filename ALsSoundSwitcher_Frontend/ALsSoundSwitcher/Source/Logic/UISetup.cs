@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -31,9 +30,15 @@ namespace ALsSoundSwitcher
 
       AddAdditionalMenuItems();
 
-      SetItemMargins(BaseMenu.Items.OfType<ToolStripMenuItem>().ToList());
+      AddVolumeSlider();
 
-      HideImageMarginOnSubItems(BaseMenu.Items.OfType<ToolStripMenuItem>().ToList());
+      var items = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
+
+      SetItemMargins(items);
+
+      HideImageMarginOnSubItems(items);
+
+      HideImageMarginOnBaseMenuIfNoIcons(items);
 
       notifyIcon1.ContextMenuStrip = BaseMenu;
 
@@ -165,6 +170,12 @@ namespace ALsSoundSwitcher
 
       MenuItemMore.DropDownItems.RemoveAt(MenuItemMore.DropDownItems.Count - 1);
     }
+    
+    private static void AddVolumeSlider()
+    {
+      BaseMenu.Items.Add("-");
+      BaseMenu.Items.Add(MenuItemSlider);
+    }
 
     private static string GetFormattedDeviceName(string name)
     {
@@ -183,35 +194,37 @@ namespace ALsSoundSwitcher
 
     private static void SetItemMargins(List<ToolStripMenuItem> items)
     {
-      items.ForEach(item =>
+      foreach (var item in items)
       {
-        var dropdown = (ToolStripDropDownMenu) item.DropDown;
-
         item.Padding = new Padding(item.Margin.Right, 5, item.Margin.Right, 5);
 
-        if (dropdown == null)
+        if (item.DropDown is ToolStripDropDownMenu dropdown == false)
         {
-          return;
+          continue;
         }
 
-        SetItemMargins(item.DropDownItems.OfType<ToolStripMenuItem>().ToList());
-      });
+        SetItemMargins(dropdown.Items.OfType<ToolStripMenuItem>().ToList());
+      }
     }
 
     private static void HideImageMarginOnSubItems(List<ToolStripMenuItem> items)
     {
-      items.ForEach(item =>
+      foreach (var item in items)
       {
-        var dropdown = (ToolStripDropDownMenu) item.DropDown;
-
-        if (dropdown == null)
+        if (item.DropDown is ToolStripDropDownMenu dropdown == false)
         {
-          return;
+          continue;
         }
 
         dropdown.ShowImageMargin = false;
+
         HideImageMarginOnSubItems(item.DropDownItems.OfType<ToolStripMenuItem>().ToList());
-      });
+      }
+    }
+
+    private static void HideImageMarginOnBaseMenuIfNoIcons(List<ToolStripMenuItem> items)
+    {
+      BaseMenu.ShowImageMargin = items.Any(item => item.Image != null);
     }
 
     private static void ExpandMenusOnThemeCreation()
@@ -242,7 +255,7 @@ namespace ALsSoundSwitcher
       }
       if (ActiveMenuItemDevice != null)
       {
-        ActiveMenuItemDevice.BackColor = Theme.GetActiveSelectionColour();
+        ActiveMenuItemDevice.BackColor = Theme.ActiveSelectionColor;
       }
 
       foreach (var item in MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>().ToList())
@@ -251,7 +264,7 @@ namespace ALsSoundSwitcher
 
         if (item.Text == Settings.Current.Theme)
         {
-          item.BackColor = Theme.GetActiveSelectionColour();
+          item.BackColor = Theme.ActiveSelectionColor;
         }
       }
 
@@ -263,7 +276,7 @@ namespace ALsSoundSwitcher
 
           if (item.Text == Settings.Current.Mode.ToString())
           {
-            item.BackColor = Theme.GetActiveSelectionColour();
+            item.BackColor = Theme.ActiveSelectionColor;
           }
         }
       }

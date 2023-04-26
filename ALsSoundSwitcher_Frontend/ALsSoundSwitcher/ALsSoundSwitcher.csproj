@@ -36,9 +36,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icons\icon.ico</ApplicationIcon>
+    <ApplicationIcon>Icons\Headset.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ColorSlider">
+      <HintPath>..\DLLs\ColorSlider.dll</HintPath>
+    </Reference>
     <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
     </Reference>
@@ -71,6 +74,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\Components\CustomSlider.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Source\Definitions\DeviceMode.cs" />
     <Compile Include="Source\Logic\ClickHandlers.cs">
       <SubType>Form</SubType>
@@ -140,12 +146,14 @@
   </ItemGroup>
   <ItemGroup>
     <ContentWithTargetPath Include="Skins\**">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  <TargetPath>%(Filename)%(Extension)</TargetPath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>%(Filename)%(Extension)</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icons\icon.ico" />
+    <Content Include="Icons\Headset.ico" />
+    <None Include="Icons\Mic.ico" />
+    <None Include="Resources\Headset.ico" />
     <None Include="Resources\mask_text.png" />
     <None Include="Resources\mask_separator.png" />
     <None Include="Resources\mask_selected.png" />

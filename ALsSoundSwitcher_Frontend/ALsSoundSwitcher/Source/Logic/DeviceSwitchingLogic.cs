@@ -34,6 +34,8 @@ namespace ALsSoundSwitcher
 
         SetActiveMenuItemMarkers();
 
+        MenuItemSlider.RefreshValue();
+
         NotifyUserOfSwitchResult(deviceName);
       }
       catch (Exception e)

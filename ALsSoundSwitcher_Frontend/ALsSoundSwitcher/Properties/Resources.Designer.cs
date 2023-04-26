@@ -281,9 +281,9 @@ namespace ALsSoundSwitcher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Icon {
+        internal static System.Drawing.Icon Headset {
             get {
-                object obj = ResourceManager.GetObject("Icon", resourceCulture);
+                object obj = ResourceManager.GetObject("Headset", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -355,6 +355,16 @@ namespace ALsSoundSwitcher.Properties {
             get {
                 object obj = ResourceManager.GetObject("mask_text", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Mic {
+            get {
+                object obj = ResourceManager.GetObject("Mic", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
