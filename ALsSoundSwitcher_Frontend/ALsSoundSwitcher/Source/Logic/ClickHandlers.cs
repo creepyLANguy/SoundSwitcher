@@ -88,10 +88,12 @@ namespace ALsSoundSwitcher
       RefreshUITheme();
 
       Thread.Sleep(Settings.Current.ThemeSwitchUIRefreshDelay);
+      
       BaseMenu.Show();
       MoreMenuItems.MenuItemToggleTheme.GetCurrentParent().Show();
       MoreMenuItems.MenuItemToggleTheme.DropDown.Show();
-      ((ToolStripItem) sender).Select();
+      MoreMenuItems.MenuItemToggleTheme.DropDown.Focus();
+      ((ToolStripItem)sender).Select();
 
       Config.Save();
     }
