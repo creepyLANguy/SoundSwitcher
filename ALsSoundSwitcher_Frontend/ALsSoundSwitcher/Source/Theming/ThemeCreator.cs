@@ -219,9 +219,11 @@ namespace ALsSoundSwitcher
       imageRectangle = GetAdjustedRect(pictureBox1.Image.Size, imageRectangle);
 
       e.Graphics.FillRectangle(new SolidBrush(BackColor), imageRectangle);      
-      //e.Graphics.FillRectangle(Brushes.Red, imageRectangle); debugging
+      //e.Graphics.FillRectangle(Brushes.Red, imageRectangle); //debugging
 
       e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+      //e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor; //no smoothing at all
+
       e.Graphics.DrawImage(pictureBox1.Image, imageRectangle);
 
       Rectangle GetAdjustedRect(Size size, Rectangle targetArea)
