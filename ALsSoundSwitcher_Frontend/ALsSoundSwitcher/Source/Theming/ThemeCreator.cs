@@ -182,7 +182,7 @@ namespace ALsSoundSwitcher
       var x = Globals.LastBaseMenuInvokedPosition.X;
       var y = Globals.LastBaseMenuInvokedPosition.Y;
       var args = $"\"{argString}\" {x} {y}";
-      ProcessUtils.RunExe(Application.ExecutablePath, args);
+      ProcessUtils.RunExe(Application.ExecutablePath, args, true);
       
       Application.Exit();
     }

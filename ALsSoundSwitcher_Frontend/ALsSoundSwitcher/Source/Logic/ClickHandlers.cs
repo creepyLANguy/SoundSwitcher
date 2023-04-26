@@ -22,7 +22,9 @@ namespace ALsSoundSwitcher
       else if (e.Button == MouseButtons.Right)
       {
         LastBaseMenuInvokedPosition = Cursor.Position;
+        BaseMenu.Visible = false;
         MenuItemSlider.RefreshValue();
+        BaseMenu.Visible = true;
       }      
     }
 
@@ -44,13 +46,13 @@ namespace ALsSoundSwitcher
       }
       else
       {
-        ProcessUtils.RunExe(VolumeMixerExe, VolumeMixerArgs);
+        ProcessUtils.RunExe(VolumeMixerExe, VolumeMixerArgs, true);
       }
     }
 
     private static void menuItemDeviceManager_Click(object sender, EventArgs e)
     {
-      ProcessUtils.RunExe(DeviceManagerExe, DeviceManagerArgs);
+      ProcessUtils.RunExe(DeviceManagerExe, DeviceManagerArgs, true);
     }
     
     private static void menuItem_Click(object sender, EventArgs e)
