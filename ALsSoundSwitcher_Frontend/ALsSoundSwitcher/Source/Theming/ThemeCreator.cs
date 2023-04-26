@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -19,6 +20,8 @@ namespace ALsSoundSwitcher
     public ThemeCreator()
     {
       InitializeComponent();
+
+      DoubleBuffered = true;
 
       SetupButtons();
 
@@ -200,6 +203,37 @@ namespace ALsSoundSwitcher
           file.WriteLine(item);
         }
         file.WriteLine("}");
+      }
+    }
+
+    private void pictureBox1_Paint(object sender, PaintEventArgs e)
+    {
+      return;
+
+      if (pictureBox1.Image == null)
+      {
+        return;
+      }
+
+      var imageRectangle = pictureBox1.ClientRectangle;
+      imageRectangle = GetAdjustedRect(pictureBox1.Image.Size, imageRectangle);
+
+      e.Graphics.FillRectangle(new SolidBrush(BackColor), imageRectangle);      
+      //e.Graphics.FillRectangle(Brushes.Red, imageRectangle); debugging
+
+      e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+      e.Graphics.DrawImage(pictureBox1.Image, imageRectangle);
+
+      Rectangle GetAdjustedRect(Size size, Rectangle targetArea)
+      {
+        float widthRatio = (float)targetArea.Width / size.Width;
+        float heightRatio = (float)targetArea.Height / size.Height;
+        float ratio = Math.Min(widthRatio, heightRatio);
+        float newWidth = size.Width * ratio;
+        float newHeight = size.Height * ratio;
+        float x = (targetArea.Width - newWidth) / 2;
+        float y = (targetArea.Height - newHeight) / 2;
+        return new Rectangle((int)Math.Round(x), (int)Math.Round(y), (int)Math.Round(newWidth), (int)Math.Round(newHeight));
       }
     }
   }
