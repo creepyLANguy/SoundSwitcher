@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using CSCore.CoreAudioAPI;
 using CSCore.Win32;
 
 namespace ALsSoundSwitcher
 {
-  public class DeviceUpdateCallbacks : IMMNotificationClient
+  public partial class Form1 : IMMNotificationClient
   {
     public static string LastMonitoredDeviceUpdate;
 
@@ -58,6 +59,28 @@ namespace ALsSoundSwitcher
       }
 
       Console.WriteLine(Resources.EndpointNotificationCallback_OnDefaultDeviceChanged, deviceId);
+
+      var cachedActiveDeviceId = (string)Globals.ActiveMenuItemDevice.Tag;
+
+      if (Settings.Current.PreventAutoSwitch && Globals.WeAreSwitching == false)
+      {
+        if (cachedActiveDeviceId == deviceId)
+        {
+          return;
+        }
+
+        Globals.WeAreSwitching = true;
+     
+        if (Settings.Current.Mode == DeviceMode.Output)
+        {
+          ProcessUtils.RunExe(Globals.SetDeviceExe, cachedActiveDeviceId);
+        }
+        else
+        {
+          PowerShellUtils.SetInputDeviceCmdlet(cachedActiveDeviceId);
+        }
+        return;
+      }
 
       if (LastMonitoredDeviceUpdate == deviceId)
       {

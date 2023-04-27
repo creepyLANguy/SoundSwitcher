@@ -243,6 +243,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prevent Auto Switching.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_PreventAutoSwitch {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_PreventAutoSwitch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refresh.
         /// </summary>
         internal static string Form1_SetupContextMenu_Refresh {

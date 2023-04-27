@@ -103,6 +103,9 @@ namespace ALsSoundSwitcher
       MenuItemMode.MouseHover += menuItemExpandable_Hover;
       SetupDeviceModesSubmenu();
 
+      MenuItemPreventAutoSwitch = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_PreventAutoSwitch);
+      MenuItemPreventAutoSwitch.Click += menuItemPreventAutoSwitch_Click;
+
       MenuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_More);
     }
 
@@ -268,17 +271,18 @@ namespace ALsSoundSwitcher
         }
       }
 
-      if (MenuItemMode.HasDropDownItems)
-      {
-        foreach (ToolStripMenuItem item in MenuItemMode.DropDownItems)
-        {
-          item.ResetBackColor();
+      SetBackgroundForMenuItemPreventAutoSwitch();
+    }
 
-          if (item.Text == Settings.Current.Mode.ToString())
-          {
-            item.BackColor = Theme.ActiveSelectionColor;
-          }
-        }
+    private static void SetBackgroundForMenuItemPreventAutoSwitch()
+    {
+      if (Settings.Current.PreventAutoSwitch)
+      {
+        MenuItemPreventAutoSwitch.BackColor = Theme.ActiveSelectionColor;
+      }
+      else
+      {
+        MenuItemPreventAutoSwitch.ResetBackColor();
       }
     }
   }
