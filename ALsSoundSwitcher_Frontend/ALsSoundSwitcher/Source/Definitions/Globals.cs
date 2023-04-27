@@ -58,6 +58,7 @@ namespace ALsSoundSwitcher
       public static ToolStripMenuItem MenuItemToggleTheme;
       public static ToolStripMenuItem MenuItemMixer;
       public static ToolStripMenuItem MenuItemDeviceManager;
+      public static ToolStripMenuItem MenuItemPreventAutoSwitch;
     }
   }
 }

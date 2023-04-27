@@ -75,7 +75,7 @@ namespace ALsSoundSwitcher
       Process.Start(GithubUrl);
     }
 
-    //Not sure why it behaves incorrectly without this.
+    //Not sure why hovers don't expand the menu without this call. 
     private static void menuItemExpandable_Hover(object sender, EventArgs e)
     {
       ((ToolStripMenuItem) sender)?.ShowDropDown();
@@ -116,6 +116,15 @@ namespace ALsSoundSwitcher
       Config.Save();
 
       Application.Restart();
+    }
+
+    private static void menuItemPreventAutoSwitch_Click(object sender, EventArgs e)
+    {      
+      Settings.Current.PreventAutoSwitch = !Settings.Current.PreventAutoSwitch;
+
+      Config.Save();
+
+      SetBackgroundForMenuItemPreventAutoSwitch();
     }
 
     private static void menuItemCreateTheme_Click(object sender, EventArgs e)

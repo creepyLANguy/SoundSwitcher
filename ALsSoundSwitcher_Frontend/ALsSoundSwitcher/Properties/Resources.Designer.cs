@@ -223,6 +223,15 @@ namespace ALsSoundSwitcher.Properties {
                 return ResourceManager.GetString("Form1_SetupContextMenu_ManageDevices", resourceCulture);
             }
         }
+    
+        /// <summary>
+        ///   Looks up a localized string similar to Prevent Auto Switch.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_PreventAutoSwitch {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_PreventAutoSwitch", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Mode.
