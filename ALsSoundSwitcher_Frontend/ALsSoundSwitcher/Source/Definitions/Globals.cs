@@ -35,8 +35,6 @@ namespace ALsSoundSwitcher
 
     public static MMDeviceEnumerator DeviceEnumerator = new MMDeviceEnumerator();
 
-    public static DeviceUpdateCallbacks NotificationCallback = new DeviceUpdateCallbacks();
-
     public static Dictionary<string, string> ActiveDevices = new Dictionary<string, string>();
 
     public static CustomRenderer Theme = new CustomRenderer();

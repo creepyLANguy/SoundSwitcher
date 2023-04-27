@@ -11,7 +11,7 @@ namespace ALsSoundSwitcher
   {
     public static void Monitor()
     {
-      DeviceEnumerator.RegisterEndpointNotificationCallbackNative(NotificationCallback);
+      DeviceEnumerator.RegisterEndpointNotificationCallbackNative((Form1)Instance);
 
       Console.WriteLine(Resources.DeviceUtils_Monitor);
     }

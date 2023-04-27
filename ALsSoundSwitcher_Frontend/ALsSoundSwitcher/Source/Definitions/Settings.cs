@@ -10,6 +10,7 @@
       public string Theme;
       public string DefaultIcon;
       public DeviceMode Mode;
+      public bool PreventAutoSwitch;
     }
 
     public static SettingsStruct Current = new SettingsStruct
@@ -19,7 +20,8 @@
       ThemeSwitchUIRefreshDelay = 75,
       Theme = "",
       DefaultIcon = "",
-      Mode = DeviceMode.Output
+      Mode = DeviceMode.Output,
+      PreventAutoSwitch = false
     };
   }
 }

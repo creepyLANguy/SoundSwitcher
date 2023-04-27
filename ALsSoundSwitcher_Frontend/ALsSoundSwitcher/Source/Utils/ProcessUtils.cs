@@ -28,7 +28,7 @@ namespace ALsSoundSwitcher
 
     public static void Restart_ThreadSafe()
     {
-      DeviceEnumerator.UnregisterEndpointNotificationCallback(NotificationCallback);
+      DeviceEnumerator.UnregisterEndpointNotificationCallback((Form1)Instance);
 
       if (Instance.InvokeRequired)
       {
