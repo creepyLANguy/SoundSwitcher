@@ -192,7 +192,7 @@ Could not start </value>
     <value>Volume Mixer</value>
   </data>
   <data name="Form1_SetupContextMenu_PreventAutoSwitch" xml:space="preserve">
-    <value>Prevent Auto Switch</value>
+    <value>Prevent Auto Switching</value>
   </data>
   <data name="PowerShellUtils_InstallAudioCmdlets_Error_Caption" xml:space="preserve">
     <value>AL's Sound Switcher</value>
