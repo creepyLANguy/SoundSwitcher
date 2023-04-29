@@ -47,9 +47,10 @@
       this.label_ColorMenuBorder = new System.Windows.Forms.Label();
       this.btn_save = new System.Windows.Forms.Button();
       this.textBox_ThemeName = new System.Windows.Forms.TextBox();
-      this.panel1 = new System.Windows.Forms.Panel();
       this.panel2 = new System.Windows.Forms.Panel();
       this.label_errorFileName = new System.Windows.Forms.Label();
+      this.panel1 = new System.Windows.Forms.Panel();
+      this.checkBox_smoothing = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.SuspendLayout();
       // 
@@ -267,16 +268,6 @@
       this.textBox_ThemeName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_ThemeName_KeyUp);
       this.textBox_ThemeName.Leave += new System.EventHandler(this.textBox_ThemeName_Leave);
       // 
-      // panel1
-      // 
-      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.panel1.BackColor = System.Drawing.Color.LightGray;
-      this.panel1.Location = new System.Drawing.Point(-2, 188);
-      this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(323, 2);
-      this.panel1.TabIndex = 8;
-      // 
       // panel2
       // 
       this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -299,12 +290,35 @@
       this.label_errorFileName.TabIndex = 10;
       this.label_errorFileName.Text = "[Theme with this name already exists]";
       // 
+      // panel1
+      // 
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.panel1.BackColor = System.Drawing.Color.LightGray;
+      this.panel1.Location = new System.Drawing.Point(-2, 188);
+      this.panel1.Name = "panel1";
+      this.panel1.Size = new System.Drawing.Size(323, 2);
+      this.panel1.TabIndex = 8;
+      // 
+      // checkBox_smoothing
+      // 
+      this.checkBox_smoothing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.checkBox_smoothing.AutoSize = true;
+      this.checkBox_smoothing.Location = new System.Drawing.Point(214, 9);
+      this.checkBox_smoothing.Name = "checkBox_smoothing";
+      this.checkBox_smoothing.Size = new System.Drawing.Size(76, 17);
+      this.checkBox_smoothing.TabIndex = 12;
+      this.checkBox_smoothing.Text = "Smoothing";
+      this.checkBox_smoothing.UseVisualStyleBackColor = true;
+      this.checkBox_smoothing.CheckedChanged += new System.EventHandler(this.checkBox_smoothing_CheckedChanged);
+      // 
       // ThemeCreator
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.White;
       this.ClientSize = new System.Drawing.Size(307, 862);
+      this.Controls.Add(this.checkBox_smoothing);
       this.Controls.Add(this.label_errorFileName);
       this.Controls.Add(this.panel2);
       this.Controls.Add(this.panel1);
@@ -359,8 +373,9 @@
     private System.Windows.Forms.Label label_ColorMenuBorder;
     private System.Windows.Forms.Button btn_save;
     private System.Windows.Forms.TextBox textBox_ThemeName;
-    private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.Panel panel2;
     private System.Windows.Forms.Label label_errorFileName;
+    private System.Windows.Forms.Panel panel1;
+    private System.Windows.Forms.CheckBox checkBox_smoothing;
   }
 }

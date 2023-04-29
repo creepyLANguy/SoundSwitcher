@@ -31,6 +31,8 @@ namespace ALsSoundSwitcher
       btn_save.Enabled = false;
       label_errorFileName.Visible = false;
 
+      checkBox_smoothing.Checked = true;
+
       GenerateFullPreview();
     }
 
@@ -218,8 +220,6 @@ namespace ALsSoundSwitcher
 
     private void pictureBox1_Paint(object sender, PaintEventArgs e)
     {
-      return;
-
       if (pictureBox1.Image == null)
       {
         return;
@@ -228,11 +228,9 @@ namespace ALsSoundSwitcher
       var imageRectangle = pictureBox1.ClientRectangle;
       imageRectangle = GetAdjustedRect(pictureBox1.Image.Size, imageRectangle);
 
-      e.Graphics.FillRectangle(new SolidBrush(BackColor), imageRectangle);      
-      //e.Graphics.FillRectangle(Brushes.Red, imageRectangle); //debugging
+      e.Graphics.FillRectangle(new SolidBrush(BackColor), imageRectangle);
 
-      e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-      //e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor; //no smoothing at all
+      e.Graphics.InterpolationMode = checkBox_smoothing.Checked ? InterpolationMode.HighQualityBicubic : InterpolationMode.NearestNeighbor;
 
       e.Graphics.DrawImage(pictureBox1.Image, imageRectangle);
 
@@ -247,6 +245,11 @@ namespace ALsSoundSwitcher
         float y = (targetArea.Height - newHeight) / 2;
         return new Rectangle((int)Math.Round(x), (int)Math.Round(y), (int)Math.Round(newWidth), (int)Math.Round(newHeight));
       }
+    }
+
+    private void checkBox_smoothing_CheckedChanged(object sender, EventArgs e)
+    {
+      pictureBox1.Refresh();
     }
   }
 
