@@ -271,7 +271,16 @@ namespace ALsSoundSwitcher
         }
       }
 
+      SetBackgroundForMenuItemModeDelected();
+      
       SetBackgroundForMenuItemPreventAutoSwitch();
+    }
+    
+    private static void SetBackgroundForMenuItemModeDelected()
+    {
+      var currentMode = Enum.GetName(typeof(DeviceMode), Settings.Current.Mode);     
+      var selectedItem = MenuItemMode.DropDownItems.OfType<ToolStripMenuItem>().First(it => it.Text == currentMode);
+      selectedItem.BackColor = Theme.ActiveSelectionColor;
     }
 
     private static void SetBackgroundForMenuItemPreventAutoSwitch()

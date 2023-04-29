@@ -18,10 +18,10 @@
       BalloonTime = 1500,
       BestNameMatchPercentageMinimum = 15,
       ThemeSwitchUIRefreshDelay = 75,
-      Theme = "",
+      Theme = "Dark",
       DefaultIcon = "",
       Mode = DeviceMode.Output,
-      PreventAutoSwitch = false
+      PreventAutoSwitch = true
     };
   }
 }
