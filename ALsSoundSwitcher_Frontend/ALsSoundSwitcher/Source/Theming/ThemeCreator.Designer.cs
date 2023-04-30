@@ -51,6 +51,7 @@
       this.label_errorFileName = new System.Windows.Forms.Label();
       this.panel1 = new System.Windows.Forms.Panel();
       this.checkBox_smoothing = new System.Windows.Forms.CheckBox();
+      this.btn_reset = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.SuspendLayout();
       // 
@@ -304,7 +305,7 @@
       // 
       this.checkBox_smoothing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.checkBox_smoothing.AutoSize = true;
-      this.checkBox_smoothing.Location = new System.Drawing.Point(214, 9);
+      this.checkBox_smoothing.Location = new System.Drawing.Point(97, 9);
       this.checkBox_smoothing.Name = "checkBox_smoothing";
       this.checkBox_smoothing.Size = new System.Drawing.Size(76, 17);
       this.checkBox_smoothing.TabIndex = 12;
@@ -312,12 +313,24 @@
       this.checkBox_smoothing.UseVisualStyleBackColor = true;
       this.checkBox_smoothing.CheckedChanged += new System.EventHandler(this.checkBox_smoothing_CheckedChanged);
       // 
+      // btn_reset
+      // 
+      this.btn_reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btn_reset.Location = new System.Drawing.Point(220, 9);
+      this.btn_reset.Name = "btn_reset";
+      this.btn_reset.Size = new System.Drawing.Size(75, 23);
+      this.btn_reset.TabIndex = 13;
+      this.btn_reset.Text = "Reset";
+      this.btn_reset.UseVisualStyleBackColor = true;
+      this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
+      // 
       // ThemeCreator
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.White;
       this.ClientSize = new System.Drawing.Size(307, 862);
+      this.Controls.Add(this.btn_reset);
       this.Controls.Add(this.checkBox_smoothing);
       this.Controls.Add(this.label_errorFileName);
       this.Controls.Add(this.panel2);
@@ -377,5 +390,6 @@
     private System.Windows.Forms.Label label_errorFileName;
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.CheckBox checkBox_smoothing;
+    private System.Windows.Forms.Button btn_reset;
   }
 }

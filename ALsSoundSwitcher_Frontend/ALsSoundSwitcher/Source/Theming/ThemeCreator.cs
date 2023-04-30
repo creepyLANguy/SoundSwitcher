@@ -63,21 +63,23 @@ namespace ALsSoundSwitcher
       var tasks = new List<Task>();
       foreach (var bundle in _allColourBundles.Where(cb => cb.Layer != LayerType.TOPMOST))
       {
-        var task = Task.Run(() => UpdatePreview(bundle.Mask, bundle.Colour));
+        var task = Task.Run(() => ProcessMask(bundle.Mask, bundle.Colour));
         tasks.Add(task);
       }
       Task.WaitAll(tasks.ToArray());
 
-      PaintTopMostBundle();      
+      PaintTopMostBundle();
+
+      pictureBox1.Refresh();
     }
 
     private void PaintTopMostBundle()
     {
       var topMostBundle = _allColourBundles.First(cb => cb.Layer == LayerType.TOPMOST);
-      UpdatePreview(topMostBundle.Mask, topMostBundle.Colour);
+      ProcessMask(topMostBundle.Mask, topMostBundle.Colour);
     }
 
-    private void UpdatePreview(Bitmap mask, Color colour)
+    private void ProcessMask(Bitmap mask, Color colour)
     {
       Bitmap buffer = new Bitmap(mask.Width, mask.Height);
 
@@ -97,9 +99,7 @@ namespace ALsSoundSwitcher
         using (var g = Graphics.FromImage(pictureBox1.Image))
         {
           g.DrawImage(buffer, 0, 0);
-        }
-
-        pictureBox1.Refresh();
+        }                
       }
     }
 
@@ -120,12 +120,14 @@ namespace ALsSoundSwitcher
 
       Cursor.Current = Cursors.WaitCursor;
 
-      UpdatePreview(bundle.Mask, bundle.Colour);
+      ProcessMask(bundle.Mask, bundle.Colour);
 
       if (bundle.Layer != LayerType.TOPMOST)
       {
         PaintTopMostBundle();
       }
+
+      pictureBox1.Refresh();
 
       Cursor.Current = Cursors.Default;
     }
@@ -250,6 +252,22 @@ namespace ALsSoundSwitcher
     private void checkBox_smoothing_CheckedChanged(object sender, EventArgs e)
     {
       pictureBox1.Refresh();
+    }
+
+    private void btn_reset_Click(object sender, EventArgs e)
+    {
+      Cursor.Current = Cursors.WaitCursor;
+
+      SetupButtons();
+
+      foreach (var bundle in _allColourBundles)
+      {
+        ProcessMask(bundle.Mask, bundle.Colour);
+      }
+
+      pictureBox1.Refresh();
+
+      Cursor.Current = Cursors.Default;
     }
   }
 
