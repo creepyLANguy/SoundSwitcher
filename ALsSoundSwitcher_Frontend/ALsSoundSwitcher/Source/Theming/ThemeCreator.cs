@@ -79,15 +79,7 @@ namespace ALsSoundSwitcher
 
     private void UpdatePreview(Bitmap mask, Color colour)
     {
-      //TODO - figure out if we really need the locks on pictureBox1. 
-      //Locking this does not seem to matter, but why? Should it not conflict and crash? 
-      //Leaving the locks has negligible impact to perf for now, so leave in until we have answers. 
-
-      Bitmap buffer;
-      lock (pictureBox1.Image)
-      {
-        buffer = (Bitmap)pictureBox1.Image;
-      }
+      Bitmap buffer = new Bitmap(mask.Width, mask.Height);
 
       for (var x = 0; x < mask.Width; x++)
       {
@@ -95,17 +87,19 @@ namespace ALsSoundSwitcher
         {
           if (mask.GetPixel(x, y).R == 0) //Assumes masks are always 2-bit. ie, if not white, then draw.  
           {
-            lock (buffer)
-            {
-              buffer.SetPixel(x, y, colour);
-            }
+            buffer.SetPixel(x, y, colour);
           }
         }
       }
 
-      lock (pictureBox1.Image)
+      lock (pictureBox1)
       {
-        pictureBox1.Image = buffer;
+        using (var g = Graphics.FromImage(pictureBox1.Image))
+        {
+          g.DrawImage(buffer, 0, 0);
+        }
+
+        pictureBox1.Refresh();
       }
     }
 
