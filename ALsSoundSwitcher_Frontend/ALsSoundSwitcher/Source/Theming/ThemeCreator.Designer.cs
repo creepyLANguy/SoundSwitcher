@@ -63,7 +63,7 @@
       this.pictureBox1.Image = global::ALsSoundSwitcher.Properties.Resources.mask_border;
       this.pictureBox1.Location = new System.Drawing.Point(13, 33);
       this.pictureBox1.Name = "pictureBox1";
-      this.pictureBox1.Size = new System.Drawing.Size(281, 139);
+      this.pictureBox1.Size = new System.Drawing.Size(281, 138);
       this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
       this.pictureBox1.TabIndex = 0;
       this.pictureBox1.TabStop = false;
@@ -84,7 +84,7 @@
       this.btn_ActiveSelectionColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ActiveSelectionColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btn_ActiveSelectionColor.Location = new System.Drawing.Point(13, 230);
+      this.btn_ActiveSelectionColor.Location = new System.Drawing.Point(13, 229);
       this.btn_ActiveSelectionColor.Name = "btn_ActiveSelectionColor";
       this.btn_ActiveSelectionColor.Size = new System.Drawing.Size(281, 33);
       this.btn_ActiveSelectionColor.TabIndex = 0;
@@ -96,7 +96,7 @@
       this.label_ActiveSelectionColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ActiveSelectionColor.AutoSize = true;
       this.label_ActiveSelectionColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_ActiveSelectionColor.Location = new System.Drawing.Point(10, 207);
+      this.label_ActiveSelectionColor.Location = new System.Drawing.Point(10, 206);
       this.label_ActiveSelectionColor.Name = "label_ActiveSelectionColor";
       this.label_ActiveSelectionColor.Size = new System.Drawing.Size(197, 17);
       this.label_ActiveSelectionColor.TabIndex = 3;
@@ -107,7 +107,7 @@
       this.label_ColorMenuItemSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorMenuItemSelected.AutoSize = true;
       this.label_ColorMenuItemSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_ColorMenuItemSelected.Location = new System.Drawing.Point(10, 282);
+      this.label_ColorMenuItemSelected.Location = new System.Drawing.Point(10, 281);
       this.label_ColorMenuItemSelected.Name = "label_ColorMenuItemSelected";
       this.label_ColorMenuItemSelected.Size = new System.Drawing.Size(69, 17);
       this.label_ColorMenuItemSelected.TabIndex = 5;
@@ -118,7 +118,7 @@
       this.btn_ColorMenuItemSelected.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorMenuItemSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btn_ColorMenuItemSelected.Location = new System.Drawing.Point(13, 305);
+      this.btn_ColorMenuItemSelected.Location = new System.Drawing.Point(13, 304);
       this.btn_ColorMenuItemSelected.Name = "btn_ColorMenuItemSelected";
       this.btn_ColorMenuItemSelected.Size = new System.Drawing.Size(281, 33);
       this.btn_ColorMenuItemSelected.TabIndex = 1;
@@ -130,7 +130,7 @@
       this.btn_ColorBackground.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorBackground.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btn_ColorBackground.Location = new System.Drawing.Point(14, 381);
+      this.btn_ColorBackground.Location = new System.Drawing.Point(14, 380);
       this.btn_ColorBackground.Name = "btn_ColorBackground";
       this.btn_ColorBackground.Size = new System.Drawing.Size(280, 33);
       this.btn_ColorBackground.TabIndex = 2;
@@ -142,7 +142,7 @@
       this.label_ColorBackground.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorBackground.AutoSize = true;
       this.label_ColorBackground.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_ColorBackground.Location = new System.Drawing.Point(10, 358);
+      this.label_ColorBackground.Location = new System.Drawing.Point(10, 357);
       this.label_ColorBackground.Name = "label_ColorBackground";
       this.label_ColorBackground.Size = new System.Drawing.Size(84, 17);
       this.label_ColorBackground.TabIndex = 3;
@@ -153,7 +153,7 @@
       this.btn_ColorMenuItemText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorMenuItemText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btn_ColorMenuItemText.Location = new System.Drawing.Point(14, 456);
+      this.btn_ColorMenuItemText.Location = new System.Drawing.Point(14, 455);
       this.btn_ColorMenuItemText.Name = "btn_ColorMenuItemText";
       this.btn_ColorMenuItemText.Size = new System.Drawing.Size(280, 33);
       this.btn_ColorMenuItemText.TabIndex = 3;
@@ -165,7 +165,7 @@
       this.label_ColorMenuItemText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorMenuItemText.AutoSize = true;
       this.label_ColorMenuItemText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_ColorMenuItemText.Location = new System.Drawing.Point(10, 433);
+      this.label_ColorMenuItemText.Location = new System.Drawing.Point(10, 432);
       this.label_ColorMenuItemText.Name = "label_ColorMenuItemText";
       this.label_ColorMenuItemText.Size = new System.Drawing.Size(35, 17);
       this.label_ColorMenuItemText.TabIndex = 5;
@@ -176,7 +176,7 @@
       this.btn_ColorMenuArrow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorMenuArrow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btn_ColorMenuArrow.Location = new System.Drawing.Point(13, 607);
+      this.btn_ColorMenuArrow.Location = new System.Drawing.Point(13, 606);
       this.btn_ColorMenuArrow.Name = "btn_ColorMenuArrow";
       this.btn_ColorMenuArrow.Size = new System.Drawing.Size(281, 33);
       this.btn_ColorMenuArrow.TabIndex = 5;
@@ -188,7 +188,7 @@
       this.btn_ColorSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorSeparator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btn_ColorSeparator.Location = new System.Drawing.Point(13, 531);
+      this.btn_ColorSeparator.Location = new System.Drawing.Point(13, 530);
       this.btn_ColorSeparator.Name = "btn_ColorSeparator";
       this.btn_ColorSeparator.Size = new System.Drawing.Size(281, 33);
       this.btn_ColorSeparator.TabIndex = 4;
@@ -200,7 +200,7 @@
       this.label_ColorMenuArrow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorMenuArrow.AutoSize = true;
       this.label_ColorMenuArrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_ColorMenuArrow.Location = new System.Drawing.Point(10, 584);
+      this.label_ColorMenuArrow.Location = new System.Drawing.Point(10, 583);
       this.label_ColorMenuArrow.Name = "label_ColorMenuArrow";
       this.label_ColorMenuArrow.Size = new System.Drawing.Size(112, 17);
       this.label_ColorMenuArrow.TabIndex = 3;
@@ -211,7 +211,7 @@
       this.btn_ColorMenuBorder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_ColorMenuBorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btn_ColorMenuBorder.Location = new System.Drawing.Point(13, 682);
+      this.btn_ColorMenuBorder.Location = new System.Drawing.Point(13, 681);
       this.btn_ColorMenuBorder.Name = "btn_ColorMenuBorder";
       this.btn_ColorMenuBorder.Size = new System.Drawing.Size(281, 33);
       this.btn_ColorMenuBorder.TabIndex = 6;
@@ -223,7 +223,7 @@
       this.label_ColorSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorSeparator.AutoSize = true;
       this.label_ColorSeparator.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_ColorSeparator.Location = new System.Drawing.Point(10, 508);
+      this.label_ColorSeparator.Location = new System.Drawing.Point(10, 507);
       this.label_ColorSeparator.Name = "label_ColorSeparator";
       this.label_ColorSeparator.Size = new System.Drawing.Size(163, 17);
       this.label_ColorSeparator.TabIndex = 5;
@@ -234,7 +234,7 @@
       this.label_ColorMenuBorder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.label_ColorMenuBorder.AutoSize = true;
       this.label_ColorMenuBorder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_ColorMenuBorder.Location = new System.Drawing.Point(10, 659);
+      this.label_ColorMenuBorder.Location = new System.Drawing.Point(10, 658);
       this.label_ColorMenuBorder.Name = "label_ColorMenuBorder";
       this.label_ColorMenuBorder.Size = new System.Drawing.Size(90, 17);
       this.label_ColorMenuBorder.TabIndex = 5;
@@ -245,7 +245,7 @@
       this.btn_save.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.btn_save.Location = new System.Drawing.Point(13, 795);
+      this.btn_save.Location = new System.Drawing.Point(13, 794);
       this.btn_save.Name = "btn_save";
       this.btn_save.Size = new System.Drawing.Size(281, 55);
       this.btn_save.TabIndex = 8;
@@ -259,7 +259,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.textBox_ThemeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.textBox_ThemeName.ForeColor = System.Drawing.Color.Gray;
-      this.textBox_ThemeName.Location = new System.Drawing.Point(13, 753);
+      this.textBox_ThemeName.Location = new System.Drawing.Point(13, 752);
       this.textBox_ThemeName.Name = "textBox_ThemeName";
       this.textBox_ThemeName.Size = new System.Drawing.Size(281, 26);
       this.textBox_ThemeName.TabIndex = 7;
@@ -274,18 +274,17 @@
       this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel2.BackColor = System.Drawing.Color.LightGray;
-      this.panel2.Location = new System.Drawing.Point(-2, 734);
+      this.panel2.Location = new System.Drawing.Point(-2, 733);
       this.panel2.Name = "panel2";
       this.panel2.Size = new System.Drawing.Size(323, 2);
       this.panel2.TabIndex = 9;
       // 
       // label_errorFileName
       // 
-      this.label_errorFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+      this.label_errorFileName.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
       this.label_errorFileName.AutoSize = true;
       this.label_errorFileName.ForeColor = System.Drawing.Color.Red;
-      this.label_errorFileName.Location = new System.Drawing.Point(56, 779);
+      this.label_errorFileName.Location = new System.Drawing.Point(56, 778);
       this.label_errorFileName.Name = "label_errorFileName";
       this.label_errorFileName.Size = new System.Drawing.Size(182, 13);
       this.label_errorFileName.TabIndex = 10;
@@ -296,14 +295,14 @@
       this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.panel1.BackColor = System.Drawing.Color.LightGray;
-      this.panel1.Location = new System.Drawing.Point(-2, 188);
+      this.panel1.Location = new System.Drawing.Point(-2, 187);
       this.panel1.Name = "panel1";
       this.panel1.Size = new System.Drawing.Size(323, 2);
       this.panel1.TabIndex = 8;
       // 
       // checkBox_smoothing
       // 
-      this.checkBox_smoothing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.checkBox_smoothing.Anchor = System.Windows.Forms.AnchorStyles.Top;
       this.checkBox_smoothing.AutoSize = true;
       this.checkBox_smoothing.Location = new System.Drawing.Point(97, 9);
       this.checkBox_smoothing.Name = "checkBox_smoothing";
@@ -315,8 +314,9 @@
       // 
       // btn_reset
       // 
+      this.btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btn_reset.Location = new System.Drawing.Point(220, 9);
+      this.btn_reset.Location = new System.Drawing.Point(219, 5);
       this.btn_reset.Name = "btn_reset";
       this.btn_reset.Size = new System.Drawing.Size(75, 23);
       this.btn_reset.TabIndex = 13;
@@ -329,7 +329,7 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.White;
-      this.ClientSize = new System.Drawing.Size(307, 862);
+      this.ClientSize = new System.Drawing.Size(307, 861);
       this.Controls.Add(this.btn_reset);
       this.Controls.Add(this.checkBox_smoothing);
       this.Controls.Add(this.label_errorFileName);
@@ -356,7 +356,7 @@
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;
       this.MinimizeBox = false;
-      this.MinimumSize = new System.Drawing.Size(200, 830);
+      this.MinimumSize = new System.Drawing.Size(323, 900);
       this.Name = "ThemeCreator";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "AL\'s Sound Switcher - Theme Creator (beta)";

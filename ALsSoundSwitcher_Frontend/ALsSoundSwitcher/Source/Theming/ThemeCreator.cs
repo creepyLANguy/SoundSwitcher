@@ -51,11 +51,13 @@ namespace ALsSoundSwitcher
         new ColourBundle(colours["ColorMenuItemText"],     "ColorMenuItemText",     Resources.mask_text,       LayerType.TOPMOST)
       }.OrderBy(cb => cb.Layer).ToArray();
 
+      var tasks = new List<Task>();
       foreach (var bundle in _allColourBundles)
       {
-        var button = Controls.Find($"btn_{bundle.JsonKey}", true)[0];
-        button.BackColor = bundle.Colour;
+        var task = Task.Run(() => Controls.Find($"btn_{bundle.JsonKey}", true)[0].BackColor = bundle.Colour);
+        tasks.Add(task);
       }
+      Task.WaitAll(tasks.ToArray());      
     }
 
     private void GenerateFullPreview()
@@ -260,12 +262,14 @@ namespace ALsSoundSwitcher
 
       SetupButtons();
 
-      foreach (var bundle in _allColourBundles)
+      if (Globals.Instance.InvokeRequired)
       {
-        ProcessMask(bundle.Mask, bundle.Colour);
+        Globals.Instance.Invoke(new MethodInvoker(GenerateFullPreview));
       }
-
-      pictureBox1.Refresh();
+      else
+      {
+        GenerateFullPreview();
+      }
 
       Cursor.Current = Cursors.Default;
     }
