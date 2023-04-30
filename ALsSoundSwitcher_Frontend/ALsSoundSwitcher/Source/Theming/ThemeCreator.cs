@@ -33,6 +33,8 @@ namespace ALsSoundSwitcher
 
       checkBox_smoothing.Checked = true;
 
+      ColourPicker.FullOpen = true;
+
       GenerateFullPreview();
     }
 
