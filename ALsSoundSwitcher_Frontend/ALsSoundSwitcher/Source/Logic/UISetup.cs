@@ -232,7 +232,7 @@ namespace ALsSoundSwitcher
 
     private static void ExpandMenusOnThemeCreation()
     {
-      Thread.Sleep(Settings.Current.ThemeSwitchUIRefreshDelay);
+      //Thread.Sleep(Settings.Current.ThemeSwitchUIRefreshDelay);
       BaseMenu.Show(LastBaseMenuInvokedPosition, ToolStripDropDownDirection.Left);
       MenuItemToggleTheme.GetCurrentParent().Show();
       MenuItemToggleTheme.GetCurrentParent().Focus();
