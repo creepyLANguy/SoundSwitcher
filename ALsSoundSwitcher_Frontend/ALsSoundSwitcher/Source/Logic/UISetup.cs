@@ -83,8 +83,10 @@ namespace ALsSoundSwitcher
 
       MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_SwitchTheme);
       MenuItemToggleTheme.MouseHover += menuItemExpandable_Hover;
+
       MenuItemCreateTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_CreateTheme);
       MenuItemCreateTheme.Click += menuItemCreateTheme_Click;
+      
       SetupThemeSubmenu();
 
       MenuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Exit);

@@ -76,7 +76,7 @@ namespace ALsSoundSwitcher
       Process.Start(GithubUrl);
     }
 
-    //Not sure why hovers don't expand the menu without this call. 
+    //Not sure why non-BaseMenu hovers don't expand properly on first try without this call. 
     private static void menuItemExpandable_Hover(object sender, EventArgs e)
     {
       ((ToolStripMenuItem) sender)?.ShowDropDown();
