@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using static ALsSoundSwitcher.Globals;
@@ -23,6 +22,7 @@ namespace ALsSoundSwitcher
     private static void SetupContextMenu()
     {
       BaseMenu = new ContextMenuStrip();
+      BaseMenu.Closing += PreventCloseOnSeparatorClick;
 
       AddAudioDevicesAsMenuItems();
 

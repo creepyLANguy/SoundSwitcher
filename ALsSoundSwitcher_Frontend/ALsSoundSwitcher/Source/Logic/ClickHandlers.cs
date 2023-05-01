@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -14,6 +14,21 @@ namespace ALsSoundSwitcher
   {
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetForegroundWindow(IntPtr hwnd);
+
+    private static void PreventCloseOnSeparatorClick(object sender, ToolStripDropDownClosingEventArgs e)
+    {
+      if (e.CloseReason != ToolStripDropDownCloseReason.ItemClicked)
+      {
+        return;
+      }
+
+      Point menuLocation = ((ContextMenuStrip)sender).PointToClient(MousePosition);
+      ToolStripItem clickedItem = ((ContextMenuStrip)sender).GetItemAt(menuLocation);
+      if (clickedItem != null && clickedItem.GetType() == typeof(ToolStripSeparator))
+      {
+        e.Cancel = true;
+      }
+    }
 
     private async void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
