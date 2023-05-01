@@ -83,7 +83,6 @@ namespace ALsSoundSwitcher
 
     private static void menuItemRefresh_Click(object sender, EventArgs e)
     {
-      //Application.Restart();
       ProcessUtils.Restart_ThreadSafe();
     }
 

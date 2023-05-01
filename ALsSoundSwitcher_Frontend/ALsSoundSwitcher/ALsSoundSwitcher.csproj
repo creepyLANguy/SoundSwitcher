@@ -135,6 +135,12 @@
     <EmbeddedResource Include="Source\Theming\ThemeCreator.resx">
       <DependentUpon>ThemeCreator.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Skins\Dark.skin" />
+    <None Include="Skins\Gliss.skin" />
+    <None Include="Skins\haXOR.skin" />
+    <None Include="Skins\Light.skin" />
+    <None Include="Skins\Ocean.skin" />
+	<None Include="Skins\Sapphire.skin" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -147,9 +153,29 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ContentWithTargetPath Include="Skins\**">
+    <ContentWithTargetPath Include="Skins\Dark.skin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>%(Filename)%(Extension)</TargetPath>
+      <TargetPath>Dark.skin</TargetPath>
+    </ContentWithTargetPath>
+    <ContentWithTargetPath Include="Skins\haXOR.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>haXOR.skin</TargetPath>
+    </ContentWithTargetPath>
+    <ContentWithTargetPath Include="Skins\Gliss.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>Gliss.skin</TargetPath>
+    </ContentWithTargetPath>
+    <ContentWithTargetPath Include="Skins\Light.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>Light.skin</TargetPath>
+    </ContentWithTargetPath>
+    <ContentWithTargetPath Include="Skins\Ocean.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>Ocean.skin</TargetPath>
+    </ContentWithTargetPath>
+    <ContentWithTargetPath Include="Skins\Sapphire.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>Sapphire.skin</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
