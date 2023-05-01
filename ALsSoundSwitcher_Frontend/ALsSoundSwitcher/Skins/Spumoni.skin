@@ -1,9 +1,0 @@
-{
-  "ColorBackground" : "255, 255, 244",
-  "ColorMenuBorder" : "207, 207, 231",
-  "ActiveSelectionColor" : "255, 234, 255",
-  "ColorMenuItemSelected" : "231, 255, 206",
-  "ColorSeparator" : "208, 208, 232",
-  "ColorMenuArrow" : "73, 73, 73",
-  "ColorMenuItemText" : "48, 48, 48",
-}
