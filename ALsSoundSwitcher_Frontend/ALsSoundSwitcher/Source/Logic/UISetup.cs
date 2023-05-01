@@ -235,6 +235,7 @@ namespace ALsSoundSwitcher
     private static void ExpandMenusOnThemeCreation()
     {
       BaseMenu.Show(LastBaseMenuInvokedPosition, ToolStripDropDownDirection.Left);
+      MenuItemMore.Select();
       MenuItemToggleTheme.GetCurrentParent().Show();
       MenuItemToggleTheme.GetCurrentParent().Focus();
     }

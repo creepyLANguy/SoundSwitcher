@@ -107,6 +107,7 @@ namespace ALsSoundSwitcher
       Thread.Sleep(Settings.Current.ThemeSwitchUIRefreshDelay);
       
       BaseMenu.Show();
+      MenuItemMore.Select();
       MoreMenuItems.MenuItemToggleTheme.GetCurrentParent().Show();
       MoreMenuItems.MenuItemToggleTheme.DropDown.Show();      
       ((ToolStripItem)sender).Select();
