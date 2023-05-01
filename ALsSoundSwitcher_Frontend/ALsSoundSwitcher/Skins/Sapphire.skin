@@ -2,13 +2,8 @@
   "ColorMenuItemSelected" : "0, 50, 40",
   "ColorMenuArrow" : "230, 230, 230",
   "ColorMenuItemText" : "230, 230, 230",
-  "ColorCheckSquare" : "255, 135, 50",
-  "ColorCheckMark" : "20, 20, 20",
   "ColorMenuBorder" : "0, 20, 35",
   "ActiveSelectionColor" : "0, 30, 40",
   "ColorBackground" : "0, 0, 15",
   "ColorSeparator" : "0, 20, 35",
-  "ColorStatusStripGradient" : "20, 20, 15",
-  "ColorButtonSelected" : "165, 111, 33",
-  "ColorButtonPressed" : "145, 95, 25"
 }
