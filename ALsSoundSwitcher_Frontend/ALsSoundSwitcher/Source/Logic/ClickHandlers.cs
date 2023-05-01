@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ALsSoundSwitcher.Globals;
 
@@ -13,7 +15,7 @@ namespace ALsSoundSwitcher
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetForegroundWindow(IntPtr hwnd);
 
-    private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+    private async void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
       if (e.Button == MouseButtons.Left)
       {
@@ -22,9 +24,7 @@ namespace ALsSoundSwitcher
       else if (e.Button == MouseButtons.Right)
       {
         LastBaseMenuInvokedPosition = Cursor.Position;
-        BaseMenu.Visible = false;
-        MenuItemSlider.RefreshValue();
-        BaseMenu.Visible = true;
+        await Task.Run(() => MenuItemSlider.RefreshValue());
       }      
     }
 
@@ -67,7 +67,8 @@ namespace ALsSoundSwitcher
 
     private static void menuItemRefresh_Click(object sender, EventArgs e)
     {
-      Application.Restart();
+      //Application.Restart();
+      ProcessUtils.Restart_ThreadSafe();
     }
 
     private static void menuItemHelp_Click(object sender, EventArgs e)
