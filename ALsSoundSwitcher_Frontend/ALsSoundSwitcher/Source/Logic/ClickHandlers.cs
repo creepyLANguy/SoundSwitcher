@@ -32,15 +32,19 @@ namespace ALsSoundSwitcher
 
     private async void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
-      if (e.Button == MouseButtons.Left)
+      if (e.Button == MouseButtons.Right)
+      {
+        LastBaseMenuInvokedPosition = Cursor.Position;
+        
+        await Task.Run(() => MenuItemSlider.RefreshValue());
+        
+        MenuItemSlider.trackBar.Invalidate();
+        MenuItemSlider.Invalidate();
+      }
+      else if (e.Button == MouseButtons.Left)
       {
         Toggle();
       }
-      else if (e.Button == MouseButtons.Right)
-      {
-        LastBaseMenuInvokedPosition = Cursor.Position;
-        await Task.Run(() => MenuItemSlider.RefreshValue());
-      }      
     }
 
     private static void menuItemMixer_Click(object sender, EventArgs e)
