@@ -97,7 +97,7 @@ namespace ALsSoundSwitcher
       MenuItemCreateTheme.Click += menuItemCreateTheme_Click;      
       SetupThemeSubmenu();
 
-      MenuItemControlPanel = new ToolStripMenuItem("Control Panel");
+      MenuItemControlPanel = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_ControlPanel);
       MenuItemControlPanel.MouseHover += menuItemExpandable_Hover;
       SetupControlPanelSubmenu();
 

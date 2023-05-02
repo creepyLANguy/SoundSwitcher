@@ -167,6 +167,9 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_Restart" xml:space="preserve">
     <value>Restart</value>
   </data>
+  <data name="Form1_SetupContextMenu_ControlPanel" xml:space="preserve">
+    <value>Control Panels</value>
+  </data>
   <data name="Form1_PerformSwitch_could_not_set_default_device" xml:space="preserve">
     <value>Could not set default device</value>
   </data>
