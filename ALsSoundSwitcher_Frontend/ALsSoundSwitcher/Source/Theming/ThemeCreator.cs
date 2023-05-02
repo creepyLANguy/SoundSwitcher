@@ -83,7 +83,7 @@ namespace ALsSoundSwitcher
       ProcessMask(topMostBundle.Mask, topMostBundle.Colour);
     }
 
-    private void ProcessMask(Bitmap mask, Color colour)
+    private void ProcessMask(Bitmap mask, Color colour, bool sharpen = false)
     {
       Bitmap buffer = new Bitmap(mask.Width, mask.Height);
 
@@ -96,6 +96,12 @@ namespace ALsSoundSwitcher
             buffer.SetPixel(x, y, colour);
           }
         }
+      }
+
+      if (sharpen)
+      {
+        //AL.
+        //TODO - do the thing. 
       }
 
       lock (pictureBox1)
