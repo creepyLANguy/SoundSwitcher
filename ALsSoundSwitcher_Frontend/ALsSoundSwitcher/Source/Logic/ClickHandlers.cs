@@ -147,5 +147,10 @@ namespace ALsSoundSwitcher
     {
       new ThemeCreator().Show();
     }
+
+    private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      Process.Start(GithubUrl);
+    }
   }
 }
