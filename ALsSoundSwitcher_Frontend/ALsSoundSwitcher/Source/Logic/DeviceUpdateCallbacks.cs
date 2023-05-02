@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using CSCore.CoreAudioAPI;
 using CSCore.Win32;
