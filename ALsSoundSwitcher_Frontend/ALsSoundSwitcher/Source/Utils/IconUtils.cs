@@ -31,15 +31,13 @@ namespace ALsSoundSwitcher
     }
 
     public static Icon GetDefaultIcon()
-    {      
-      if (Settings.Current.DefaultIcon.Length > 0)
+    {
+      var icon = GetIconByRawName(Settings.Current.DefaultIcon);
+      if (icon == null)
       {
-        return CreateIconFromImageFile(Settings.Current.DefaultIcon);
+        icon = Settings.Current.Mode == DeviceMode.Output ? Resources.Headset : Resources.Mic;
       }
-      else
-      {
-        return Settings.Current.Mode == DeviceMode.Output ? Resources.Headset : Resources.Mic;
-      }
+      return icon;
     }
 
     public static string GetBestMatchIconFileName(string iconName)
