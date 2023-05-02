@@ -78,32 +78,28 @@ namespace ALsSoundSwitcher
 
     private static void SetupAdditionalMenuItems()
     {
-      MenuItemRefresh = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Refresh);
-      MenuItemRefresh.Click += menuItemRefresh_Click;
-
-      MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_SwitchTheme);
-      MenuItemToggleTheme.MouseHover += menuItemExpandable_Hover;
-
-      MenuItemCreateTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_CreateTheme);
-      MenuItemCreateTheme.Click += menuItemCreateTheme_Click;
-      
-      SetupThemeSubmenu();
-
       MenuItemExit = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Exit);
       MenuItemExit.Click += menuItemExit_Click;
 
       MenuItemHelp = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Help);
       MenuItemHelp.Click += menuItemHelp_Click;
 
-      MenuItemMixer = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_VolumeMixer);
-      MenuItemMixer.Click += menuItemMixer_Click;
-      
-      MenuItemDeviceManager = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_ManageDevices);
-      MenuItemDeviceManager.Click += menuItemDeviceManager_Click;
-      
+      MenuItemRefresh = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Refresh);
+      MenuItemRefresh.Click += menuItemRefresh_Click;
+
       MenuItemMode = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Mode);
       MenuItemMode.MouseHover += menuItemExpandable_Hover;
       SetupDeviceModesSubmenu();
+
+      MenuItemToggleTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_SwitchTheme);
+      MenuItemToggleTheme.MouseHover += menuItemExpandable_Hover;
+      MenuItemCreateTheme = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_CreateTheme);
+      MenuItemCreateTheme.Click += menuItemCreateTheme_Click;      
+      SetupThemeSubmenu();
+
+      MenuItemControlPanel = new ToolStripMenuItem("Control Panel");
+      MenuItemControlPanel.MouseHover += menuItemExpandable_Hover;
+      SetupControlPanelSubmenu();
 
       MenuItemPreventAutoSwitch = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_PreventAutoSwitch);
       MenuItemPreventAutoSwitch.Click += menuItemPreventAutoSwitch_Click;
@@ -141,6 +137,19 @@ namespace ALsSoundSwitcher
 
         MenuItemMode.DropDownItems.Add(mode);
       }
+    }    
+    
+    private static void SetupControlPanelSubmenu()
+    {
+      MenuItemMixer = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_VolumeMixer);
+      MenuItemMixer.Click += menuItemMixer_Click;
+
+      MenuItemDeviceManager = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_ManageDevices);
+      MenuItemDeviceManager.Click += menuItemDeviceManager_Click;
+
+      MenuItemControlPanel.DropDownItems.Add(MenuItemMixer);
+      MenuItemControlPanel.DropDownItems.Add("-");
+      MenuItemControlPanel.DropDownItems.Add(MenuItemDeviceManager);
     }
 
     private static List<string> GetAllThemesInFolder()

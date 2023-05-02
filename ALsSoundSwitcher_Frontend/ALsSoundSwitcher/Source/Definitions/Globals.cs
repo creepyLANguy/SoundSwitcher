@@ -47,6 +47,10 @@ namespace ALsSoundSwitcher
     
     public static ToolStripMenuItem MenuItemCreateTheme;
     
+    public static ToolStripMenuItem MenuItemMixer;
+
+    public static ToolStripMenuItem MenuItemDeviceManager;
+
     public static SliderMenuItem MenuItemSlider = new SliderMenuItem();
 
     public struct MoreMenuItems
@@ -56,8 +60,7 @@ namespace ALsSoundSwitcher
       public static ToolStripMenuItem MenuItemRefresh;
       public static ToolStripMenuItem MenuItemMode;
       public static ToolStripMenuItem MenuItemToggleTheme;
-      public static ToolStripMenuItem MenuItemMixer;
-      public static ToolStripMenuItem MenuItemDeviceManager;
+      public static ToolStripMenuItem MenuItemControlPanel;
       public static ToolStripMenuItem MenuItemPreventAutoSwitch;
     }
   }
