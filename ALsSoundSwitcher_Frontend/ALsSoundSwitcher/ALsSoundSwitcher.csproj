@@ -135,12 +135,6 @@
     <EmbeddedResource Include="Source\Theming\ThemeCreator.resx">
       <DependentUpon>ThemeCreator.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Skins\Dark.skin" />
-    <None Include="Skins\Gliss.skin" />
-    <None Include="Skins\haXOR.skin" />
-    <None Include="Skins\Light.skin" />
-    <None Include="Skins\Ocean.skin" />
-	<None Include="Skins\Sapphire.skin" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -151,32 +145,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ContentWithTargetPath Include="Skins\Dark.skin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dark.skin</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Skins\haXOR.skin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>haXOR.skin</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Skins\Gliss.skin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Gliss.skin</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Skins\Light.skin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Light.skin</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Skins\Ocean.skin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Ocean.skin</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Skins\Sapphire.skin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Sapphire.skin</TargetPath>
-    </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icons\Headset.ico" />
@@ -190,7 +158,6 @@
     <None Include="Resources\mask_arrow.png" />
     <None Include="Resources\mask_active.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.5.5\build\Fody.targets" Condition="Exists('..\packages\Fody.6.5.5\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -202,6 +169,9 @@
     <Error Condition="!Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets'))" />
   </Target>
   <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)Skins" /Y /I</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
