@@ -1,4 +1,4 @@
-﻿namespace ALsSoundSwitcher
+namespace ALsSoundSwitcher
 {
   partial class Form1
   {
@@ -51,23 +51,23 @@
       textBox1.Multiline = true;
       textBox1.Name = "textBox1";
       textBox1.ReadOnly = true;
-      textBox1.Size = new System.Drawing.Size(259, 129);
+      textBox1.Size = new System.Drawing.Size(259, 170);
       textBox1.TabIndex = 0;
-      textBox1.Text = "This window should not show. \r\nPerhaps something failed on startup?\r\n";
+      textBox1.Text = resources.GetString("textBox1.Text");
       // 
       // Form1
       // 
       AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      ClientSize = new System.Drawing.Size(284, 154);
+      ClientSize = new System.Drawing.Size(284, 220);
       Controls.Add(textBox1);
       FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
       Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       MaximizeBox = false;
       Name = "Form1";
       SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+      StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       Text = "AL\'s Sound Switcher";
-      Load += new System.EventHandler(this.Form1_Load);
       ResumeLayout(false);
       PerformLayout();
 

@@ -694,9 +694,17 @@
         gKxBAYCsQQGArEEBgKxBAYCsQQPArEGf+axBz/OsQcfjrEHgB6xB+B+sQf//rEE=
 </value>
   </data>
-  <metadata name="performanceCounter1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>130, 17</value>
-  </metadata>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>ERROR
+
+This window should not show. 
+
+Perhaps something failed on startup?
+
+Please close all isntances of the application, make sure your settings in the settings.json are valid, and try to relaunch the application. 
+
+If this issue persists, visit the project page for more information or to contact the author: </value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAkAICAQAAEABADoAgAAlgAAABAQEAABAAQAKAEAAH4DAAAwMAAAAQAIAKgOAACmBAAAICAAAAEA
