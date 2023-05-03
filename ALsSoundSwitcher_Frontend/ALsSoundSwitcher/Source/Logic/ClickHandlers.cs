@@ -101,8 +101,6 @@ namespace ALsSoundSwitcher
 
       RefreshUITheme();
 
-      Thread.Sleep(Settings.Current.ThemeSwitchUIRefreshDelay);
-      
       BaseMenu.Show();
       MenuItemMore.Select();
       MenuItemMore.DropDown.Show();
