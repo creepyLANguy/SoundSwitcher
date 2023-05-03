@@ -41,7 +41,7 @@ namespace ALsSoundSwitcher
 
     private void SetupButtons()
     {
-      var colours = Globals.Theme.GetPertinentColours();
+      var colours = Theme.GetPertinentColours();
 
       _allColourBundles = new[]
       {               
@@ -160,7 +160,7 @@ namespace ALsSoundSwitcher
     private void textBox_ThemeName_TextChanged(object sender, EventArgs e)
     {
       var input = textBox_ThemeName.Text.Trim();
-      var filename = input + Globals.ThemeFileExtension;
+      var filename = input + ThemeFileExtension;
 
       if (input != TextBoxDefault && input != string.Empty && !File.Exists(filename))
       {
@@ -180,32 +180,44 @@ namespace ALsSoundSwitcher
 
     private void btn_save_Click(object sender, EventArgs e)
     {
-      PerformSaveOperations();
+      SaveAndApplyTheme();
     }
     
     private void textBox_ThemeName_KeyUp(object sender, KeyEventArgs e)
     {
       if (e.KeyCode == Keys.Enter)
       {
-        PerformSaveOperations();
+        SaveAndApplyTheme();
       }
+    }
+
+    private void SaveAndApplyTheme()
+    {
+      PerformSaveOperations();
+      ApplyNewTheme();
+      ShowMenu();
     }
 
     private void PerformSaveOperations()
     {
       var input = textBox_ThemeName.Text.Trim();
-      var filename = input + Globals.ThemeFileExtension;
+      var filename = input + ThemeFileExtension;
       WriteThemeToFile(_allColourBundles.ToList(), filename);
 
       Settings.Current.Theme = input;
       Config.Save(); 
+    }
 
+    private void ApplyNewTheme()
+    {
       Form1.SetupThemeSubmenu();
       Form1.SetItemMargins(MoreMenuItems.MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>().ToList());
-      Form1.RefreshUITheme();
-      BaseMenu.Show();
+      Form1.RefreshUITheme();      
+    }
 
-      //Close();
+    private void ShowMenu()
+    {
+      BaseMenu.Show();
     }
 
     private static void WriteThemeToFile(List<ColourBundle> bundles, string filePath)
