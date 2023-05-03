@@ -11,7 +11,7 @@ namespace ALsSoundSwitcher
 {
   public partial class Form1
   {
-    private static void RefreshUITheme()
+    public static void RefreshUITheme()
     {
       try
       {

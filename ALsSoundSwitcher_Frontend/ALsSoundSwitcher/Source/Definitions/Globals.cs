@@ -27,11 +27,7 @@ namespace ALsSoundSwitcher
     
     public const string ThemeFileExtension = ".skin";
 
-    public const string ShowMenusPostThemeRestartFlag = "showMenusPostThemeSaveRestartFlag";
-
     public static bool WeAreSwitching = false;
-
-    public static Point LastBaseMenuInvokedPosition;
 
     public static MMDeviceEnumerator DeviceEnumerator = new MMDeviceEnumerator();
 

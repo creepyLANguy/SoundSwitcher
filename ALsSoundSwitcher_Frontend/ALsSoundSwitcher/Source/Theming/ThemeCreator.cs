@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
+using static ALsSoundSwitcher.Globals;
 
 namespace ALsSoundSwitcher
 {
@@ -197,15 +198,14 @@ namespace ALsSoundSwitcher
       WriteThemeToFile(_allColourBundles.ToList(), filename);
 
       Settings.Current.Theme = input;
-      Config.Save();
+      Config.Save(); 
 
-      var argString = Globals.ShowMenusPostThemeRestartFlag;
-      var x = Globals.LastBaseMenuInvokedPosition.X;
-      var y = Globals.LastBaseMenuInvokedPosition.Y;
-      var args = $"\"{argString}\" {x} {y}";
-      ProcessUtils.RunExe(Application.ExecutablePath, args, true);
-      
-      Application.Exit();
+      Form1.SetupThemeSubmenu();
+      Form1.SetItemMargins(MoreMenuItems.MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>().ToList());
+      Form1.RefreshUITheme();
+      BaseMenu.Show();
+
+      //Close();
     }
 
     private static void WriteThemeToFile(List<ColourBundle> bundles, string filePath)
@@ -264,9 +264,9 @@ namespace ALsSoundSwitcher
 
       SetupButtons();
 
-      if (Globals.Instance.InvokeRequired)
+      if (Instance.InvokeRequired)
       {
-        Globals.Instance.Invoke(new MethodInvoker(GenerateFullPreview));
+        Instance.Invoke(new MethodInvoker(GenerateFullPreview));
       }
       else
       {

@@ -38,8 +38,6 @@ namespace ALsSoundSwitcher
       }
       else if (e.Button == MouseButtons.Right)
       {
-        LastBaseMenuInvokedPosition = Cursor.Position;
-
         await Task.Run(() => MenuItemSlider.RefreshValue());
       }
     }

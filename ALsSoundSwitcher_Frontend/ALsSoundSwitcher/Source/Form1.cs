@@ -11,8 +11,6 @@ namespace ALsSoundSwitcher
   {
     public Form1(string[] args)
     {
-      ProcessArgs(args.ToList());
-    
       InitializeComponent();
     }
 
@@ -35,29 +33,9 @@ namespace ALsSoundSwitcher
       
       SetupUI();
 
-      if (Globals.LastBaseMenuInvokedPosition != Point.Empty)
-      {
-        ExpandMenusOnThemeCreation();
-      }
-
       Minimize();
 
       DeviceUtils.Monitor();
-    }
-
-    private void ProcessArgs(List<string> argsList)
-    {
-      var indexOfShowMenusFlag = argsList.IndexOf(Globals.ShowMenusPostThemeRestartFlag);
-      
-      if (indexOfShowMenusFlag == -1)
-      {
-        Globals.LastBaseMenuInvokedPosition = Point.Empty;
-        return;
-      }
-
-      int x = int.Parse(argsList[++indexOfShowMenusFlag]);
-      int y = int.Parse(argsList[++indexOfShowMenusFlag]);
-      Globals.LastBaseMenuInvokedPosition = new Point(x, y);
     }
 
     private void NotifyUserOfConfigReadFail()

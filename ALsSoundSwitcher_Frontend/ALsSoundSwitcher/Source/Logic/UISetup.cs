@@ -107,8 +107,10 @@ namespace ALsSoundSwitcher
       MenuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_More);
     }
 
-    private static void SetupThemeSubmenu()
+    public static void SetupThemeSubmenu()
     {
+      MenuItemToggleTheme.DropDownItems.Clear();
+
       var allThemeFiles = GetAllThemesInFolder();
       allThemeFiles.Sort();
 
@@ -206,7 +208,7 @@ namespace ALsSoundSwitcher
       return deviceName;
     }
 
-    private static void SetItemMargins(List<ToolStripMenuItem> items)
+    public static void SetItemMargins(List<ToolStripMenuItem> items)
     {
       foreach (var item in items)
       {
@@ -241,15 +243,7 @@ namespace ALsSoundSwitcher
       BaseMenu.ShowImageMargin = items.Any(item => item.Image != null);
     }
 
-    private static void ExpandMenusOnThemeCreation()
-    {
-      BaseMenu.Show(LastBaseMenuInvokedPosition, ToolStripDropDownDirection.Left);
-      MenuItemMore.Select();
-      MenuItemToggleTheme.GetCurrentParent().Show();
-      MenuItemToggleTheme.GetCurrentParent().Focus();
-    }
-
-    private static void SetCurrentDeviceIconAndIndicators()
+    public static void SetCurrentDeviceIconAndIndicators()
     {
       var currentDevice = DeviceUtils.GetCurrentDefaultDevice();
       var items = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
