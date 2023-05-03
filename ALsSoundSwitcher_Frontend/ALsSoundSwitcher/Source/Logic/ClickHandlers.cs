@@ -107,7 +107,7 @@ namespace ALsSoundSwitcher
       
       BaseMenu.Show();
       MenuItemMore.Select();
-      MoreMenuItems.MenuItemToggleTheme.GetCurrentParent().Show();
+      MenuItemMore.DropDown.Show();
       MoreMenuItems.MenuItemToggleTheme.DropDown.Show();      
       ((ToolStripItem)sender).Select();
 
