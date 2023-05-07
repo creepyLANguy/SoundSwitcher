@@ -52,6 +52,7 @@ namespace ALsSoundSwitcher
       public static ToolStripMenuItem MenuItemMixer;
       public static ToolStripMenuItem MenuItemDeviceManager;
       public static ToolStripMenuItem MenuItemLaunchOnStartup;
+      public static ToolStripMenuItem MenuItemPreventAutoSwitch;
     }    
 
     public struct MoreMenuItems
@@ -62,7 +63,6 @@ namespace ALsSoundSwitcher
       public static ToolStripMenuItem MenuItemMode;
       public static ToolStripMenuItem MenuItemToggleTheme;
       public static ToolStripMenuItem MenuItemControlPanel;
-      public static ToolStripMenuItem MenuItemPreventAutoSwitch;
     }
   }
 }

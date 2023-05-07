@@ -180,7 +180,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Control Panel.
+        ///   Looks up a localized string similar to Windows.
         /// </summary>
         internal static string Form1_SetupContextMenu_ControlPanel {
             get {

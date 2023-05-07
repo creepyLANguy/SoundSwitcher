@@ -102,9 +102,6 @@ namespace ALsSoundSwitcher
       MenuItemControlPanel.MouseHover += menuItemExpandable_Hover;
       SetupControlPanelSubmenu();
 
-      MenuItemPreventAutoSwitch = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_PreventAutoSwitch);
-      MenuItemPreventAutoSwitch.Click += menuItemPreventAutoSwitch_Click;
-
       MenuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_More);
     }
 
@@ -148,16 +145,33 @@ namespace ALsSoundSwitcher
       MenuItemMixer.Click += menuItemMixer_Click;
 
       MenuItemDeviceManager = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_ManageDevices);
-      MenuItemDeviceManager.Click += menuItemDeviceManager_Click;      
+      MenuItemDeviceManager.Click += menuItemDeviceManager_Click;
 
       MenuItemLaunchOnStartup = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_LaunchOnStartup);
       MenuItemLaunchOnStartup.Click += MenuItemLaunchOnStartup_Click;
 
-      MenuItemControlPanel.DropDownItems.Add(MenuItemMixer);
-      MenuItemControlPanel.DropDownItems.Add("-");
-      MenuItemControlPanel.DropDownItems.Add(MenuItemDeviceManager);
-      MenuItemControlPanel.DropDownItems.Add("-");
-      MenuItemControlPanel.DropDownItems.Add(MenuItemLaunchOnStartup);
+      MenuItemPreventAutoSwitch = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_PreventAutoSwitch);
+      MenuItemPreventAutoSwitch.Click += menuItemPreventAutoSwitch_Click;
+
+      var menuItemFields = typeof(ControlPanelMenuItems).GetFields(BindingFlags.Public | BindingFlags.Static);
+
+      foreach (var field in menuItemFields)
+      {
+        var item = (ToolStripMenuItem)field.GetValue(null);
+
+        if (item == null)
+        {
+          continue;
+        }
+
+        if (item.GetCurrentParent() == null)
+        {
+          MenuItemControlPanel.DropDownItems.Add(item);
+          MenuItemControlPanel.DropDownItems.Add("-");
+        }
+      }
+
+      MenuItemControlPanel.DropDownItems.RemoveAt(MenuItemControlPanel.DropDownItems.Count - 1);
     }
 
     private static List<string> GetAllThemesInFolder()
