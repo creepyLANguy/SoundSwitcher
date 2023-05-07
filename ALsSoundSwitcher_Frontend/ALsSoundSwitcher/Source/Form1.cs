@@ -13,6 +13,8 @@ namespace ALsSoundSwitcher
 
     private void Form1_Load(object sender, EventArgs e)
     {
+      ProcessUtils.SetWorkingDirectory();
+
       Globals.Instance = this;
 
       if (Config.Read() == false)

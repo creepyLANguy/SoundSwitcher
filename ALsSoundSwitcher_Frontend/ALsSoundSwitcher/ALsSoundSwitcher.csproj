@@ -132,6 +132,7 @@
     </Compile>
     <EmbeddedResource Include="Source\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Theming\ThemeCreator.resx">
       <DependentUpon>ThemeCreator.cs</DependentUpon>
