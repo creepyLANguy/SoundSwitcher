@@ -24,14 +24,14 @@ namespace ALsSoundSwitcher
           Theme = new CustomRenderer(colourPack);
         }
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-        Console.WriteLine(e.ToString());
+        Console.WriteLine(ex.ToString());
 
         notifyIcon1.ShowBalloonTip(
           Settings.Current.BalloonTime,
           Resources.Form1_PerformSwitch_Error_Switching_Theme,
-          e.Message,
+          ex.Message,
           ToolTipIcon.Error
         );
       }

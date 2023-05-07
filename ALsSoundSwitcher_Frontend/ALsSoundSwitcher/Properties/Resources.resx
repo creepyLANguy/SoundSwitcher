@@ -168,7 +168,7 @@ Could not start </value>
     <value>Restart</value>
   </data>
   <data name="Form1_SetupContextMenu_ControlPanel" xml:space="preserve">
-    <value>Control Panel</value>
+    <value>Windows</value>
   </data>
   <data name="Form1_PerformSwitch_could_not_set_default_device" xml:space="preserve">
     <value>Could not set default device</value>
@@ -193,6 +193,9 @@ Could not start </value>
   </data>
   <data name="Form1_SetupContextMenu_VolumeMixer" xml:space="preserve">
     <value>Volume Mixer</value>
+  </data>  
+  <data name="Form1_SetupContextMenu_LaunchOnStartup" xml:space="preserve">
+    <value>Launch on Startup</value>
   </data>
   <data name="Form1_SetupContextMenu_PreventAutoSwitch" xml:space="preserve">
     <value>Prevent Auto Switching</value>

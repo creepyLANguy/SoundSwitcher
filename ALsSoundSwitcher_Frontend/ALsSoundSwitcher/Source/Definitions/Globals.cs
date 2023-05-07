@@ -1,6 +1,5 @@
 ﻿using CSCore.CoreAudioAPI;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace ALsSoundSwitcher
@@ -10,6 +9,8 @@ namespace ALsSoundSwitcher
     public static Form Instance;
 
     public const string GithubUrl = "https://github.com/creepyLANguy/SoundSwitcher";
+
+    public const string StartupRegistryKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
     public const string SetDeviceExe = "SetPlaybackDevice.exe";
     public const string GetVolumeArg = "GetVolume";
@@ -42,12 +43,16 @@ namespace ALsSoundSwitcher
     public static ToolStripMenuItem MenuItemMore;
     
     public static ToolStripMenuItem MenuItemCreateTheme;
-    
-    public static ToolStripMenuItem MenuItemMixer;
-
-    public static ToolStripMenuItem MenuItemDeviceManager;
 
     public static SliderMenuItem MenuItemSlider = new SliderMenuItem();
+
+    public struct ControlPanelMenuItems
+    {
+      public static ToolStripMenuItem MenuItemMixer;
+      public static ToolStripMenuItem MenuItemDeviceManager;
+      public static ToolStripMenuItem MenuItemLaunchOnStartup;
+      public static ToolStripMenuItem MenuItemPreventAutoSwitch;
+    }    
 
     public struct MoreMenuItems
     {
@@ -57,7 +62,6 @@ namespace ALsSoundSwitcher
       public static ToolStripMenuItem MenuItemMode;
       public static ToolStripMenuItem MenuItemToggleTheme;
       public static ToolStripMenuItem MenuItemControlPanel;
-      public static ToolStripMenuItem MenuItemPreventAutoSwitch;
     }
   }
 }

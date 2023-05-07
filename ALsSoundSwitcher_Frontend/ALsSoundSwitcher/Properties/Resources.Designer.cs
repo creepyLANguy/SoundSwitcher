@@ -180,7 +180,7 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Control Panel.
+        ///   Looks up a localized string similar to Windows.
         /// </summary>
         internal static string Form1_SetupContextMenu_ControlPanel {
             get {
@@ -221,6 +221,15 @@ namespace ALsSoundSwitcher.Properties {
         internal static string Form1_SetupContextMenu_Help {
             get {
                 return ResourceManager.GetString("Form1_SetupContextMenu_Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch on Startup.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_LaunchOnStartup {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_LaunchOnStartup", resourceCulture);
             }
         }
         

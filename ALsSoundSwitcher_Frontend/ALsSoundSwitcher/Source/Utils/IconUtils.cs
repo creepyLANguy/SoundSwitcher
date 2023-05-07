@@ -104,9 +104,9 @@ namespace ALsSoundSwitcher
         //.ico files look much better when using the specific constructor so keep this branching logic.  
         return iconName.EndsWith(".ico") ? new Icon(iconName) : CreateIconFromImageFile(iconName);
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-        Console.WriteLine(e.Message);
+        Console.WriteLine(ex.Message);
         return null;
       }
     }

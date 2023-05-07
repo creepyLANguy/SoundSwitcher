@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using static ALsSoundSwitcher.Globals;
 using static ALsSoundSwitcher.Globals.MoreMenuItems;
+using static ALsSoundSwitcher.Globals.ControlPanelMenuItems;
 
 namespace ALsSoundSwitcher
 {
@@ -66,9 +67,9 @@ namespace ALsSoundSwitcher
           {
             menuItem.Image = IconUtils.GetPaddedImage(iconFile);
           }
-          catch (Exception e)
+          catch (Exception ex)
           {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(ex.Message);
           }
         }
 
@@ -100,9 +101,6 @@ namespace ALsSoundSwitcher
       MenuItemControlPanel = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_ControlPanel);
       MenuItemControlPanel.MouseHover += menuItemExpandable_Hover;
       SetupControlPanelSubmenu();
-
-      MenuItemPreventAutoSwitch = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_PreventAutoSwitch);
-      MenuItemPreventAutoSwitch.Click += menuItemPreventAutoSwitch_Click;
 
       MenuItemMore = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_More);
     }
@@ -149,9 +147,31 @@ namespace ALsSoundSwitcher
       MenuItemDeviceManager = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_ManageDevices);
       MenuItemDeviceManager.Click += menuItemDeviceManager_Click;
 
-      MenuItemControlPanel.DropDownItems.Add(MenuItemMixer);
-      MenuItemControlPanel.DropDownItems.Add("-");
-      MenuItemControlPanel.DropDownItems.Add(MenuItemDeviceManager);
+      MenuItemLaunchOnStartup = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_LaunchOnStartup);
+      MenuItemLaunchOnStartup.Click += MenuItemLaunchOnStartup_Click;
+
+      MenuItemPreventAutoSwitch = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_PreventAutoSwitch);
+      MenuItemPreventAutoSwitch.Click += menuItemPreventAutoSwitch_Click;
+
+      var menuItemFields = typeof(ControlPanelMenuItems).GetFields(BindingFlags.Public | BindingFlags.Static);
+
+      foreach (var field in menuItemFields)
+      {
+        var item = (ToolStripMenuItem)field.GetValue(null);
+
+        if (item == null)
+        {
+          continue;
+        }
+
+        if (item.GetCurrentParent() == null)
+        {
+          MenuItemControlPanel.DropDownItems.Add(item);
+          MenuItemControlPanel.DropDownItems.Add("-");
+        }
+      }
+
+      MenuItemControlPanel.DropDownItems.RemoveAt(MenuItemControlPanel.DropDownItems.Count - 1);
     }
 
     private static List<string> GetAllThemesInFolder()
@@ -279,6 +299,8 @@ namespace ALsSoundSwitcher
       SetBackgroundForMenuItemModeDelected();
       
       SetBackgroundForMenuItemPreventAutoSwitch();
+
+      SetBackgroundForMenuItemLaunchOnStartup();
     }
     
     private static void SetBackgroundForMenuItemModeDelected()
@@ -297,6 +319,18 @@ namespace ALsSoundSwitcher
       else
       {
         MenuItemPreventAutoSwitch.ResetBackColor();
+      }
+    }
+    
+    private static void SetBackgroundForMenuItemLaunchOnStartup()
+    {
+      if (Settings.Current.LaunchOnStartup)
+      {
+        MenuItemLaunchOnStartup.BackColor = Theme.ActiveSelectionColor;
+      }
+      else
+      {
+        MenuItemLaunchOnStartup.ResetBackColor();
       }
     }
   }

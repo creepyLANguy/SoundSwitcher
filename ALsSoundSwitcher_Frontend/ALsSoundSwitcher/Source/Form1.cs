@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 
@@ -16,6 +13,8 @@ namespace ALsSoundSwitcher
 
     private void Form1_Load(object sender, EventArgs e)
     {
+      ProcessUtils.SetWorkingDirectory();
+
       Globals.Instance = this;
 
       if (Config.Read() == false)
@@ -30,7 +29,16 @@ namespace ALsSoundSwitcher
           Settings.Current.Mode = DeviceMode.Output;
         }
       }
-      
+
+      if (Settings.Current.LaunchOnStartup)
+      {
+        if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistsForThisPath(Settings.Current.Mode) == false)
+        {
+          Settings.Current.LaunchOnStartup = false;
+          Config.Save();
+        }
+      }
+
       SetupUI();
 
       Minimize();

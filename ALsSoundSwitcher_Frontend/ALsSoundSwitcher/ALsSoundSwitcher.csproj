@@ -118,6 +118,7 @@
     <Compile Include="Source\Utils\LevenshteinDistance.cs" />
     <Compile Include="Source\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Utils\RegistryUtils.cs" />
     <Compile Include="Source\Utils\TestUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -131,6 +132,7 @@
     </Compile>
     <EmbeddedResource Include="Source\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Theming\ThemeCreator.resx">
       <DependentUpon>ThemeCreator.cs</DependentUpon>

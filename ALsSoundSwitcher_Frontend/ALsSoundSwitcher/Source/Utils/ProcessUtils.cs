@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using static ALsSoundSwitcher.Globals;
 
@@ -38,6 +39,13 @@ namespace ALsSoundSwitcher
       {
         Application.Restart();
       }
+    }
+
+    public static void SetWorkingDirectory()
+    {
+      string exePath = Process.GetCurrentProcess().MainModule.FileName;
+      string exeDir = Path.GetDirectoryName(exePath);
+      Directory.SetCurrentDirectory(exeDir);
     }
   }
 }
