@@ -39,8 +39,6 @@ namespace ALsSoundSwitcher
       };
     }
 
-    
-
     private void SetColours(ColourPack colourPack)
     {
       ActiveSelectionColor = colourPack.ActiveSelectionColor;
