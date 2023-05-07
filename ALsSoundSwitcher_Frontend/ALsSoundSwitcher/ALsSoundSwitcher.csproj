@@ -118,6 +118,7 @@
     <Compile Include="Source\Utils\LevenshteinDistance.cs" />
     <Compile Include="Source\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Utils\RegistryUtils.cs" />
     <Compile Include="Source\Utils\TestUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

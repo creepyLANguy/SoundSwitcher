@@ -11,6 +11,8 @@ namespace ALsSoundSwitcher
 
     public const string GithubUrl = "https://github.com/creepyLANguy/SoundSwitcher";
 
+    public const string StartupRegistryKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+
     public const string SetDeviceExe = "SetPlaybackDevice.exe";
     public const string GetVolumeArg = "GetVolume";
     public const string SetVolumeArg = "SetVolume ";
@@ -42,12 +44,15 @@ namespace ALsSoundSwitcher
     public static ToolStripMenuItem MenuItemMore;
     
     public static ToolStripMenuItem MenuItemCreateTheme;
-    
-    public static ToolStripMenuItem MenuItemMixer;
-
-    public static ToolStripMenuItem MenuItemDeviceManager;
 
     public static SliderMenuItem MenuItemSlider = new SliderMenuItem();
+
+    public struct ControlPanelMenuItems
+    {
+      public static ToolStripMenuItem MenuItemMixer;
+      public static ToolStripMenuItem MenuItemDeviceManager;
+      public static ToolStripMenuItem MenuItemLaunchOnStartup;
+    }    
 
     public struct MoreMenuItems
     {

@@ -225,6 +225,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Launch on Startup.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_LaunchOnStartup {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_LaunchOnStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage Devices.
         /// </summary>
         internal static string Form1_SetupContextMenu_ManageDevices {

@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using static ALsSoundSwitcher.Globals;
 using static ALsSoundSwitcher.Globals.MoreMenuItems;
+using static ALsSoundSwitcher.Globals.ControlPanelMenuItems;
 
 namespace ALsSoundSwitcher
 {
@@ -66,9 +67,9 @@ namespace ALsSoundSwitcher
           {
             menuItem.Image = IconUtils.GetPaddedImage(iconFile);
           }
-          catch (Exception e)
+          catch (Exception ex)
           {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(ex.Message);
           }
         }
 
@@ -147,11 +148,16 @@ namespace ALsSoundSwitcher
       MenuItemMixer.Click += menuItemMixer_Click;
 
       MenuItemDeviceManager = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_ManageDevices);
-      MenuItemDeviceManager.Click += menuItemDeviceManager_Click;
+      MenuItemDeviceManager.Click += menuItemDeviceManager_Click;      
+
+      MenuItemLaunchOnStartup = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_LaunchOnStartup);
+      MenuItemLaunchOnStartup.Click += MenuItemLaunchOnStartup_Click;
 
       MenuItemControlPanel.DropDownItems.Add(MenuItemMixer);
       MenuItemControlPanel.DropDownItems.Add("-");
       MenuItemControlPanel.DropDownItems.Add(MenuItemDeviceManager);
+      MenuItemControlPanel.DropDownItems.Add("-");
+      MenuItemControlPanel.DropDownItems.Add(MenuItemLaunchOnStartup);
     }
 
     private static List<string> GetAllThemesInFolder()
@@ -279,6 +285,8 @@ namespace ALsSoundSwitcher
       SetBackgroundForMenuItemModeDelected();
       
       SetBackgroundForMenuItemPreventAutoSwitch();
+
+      SetBackgroundForMenuItemLaunchOnStartup();
     }
     
     private static void SetBackgroundForMenuItemModeDelected()
@@ -297,6 +305,18 @@ namespace ALsSoundSwitcher
       else
       {
         MenuItemPreventAutoSwitch.ResetBackColor();
+      }
+    }
+    
+    private static void SetBackgroundForMenuItemLaunchOnStartup()
+    {
+      if (Settings.Current.LaunchOnStartup)
+      {
+        MenuItemLaunchOnStartup.BackColor = Theme.ActiveSelectionColor;
+      }
+      else
+      {
+        MenuItemLaunchOnStartup.ResetBackColor();
       }
     }
   }

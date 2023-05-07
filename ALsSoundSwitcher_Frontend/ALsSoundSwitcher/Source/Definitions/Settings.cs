@@ -10,6 +10,7 @@
       public string DefaultIcon;
       public DeviceMode Mode;
       public bool PreventAutoSwitch;
+      public bool LaunchOnStartup;
     }
 
     public static SettingsStruct Current = new SettingsStruct
@@ -19,7 +20,8 @@
       Theme = "Dark",
       DefaultIcon = "",
       Mode = DeviceMode.Output,
-      PreventAutoSwitch = true
+      PreventAutoSwitch = true,
+      LaunchOnStartup = false,
     };
   }
 }

@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ALsSoundSwitcher.Globals;
@@ -68,7 +67,25 @@ namespace ALsSoundSwitcher
     {
       ProcessUtils.RunExe(DeviceManagerExe, DeviceManagerArgs, true);
     }
-    
+
+    private static void MenuItemLaunchOnStartup_Click(object sender, EventArgs e)
+    {
+      var mode = Settings.Current.Mode;
+      var regResult = Settings.Current.LaunchOnStartup ?
+        RegistryUtils.TryDeleteStartupRegistrySetting(mode) : RegistryUtils.TrySaveStartupRegistrySetting(mode);
+
+      if (regResult == false)
+      {
+        return;
+      }
+
+      Settings.Current.LaunchOnStartup = !Settings.Current.LaunchOnStartup;
+
+      Config.Save();
+
+      SetBackgroundForMenuItemLaunchOnStartup();
+    }
+
     private static void menuItem_Click(object sender, EventArgs e)
     {
       PerformSwitch((ToolStripMenuItem)sender);
@@ -112,6 +129,14 @@ namespace ALsSoundSwitcher
 
     private static void menuItemMode_Click(object sender, EventArgs e)
     {
+      if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistsForThisPath(Settings.Current.Mode))
+      {
+        if (RegistryUtils.TryDeleteStartupRegistrySetting(Settings.Current.Mode) == false)
+        {
+          return;
+        }
+      }
+
       var selection = ((ToolStripMenuItem) sender).Text;
       var selectedMode = (DeviceMode)Enum.Parse(typeof(DeviceMode), selection);
 
@@ -126,6 +151,11 @@ namespace ALsSoundSwitcher
       Settings.Current.Mode = selectedMode;
 
       Config.Save();
+
+      if (Settings.Current.LaunchOnStartup)
+      {
+        RegistryUtils.TrySaveStartupRegistrySetting(selectedMode);
+      }
 
       Application.Restart();
     }

@@ -30,7 +30,16 @@ namespace ALsSoundSwitcher
           Settings.Current.Mode = DeviceMode.Output;
         }
       }
-      
+
+      if (Settings.Current.LaunchOnStartup)
+      {
+        if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistsForThisPath(Settings.Current.Mode) == false)
+        {
+          Settings.Current.LaunchOnStartup = false;
+          Config.Save();
+        }
+      }
+
       SetupUI();
 
       Minimize();

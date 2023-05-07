@@ -72,9 +72,9 @@ namespace ALsSoundSwitcher
           throw new Exception();
         }
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-        Console.WriteLine(e);
+        Console.WriteLine(ex);
         
         MessageBox.Show(
           Resources.PowerShellUtils_InstallAudioCmdlets_Error_Message,

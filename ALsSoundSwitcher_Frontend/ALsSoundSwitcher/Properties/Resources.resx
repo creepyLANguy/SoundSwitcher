@@ -193,6 +193,9 @@ Could not start </value>
   </data>
   <data name="Form1_SetupContextMenu_VolumeMixer" xml:space="preserve">
     <value>Volume Mixer</value>
+  </data>  
+  <data name="Form1_SetupContextMenu_LaunchOnStartup" xml:space="preserve">
+    <value>Launch on Startup</value>
   </data>
   <data name="Form1_SetupContextMenu_PreventAutoSwitch" xml:space="preserve">
     <value>Prevent Auto Switching</value>

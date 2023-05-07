@@ -38,11 +38,11 @@ namespace ALsSoundSwitcher
 
         NotifyUserOfSwitchResult(deviceName);
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
         WeAreSwitching = false;
         
-        Console.WriteLine(e.ToString());
+        Console.WriteLine(ex.ToString());
 
         NotifyUserOfSwitchResult();
       }
