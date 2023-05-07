@@ -20,7 +20,7 @@
       Theme = "Dark",
       DefaultIcon = "",
       Mode = DeviceMode.Output,
-      PreventAutoSwitch = true,
+      PreventAutoSwitch = false,
       LaunchOnStartup = false,
     };
   }
