@@ -106,6 +106,12 @@ namespace ALsSoundSwitcher
     public void OnPropertyValueChanged(string deviceId, PropertyKey propertyKey)
     {
       //Console.WriteLine($"Audio device {deviceId} property {propertyKey} value changed");
+      
+      var cachedActiveDeviceId = (string)Globals.ActiveMenuItemDevice.Tag;
+      if ((deviceId == cachedActiveDeviceId) && (propertyKey.ToString() == Globals.VolumeChangedPropertyKey))
+      {
+        Globals.MenuItemSlider.RefreshValue();
+      }
     }
 
     private static bool IgnoreThisUpdate(string deviceId)

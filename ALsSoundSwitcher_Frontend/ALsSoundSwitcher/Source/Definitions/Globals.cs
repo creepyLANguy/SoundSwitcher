@@ -12,6 +12,8 @@ namespace ALsSoundSwitcher
 
     public const string StartupRegistryKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
+    public const string VolumeChangedPropertyKey = "9855c4cd-df8c-449c-a181-8191b68bd06c/0";
+
     public const string SetDeviceExe = "SetPlaybackDevice.exe";
     public const string GetVolumeArg = "GetVolume";
     public const string SetVolumeArg = "SetVolume ";
