@@ -14,7 +14,7 @@ namespace ALsSoundSwitcher
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetForegroundWindow(IntPtr hwnd);
 
-    private static void ModerateCloseOnClick(object sender, ToolStripDropDownClosingEventArgs e)
+    private static void HandleCloseOnClick(object sender, ToolStripDropDownClosingEventArgs e)
     {
       if (e.CloseReason != ToolStripDropDownCloseReason.ItemClicked)
       {
@@ -84,6 +84,8 @@ namespace ALsSoundSwitcher
       Config.Save();
 
       SetBackgroundForMenuItemLaunchOnStartup();
+
+      RestoreMenus((ToolStripItem)sender);
     }
 
     private static void menuItem_Click(object sender, EventArgs e)
@@ -118,11 +120,7 @@ namespace ALsSoundSwitcher
 
       RefreshUITheme();
 
-      BaseMenu.Show();
-      MenuItemMore.Select();
-      MenuItemMore.DropDown.Show();
-      MoreMenuItems.MenuItemToggleTheme.DropDown.Show();      
-      ((ToolStripItem)sender).Select();
+      RestoreMenus((ToolStripItem)sender);
 
       Config.Save();
     }
@@ -167,6 +165,8 @@ namespace ALsSoundSwitcher
       Config.Save();
 
       SetBackgroundForMenuItemPreventAutoSwitch();
+
+      RestoreMenus((ToolStripItem)sender);
     }
 
     private static void menuItemCreateTheme_Click(object sender, EventArgs e)
@@ -177,6 +177,15 @@ namespace ALsSoundSwitcher
     private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
       Process.Start(GithubUrl);
+    }
+
+    public static void RestoreMenus(ToolStripItem sender)
+    {
+      BaseMenu.Show();
+      MenuItemMore.Select();
+      MenuItemMore.DropDown.Show();
+      sender.GetCurrentParent().Show();
+      sender.Select();
     }
   }
 }

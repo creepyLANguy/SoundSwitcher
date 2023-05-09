@@ -26,7 +26,7 @@ namespace ALsSoundSwitcher
     private static void SetupContextMenu()
     {
       BaseMenu = new ContextMenuStrip();
-      BaseMenu.Closing += ModerateCloseOnClick;
+      BaseMenu.Closing += HandleCloseOnClick;
 
       AddAudioDevicesAsMenuItems();
 
