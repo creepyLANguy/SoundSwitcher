@@ -209,6 +209,8 @@ namespace ALsSoundSwitcher
     
     private static void AddVolumeSlider()
     {
+      MenuItemSlider = new SliderMenuItem(BaseMenu.Width);
+
       BaseMenu.Items.Add("-");
       BaseMenu.Items.Add(MenuItemSlider);
     }
@@ -225,7 +227,7 @@ namespace ALsSoundSwitcher
         deviceName = name.Substring(0, indexOfOpeningParenthesis);
       }
 
-      return deviceName;
+      return deviceName+deviceName;
     }
 
     public static void SetItemMargins(List<ToolStripMenuItem> items)

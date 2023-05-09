@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 using System;
 using System.Threading;
 
@@ -11,11 +11,12 @@ namespace ALsSoundSwitcher
     private static bool WeAreRefreshingVolumeSliderValue = false;
     private static bool WeAreCurrentlySettingTheVolume = false;
 
-    public SliderMenuItem() : base(new ColorSlider.ColorSlider())
+    public SliderMenuItem(int width, int height = 20) : base(new ColorSlider.ColorSlider())
     {
       trackBar = Control as ColorSlider.ColorSlider;
       trackBar.TickStyle = TickStyle.None;
-      trackBar.Height = 20;
+      trackBar.Width = width;
+      trackBar.Height = height;
       trackBar.Minimum = 0;
       trackBar.Maximum = 100;
 
