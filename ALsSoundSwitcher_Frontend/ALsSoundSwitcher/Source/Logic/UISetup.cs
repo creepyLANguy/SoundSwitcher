@@ -17,7 +17,9 @@ namespace ALsSoundSwitcher
     {
       DeviceUtils.GetDeviceList();
       SetupContextMenu();
-      SetCurrentDeviceIconAndIndicators();
+      CacheCurrentDevice();
+      SetCurrentDeviceTrayIndicators();
+      SetActiveMenuItemMarkers();
     }
 
     private static void SetupContextMenu()
@@ -218,7 +220,9 @@ namespace ALsSoundSwitcher
     private static string GetFormattedDeviceName(string name)
     {
       var indexOfOpeningParenthesis = name.IndexOf("(", StringComparison.Ordinal);
-      var deviceName = name.Substring(indexOfOpeningParenthesis + 1).TrimEnd(')');
+      var indexOfClosingParenthesis = name.LastIndexOf(")", StringComparison.Ordinal);
+      var lengthOfFormattedString = indexOfClosingParenthesis - (indexOfOpeningParenthesis + 1);
+      var deviceName = name.Substring(indexOfOpeningParenthesis + 1, lengthOfFormattedString);
 
       //Handles the case where bracketed portion is identical but prefix is unique, e.g., systems with Realtek(R) audio.
       var occurences = ActiveDevices.Keys.Count(key => key.Contains(deviceName));
@@ -227,7 +231,7 @@ namespace ALsSoundSwitcher
         deviceName = name.Substring(0, indexOfOpeningParenthesis);
       }
 
-      return deviceName+deviceName;
+      return deviceName;
     }
 
     public static void SetItemMargins(List<ToolStripMenuItem> items)
@@ -265,19 +269,33 @@ namespace ALsSoundSwitcher
       BaseMenu.ShowImageMargin = items.Any(item => item.Image != null);
     }
 
-    public static void SetCurrentDeviceIconAndIndicators()
+    public static void CacheCurrentDevice()
     {
       var currentDevice = DeviceUtils.GetCurrentDefaultDevice();
       var items = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
       ActiveMenuItemDevice = items.First(it => (string)it.Tag == currentDevice.DeviceID);
-      
-      SetActiveMenuItemMarkers();
+    }
 
+    public static void SetCurrentDeviceTrayIndicators()
+    {
       IconUtils.SetTrayIcon(ActiveMenuItemDevice.Text, notifyIcon1);
       notifyIcon1.Text = ActiveMenuItemDevice.Text.Trim();
     }
 
     private static void SetActiveMenuItemMarkers()
+    {
+      SetBackgroundForBaseMenuItems();
+
+      SetBackgroundForMenuItemToggleTheme();
+
+      SetBackgroundForMenuItemModeSelected();
+      
+      SetBackgroundForMenuItemPreventAutoSwitch();
+
+      SetBackgroundForMenuItemLaunchOnStartup();
+    }
+    
+    private static void SetBackgroundForBaseMenuItems()
     {
       foreach (var item in BaseMenu.Items.OfType<ToolStripMenuItem>().ToList())
       {
@@ -287,7 +305,10 @@ namespace ALsSoundSwitcher
       {
         ActiveMenuItemDevice.BackColor = Theme.ActiveSelectionColor;
       }
+    }
 
+    private static void SetBackgroundForMenuItemToggleTheme()
+    {
       foreach (var item in MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>().ToList())
       {
         item.ResetBackColor();
@@ -297,15 +318,9 @@ namespace ALsSoundSwitcher
           item.BackColor = Theme.ActiveSelectionColor;
         }
       }
-
-      SetBackgroundForMenuItemModeDelected();
-      
-      SetBackgroundForMenuItemPreventAutoSwitch();
-
-      SetBackgroundForMenuItemLaunchOnStartup();
     }
-    
-    private static void SetBackgroundForMenuItemModeDelected()
+
+    private static void SetBackgroundForMenuItemModeSelected()
     {
       var currentMode = Enum.GetName(typeof(DeviceMode), Settings.Current.Mode);     
       var selectedItem = MenuItemMode.DropDownItems.OfType<ToolStripMenuItem>().First(it => it.Text == currentMode);
