@@ -277,10 +277,19 @@ namespace ALsSoundSwitcher
       ActiveMenuItemDevice = items.First(it => (string)it.Tag == currentDevice.DeviceID);
     }
 
-    public static void SetCurrentDeviceTrayIndicators()
+    public static void SetCurrentDeviceTrayIcon()
     {
-      IconUtils.SetTrayIcon(ActiveMenuItemDevice.Text, notifyIcon1);
-      notifyIcon1.Text = ActiveMenuItemDevice.Text.Trim();
+      IconUtils.SetTrayIcon(ActiveMenuItemDevice.Text, notifyIcon1);      
+    }
+
+    public static void SetToolTip(string text)
+    {
+      var shortened = text.Trim();
+      if (shortened.Length >= ToolTipMaxLength)
+      {
+        shortened = shortened.Substring(0, ToolTipMaxLength - Ellipsis.Length).Trim() + Ellipsis;     
+      }
+      notifyIcon1.Text = shortened;
     }
 
     private static void SetActiveMenuItemMarkers()
