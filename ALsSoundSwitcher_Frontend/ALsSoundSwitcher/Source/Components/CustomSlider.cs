@@ -11,19 +11,35 @@ namespace ALsSoundSwitcher
     private static bool WeAreRefreshingVolumeSliderValue = false;
     private static bool WeAreCurrentlySettingTheVolume = false;
 
-    public SliderMenuItem(int width, int height = 20) : base(new ColorSlider.ColorSlider())
+    public SliderMenuItem() : base(new ColorSlider.ColorSlider())
     {
       trackBar = Control as ColorSlider.ColorSlider;
       trackBar.TickStyle = TickStyle.None;
-      trackBar.Width = width;
-      trackBar.Height = height;
+      trackBar.Height = 20;
       trackBar.Minimum = 0;
       trackBar.Maximum = 100;
+
+      AutoSize = false;
 
       RefreshColours();
       RefreshValue();
 
       trackBar.ValueChanged += trackBar_ValueChanged;
+    }
+
+    protected override void OnParentChanged(ToolStrip oldParent, ToolStrip newParent)
+    {
+      base.OnParentChanged(oldParent, newParent);
+
+      if (newParent != null)
+      {
+        trackBar.Width = Parent.Width - (Parent.Padding.Horizontal * 2);
+      }
+    }
+
+    public void SetWidth(int width)
+    {
+      trackBar.Width = width;
     }
 
     public void RefreshColours()

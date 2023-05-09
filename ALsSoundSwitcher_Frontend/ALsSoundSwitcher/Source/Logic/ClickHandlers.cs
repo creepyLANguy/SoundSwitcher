@@ -37,7 +37,7 @@ namespace ALsSoundSwitcher
       }
       else if (e.Button == MouseButtons.Right)
       {
-        await Task.Run(() => MenuItemSlider?.RefreshValue());
+        await Task.Run(() => MenuItemSlider.RefreshValue());
       }
     }
 

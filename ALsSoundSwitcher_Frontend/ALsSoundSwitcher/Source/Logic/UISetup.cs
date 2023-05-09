@@ -212,8 +212,6 @@ namespace ALsSoundSwitcher
     
     private static void AddVolumeSlider()
     {
-      MenuItemSlider = new SliderMenuItem(BaseMenu.Width);
-
       BaseMenu.Items.Add("-");
       BaseMenu.Items.Add(MenuItemSlider);
     }

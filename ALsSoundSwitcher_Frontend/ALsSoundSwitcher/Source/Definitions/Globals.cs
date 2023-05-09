@@ -49,8 +49,7 @@ namespace ALsSoundSwitcher
 
     public static ToolStripMenuItem MenuItemCreateTheme;
 
-    //Init only after BaseMenu during UI setup cos we need to use its size. 
-    public static SliderMenuItem MenuItemSlider = null; 
+    public static SliderMenuItem MenuItemSlider = new SliderMenuItem();
 
     public struct ControlPanelMenuItems
     {
