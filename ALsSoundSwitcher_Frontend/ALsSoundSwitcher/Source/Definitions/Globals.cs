@@ -1,4 +1,4 @@
-﻿using CSCore.CoreAudioAPI;
+using CSCore.CoreAudioAPI;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -25,10 +25,13 @@ namespace ALsSoundSwitcher
 
     public const string DeviceManagerExe = "explorer.exe";
     public const string DeviceManagerArgs = "ms-settings:bluetooth";
-    
+
     public const string ConfigFile = "settings.json";
-    
+
     public const string ThemeFileExtension = ".skin";
+
+    public const int ToolTipMaxLength = 63; //Windows limitation
+    public const string Ellipsis = "...";
 
     public static bool WeAreSwitching = false;
 
@@ -43,7 +46,7 @@ namespace ALsSoundSwitcher
     public static ToolStripMenuItem ActiveMenuItemDevice;
 
     public static ToolStripMenuItem MenuItemMore;
-    
+
     public static ToolStripMenuItem MenuItemCreateTheme;
 
     //Init only after BaseMenu during UI setup cos we need to use its size. 
@@ -55,7 +58,7 @@ namespace ALsSoundSwitcher
       public static ToolStripMenuItem MenuItemDeviceManager;
       public static ToolStripMenuItem MenuItemLaunchOnStartup;
       public static ToolStripMenuItem MenuItemPreventAutoSwitch;
-    }    
+    }
 
     public struct MoreMenuItems
     {

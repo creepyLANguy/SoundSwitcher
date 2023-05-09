@@ -30,7 +30,7 @@ namespace ALsSoundSwitcher
 
         IconUtils.SetTrayIcon(deviceName, notifyIcon1);
 
-        notifyIcon1.Text = deviceName;
+        SetToolTip(deviceName);
 
         SetActiveMenuItemMarkers();
 

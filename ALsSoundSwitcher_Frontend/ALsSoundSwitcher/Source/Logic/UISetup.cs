@@ -18,14 +18,15 @@ namespace ALsSoundSwitcher
       DeviceUtils.GetDeviceList();
       SetupContextMenu();
       CacheCurrentDevice();
-      SetCurrentDeviceTrayIndicators();
+      SetCurrentDeviceTrayIcon();
+      SetToolTip(ActiveMenuItemDevice.Text);
       SetActiveMenuItemMarkers();
     }
 
     private static void SetupContextMenu()
     {
       BaseMenu = new ContextMenuStrip();
-      BaseMenu.Closing += PreventCloseOnSeparatorClick;
+      BaseMenu.Closing += ModerateCloseOnClick;
 
       AddAudioDevicesAsMenuItems();
 

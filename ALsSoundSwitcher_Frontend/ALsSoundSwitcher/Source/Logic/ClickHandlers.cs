@@ -14,7 +14,7 @@ namespace ALsSoundSwitcher
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetForegroundWindow(IntPtr hwnd);
 
-    private static void PreventCloseOnSeparatorClick(object sender, ToolStripDropDownClosingEventArgs e)
+    private static void ModerateCloseOnClick(object sender, ToolStripDropDownClosingEventArgs e)
     {
       if (e.CloseReason != ToolStripDropDownCloseReason.ItemClicked)
       {
