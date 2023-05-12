@@ -280,14 +280,17 @@ namespace ALsSoundSwitcher
       IconUtils.SetTrayIcon(ActiveMenuItemDevice.Text, notifyIcon1);      
     }
 
-    public static void SetToolTip(string text)
+    public static void SetToolTip(string text, bool appendVolume = true)
     {
       var shortened = text.Trim();
+
+      var volume = appendVolume ? " - " + DeviceUtils.GetVolume() + "%" : "";
+
       if (shortened.Length >= ToolTipMaxLength)
       {
-        shortened = shortened.Substring(0, ToolTipMaxLength - Ellipsis.Length).Trim() + Ellipsis;     
+        shortened = shortened.Substring(0, ToolTipMaxLength - Ellipsis.Length - volume.Length).Trim() + Ellipsis;     
       }
-      notifyIcon1.Text = shortened;
+      notifyIcon1.Text = shortened + volume;
     }
 
     private static void SetActiveMenuItemMarkers()

@@ -73,8 +73,7 @@ namespace ALsSoundSwitcher
     
     public void RefreshValue()
     {
-      var arg = Settings.Current.Mode == DeviceMode.Output ? Globals.GetVolumeArg : Globals.GetMicLevelArg;
-      var volume = ProcessUtils.RunExe(Globals.SetDeviceExe, arg);
+      var volume = DeviceUtils.GetVolume();
       if (trackBar.Value != volume)
       {
         WeAreRefreshingVolumeSliderValue = true;
