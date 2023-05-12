@@ -37,11 +37,6 @@ namespace ALsSoundSwitcher
       }
     }
 
-    public void SetWidth(int width)
-    {
-      trackBar.Width = width;
-    }
-
     public void RefreshColours()
     {
       var backgroundColour = Globals.Theme.ColorBackground;
