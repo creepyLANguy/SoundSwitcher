@@ -41,6 +41,10 @@ namespace ALsSoundSwitcher
 
     private void SetupButtons()
     {
+      //AL. 
+      return;
+      // 
+
       var colours = Theme.GetPertinentColours();
 
       _allColourBundles = new[]
@@ -65,6 +69,10 @@ namespace ALsSoundSwitcher
 
     private void GenerateFullPreview()
     {
+      //AL. 
+      return;
+      // 
+
       var tasks = new List<Task>();
       foreach (var bundle in _allColourBundles.Where(cb => cb.Layer != LayerType.TOPMOST))
       {
@@ -162,21 +170,16 @@ namespace ALsSoundSwitcher
       var input = textBox_ThemeName.Text.Trim();
       var filename = input + ThemeFileExtension;
 
-      if (input != TextBoxDefault && input != string.Empty && !File.Exists(filename))
-      {
-        label_errorFileName.Visible = false;
-        btn_save.Enabled = true;
-      }
-      else
-      {
-        if (File.Exists(filename))
-        {
-          label_errorFileName.Visible = true;
-        }
-        
-        btn_save.Enabled = false;
-      }
+      bool isValidInput = input != TextBoxDefault && !string.IsNullOrEmpty(input);
+      bool themeAlreadyExists = isExistingTheme(filename);
+
+      label_errorFileName.Visible = themeAlreadyExists;
+      btn_save.Enabled = isValidInput && !themeAlreadyExists;
     }
+
+    private static bool isExistingTheme(string filename) =>
+      Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + ThemeFileExtension, SearchOption.AllDirectories)
+      .Any(file => string.Equals(Path.GetFileName(file), filename, StringComparison.OrdinalIgnoreCase));
 
     private void btn_save_Click(object sender, EventArgs e)
     {
@@ -194,18 +197,34 @@ namespace ALsSoundSwitcher
     private void SaveAndApplyTheme()
     {
       PerformSaveOperations();
-      ApplyNewTheme();
-      ShowMenu();
+      //AL.
+      //ApplyNewTheme();
+      //ShowMenu();
+      //
     }
 
     private void PerformSaveOperations()
     {
+      //AL.
+      //TODO - get custom theme foldername from Globals and make sure file saves within that folder, creating it if it doesn't exist.
+      _allColourBundles = new[]
+      {
+        new ColourBundle(Color.AliceBlue, "ColorBackground",       Resources.mask_background, LayerType.BACKGROUND),
+        new ColourBundle(Color.AliceBlue, "ColorMenuBorder",       Resources.mask_border,     LayerType.NORMAL),
+        new ColourBundle(Color.Azure,     "ActiveSelectionColor",  Resources.mask_active,     LayerType.NORMAL),
+        new ColourBundle(Color.Bisque,    "ColorSeparator",        Resources.mask_separator,  LayerType.NORMAL),
+        new ColourBundle(Color.CadetBlue, "ColorMenuItemSelected", Resources.mask_selected,   LayerType.NORMAL),
+        new ColourBundle(Color.Coral,     "ColorMenuArrow",        Resources.mask_arrow,      LayerType.NORMAL),
+        new ColourBundle(Color.Black,     "ColorMenuItemText",     Resources.mask_text,       LayerType.TOPMOST)
+      };
+      //
+
       var input = textBox_ThemeName.Text.Trim();
       var filename = input + ThemeFileExtension;
       WriteThemeToFile(_allColourBundles.ToList(), filename);
 
       Settings.Current.Theme = input;
-      Config.Save(); 
+      Config.Save();
     }
 
     private void ApplyNewTheme()
@@ -272,6 +291,10 @@ namespace ALsSoundSwitcher
 
     private void btn_reset_Click(object sender, EventArgs e)
     {
+      //AL. 
+      return;
+      // 
+
       Cursor.Current = Cursors.WaitCursor;
 
       SetupButtons();

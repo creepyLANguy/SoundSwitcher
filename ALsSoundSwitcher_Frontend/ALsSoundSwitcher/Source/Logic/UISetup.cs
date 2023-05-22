@@ -177,12 +177,10 @@ namespace ALsSoundSwitcher
       MenuItemControlPanel.DropDownItems.RemoveAt(MenuItemControlPanel.DropDownItems.Count - 1);
     }
 
-    private static List<string> GetAllThemesInFolder()
-    {
-      return Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + ThemeFileExtension)
+    private static List<string> GetAllThemesInFolder() => 
+      Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + ThemeFileExtension, SearchOption.AllDirectories)
       .Select(Path.GetFileName)
       .ToList();
-    }
 
     private static void AddAdditionalMenuItems()
     {
