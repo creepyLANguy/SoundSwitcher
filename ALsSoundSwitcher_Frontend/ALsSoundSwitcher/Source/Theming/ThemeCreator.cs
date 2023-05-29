@@ -41,10 +41,6 @@ namespace ALsSoundSwitcher
 
     private void SetupButtons()
     {
-      //AL. 
-      return;
-      // 
-
       var colours = Theme.GetPertinentColours();
 
       _allColourBundles = new[]
@@ -69,10 +65,6 @@ namespace ALsSoundSwitcher
 
     private void GenerateFullPreview()
     {
-      //AL. 
-      return;
-      // 
-
       var tasks = new List<Task>();
       foreach (var bundle in _allColourBundles.Where(cb => cb.Layer != LayerType.TOPMOST))
       {
@@ -197,31 +189,16 @@ namespace ALsSoundSwitcher
     private void SaveAndApplyTheme()
     {
       PerformSaveOperations();
-      //AL.
-      //ApplyNewTheme();
-      //ShowMenu();
-      //
+      ApplyNewTheme();
+      ShowMenu();      
     }
 
     private void PerformSaveOperations()
     {
-      //AL.
-      //TODO - get custom theme foldername from Globals and make sure file saves within that folder, creating it if it doesn't exist.
-      _allColourBundles = new[]
-      {
-        new ColourBundle(Color.AliceBlue, "ColorBackground",       Resources.mask_background, LayerType.BACKGROUND),
-        new ColourBundle(Color.AliceBlue, "ColorMenuBorder",       Resources.mask_border,     LayerType.NORMAL),
-        new ColourBundle(Color.Azure,     "ActiveSelectionColor",  Resources.mask_active,     LayerType.NORMAL),
-        new ColourBundle(Color.Bisque,    "ColorSeparator",        Resources.mask_separator,  LayerType.NORMAL),
-        new ColourBundle(Color.CadetBlue, "ColorMenuItemSelected", Resources.mask_selected,   LayerType.NORMAL),
-        new ColourBundle(Color.Coral,     "ColorMenuArrow",        Resources.mask_arrow,      LayerType.NORMAL),
-        new ColourBundle(Color.Black,     "ColorMenuItemText",     Resources.mask_text,       LayerType.TOPMOST)
-      };
-      //
-
       var input = textBox_ThemeName.Text.Trim();
       var filename = input + ThemeFileExtension;
-      WriteThemeToFile(_allColourBundles.ToList(), filename);
+      var path = Path.Combine(ThemeFileCustomFolder, filename); 
+      WriteThemeToFile(_allColourBundles.ToList(), path);
 
       Settings.Current.Theme = input;
       Config.Save();
@@ -241,6 +218,12 @@ namespace ALsSoundSwitcher
 
     private static void WriteThemeToFile(List<ColourBundle> bundles, string filePath)
     {
+      var fileInfo = new FileInfo(filePath);
+      if (fileInfo.Directory.Exists == false)
+      {
+        Directory.CreateDirectory(fileInfo.DirectoryName);
+      }
+
       using (var file = new StreamWriter(filePath))
       {
         file.WriteLine("{");
@@ -291,10 +274,6 @@ namespace ALsSoundSwitcher
 
     private void btn_reset_Click(object sender, EventArgs e)
     {
-      //AL. 
-      return;
-      // 
-
       Cursor.Current = Cursors.WaitCursor;
 
       SetupButtons();

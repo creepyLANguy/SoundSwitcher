@@ -6,6 +6,7 @@ using static ALsSoundSwitcher.Globals;
 using ALsSoundSwitcher.Properties;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace ALsSoundSwitcher
 {
@@ -19,8 +20,10 @@ namespace ALsSoundSwitcher
 
         if (Settings.Current.Theme.Length > 0)
         {
-          var themeFilename = Settings.Current.Theme + ThemeFileExtension;
-          var colourPack = GetColourPackFromThemeFile(themeFilename);
+          var filename = Settings.Current.Theme + ThemeFileExtension;
+          var filePath = Directory.GetFiles(Directory.GetCurrentDirectory(), filename, SearchOption.AllDirectories).First();
+
+          var colourPack = GetColourPackFromThemeFile(filePath);
           Theme = new CustomRenderer(colourPack);
         }
       }

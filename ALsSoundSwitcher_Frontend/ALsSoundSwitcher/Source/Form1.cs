@@ -13,12 +13,6 @@ namespace ALsSoundSwitcher
 
     private void Form1_Load(object sender, EventArgs e)
     {
-      //AL.
-      var allThemeFiles = GetAllThemesInFolder();
-      new ThemeCreator().Show();
-      return;
-      //
-
       ProcessUtils.SetWorkingDirectory();
 
       Globals.Instance = this;

@@ -29,6 +29,7 @@ namespace ALsSoundSwitcher
     public const string ConfigFile = "settings.json";
 
     public const string ThemeFileExtension = ".skin";
+    public const string ThemeFileCustomFolder = "CustomThemes";
 
     public const int ToolTipMaxLength = 63; //Windows limitation
     public const string Ellipsis = "...";
