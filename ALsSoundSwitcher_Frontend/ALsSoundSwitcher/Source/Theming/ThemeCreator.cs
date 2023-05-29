@@ -190,7 +190,7 @@ namespace ALsSoundSwitcher
     {
       PerformSaveOperations();
       ApplyNewTheme();
-      ShowMenu();      
+      ShowMenu();
     }
 
     private void PerformSaveOperations()
