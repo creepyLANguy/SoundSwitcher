@@ -162,21 +162,16 @@ namespace ALsSoundSwitcher
       var input = textBox_ThemeName.Text.Trim();
       var filename = input + ThemeFileExtension;
 
-      if (input != TextBoxDefault && input != string.Empty && !File.Exists(filename))
-      {
-        label_errorFileName.Visible = false;
-        btn_save.Enabled = true;
-      }
-      else
-      {
-        if (File.Exists(filename))
-        {
-          label_errorFileName.Visible = true;
-        }
-        
-        btn_save.Enabled = false;
-      }
+      bool isValidInput = input != TextBoxDefault && !string.IsNullOrEmpty(input);
+      bool themeAlreadyExists = isExistingTheme(filename);
+
+      label_errorFileName.Visible = themeAlreadyExists;
+      btn_save.Enabled = isValidInput && !themeAlreadyExists;
     }
+
+    private static bool isExistingTheme(string filename) =>
+      Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + ThemeFileExtension, SearchOption.AllDirectories)
+      .Any(file => string.Equals(Path.GetFileName(file), filename, StringComparison.OrdinalIgnoreCase));
 
     private void btn_save_Click(object sender, EventArgs e)
     {
@@ -202,10 +197,11 @@ namespace ALsSoundSwitcher
     {
       var input = textBox_ThemeName.Text.Trim();
       var filename = input + ThemeFileExtension;
-      WriteThemeToFile(_allColourBundles.ToList(), filename);
+      var path = Path.Combine(ThemeFileCustomFolder, filename); 
+      WriteThemeToFile(_allColourBundles.ToList(), path);
 
       Settings.Current.Theme = input;
-      Config.Save(); 
+      Config.Save();
     }
 
     private void ApplyNewTheme()
@@ -222,6 +218,12 @@ namespace ALsSoundSwitcher
 
     private static void WriteThemeToFile(List<ColourBundle> bundles, string filePath)
     {
+      var fileInfo = new FileInfo(filePath);
+      if (fileInfo.Directory.Exists == false)
+      {
+        Directory.CreateDirectory(fileInfo.DirectoryName);
+      }
+
       using (var file = new StreamWriter(filePath))
       {
         file.WriteLine("{");
