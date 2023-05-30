@@ -44,7 +44,7 @@ namespace ALsSoundSwitcher
       var colours = Theme.GetPertinentColours();
 
       _allColourBundles = new[]
-      {               
+      {
         new ColourBundle(colours["ColorBackground"],       "ColorBackground",       Resources.mask_background, LayerType.BACKGROUND),
         new ColourBundle(colours["ColorMenuBorder"],       "ColorMenuBorder",       Resources.mask_border,     LayerType.NORMAL),
         new ColourBundle(colours["ActiveSelectionColor"],  "ActiveSelectionColor",  Resources.mask_active,     LayerType.NORMAL),
@@ -60,7 +60,7 @@ namespace ALsSoundSwitcher
         var task = Task.Run(() => Controls.Find($"btn_{bundle.JsonKey}", true)[0].BackColor = bundle.Colour);
         tasks.Add(task);
       }
-      Task.WaitAll(tasks.ToArray());      
+      Task.WaitAll(tasks.ToArray());
     }
 
     private void GenerateFullPreview()
@@ -104,7 +104,7 @@ namespace ALsSoundSwitcher
         using (var g = Graphics.FromImage(pictureBox1.Image))
         {
           g.DrawImage(buffer, 0, 0);
-        }                
+        }
       }
     }
 
@@ -113,7 +113,7 @@ namespace ALsSoundSwitcher
       var button = (Button)sender;
 
       ColourPicker.Color = button.BackColor;
-      
+
       if (ColourPicker.ShowDialog() != DialogResult.OK)
       {
         return;
@@ -177,7 +177,7 @@ namespace ALsSoundSwitcher
     {
       SaveAndApplyTheme();
     }
-    
+
     private void textBox_ThemeName_KeyUp(object sender, KeyEventArgs e)
     {
       if (e.KeyCode == Keys.Enter)
@@ -197,7 +197,7 @@ namespace ALsSoundSwitcher
     {
       var input = textBox_ThemeName.Text.Trim();
       var filename = input + ThemeFileExtension;
-      var path = Path.Combine(ThemeFileCustomFolder, filename); 
+      var path = Path.Combine(ThemeFileCustomFolder, filename);
       WriteThemeToFile(_allColourBundles.ToList(), path);
 
       Settings.Current.Theme = input;
@@ -208,7 +208,7 @@ namespace ALsSoundSwitcher
     {
       Form1.SetupThemeSubmenu();
       Form1.SetItemMargins(MoreMenuItems.MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>().ToList());
-      Form1.RefreshUITheme();      
+      Form1.RefreshUITheme();
     }
 
     private void ShowMenu()
