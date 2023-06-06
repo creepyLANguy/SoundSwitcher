@@ -13,11 +13,11 @@ namespace ALsSoundSwitcher
 {
   public partial class ThemeCreator : Form
   {
-    private string TextBoxDefault = Resources.ThemeCreator_TextBoxDefault;
+    private readonly string TextBoxDefault = Resources.ThemeCreator_TextBoxDefault;
 
     private static ColourBundle[] _allColourBundles;
 
-    private static ColorDialog ColourPicker = new ColorDialog();
+    private static readonly ColorDialog ColourPicker = new ColorDialog();
 
     public ThemeCreator()
     {
@@ -162,14 +162,14 @@ namespace ALsSoundSwitcher
       var input = textBox_ThemeName.Text.Trim();
       var filename = input + ThemeFileExtension;
 
-      bool isValidInput = input != TextBoxDefault && !string.IsNullOrEmpty(input);
-      bool themeAlreadyExists = isExistingTheme(filename);
+      var isValidInput = input != TextBoxDefault && !string.IsNullOrEmpty(input);
+      var themeAlreadyExists = IsExistingTheme(filename);
 
       label_errorFileName.Visible = themeAlreadyExists;
       btn_save.Enabled = isValidInput && !themeAlreadyExists;
     }
 
-    private static bool isExistingTheme(string filename) =>
+    private static bool IsExistingTheme(string filename) =>
       Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + ThemeFileExtension, SearchOption.AllDirectories)
       .Any(file => string.Equals(Path.GetFileName(file), filename, StringComparison.OrdinalIgnoreCase));
 
