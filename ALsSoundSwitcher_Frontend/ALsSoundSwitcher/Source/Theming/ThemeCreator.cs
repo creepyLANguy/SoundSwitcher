@@ -86,7 +86,7 @@ namespace ALsSoundSwitcher
 
     private void ProcessMask(Bitmap mask, Color colour)
     {
-      Bitmap buffer = new Bitmap(mask.Width, mask.Height);
+      var buffer = new Bitmap(mask.Width, mask.Height);
 
       for (var x = 0; x < mask.Width; x++)
       {
