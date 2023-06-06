@@ -43,8 +43,8 @@ namespace ALsSoundSwitcher
 
     public static void SetWorkingDirectory()
     {
-      string exePath = Process.GetCurrentProcess().MainModule.FileName;
-      string exeDir = Path.GetDirectoryName(exePath);
+      var exePath = Process.GetCurrentProcess().MainModule.FileName;
+      var exeDir = Path.GetDirectoryName(exePath);
       Directory.SetCurrentDirectory(exeDir);
     }
   }
