@@ -30,7 +30,6 @@
     {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ThemeCreator));
       this.pictureBox1 = new System.Windows.Forms.PictureBox();
-      this.label_preview = new System.Windows.Forms.Label();
       this.btn_ActiveSelectionColor = new System.Windows.Forms.Button();
       this.label_ActiveSelectionColor = new System.Windows.Forms.Label();
       this.label_ColorMenuItemSelected = new System.Windows.Forms.Label();
@@ -52,6 +51,7 @@
       this.panel1 = new System.Windows.Forms.Panel();
       this.checkBox_smoothing = new System.Windows.Forms.CheckBox();
       this.btn_reset = new System.Windows.Forms.Button();
+      this.btn_help = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.SuspendLayout();
       // 
@@ -69,16 +69,6 @@
       this.pictureBox1.TabStop = false;
       this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
       // 
-      // label_preview
-      // 
-      this.label_preview.AutoSize = true;
-      this.label_preview.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_preview.Location = new System.Drawing.Point(12, 9);
-      this.label_preview.Name = "label_preview";
-      this.label_preview.Size = new System.Drawing.Size(54, 13);
-      this.label_preview.TabIndex = 1;
-      this.label_preview.Text = "Preview : ";
-      // 
       // btn_ActiveSelectionColor
       // 
       this.btn_ActiveSelectionColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -87,7 +77,7 @@
       this.btn_ActiveSelectionColor.Location = new System.Drawing.Point(13, 304);
       this.btn_ActiveSelectionColor.Name = "btn_ActiveSelectionColor";
       this.btn_ActiveSelectionColor.Size = new System.Drawing.Size(280, 33);
-      this.btn_ActiveSelectionColor.TabIndex = 0;
+      this.btn_ActiveSelectionColor.TabIndex = 1;
       this.btn_ActiveSelectionColor.UseVisualStyleBackColor = true;
       this.btn_ActiveSelectionColor.Click += new System.EventHandler(this.HandleButtonClick);
       // 
@@ -102,18 +92,6 @@
       this.label_ActiveSelectionColor.TabIndex = 3;
       this.label_ActiveSelectionColor.Text = "Active Device / Slider Selector";
       // 
-      // btn_ColorMenuItemSelected
-      // 
-      this.btn_ColorMenuItemSelected.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.btn_ColorMenuItemSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btn_ColorMenuItemSelected.Location = new System.Drawing.Point(13, 380);
-      this.btn_ColorMenuItemSelected.Name = "btn_ColorMenuItemSelected";
-      this.btn_ColorMenuItemSelected.Size = new System.Drawing.Size(280, 33);
-      this.btn_ColorMenuItemSelected.TabIndex = 1;
-      this.btn_ColorMenuItemSelected.UseVisualStyleBackColor = true;
-      this.btn_ColorMenuItemSelected.Click += new System.EventHandler(this.HandleButtonClick);
-      //
       // label_ColorMenuItemSelected
       // 
       this.label_ColorMenuItemSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -125,6 +103,18 @@
       this.label_ColorMenuItemSelected.TabIndex = 5;
       this.label_ColorMenuItemSelected.Text = "Hovering ";
       // 
+      // btn_ColorMenuItemSelected
+      // 
+      this.btn_ColorMenuItemSelected.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.btn_ColorMenuItemSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btn_ColorMenuItemSelected.Location = new System.Drawing.Point(13, 380);
+      this.btn_ColorMenuItemSelected.Name = "btn_ColorMenuItemSelected";
+      this.btn_ColorMenuItemSelected.Size = new System.Drawing.Size(280, 33);
+      this.btn_ColorMenuItemSelected.TabIndex = 2;
+      this.btn_ColorMenuItemSelected.UseVisualStyleBackColor = true;
+      this.btn_ColorMenuItemSelected.Click += new System.EventHandler(this.HandleButtonClick);
+      // 
       // btn_ColorBackground
       // 
       this.btn_ColorBackground.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -133,7 +123,7 @@
       this.btn_ColorBackground.Location = new System.Drawing.Point(13, 229);
       this.btn_ColorBackground.Name = "btn_ColorBackground";
       this.btn_ColorBackground.Size = new System.Drawing.Size(280, 33);
-      this.btn_ColorBackground.TabIndex = 2;
+      this.btn_ColorBackground.TabIndex = 0;
       this.btn_ColorBackground.UseVisualStyleBackColor = true;
       this.btn_ColorBackground.Click += new System.EventHandler(this.HandleButtonClick);
       // 
@@ -171,16 +161,17 @@
       this.label_ColorMenuItemText.TabIndex = 5;
       this.label_ColorMenuItemText.Text = "Text";
       // 
-      // label_ColorSeparator
+      // btn_ColorMenuArrow
       // 
-      this.label_ColorSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.label_ColorSeparator.AutoSize = true;
-      this.label_ColorSeparator.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_ColorSeparator.Location = new System.Drawing.Point(10, 583);
-      this.label_ColorSeparator.Name = "label_ColorSeparator";
-      this.label_ColorSeparator.Size = new System.Drawing.Size(163, 17);
-      this.label_ColorSeparator.TabIndex = 5;
-      this.label_ColorSeparator.Text = "Separator / Slider Track ";
+      this.btn_ColorMenuArrow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.btn_ColorMenuArrow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btn_ColorMenuArrow.Location = new System.Drawing.Point(13, 530);
+      this.btn_ColorMenuArrow.Name = "btn_ColorMenuArrow";
+      this.btn_ColorMenuArrow.Size = new System.Drawing.Size(280, 33);
+      this.btn_ColorMenuArrow.TabIndex = 4;
+      this.btn_ColorMenuArrow.UseVisualStyleBackColor = true;
+      this.btn_ColorMenuArrow.Click += new System.EventHandler(this.HandleButtonClick);
       // 
       // btn_ColorSeparator
       // 
@@ -190,7 +181,7 @@
       this.btn_ColorSeparator.Location = new System.Drawing.Point(13, 606);
       this.btn_ColorSeparator.Name = "btn_ColorSeparator";
       this.btn_ColorSeparator.Size = new System.Drawing.Size(280, 33);
-      this.btn_ColorSeparator.TabIndex = 4;
+      this.btn_ColorSeparator.TabIndex = 5;
       this.btn_ColorSeparator.UseVisualStyleBackColor = true;
       this.btn_ColorSeparator.Click += new System.EventHandler(this.HandleButtonClick);
       // 
@@ -205,18 +196,6 @@
       this.label_ColorMenuArrow.TabIndex = 3;
       this.label_ColorMenuArrow.Text = "Dropdown Arrow";
       // 
-      // btn_ColorMenuArrow
-      // 
-      this.btn_ColorMenuArrow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.btn_ColorMenuArrow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btn_ColorMenuArrow.Location = new System.Drawing.Point(13, 530);
-      this.btn_ColorMenuArrow.Name = "btn_ColorMenuArrow";
-      this.btn_ColorMenuArrow.Size = new System.Drawing.Size(280, 33);
-      this.btn_ColorMenuArrow.TabIndex = 5;
-      this.btn_ColorMenuArrow.UseVisualStyleBackColor = true;
-      this.btn_ColorMenuArrow.Click += new System.EventHandler(this.HandleButtonClick);
-      // 
       // btn_ColorMenuBorder
       // 
       this.btn_ColorMenuBorder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -228,6 +207,17 @@
       this.btn_ColorMenuBorder.TabIndex = 6;
       this.btn_ColorMenuBorder.UseVisualStyleBackColor = true;
       this.btn_ColorMenuBorder.Click += new System.EventHandler(this.HandleButtonClick);
+      // 
+      // label_ColorSeparator
+      // 
+      this.label_ColorSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.label_ColorSeparator.AutoSize = true;
+      this.label_ColorSeparator.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_ColorSeparator.Location = new System.Drawing.Point(10, 583);
+      this.label_ColorSeparator.Name = "label_ColorSeparator";
+      this.label_ColorSeparator.Size = new System.Drawing.Size(163, 17);
+      this.label_ColorSeparator.TabIndex = 5;
+      this.label_ColorSeparator.Text = "Separator / Slider Track ";
       // 
       // label_ColorMenuBorder
       // 
@@ -302,13 +292,13 @@
       // 
       // checkBox_smoothing
       // 
-      this.checkBox_smoothing.Anchor = System.Windows.Forms.AnchorStyles.Top;
       this.checkBox_smoothing.AutoSize = true;
-      this.checkBox_smoothing.Location = new System.Drawing.Point(97, 9);
+      this.checkBox_smoothing.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+      this.checkBox_smoothing.Location = new System.Drawing.Point(14, 8);
       this.checkBox_smoothing.Name = "checkBox_smoothing";
-      this.checkBox_smoothing.Size = new System.Drawing.Size(76, 17);
+      this.checkBox_smoothing.Size = new System.Drawing.Size(117, 17);
       this.checkBox_smoothing.TabIndex = 12;
-      this.checkBox_smoothing.Text = "Smoothing";
+      this.checkBox_smoothing.Text = "Preveiw Smoothing";
       this.checkBox_smoothing.UseVisualStyleBackColor = true;
       this.checkBox_smoothing.CheckedChanged += new System.EventHandler(this.checkBox_smoothing_CheckedChanged);
       // 
@@ -316,7 +306,7 @@
       // 
       this.btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.btn_reset.Location = new System.Drawing.Point(219, 5);
+      this.btn_reset.Location = new System.Drawing.Point(187, 4);
       this.btn_reset.Name = "btn_reset";
       this.btn_reset.Size = new System.Drawing.Size(75, 23);
       this.btn_reset.TabIndex = 13;
@@ -324,12 +314,25 @@
       this.btn_reset.UseVisualStyleBackColor = true;
       this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
       // 
+      // btn_help
+      // 
+      this.btn_help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.btn_help.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btn_help.Location = new System.Drawing.Point(268, 4);
+      this.btn_help.Name = "btn_help";
+      this.btn_help.Size = new System.Drawing.Size(25, 23);
+      this.btn_help.TabIndex = 14;
+      this.btn_help.Text = "?";
+      this.btn_help.UseVisualStyleBackColor = true;
+      this.btn_help.Click += new System.EventHandler(this.btn_help_Click);
+      // 
       // ThemeCreator
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.White;
       this.ClientSize = new System.Drawing.Size(307, 861);
+      this.Controls.Add(this.btn_help);
       this.Controls.Add(this.btn_reset);
       this.Controls.Add(this.checkBox_smoothing);
       this.Controls.Add(this.label_errorFileName);
@@ -351,7 +354,6 @@
       this.Controls.Add(this.btn_ColorBackground);
       this.Controls.Add(this.label_ActiveSelectionColor);
       this.Controls.Add(this.btn_ActiveSelectionColor);
-      this.Controls.Add(this.label_preview);
       this.Controls.Add(this.pictureBox1);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;
@@ -369,7 +371,6 @@
     #endregion
 
     private System.Windows.Forms.PictureBox pictureBox1;
-    private System.Windows.Forms.Label label_preview;
     private System.Windows.Forms.Button btn_ActiveSelectionColor;
     private System.Windows.Forms.Label label_ActiveSelectionColor;
     private System.Windows.Forms.Label label_ColorMenuItemSelected;
@@ -391,5 +392,6 @@
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.CheckBox checkBox_smoothing;
     private System.Windows.Forms.Button btn_reset;
+    private System.Windows.Forms.Button btn_help;
   }
 }

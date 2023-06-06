@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -302,6 +303,11 @@ namespace ALsSoundSwitcher
       }
 
       Cursor.Current = Cursors.Default;
+    }
+
+    private void btn_help_Click(object sender, EventArgs e)
+    {
+      Process.Start(GithubUrl);
     }
   }
 
