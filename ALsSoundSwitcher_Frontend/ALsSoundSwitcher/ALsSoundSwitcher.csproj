@@ -151,7 +151,6 @@
   <ItemGroup>
     <Content Include="Icons\Headset.ico" />
     <None Include="Icons\Mic.ico" />
-    <None Include="Resources\Headset.ico" />
     <None Include="Resources\mask_text.png" />
     <None Include="Resources\mask_separator.png" />
     <None Include="Resources\mask_selected.png" />

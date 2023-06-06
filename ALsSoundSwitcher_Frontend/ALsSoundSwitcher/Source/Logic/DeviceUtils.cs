@@ -76,8 +76,8 @@ namespace ALsSoundSwitcher
 
     public static int GetVolume()
     {
-      var arg = Settings.Current.Mode == DeviceMode.Output ? Globals.GetVolumeArg : Globals.GetMicLevelArg;
-      var volume = ProcessUtils.RunExe(Globals.SetDeviceExe, arg);
+      var arg = Settings.Current.Mode == DeviceMode.Output ? GetVolumeArg : GetMicLevelArg;
+      var volume = ProcessUtils.RunExe(SetDeviceExe, arg);
       return volume;
     }
 

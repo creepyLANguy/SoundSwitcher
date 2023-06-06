@@ -31,7 +31,9 @@ namespace ALsSoundSwitcher
     public const string ThemeFileExtension = ".skin";
     public const string ThemeFileCustomFolder = "CustomThemes";
 
-    public const int ToolTipMaxLength = 63; //Windows limitation
+    //WinForms seems to support lowest common denominator:
+    //https://learn.microsoft.com/en-gb/dotnet/api/system.windows.forms.notifyicon.text 
+    public const int ToolTipMaxLength = 63;
     public const string Ellipsis = "...";
 
     public static bool WeAreSwitching = false;
