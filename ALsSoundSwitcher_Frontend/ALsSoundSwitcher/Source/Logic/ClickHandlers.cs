@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -21,8 +20,8 @@ namespace ALsSoundSwitcher
         return;
       }
 
-      Point menuLocation = ((ContextMenuStrip)sender).PointToClient(MousePosition);
-      ToolStripItem clickedItem = ((ContextMenuStrip)sender).GetItemAt(menuLocation);
+      var menuLocation = ((ContextMenuStrip)sender).PointToClient(MousePosition);
+      var clickedItem = ((ContextMenuStrip)sender).GetItemAt(menuLocation);
       if (clickedItem != null && clickedItem.GetType() == typeof(ToolStripSeparator))
       {
         e.Cancel = true;
