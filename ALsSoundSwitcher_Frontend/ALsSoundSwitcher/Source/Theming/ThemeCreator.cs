@@ -256,13 +256,13 @@ namespace ALsSoundSwitcher
 
       Rectangle GetAdjustedRect(Size size, Rectangle targetArea)
       {
-        float widthRatio = (float)targetArea.Width / size.Width;
-        float heightRatio = (float)targetArea.Height / size.Height;
-        float ratio = Math.Min(widthRatio, heightRatio);
-        float newWidth = size.Width * ratio;
-        float newHeight = size.Height * ratio;
-        float x = (targetArea.Width - newWidth) / 2;
-        float y = (targetArea.Height - newHeight) / 2;
+        var widthRatio = (float)targetArea.Width / size.Width;
+        var heightRatio = (float)targetArea.Height / size.Height;
+        var ratio = Math.Min(widthRatio, heightRatio);
+        var newWidth = size.Width * ratio;
+        var newHeight = size.Height * ratio;
+        var x = (targetArea.Width - newWidth) / 2;
+        var y = (targetArea.Height - newHeight) / 2;
         return new Rectangle((int)Math.Round(x), (int)Math.Round(y), (int)Math.Round(newWidth), (int)Math.Round(newHeight));
       }
     }
