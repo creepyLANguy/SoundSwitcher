@@ -193,7 +193,7 @@ Could not start </value>
   </data>
   <data name="Form1_SetupContextMenu_VolumeMixer" xml:space="preserve">
     <value>Volume Mixer</value>
-  </data>  
+  </data>
   <data name="Form1_SetupContextMenu_LaunchOnStartup" xml:space="preserve">
     <value>Launch on Startup</value>
   </data>
@@ -242,5 +242,11 @@ Could not start </value>
   </data>
   <data name="Mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Mic.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ThemeCreator_Error_Directory" xml:space="preserve">
+    <value>Directory details not found</value>
+  </data>
+  <data name="ThemeCreator_Error_Save" xml:space="preserve">
+    <value>Error saving your theme</value>
   </data>
 </root>

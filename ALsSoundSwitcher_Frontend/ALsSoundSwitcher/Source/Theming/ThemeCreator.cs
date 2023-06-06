@@ -218,23 +218,37 @@ namespace ALsSoundSwitcher
 
     private static void WriteThemeToFile(List<ColourBundle> bundles, string filePath)
     {
-      var fileInfo = new FileInfo(filePath);
-      if (fileInfo.Directory.Exists == false)
+      try
       {
-        Directory.CreateDirectory(fileInfo.DirectoryName);
-      }
+        var fileInfo = new FileInfo(filePath);
 
-      using (var file = new StreamWriter(filePath))
-      {
-        file.WriteLine("{");
-        foreach (var bundle in bundles)
+        if (fileInfo.Directory == null || fileInfo.DirectoryName == null)
         {
-          var key = $"\"{bundle.JsonKey}\"";
-          var colourString = $"\"{bundle.Colour.R}, {bundle.Colour.G}, {bundle.Colour.B}\"";
-          var item = "  " + key + " : " + colourString + ",";
-          file.WriteLine(item);
+          throw new NullReferenceException(Resources.ThemeCreator_Error_Directory);
         }
-        file.WriteLine("}");
+
+        if (fileInfo.Directory.Exists == false)
+        {
+          Directory.CreateDirectory(fileInfo.DirectoryName);
+        }
+
+        using (var file = new StreamWriter(filePath))
+        {
+          file.WriteLine("{");
+          foreach (var bundle in bundles)
+          {
+            var key = $"\"{bundle.JsonKey}\"";
+            var colourString = $"\"{bundle.Colour.R}, {bundle.Colour.G}, {bundle.Colour.B}\"";
+            var item = "  " + key + " : " + colourString + ",";
+            file.WriteLine(item);
+          }
+          file.WriteLine("}");
+        }
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine(ex.ToString());
+        MessageBox.Show(ex.Message, Resources.ThemeCreator_Error_Save);
       }
     }
 

@@ -432,6 +432,24 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Directory details not found.
+        /// </summary>
+        internal static string ThemeCreator_Error_Directory {
+            get {
+                return ResourceManager.GetString("ThemeCreator_Error_Directory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error saving your theme.
+        /// </summary>
+        internal static string ThemeCreator_Error_Save {
+            get {
+                return ResourceManager.GetString("ThemeCreator_Error_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter a name for your theme....
         /// </summary>
         internal static string ThemeCreator_TextBoxDefault {
