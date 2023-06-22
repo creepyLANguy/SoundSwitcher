@@ -38,6 +38,10 @@ namespace ALsSoundSwitcher
       {
         await Task.Run(() => MenuItemSlider.RefreshValue());
       }
+      else if (e.Button == MouseButtons.Middle)
+      {
+        OpenVolumeMixer();
+      }
     }
 
     private static void menuItemMixer_Click(object sender, EventArgs e)
