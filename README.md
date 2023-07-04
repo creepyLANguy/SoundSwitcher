@@ -1,4 +1,4 @@
-# 🎧 [SoundSwitcher](github.com/creepyLANguy/SoundSwitcher)
+# 🎧 [SoundSwitcher](https://github.com/creepyLANguy/SoundSwitcher/)
 
 A simple tool for easily switching audio devices
 
