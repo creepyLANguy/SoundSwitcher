@@ -21,25 +21,26 @@ A simple tool for easily switching audio devices
 **+** More  
 
 ## 🔊 Usage
-- Simply click on the tray icon to cycle audio devices  
+- Left click on the tray icon to cycle audio devices  
 
-- Alternatively, right click and select a device from the list  
+- Right click to select a device from the list  
 
 - The volume slider changes the audio level for the current device  
 
-- The "More" submenu offer more features such as Mode, Theme, Windows Settings, etc.  
+- The "More" submenu offers features such as Mode, Theme, Windows Settings, etc.  
 
 ## ⚪ Set Custom Icons
 
-- If you would like the tray and menu icons to match specific audio devices, simply place an image file or a .ico file in the application folder and name it similarly to your audio device.
-  - The file name does not need match perfectly - the application will use the closest match. 
+- To have the tray and menu icons to match specific audio devices,  
+place an image file or a .ico file in the application folder and name it similarly to your audio device.  
+_Note, The file name does not need match perfectly - the application will use the closest match._  
 
 ## 🎨 Create Custom Themes (beta)
-- Select the **+New Theme** option in the theme submenu  
+- Open the theme editor from the **+New Theme** option in the theme submenu  
 
-- Simply select your colours for various UI elements using the built-in editor  
+- Choose colours for various UI elements 
 
-- Your custom theme will activate once you name your theme and save it  
+- To activate your theme, specify a name and save it
 
 - ![image](https://github.com/creepyLANguy/SoundSwitcher/assets/28150772/02b3fdeb-11f3-46a3-a426-31b5cb8a0da3)  
 
