@@ -2,7 +2,7 @@
 
 A simple tool for easily switching audio devices
 
-![](https://hackmd.io/_uploads/ryAC8vZYn.gif)
+![1](https://github.com/creepyLANguy/SoundSwitcher/assets/28150772/d198c730-2332-4ee8-8a3d-ec73303677c8)
 
 ## Features
 
@@ -28,7 +28,7 @@ A simple tool for easily switching audio devices
 - Select the **+New Theme** option in the theme submenu. 
 - Simply select your colours for various UI elements using the built-in editor
 - Your custom theme will activate once you name your theme and save it
-- ![](https://hackmd.io/_uploads/rkZJFI-tn.png)
+- ![image](https://github.com/creepyLANguy/SoundSwitcher/assets/28150772/02b3fdeb-11f3-46a3-a426-31b5cb8a0da3)
 
 ---
 ###### Copyright © Altamish Mahomed
