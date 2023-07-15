@@ -158,6 +158,9 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_More" xml:space="preserve">
     <value>More</value>
   </data>
+  <data name="Form1_SetupContextMenu_MouseControls" xml:space="preserve">
+    <value>Controls</value>
+  </data>
   <data name="Form1_ReadConfig_Will_use_default_values" xml:space="preserve">
     <value>Will use default values</value>
   </data>

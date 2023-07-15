@@ -261,6 +261,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Controls.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_MouseControls {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_MouseControls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prevent Auto Switching.
         /// </summary>
         internal static string Form1_SetupContextMenu_PreventAutoSwitch {

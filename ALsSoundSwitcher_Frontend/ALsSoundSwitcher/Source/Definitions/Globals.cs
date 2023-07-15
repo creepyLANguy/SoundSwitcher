@@ -62,6 +62,12 @@ namespace ALsSoundSwitcher
       public static ToolStripMenuItem MenuItemPreventAutoSwitch;
     }
 
+    public struct MouseControlMenuItems
+    {
+      public static ToolStripMenuItem MenuItemLeftClick;
+      public static ToolStripMenuItem MenuItemMiddleClick;
+    }
+
     public struct MoreMenuItems
     {
       public static ToolStripMenuItem MenuItemExit;
@@ -69,6 +75,7 @@ namespace ALsSoundSwitcher
       public static ToolStripMenuItem MenuItemRefresh;
       public static ToolStripMenuItem MenuItemMode;
       public static ToolStripMenuItem MenuItemToggleTheme;
+      public static ToolStripMenuItem MenuItemMouseControls;
       public static ToolStripMenuItem MenuItemControlPanel;
     }
   }

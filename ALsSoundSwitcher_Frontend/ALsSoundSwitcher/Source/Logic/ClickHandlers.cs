@@ -30,6 +30,9 @@ namespace ALsSoundSwitcher
 
     private async void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
+      //AL.
+      //TODO - handle based on config 
+
       if (e.Button == MouseButtons.Left)
       {
         Toggle();        

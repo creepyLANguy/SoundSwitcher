@@ -8,6 +8,7 @@ using ALsSoundSwitcher.Properties;
 using static ALsSoundSwitcher.Globals;
 using static ALsSoundSwitcher.Globals.MoreMenuItems;
 using static ALsSoundSwitcher.Globals.ControlPanelMenuItems;
+using static ALsSoundSwitcher.Globals.MouseControlMenuItems;
 
 namespace ALsSoundSwitcher
 {
@@ -101,6 +102,10 @@ namespace ALsSoundSwitcher
       MenuItemCreateTheme.Click += menuItemCreateTheme_Click;      
       SetupThemeSubmenu();
 
+      MenuItemMouseControls = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_MouseControls);
+      MenuItemMouseControls.MouseHover += menuItemExpandable_Hover;
+      SetupMouseControlsSubmenu();
+
       MenuItemControlPanel = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_ControlPanel);
       MenuItemControlPanel.MouseHover += menuItemExpandable_Hover;
       SetupControlPanelSubmenu();
@@ -140,8 +145,35 @@ namespace ALsSoundSwitcher
 
         MenuItemMode.DropDownItems.Add(mode);
       }
-    }    
-    
+    }
+
+    private static void SetupMouseControlsSubmenu()
+    {
+      //AL.
+      //TODO
+
+      MenuItemLeftClick = new ToolStripMenuItem("Left Click");
+      MenuItemLeftClick.Click += menuItemExpandable_Hover;
+
+      MenuItemMiddleClick = new ToolStripMenuItem("Middle Click");
+      MenuItemMiddleClick.Click += menuItemExpandable_Hover;
+
+      MenuItemMouseControls.DropDownItems.Add(MenuItemLeftClick);
+      MenuItemMouseControls.DropDownItems.Add(MenuItemMiddleClick);
+
+      var mouseFunctions = typeof(MouseControlFunction).GetFields(BindingFlags.Public | BindingFlags.Static);
+
+      var mouseItems = typeof(MouseControlMenuItems).GetFields(BindingFlags.Public | BindingFlags.Static);
+
+      foreach (var field in mouseFunctions)
+      {
+        foreach (var item in mouseItems)
+        {
+          ((ToolStripMenuItem)item.GetValue(null)).DropDownItems.Add(new ToolStripMenuItem(field.Name));
+        }
+      }
+    }
+
     private static void SetupControlPanelSubmenu()
     {
       MenuItemMixer = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_VolumeMixer);
@@ -157,7 +189,7 @@ namespace ALsSoundSwitcher
       MenuItemPreventAutoSwitch.Click += menuItemPreventAutoSwitch_Click;
 
       var menuItemFields = typeof(ControlPanelMenuItems).GetFields(BindingFlags.Public | BindingFlags.Static);
-
+      
       foreach (var field in menuItemFields)
       {
         var item = (ToolStripMenuItem)field.GetValue(null);
