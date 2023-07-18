@@ -149,27 +149,29 @@ namespace ALsSoundSwitcher
 
     private static void SetupMouseControlsSubmenu()
     {
-      //AL.
-      //TODO
-
-      MenuItemLeftClick = new ToolStripMenuItem("Left Click");
+      MenuItemLeftClick = new ToolStripMenuItem("Left Click");//AL.
       MenuItemLeftClick.Click += menuItemExpandable_Hover;
 
-      MenuItemMiddleClick = new ToolStripMenuItem("Middle Click");
+      MenuItemMiddleClick = new ToolStripMenuItem("Middle Click");//AL.
       MenuItemMiddleClick.Click += menuItemExpandable_Hover;
 
       MenuItemMouseControls.DropDownItems.Add(MenuItemLeftClick);
       MenuItemMouseControls.DropDownItems.Add(MenuItemMiddleClick);
 
       var mouseFunctions = typeof(MouseControlFunction).GetFields(BindingFlags.Public | BindingFlags.Static);
-
       var mouseItems = typeof(MouseControlMenuItems).GetFields(BindingFlags.Public | BindingFlags.Static);
 
       foreach (var field in mouseFunctions)
       {
         foreach (var item in mouseItems)
         {
-          ((ToolStripMenuItem)item.GetValue(null)).DropDownItems.Add(new ToolStripMenuItem(field.Name));
+          var label = field.Name.Replace('_', ' ');
+          var toolStripItem = new ToolStripMenuItem(label);
+          toolStripItem.Tag = field.Name;
+          //AL.
+          //TODO - add click handler
+
+          ((ToolStripMenuItem)item.GetValue(null)).DropDownItems.Add(toolStripItem);
         }
       }
     }
@@ -334,6 +336,9 @@ namespace ALsSoundSwitcher
       SetBackgroundForMenuItemPreventAutoSwitch();
 
       SetBackgroundForMenuItemLaunchOnStartup();
+
+      //AL.
+      //TODO - add call to set the mouse submenus
     }
     
     private static void SetBackgroundForBaseMenuItems()

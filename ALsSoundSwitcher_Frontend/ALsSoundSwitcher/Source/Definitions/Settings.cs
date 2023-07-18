@@ -11,6 +11,8 @@
       public DeviceMode Mode;
       public bool PreventAutoSwitch;
       public bool LaunchOnStartup;
+      public MouseControlFunction LeftClickFunction;
+      public MouseControlFunction MiddleClickFunction;
     }
 
     public static SettingsStruct Current = new SettingsStruct
@@ -22,6 +24,8 @@
       Mode = DeviceMode.Output,
       PreventAutoSwitch = false,
       LaunchOnStartup = false,
+      LeftClickFunction = MouseControlFunction.Switch_Next_Device,
+      MiddleClickFunction = MouseControlFunction.Volume_Mixer,
     };
   }
 }

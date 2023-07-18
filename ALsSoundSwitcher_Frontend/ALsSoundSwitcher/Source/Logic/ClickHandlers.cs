@@ -30,20 +30,42 @@ namespace ALsSoundSwitcher
 
     private async void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
-      //AL.
-      //TODO - handle based on config 
-
-      if (e.Button == MouseButtons.Left)
-      {
-        Toggle();        
-      }
-      else if (e.Button == MouseButtons.Right)
+      if (e.Button == MouseButtons.Right)
       {
         await Task.Run(() => MenuItemSlider.RefreshValue());
       }
+      else if (e.Button == MouseButtons.Left)
+      {
+        HandleClickAsPerCurrentSettings(Settings.Current.LeftClickFunction);
+      }
       else if (e.Button == MouseButtons.Middle)
       {
-        OpenVolumeMixer();
+        HandleClickAsPerCurrentSettings(Settings.Current.MiddleClickFunction);
+      }
+    }
+
+    private static void HandleClickAsPerCurrentSettings(MouseControlFunction mouseControlFunction)
+    {
+      switch (mouseControlFunction)
+      {
+        case MouseControlFunction.Switch_Next_Device:
+          Toggle();
+          break;
+        case MouseControlFunction.Volume_Mixer:
+          OpenVolumeMixer();
+          break;
+        case MouseControlFunction.Manage_Devices:
+          OpenDeviceManager();
+          break;
+        case MouseControlFunction.Toggle_Mode:
+          //AL.
+          //TODO
+          break;
+        case MouseControlFunction.Refresh:
+          ProcessUtils.Restart_ThreadSafe();
+          break;
+        default:
+          throw new ArgumentOutOfRangeException();
       }
     }
 
@@ -70,6 +92,11 @@ namespace ALsSoundSwitcher
     }
 
     private static void menuItemDeviceManager_Click(object sender, EventArgs e)
+    {
+      OpenDeviceManager();
+    }
+
+    private static void OpenDeviceManager()
     {
       ProcessUtils.RunExe(DeviceManagerExe, DeviceManagerArgs, true);
     }
