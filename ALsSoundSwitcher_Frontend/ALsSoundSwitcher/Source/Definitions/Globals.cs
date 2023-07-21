@@ -83,6 +83,7 @@ namespace ALsSoundSwitcher
     public static Dictionary<MouseControlFunction, string> MouseFunctionDictionary =
       new Dictionary<MouseControlFunction, string>
       {
+        {MouseControlFunction.Expand, Resources.Globals_MouseFunctionDictionary_Expand},
         {MouseControlFunction.Refresh, Resources.Globals_MouseFunctionDictionary_Refresh},
         {MouseControlFunction.Toggle_Mode, Resources.Globals_MouseFunctionDictionary_Toggle_Mode},
         {MouseControlFunction.Volume_Mixer, Resources.Globals_MouseFunctionDictionary_Volume_Mixer},

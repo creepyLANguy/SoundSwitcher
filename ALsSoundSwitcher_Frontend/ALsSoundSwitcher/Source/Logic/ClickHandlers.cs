@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,12 @@ namespace ALsSoundSwitcher
   {
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetForegroundWindow(IntPtr hwnd);
+
+    private static void InvokeRightClick()
+    {
+      var mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic);
+      mi?.Invoke(notifyIcon1, null);
+    }
 
     private static void HandleCloseOnClick(object sender, ToolStripDropDownClosingEventArgs e)
     {
@@ -50,8 +57,14 @@ namespace ALsSoundSwitcher
     {
       switch (mouseControlFunction)
       {
-        case MouseControlFunction.Switch_Next_Device:
-          Toggle();
+        case MouseControlFunction.Expand:
+          InvokeRightClick();
+          break;
+        case MouseControlFunction.Refresh:
+          ProcessUtils.Restart_ThreadSafe();
+          break;
+        case MouseControlFunction.Toggle_Mode:
+          TrySwitchMode(GetNextAvailableMode());
           break;
         case MouseControlFunction.Volume_Mixer:
           OpenVolumeMixer();
@@ -59,11 +72,8 @@ namespace ALsSoundSwitcher
         case MouseControlFunction.Manage_Devices:
           OpenDeviceManager();
           break;
-        case MouseControlFunction.Toggle_Mode:
-          TrySwitchMode(GetNextAvailableMode());
-          break;
-        case MouseControlFunction.Refresh:
-          ProcessUtils.Restart_ThreadSafe();
+        case MouseControlFunction.Switch_Next_Device:
+          Toggle();
           break;
         default:
           throw new ArgumentOutOfRangeException();

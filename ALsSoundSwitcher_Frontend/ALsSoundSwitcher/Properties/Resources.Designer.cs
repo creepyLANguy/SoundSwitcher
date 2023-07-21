@@ -351,6 +351,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expand.
+        /// </summary>
+        internal static string Globals_MouseFunctionDictionary_Expand {
+            get {
+                return ResourceManager.GetString("Globals_MouseFunctionDictionary_Expand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage Devices.
         /// </summary>
         internal static string Globals_MouseFunctionDictionary_Manage_Devices {
