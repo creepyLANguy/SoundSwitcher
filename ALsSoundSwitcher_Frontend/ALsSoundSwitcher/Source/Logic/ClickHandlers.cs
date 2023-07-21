@@ -1,6 +1,8 @@
+using ALsSoundSwitcher.Properties;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -58,8 +60,7 @@ namespace ALsSoundSwitcher
           OpenDeviceManager();
           break;
         case MouseControlFunction.Toggle_Mode:
-          //AL.
-          //TODO
+          TrySwitchMode(GetNextAvailableMode());
           break;
         case MouseControlFunction.Refresh:
           ProcessUtils.Restart_ThreadSafe();
@@ -160,6 +161,13 @@ namespace ALsSoundSwitcher
 
     private static void menuItemMode_Click(object sender, EventArgs e)
     {
+      var selectedMode = (DeviceMode)((ToolStripMenuItem)sender).Tag;
+
+      TrySwitchMode(selectedMode);
+    }
+
+    private static void TrySwitchMode(DeviceMode selectedMode)
+    {
       if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistsForThisPath(Settings.Current.Mode))
       {
         if (RegistryUtils.TryDeleteStartupRegistrySetting(Settings.Current.Mode) == false)
@@ -168,9 +176,6 @@ namespace ALsSoundSwitcher
         }
       }
 
-      var selection = ((ToolStripMenuItem) sender).Text;
-      var selectedMode = (DeviceMode)Enum.Parse(typeof(DeviceMode), selection);
-
       if (selectedMode == DeviceMode.Input)
       {
         if (PowerShellUtils.VerifyAudioCmdletsAvailability() == false)
@@ -178,7 +183,7 @@ namespace ALsSoundSwitcher
           return;
         }
       }
-      
+
       Settings.Current.Mode = selectedMode;
 
       Config.Save();
@@ -189,6 +194,17 @@ namespace ALsSoundSwitcher
       }
 
       Application.Restart();
+    }
+
+    private static DeviceMode GetNextAvailableMode()
+    {
+      var modes = DeviceModeDictionary.Keys.ToList();
+      var nextIndex = modes.IndexOf(Settings.Current.Mode) + 1;
+      if (nextIndex >= modes.Count)
+      {
+        nextIndex = 0;
+      }
+      return modes[nextIndex];
     }
 
     private static void menuItemPreventAutoSwitch_Click(object sender, EventArgs e)
@@ -210,6 +226,26 @@ namespace ALsSoundSwitcher
     private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
       Process.Start(GithubUrl);
+    }
+    private static void menuItemMouseControlFunction_Click(object sender, EventArgs e)
+    {
+      var mouseControlFunction =
+        MouseFunctionDictionary.First(kvp => kvp.Value == ((ToolStripDropDownItem)sender).Tag.ToString()).Key;
+
+      var parent = ((ToolStripDropDownItem)sender).OwnerItem.Text;
+
+      if (parent == Resources.Form1_SetupMouseControlsSubmenu_Left_Click)
+      {
+        Settings.Current.LeftClickFunction = mouseControlFunction;
+      }
+      else if (parent == Resources.Form1_SetupMouseControlsSubmenu_Middle_Click)
+      {
+        Settings.Current.MiddleClickFunction = mouseControlFunction;
+      }
+      
+      Config.Save();
+
+      SetBackgroundForMouseControlSubmenus();
     }
 
     public static void RestoreMenus(ToolStripItem sender)

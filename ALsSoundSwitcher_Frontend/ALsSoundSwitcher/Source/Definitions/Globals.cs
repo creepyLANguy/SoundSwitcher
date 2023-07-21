@@ -1,6 +1,7 @@
 using CSCore.CoreAudioAPI;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using ALsSoundSwitcher.Properties;
 
 namespace ALsSoundSwitcher
 {
@@ -78,5 +79,22 @@ namespace ALsSoundSwitcher
       public static ToolStripMenuItem MenuItemMouseControls;
       public static ToolStripMenuItem MenuItemControlPanel;
     }
+
+    public static Dictionary<MouseControlFunction, string> MouseFunctionDictionary =
+      new Dictionary<MouseControlFunction, string>
+      {
+        {MouseControlFunction.Refresh, Resources.Globals_MouseFunctionDictionary_Refresh},
+        {MouseControlFunction.Toggle_Mode, Resources.Globals_MouseFunctionDictionary_Toggle_Mode},
+        {MouseControlFunction.Volume_Mixer, Resources.Globals_MouseFunctionDictionary_Volume_Mixer},
+        {MouseControlFunction.Manage_Devices, Resources.Globals_MouseFunctionDictionary_Manage_Devices},
+        {MouseControlFunction.Switch_Next_Device, Resources.Globals_MouseFunctionDictionary_Switch_Next_Device}
+      };    
+    
+    public static Dictionary<DeviceMode, string> DeviceModeDictionary =
+      new Dictionary<DeviceMode, string>
+      {
+        {DeviceMode.Input, Resources.Globals_DeviceModeDictionary_Input},
+        {DeviceMode.Output, Resources.Globals_DeviceModeDictionary_Output}
+      };
   }
 }

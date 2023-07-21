@@ -6,7 +6,7 @@ namespace ALsSoundSwitcher
 {
   public partial class Form1 : Form
   {
-    public Form1(string[] args)
+    public Form1()
     {
       InitializeComponent();
     }

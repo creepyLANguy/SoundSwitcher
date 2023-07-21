@@ -15,6 +15,7 @@ namespace ALsSoundSwitcher
 
       Console.WriteLine(Resources.DeviceUtils_Monitor);
     }
+	
     public static MMDevice GetCurrentDefaultDevice()
     {
       var dataFlow = Settings.Current.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;

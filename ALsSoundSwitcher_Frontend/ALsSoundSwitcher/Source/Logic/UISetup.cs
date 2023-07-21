@@ -138,9 +138,10 @@ namespace ALsSoundSwitcher
 
     private static void SetupDeviceModesSubmenu()
     {
-      foreach (var deviceModeName in Enum.GetNames(typeof(DeviceMode)))
+      foreach (var deviceMode in DeviceModeDictionary)
       {
-        var mode = new ToolStripMenuItem(deviceModeName);
+        var mode = new ToolStripMenuItem(deviceMode.Value);
+        mode.Tag = deviceMode.Key;
         mode.Click += menuItemMode_Click;
 
         MenuItemMode.DropDownItems.Add(mode);
@@ -149,27 +150,25 @@ namespace ALsSoundSwitcher
 
     private static void SetupMouseControlsSubmenu()
     {
-      MenuItemLeftClick = new ToolStripMenuItem("Left Click");//AL.
+      MenuItemLeftClick = new ToolStripMenuItem(Resources.Form1_SetupMouseControlsSubmenu_Left_Click);
       MenuItemLeftClick.Click += menuItemExpandable_Hover;
 
-      MenuItemMiddleClick = new ToolStripMenuItem("Middle Click");//AL.
+      MenuItemMiddleClick = new ToolStripMenuItem(Resources.Form1_SetupMouseControlsSubmenu_Middle_Click);
       MenuItemMiddleClick.Click += menuItemExpandable_Hover;
 
       MenuItemMouseControls.DropDownItems.Add(MenuItemLeftClick);
       MenuItemMouseControls.DropDownItems.Add(MenuItemMiddleClick);
 
-      var mouseFunctions = typeof(MouseControlFunction).GetFields(BindingFlags.Public | BindingFlags.Static);
       var mouseItems = typeof(MouseControlMenuItems).GetFields(BindingFlags.Public | BindingFlags.Static);
 
-      foreach (var field in mouseFunctions)
+      foreach (var mouseFunction in MouseFunctionDictionary)
       {
         foreach (var item in mouseItems)
         {
-          var label = field.Name.Replace('_', ' ');
+          var label = mouseFunction.Value;
           var toolStripItem = new ToolStripMenuItem(label);
-          toolStripItem.Tag = field.Name;
-          //AL.
-          //TODO - add click handler
+          toolStripItem.Tag = label;
+          toolStripItem.Click += menuItemMouseControlFunction_Click;
 
           ((ToolStripMenuItem)item.GetValue(null)).DropDownItems.Add(toolStripItem);
         }
@@ -337,13 +336,12 @@ namespace ALsSoundSwitcher
 
       SetBackgroundForMenuItemLaunchOnStartup();
 
-      //AL.
-      //TODO - add call to set the mouse submenus
+      SetBackgroundForMouseControlSubmenus();
     }
     
     private static void SetBackgroundForBaseMenuItems()
     {
-      foreach (var item in BaseMenu.Items.OfType<ToolStripMenuItem>().ToList())
+      foreach (var item in BaseMenu.Items.OfType<ToolStripMenuItem>())
       {
         item.ResetBackColor();
       }
@@ -355,7 +353,7 @@ namespace ALsSoundSwitcher
 
     private static void SetBackgroundForMenuItemToggleTheme()
     {
-      foreach (var item in MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>().ToList())
+      foreach (var item in MenuItemToggleTheme.DropDownItems.OfType<ToolStripMenuItem>())
       {
         item.ResetBackColor();
 
@@ -394,6 +392,25 @@ namespace ALsSoundSwitcher
       else
       {
         MenuItemLaunchOnStartup.ResetBackColor();
+      }
+    }
+
+    private static void SetBackgroundForMouseControlSubmenus()
+    {
+      SetBackgroundForMouseControlSubmenu(MenuItemLeftClick, MouseFunctionDictionary[Settings.Current.LeftClickFunction]);
+      SetBackgroundForMouseControlSubmenu(MenuItemMiddleClick, MouseFunctionDictionary[Settings.Current.MiddleClickFunction]);
+
+      void SetBackgroundForMouseControlSubmenu(ToolStripMenuItem menuItem, string label)
+      {
+        foreach (var item in menuItem.DropDownItems.OfType<ToolStripMenuItem>())
+        {
+          item.ResetBackColor();
+
+          if (item.Tag.ToString() == label)
+          {
+            item.BackColor = Theme.ActiveSelectionColor;
+          }
+        }
       }
     }
   }

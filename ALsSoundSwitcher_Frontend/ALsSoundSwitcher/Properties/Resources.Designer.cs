@@ -315,6 +315,87 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Left Click.
+        /// </summary>
+        internal static string Form1_SetupMouseControlsSubmenu_Left_Click {
+            get {
+                return ResourceManager.GetString("Form1_SetupMouseControlsSubmenu_Left_Click", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Middle Click.
+        /// </summary>
+        internal static string Form1_SetupMouseControlsSubmenu_Middle_Click {
+            get {
+                return ResourceManager.GetString("Form1_SetupMouseControlsSubmenu_Middle_Click", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input.
+        /// </summary>
+        internal static string Globals_DeviceModeDictionary_Input {
+            get {
+                return ResourceManager.GetString("Globals_DeviceModeDictionary_Input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        internal static string Globals_DeviceModeDictionary_Output {
+            get {
+                return ResourceManager.GetString("Globals_DeviceModeDictionary_Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Devices.
+        /// </summary>
+        internal static string Globals_MouseFunctionDictionary_Manage_Devices {
+            get {
+                return ResourceManager.GetString("Globals_MouseFunctionDictionary_Manage_Devices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        internal static string Globals_MouseFunctionDictionary_Refresh {
+            get {
+                return ResourceManager.GetString("Globals_MouseFunctionDictionary_Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switch Next Device.
+        /// </summary>
+        internal static string Globals_MouseFunctionDictionary_Switch_Next_Device {
+            get {
+                return ResourceManager.GetString("Globals_MouseFunctionDictionary_Switch_Next_Device", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Mode.
+        /// </summary>
+        internal static string Globals_MouseFunctionDictionary_Toggle_Mode {
+            get {
+                return ResourceManager.GetString("Globals_MouseFunctionDictionary_Toggle_Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume Mixer.
+        /// </summary>
+        internal static string Globals_MouseFunctionDictionary_Volume_Mixer {
+            get {
+                return ResourceManager.GetString("Globals_MouseFunctionDictionary_Volume_Mixer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Headset {
