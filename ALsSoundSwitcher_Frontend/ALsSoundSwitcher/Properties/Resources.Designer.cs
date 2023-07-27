@@ -351,6 +351,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string Globals_MouseFunctionDictionary_Exit {
+            get {
+                return ResourceManager.GetString("Globals_MouseFunctionDictionary_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expand.
         /// </summary>
         internal static string Globals_MouseFunctionDictionary_Expand {
@@ -365,6 +374,15 @@ namespace ALsSoundSwitcher.Properties {
         internal static string Globals_MouseFunctionDictionary_Manage_Devices {
             get {
                 return ResourceManager.GetString("Globals_MouseFunctionDictionary_Manage_Devices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 🛇.
+        /// </summary>
+        internal static string Globals_MouseFunctionDictionary_None {
+            get {
+                return ResourceManager.GetString("Globals_MouseFunctionDictionary_None", resourceCulture);
             }
         }
         

@@ -282,4 +282,10 @@ Could not start </value>
   <data name="Globals_MouseFunctionDictionary_Expand" xml:space="preserve">
     <value>Expand</value>
   </data>
+  <data name="Globals_MouseFunctionDictionary_Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Globals_MouseFunctionDictionary_None" xml:space="preserve">
+    <value>🛇</value>
+  </data>
 </root>

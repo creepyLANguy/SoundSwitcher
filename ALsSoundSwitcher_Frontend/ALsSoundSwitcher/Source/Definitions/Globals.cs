@@ -1,7 +1,7 @@
+using ALsSoundSwitcher.Properties;
 using CSCore.CoreAudioAPI;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using ALsSoundSwitcher.Properties;
 
 namespace ALsSoundSwitcher
 {
@@ -83,6 +83,8 @@ namespace ALsSoundSwitcher
     public static Dictionary<MouseControlFunction, string> MouseFunctionDictionary =
       new Dictionary<MouseControlFunction, string>
       {
+        {MouseControlFunction.None, Resources.Globals_MouseFunctionDictionary_None},
+        {MouseControlFunction.Exit, Resources.Globals_MouseFunctionDictionary_Exit},
         {MouseControlFunction.Expand, Resources.Globals_MouseFunctionDictionary_Expand},
         {MouseControlFunction.Refresh, Resources.Globals_MouseFunctionDictionary_Refresh},
         {MouseControlFunction.Toggle_Mode, Resources.Globals_MouseFunctionDictionary_Toggle_Mode},

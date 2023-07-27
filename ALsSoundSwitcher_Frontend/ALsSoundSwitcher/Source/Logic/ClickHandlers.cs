@@ -57,6 +57,11 @@ namespace ALsSoundSwitcher
     {
       switch (mouseControlFunction)
       {
+        case MouseControlFunction.None:
+          break;
+        case MouseControlFunction.Exit:
+          Instance.Close();
+          break;
         case MouseControlFunction.Expand:
           InvokeRightClick();
           break;

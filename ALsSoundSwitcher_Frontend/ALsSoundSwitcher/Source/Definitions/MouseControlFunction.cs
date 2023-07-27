@@ -2,6 +2,8 @@
 {
   public enum MouseControlFunction
   {
+    None,
+    Exit,
     Expand,
     Refresh,
     Toggle_Mode,
