@@ -15,7 +15,7 @@ A simple tool for easily switching audio devices
 
 🎨 Custom themes  
 
-⚪ Custom icons  
+🤍 Custom icons  
 
 **+** More  
 
@@ -30,7 +30,7 @@ A simple tool for easily switching audio devices
 
 - The "More" submenu offers features such as Mode, Theme, Windows Settings, Custom Controls, etc.  
 ---
-### ⚪ Set Custom Icons
+### 🤍 Set Custom Icons
 
 - To have the tray and menu icons to match specific audio devices,  
 place an image file or a .ico file in the application folder and name it similarly to your audio device.  
