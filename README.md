@@ -43,7 +43,8 @@ _Note, The file name does not need match perfectly - the application will use th
 
 - To activate your theme, specify a name and save it
 
-- ![image](https://github.com/creepyLANguy/SoundSwitcher/assets/28150772/02b3fdeb-11f3-46a3-a426-31b5cb8a0da3)  
+- ![image](https://github.com/creepyLANguy/SoundSwitcher/assets/28150772/5b1fbeb1-cd4b-4355-a01b-2d22862fc942)
+
 
 ---
 ###### Copyright © Altamish Mahomed
