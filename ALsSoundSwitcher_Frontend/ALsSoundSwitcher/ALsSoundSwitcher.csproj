@@ -78,6 +78,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Source\Definitions\DeviceMode.cs" />
+    <Compile Include="Source\Definitions\MouseControlFunction.cs" />
     <Compile Include="Source\Logic\ClickHandlers.cs">
       <SubType>Form</SubType>
     </Compile>

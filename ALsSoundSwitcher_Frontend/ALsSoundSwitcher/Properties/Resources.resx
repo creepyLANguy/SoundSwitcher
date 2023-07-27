@@ -158,6 +158,9 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_More" xml:space="preserve">
     <value>More</value>
   </data>
+  <data name="Form1_SetupContextMenu_MouseControls" xml:space="preserve">
+    <value>Controls</value>
+  </data>
   <data name="Form1_ReadConfig_Will_use_default_values" xml:space="preserve">
     <value>Will use default values</value>
   </data>
@@ -248,5 +251,41 @@ Could not start </value>
   </data>
   <data name="ThemeCreator_Error_Save" xml:space="preserve">
     <value>Error saving your theme</value>
+  </data>
+  <data name="Form1_SetupMouseControlsSubmenu_Left_Click" xml:space="preserve">
+    <value>Left Click</value>
+  </data>
+  <data name="Form1_SetupMouseControlsSubmenu_Middle_Click" xml:space="preserve">
+    <value>Middle Click</value>
+  </data>
+  <data name="Globals_MouseFunctionDictionary_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Globals_MouseFunctionDictionary_Toggle_Mode" xml:space="preserve">
+    <value>Toggle Mode</value>
+  </data>
+  <data name="Globals_MouseFunctionDictionary_Volume_Mixer" xml:space="preserve">
+    <value>Volume Mixer</value>
+  </data>
+  <data name="Globals_MouseFunctionDictionary_Manage_Devices" xml:space="preserve">
+    <value>Manage Devices</value>
+  </data>
+  <data name="Globals_MouseFunctionDictionary_Switch_Next_Device" xml:space="preserve">
+    <value>Switch Next Device</value>
+  </data>
+  <data name="Globals_DeviceModeDictionary_Input" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="Globals_DeviceModeDictionary_Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Globals_MouseFunctionDictionary_Expand" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="Globals_MouseFunctionDictionary_Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Globals_MouseFunctionDictionary_None" xml:space="preserve">
+    <value>🛇</value>
   </data>
 </root>
