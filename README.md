@@ -28,7 +28,7 @@ A simple tool for easily switching audio devices
 
 - The volume slider changes the audio level for the current device  
 
-- The "More" submenu offers features such as Mode, Theme, Windows Settings, custom actions, etc.  
+- The "More" submenu offers features such as Mode, Theme, Windows Settings, Custom Controls, etc.  
 ---
 ### ⚪ Set Custom Icons
 
