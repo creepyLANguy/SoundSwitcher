@@ -21,13 +21,14 @@ A simple tool for easily switching audio devices
 
 ---
 ### 🔊 Usage
-- Left click on the tray icon to cycle audio devices  
 
-- Right click to select a device from the list  
+- Right click tray icon to select a device from the list
+
+- Left click tray icon to cycle audio devices (default behaviour), or set a custom action 
 
 - The volume slider changes the audio level for the current device  
 
-- The "More" submenu offers features such as Mode, Theme, Windows Settings, etc.  
+- The "More" submenu offers features such as Mode, Theme, Windows Settings, custom actions, etc.  
 ---
 ### ⚪ Set Custom Icons
 
