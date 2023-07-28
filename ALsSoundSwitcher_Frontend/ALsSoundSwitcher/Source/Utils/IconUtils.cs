@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -102,7 +102,7 @@ namespace ALsSoundSwitcher
       try
       {
         //.ico files look much better when using the specific constructor so keep this branching logic.  
-        return iconName.EndsWith(".ico") ? new Icon(iconName) : CreateIconFromImageFile(iconName);
+        return iconName.EndsWith(".ico") ? LoadIconIntoMemory(iconName) : CreateIconFromImageFile(iconName);
       }
       catch (Exception ex)
       {
@@ -120,7 +120,7 @@ namespace ALsSoundSwitcher
 
     public static Image GetPaddedImage(string imageFilename)
     {
-      var originalImage = Image.FromFile(imageFilename);
+      var originalImage = LoadImageIntoMemory(imageFilename);
       if (originalImage.Width == originalImage.Height)
       {
         return originalImage;
@@ -175,6 +175,34 @@ namespace ALsSoundSwitcher
         output.Position = 0;
         return new Icon(output);
       }
+    }
+
+    private static Icon LoadIconIntoMemory(string filename)
+    {
+      Icon icon;
+
+      using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
+      {
+        var tempIcon = new Icon(stream);
+        icon = new Icon(tempIcon, tempIcon.Size);
+        tempIcon.Dispose();
+      }
+
+      return icon;
+    }
+
+    private static Image LoadImageIntoMemory(string filename)
+    {
+      Image image;
+
+      using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
+      {
+        var tempImage = Image.FromStream(stream);
+        image = new Bitmap(tempImage);
+        tempImage.Dispose();
+      }
+
+      return image;
     }
   }
 }
