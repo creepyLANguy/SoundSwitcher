@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
+using CSCore.CoreAudioAPI;
 using static ALsSoundSwitcher.Globals;
 using static ALsSoundSwitcher.Globals.MoreMenuItems;
 using static ALsSoundSwitcher.Globals.ControlPanelMenuItems;
@@ -303,7 +304,32 @@ namespace ALsSoundSwitcher
     {
       var currentDevice = DeviceUtils.GetCurrentDefaultDevice();
       var items = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
-      ActiveMenuItemDevice = items.First(it => (string)it.Tag == currentDevice.DeviceID);
+      
+      var debugInfo =
+        Environment.NewLine +
+        (MethodBase.GetCurrentMethod() == null ? "" : MethodBase.GetCurrentMethod()?.Name + "()") +
+        Environment.NewLine + Environment.NewLine + currentDevice.FriendlyName +
+        Environment.NewLine + "State:\t\t" + currentDevice.DeviceState +
+        Environment.NewLine + "IsDisposed:\t" + currentDevice.IsDisposed +
+        Environment.NewLine + Environment.NewLine + "Items:" +
+        Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, items) +
+        Environment.NewLine + Environment.NewLine
+        ;
+
+      Console.WriteLine(debugInfo);
+
+      try
+      {
+        ActiveMenuItemDevice = items.First(it => (string)it.Tag == currentDevice.DeviceID);
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+
+        MessageBox.Show(debugInfo, Application.ProductName);
+
+        throw;
+      }
     }
 
     public static void SetCurrentDeviceTrayIcon()
