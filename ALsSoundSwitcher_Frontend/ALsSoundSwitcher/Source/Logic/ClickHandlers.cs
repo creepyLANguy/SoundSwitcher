@@ -18,8 +18,16 @@ namespace ALsSoundSwitcher
 
     private static void InvokeRightClick()
     {
+      UpdateSliderAndTooltip_Async();
+
       var mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic);
       mi?.Invoke(notifyIcon1, null);
+    }
+
+    private static async void UpdateSliderAndTooltip_Async()
+    {
+      await Task.Run(() => MenuItemSlider.RefreshValue());
+      await Task.Run(() => SetToolTip(ActiveMenuItemDevice.Text));
     }
 
     private static void HandleCloseOnClick(object sender, ToolStripDropDownClosingEventArgs e)
@@ -41,7 +49,7 @@ namespace ALsSoundSwitcher
     {
       if (e.Button == MouseButtons.Right)
       {
-        await Task.Run(() => MenuItemSlider.RefreshValue());
+        UpdateSliderAndTooltip_Async();
       }
       else if (e.Button == MouseButtons.Left)
       {
