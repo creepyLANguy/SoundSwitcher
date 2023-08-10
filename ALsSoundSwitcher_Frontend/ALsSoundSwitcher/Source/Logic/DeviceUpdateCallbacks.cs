@@ -111,8 +111,7 @@ namespace ALsSoundSwitcher
       var cachedActiveDeviceId = (string)Globals.ActiveMenuItemDevice.Tag;
       if ((deviceId == cachedActiveDeviceId) && (propString == Globals.VolumeChangedPropertyKey))
       {
-        Globals.MenuItemSlider.RefreshValue();
-        SetToolTip(Globals.ActiveMenuItemDevice.Text);
+        UpdateSliderAndTooltip_Async();
       }
     }
 
