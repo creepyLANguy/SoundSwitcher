@@ -13,6 +13,8 @@ A simple tool for easily switching audio devices
 
 🎚 Manage audio levels  
 
+🎮 Custom controls  
+
 🎨 Custom themes  
 
 🤍 Custom icons  
