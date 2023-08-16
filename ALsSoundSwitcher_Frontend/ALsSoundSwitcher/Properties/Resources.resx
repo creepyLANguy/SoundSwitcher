@@ -129,6 +129,9 @@
   <data name="Form1_PerformSwitch_Error_Switching_Audio_Device" xml:space="preserve">
     <value>Error Switching Audio Device</value>
   </data>
+  <data name="Form1_SetupContextMenu_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
   <data name="Form1_SetupContextMenu_Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>

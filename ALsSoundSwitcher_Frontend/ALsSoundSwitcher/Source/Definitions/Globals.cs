@@ -10,6 +10,7 @@ namespace ALsSoundSwitcher
     public static Form Instance;
 
     public const string GithubUrl = "https://github.com/creepyLANguy/SoundSwitcher";
+    public const string LatestReleaseUrl = "https://github.com/creepyLANguy/SoundSwitcher/releases/latest";
 
     public const string StartupRegistryKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
@@ -73,6 +74,7 @@ namespace ALsSoundSwitcher
     {
       public static ToolStripMenuItem MenuItemExit;
       public static ToolStripMenuItem MenuItemHelp;
+      public static ToolStripMenuItem MenuItemUpdate;
       public static ToolStripMenuItem MenuItemRefresh;
       public static ToolStripMenuItem MenuItemMode;
       public static ToolStripMenuItem MenuItemToggleTheme;

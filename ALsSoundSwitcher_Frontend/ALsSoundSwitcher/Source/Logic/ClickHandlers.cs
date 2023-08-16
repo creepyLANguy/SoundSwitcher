@@ -155,6 +155,13 @@ namespace ALsSoundSwitcher
       Instance.Close();
     }
 
+    private static void menuItemUpdate_Click(object sender, EventArgs e)
+    {
+      //AL.
+      //TODO
+      Process.Start(LatestReleaseUrl);
+      //
+    }
     private static void menuItemRefresh_Click(object sender, EventArgs e)
     {
       ProcessUtils.Restart_ThreadSafe();

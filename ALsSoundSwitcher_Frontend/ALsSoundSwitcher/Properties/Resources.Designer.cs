@@ -306,6 +306,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_Update {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Volume Mixer.
         /// </summary>
         internal static string Form1_SetupContextMenu_VolumeMixer {
