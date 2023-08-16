@@ -13,6 +13,11 @@ namespace ALsSoundSwitcher
 
     private void Form1_Load(object sender, EventArgs e)
     {
+      if (System.Diagnostics.Debugger.IsAttached)
+      {
+        TestUtils.RunDebugCode();
+      }
+
       ProcessUtils.SetWorkingDirectory();
 
       Globals.Instance = this;

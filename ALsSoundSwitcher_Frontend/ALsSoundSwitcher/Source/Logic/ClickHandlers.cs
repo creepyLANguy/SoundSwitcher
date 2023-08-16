@@ -159,7 +159,7 @@ namespace ALsSoundSwitcher
     {
       //AL.
       //TODO
-      Process.Start(LatestReleaseUrl);
+      var shouldUpgrade = UpgradeUtils.ShouldUpgrade();
       //
     }
     private static void menuItemRefresh_Click(object sender, EventArgs e)
