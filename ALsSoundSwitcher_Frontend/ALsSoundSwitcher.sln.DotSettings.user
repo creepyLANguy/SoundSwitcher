@@ -2,4 +2,5 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=ALsSoundSwitcher_002FProperties_002FResources/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=ALsSoundSwitcher_002FSource_002FForm1/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=ALsSoundSwitcher_002FSource_002FTheming_002FThemeCreator/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=ALsSoundSwitcher_002FSource_002FUpgradeLog/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean></wpf:ResourceDictionary>

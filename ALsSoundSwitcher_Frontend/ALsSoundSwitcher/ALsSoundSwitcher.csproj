@@ -80,8 +80,10 @@
     <Compile Include="Source\Definitions\DeviceMode.cs" />
     <Compile Include="Source\Definitions\MouseControlFunction.cs" />
     <Compile Include="Source\Definitions\SemanticVersion.cs" />
-    <Compile Include="Source\Definitions\UpgradeReason.cs" />
     <Compile Include="Source\Logic\ClickHandlers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\UpgradeLog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Source\Utils\DeviceUtils.cs" />
@@ -140,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Theming\ThemeCreator.resx">
       <DependentUpon>ThemeCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\UpgradeLog.resx">
+      <DependentUpon>UpgradeLog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

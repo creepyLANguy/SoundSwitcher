@@ -3,42 +3,60 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using ALsSoundSwitcher.Properties;
 
 namespace ALsSoundSwitcher
 {
   public static class UpgradeUtils
   {
-    public static void Upgrade()
-    {      
-      var localVersion = GetSemanticVersionFromCurrentExecutable();
-      var latestVersion = GetSemanticVersionFromReleaseUrl(Globals.LatestReleaseUrl);
-      
-      var upgradeReason = GetUpgradeReason(localVersion, latestVersion);
-      HandleUpgradeReason(upgradeReason, localVersion, latestVersion);
+    private static UpgradeLog _upgradeLog;
+
+    private struct UpgradePack
+    {
+      public readonly SemanticVersion? OldVersion;
+      public readonly SemanticVersion? NewVersion;
+      public string Url;
+
+      public UpgradePack(SemanticVersion? oldVersion, SemanticVersion? newVersion, string url)
+      {
+        OldVersion = oldVersion;
+        NewVersion = newVersion;
+        Url = url;
+      }
     }
 
-    private static UpgradeReason GetUpgradeReason(SemanticVersion? localVersion, SemanticVersion? latestVersion)
+    public static void Upgrade()
     {
-      if (localVersion == null && latestVersion == null)
-      {
-        return UpgradeReason.CouldNotDetermineBothVersions;
-      }
-      if (localVersion == null)
-      {
-        return UpgradeReason.CouldNotDetermineLocalVersion;
-      }
-      if (latestVersion == null)
-      {
-        return UpgradeReason.CouldNotDetermineLatestVersion;
-      }
+      const string latestReleaseUrl = Globals.LatestReleaseUrl;
+      var localVersion = GetSemanticVersionFromCurrentExecutable();
+      var latestVersion = GetSemanticVersionFromReleaseUrl(latestReleaseUrl);
+      var upgradePack = new UpgradePack(localVersion, latestVersion, latestReleaseUrl);
+      ProcessUpgradePack(upgradePack);
+    }
 
-      if (Equals(localVersion, latestVersion))
+    private static void ProcessUpgradePack(UpgradePack upgradePack)
+    {
+      if (Equals(upgradePack.OldVersion, upgradePack.NewVersion))
       {
-        return UpgradeReason.AlreadyHaveLatestVersion;
+        MessageBox.Show(
+          Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" (" + upgradePack.NewVersion + @")",
+          @"🎧 " + Resources.ALs_Sound_Switcher);
       }
-      
-      return UpgradeReason.NewerVersionAvailable;
+      //AL.
+      //TODO - uncomment else
+      //else
+      {
+        try
+        { 
+          Upgrade(upgradePack);
+        }
+        catch (Exception ex)
+        {
+          Console.WriteLine(ex);
+          Rollback(upgradePack);
+        }
+      }
     }
 
     private static SemanticVersion? GetSemanticVersionFromReleaseUrl(string url)
@@ -66,9 +84,9 @@ namespace ALsSoundSwitcher
           return new SemanticVersion(latestVersion);
         }
       }
-      catch (HttpRequestException e)
+      catch (HttpRequestException ex)
       {
-        Console.WriteLine(e);
+        Console.WriteLine(ex);
       }
 
       return null;
@@ -87,36 +105,63 @@ namespace ALsSoundSwitcher
       return new SemanticVersion(version.ToString());
     }
 
-    private static void HandleUpgradeReason(UpgradeReason upgradeReason, SemanticVersion? currentVersion, SemanticVersion? latestVersion)
+    private static void Log(string message, bool showTimestamp = true)
     {
-      switch (upgradeReason)
-      {
-        case UpgradeReason.AlreadyHaveLatestVersion:
-          MessageBox.Show(
-            Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" (" + currentVersion + @")",
-            "🎧 " + Resources.ALs_Sound_Switcher);
-          break;
-        case UpgradeReason.NewerVersionAvailable:
-          PerformUpgrade();
-          break;
-        case UpgradeReason.CouldNotDetermineBothVersions:
-          PerformUpgrade();
-          break;
-        case UpgradeReason.CouldNotDetermineLocalVersion:
-          PerformUpgrade();
-          break;
-        case UpgradeReason.CouldNotDetermineLatestVersion:
-          PerformUpgrade();
-          break;
-        default:
-          throw new ArgumentOutOfRangeException(nameof(upgradeReason), upgradeReason, null);
-      }
+      _upgradeLog.Log(message, showTimestamp);
     }
 
-    private static void PerformUpgrade()
+    private static void Upgrade(UpgradePack upgradePack)
     {
       //AL.
       //TODO
+
+      _upgradeLog = new UpgradeLog();
+      _upgradeLog.Show();
+
+      Log("Upgrading from version v" + upgradePack.OldVersion + " to v" + upgradePack.NewVersion);
+
+      Log("Creating backup of old version and user files");
+      //CreateBackup("Backup_" + currentVersion)
+
+      Log("Downloading latest release from " + upgradePack.Url);
+      //FetchLatestRelease()
+
+      Log("Extracting latest release");
+      //UnzipContents()
+
+      Log("Reading file manifest");
+      //ReadManifest()
+
+      Log("Attempting full merge");
+      //AttemptBlanketCopyOfFilesButDoNotOverwrite([])
+
+      Log("Replacing required files");
+      //ReplaceFiles([])
+
+      Log("Merging file contents and migrating user settings");
+      //MergeFileContents([])
+
+      Log("Cleaning up");
+      //Delete([])
+
+      Log("Relaunching application");
+      //Run exe
+
+      Log("Upgrade successful");
+
+      Log(
+        "If you encounter issues, please rollback to the zipped backup in your install folder, or perform a clean install with the latest version available here: https://github.com/creepyLANguy/SoundSwitcher/releases/latest",
+        false
+        );
+
+      _upgradeLog.ShowControlBox();
+    }
+
+    private static void Rollback(UpgradePack upgradePack)
+    {
+      //AL.
+      //TODO
+      //Message("Failed to upgrade to latest version. Rolling back to previous version. We recommend you perform a clean install with the [latest version](https://github.com/creepyLANguy/SoundSwitcher/releases/latest."))
     }
   }
 }
