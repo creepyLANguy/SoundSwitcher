@@ -2,34 +2,38 @@
 using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using ALsSoundSwitcher.Properties;
 
 namespace ALsSoundSwitcher
 {
   public static class UpgradeUtils
   {
-    public static UpgradeReason ShouldUpgrade()
-    {
-      var currentVersion = GetSemanticVersionFromCurrentExecutable();
+    public static void Upgrade()
+    {      
+      var localVersion = GetSemanticVersionFromCurrentExecutable();
       var latestVersion = GetSemanticVersionFromReleaseUrl(Globals.LatestReleaseUrl);
+      
+      var upgradeReason = GetUpgradeReason(localVersion, latestVersion);
+      HandleUpgradeReason(upgradeReason, localVersion, latestVersion);
+    }
 
-      if (latestVersion.Beta)
-      {
-        return UpgradeReason.BetaAvailable;
-      }
-      if (currentVersion.Valid == false && latestVersion.Valid == false)
+    private static UpgradeReason GetUpgradeReason(SemanticVersion? localVersion, SemanticVersion? latestVersion)
+    {
+      if (localVersion == null && latestVersion == null)
       {
         return UpgradeReason.CouldNotDetermineBothVersions;
       }
-      if (currentVersion.Valid == false)
+      if (localVersion == null)
       {
         return UpgradeReason.CouldNotDetermineLocalVersion;
       }
-      if (latestVersion.Valid == false)
+      if (latestVersion == null)
       {
         return UpgradeReason.CouldNotDetermineLatestVersion;
       }
 
-      if (Equals(currentVersion, latestVersion))
+      if (Equals(localVersion, latestVersion))
       {
         return UpgradeReason.AlreadyHaveLatestVersion;
       }
@@ -37,7 +41,7 @@ namespace ALsSoundSwitcher
       return UpgradeReason.NewerVersionAvailable;
     }
 
-    private static SemanticVersion GetSemanticVersionFromReleaseUrl(string url)
+    private static SemanticVersion? GetSemanticVersionFromReleaseUrl(string url)
     {
       try
       {
@@ -67,15 +71,52 @@ namespace ALsSoundSwitcher
         Console.WriteLine(e);
       }
 
-      return new SemanticVersion();
+      return null;
     }
 
-    private static SemanticVersion GetSemanticVersionFromCurrentExecutable()
+    private static SemanticVersion? GetSemanticVersionFromCurrentExecutable()
     {
       var entryAssembly = Assembly.GetEntryAssembly();
       var version = entryAssembly?.GetName().Version;
 
-      return version == null ? new SemanticVersion() : new SemanticVersion(version.ToString());
+      if (version == null)
+      {
+        return null;
+      }
+      
+      return new SemanticVersion(version.ToString());
+    }
+
+    private static void HandleUpgradeReason(UpgradeReason upgradeReason, SemanticVersion? currentVersion, SemanticVersion? latestVersion)
+    {
+      switch (upgradeReason)
+      {
+        case UpgradeReason.AlreadyHaveLatestVersion:
+          MessageBox.Show(
+            Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" (" + currentVersion + @")",
+            "🎧 " + Resources.ALs_Sound_Switcher);
+          break;
+        case UpgradeReason.NewerVersionAvailable:
+          PerformUpgrade();
+          break;
+        case UpgradeReason.CouldNotDetermineBothVersions:
+          PerformUpgrade();
+          break;
+        case UpgradeReason.CouldNotDetermineLocalVersion:
+          PerformUpgrade();
+          break;
+        case UpgradeReason.CouldNotDetermineLatestVersion:
+          PerformUpgrade();
+          break;
+        default:
+          throw new ArgumentOutOfRangeException(nameof(upgradeReason), upgradeReason, null);
+      }
+    }
+
+    private static void PerformUpgrade()
+    {
+      //AL.
+      //TODO
     }
   }
 }

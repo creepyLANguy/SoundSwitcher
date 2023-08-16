@@ -2,7 +2,6 @@
 {
   public enum UpgradeReason
   {
-    BetaAvailable,
     NewerVersionAvailable,
     AlreadyHaveLatestVersion,
     CouldNotDetermineBothVersions,
