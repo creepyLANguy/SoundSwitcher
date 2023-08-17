@@ -3,10 +3,8 @@ using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.IO.Compression;
 using ALsSoundSwitcher.Properties;
-using System.Linq;
-using System.Management.Automation;
+using Ionic.Zip;
 
 namespace ALsSoundSwitcher
 {
@@ -87,6 +85,7 @@ namespace ALsSoundSwitcher
     private static SemanticVersion? GetSemanticVersionFromReleaseUrl(string url)
     {
       //AL.
+      //TODO - remove
       return new SemanticVersion();
       //
       try
@@ -148,16 +147,17 @@ namespace ALsSoundSwitcher
       var archiveName = backupFolder + ".zip";
       try
       {
-        Log("Copying to folder : " + backupFolder);
+        Log("Copying to temp folder : " + backupFolder);
         CopyDirectoryContents(installationFolder, backupFolder);
         Log("Copy complete");
 
         Log("Archiving backup to file : " + archiveName);
         CreateArchive(backupFolder, archiveName, installationFolder);
-        //AL.
-        //TODO
-        //DeleteFolder(backupFolder);
         Log("Archiving complete");
+
+        Log("Cleaning up temp folder");
+        DeleteFolder(backupFolder);
+        Log("Temp folder successfully removed");
 
         return true;
       }
@@ -212,18 +212,28 @@ namespace ALsSoundSwitcher
 
     private static void CreateArchive(string inputFolder, string outputFileName, string destinationPath)
     {
-      if (Directory.Exists(inputFolder) == false)
-      {
-        throw new DirectoryNotFoundException($"Source directory not found: {inputFolder}");
-      }
-
-      if (File.Exists(destinationPath))
-      {
-        throw new IOException($"Destination zip file already exists: {destinationPath}");
-      }
-
       var finalOutputPath = Path.Combine(destinationPath, outputFileName);
-      ZipFile.CreateFromDirectory(inputFolder, finalOutputPath);
+      
+      using (var zip = new ZipFile())
+      {
+        if (Directory.Exists(inputFolder) == false)
+        {
+          throw new DirectoryNotFoundException($"Source directory not found: {inputFolder}");
+        }
+
+        zip.AddDirectory(inputFolder);
+        zip.Save(finalOutputPath);
+      }
+    }
+
+    private static void DeleteFolder(string folderPath)
+    {
+      if (Directory.Exists(folderPath) == false)
+      {
+        throw new DirectoryNotFoundException($"Folder not found: {folderPath}");
+      }
+
+      Directory.Delete(folderPath, true);
     }
 
     //AL.
@@ -238,36 +248,35 @@ namespace ALsSoundSwitcher
         return;
       }
 
-      Log("Downloading latest release from " + Pack.Url);
+      //Log("Downloading latest release from " + Pack.Url);
       //FetchLatestRelease()
 
-      Log("Extracting latest release");
+      //Log("Extracting latest release");
       //UnzipContents()
 
-      Log("Reading file manifest");
+      //Log("Reading file manifest");
       //ReadManifest()
 
-      Log("Attempting full merge");
+      //Log("Attempting full merge");
       //AttemptBlanketCopyOfFilesButDoNotOverwrite([])
 
-      Log("Replacing required files");
+      //Log("Replacing required files");
       //ReplaceFiles([])
 
-      Log("Merging file contents and migrating user settings");
+      //Log("Merging file contents and migrating user settings");
       //MergeFileContents([])
 
-      Log("Cleaning up");
+      //Log("Cleaning up");
       //Delete([])
 
-      Log("Relaunching application");
+      //Log("Relaunching application");
       //Run exe
 
-      Log("Upgrade successful");
+      //Log("Upgrade successful");
 
-      Log(
-        "If you encounter issues, please rollback to the zipped backup in your install folder, or perform a clean install with the latest version available here: https://github.com/creepyLANguy/SoundSwitcher/releases/latest",
-        false
-        );
+      //Log(
+      //"If you encounter issues, please rollback to the zipped backup in your install folder, or perform a clean install with the latest version available here: https://github.com/creepyLANguy/SoundSwitcher/releases/latest",
+      //false);
     }
 
     private static void Rollback()
