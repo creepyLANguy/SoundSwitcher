@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Net.Http;
+using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using ALsSoundSwitcher.Properties;
@@ -18,13 +18,20 @@ namespace ALsSoundSwitcher
     {
       public readonly SemanticVersion? OldVersion;
       public readonly SemanticVersion? NewVersion;
-      public string Url;
+      public readonly string DownloadUrl;
+      public readonly string InstallationPath;
 
-      public UpgradePack(SemanticVersion? oldVersion, SemanticVersion? newVersion, string url)
+      public UpgradePack(
+        SemanticVersion? oldVersion, 
+        SemanticVersion? newVersion,
+        string downloadUrl, 
+        string installationPath
+        )
       {
         OldVersion = oldVersion;
         NewVersion = newVersion;
-        Url = url;
+        DownloadUrl = downloadUrl;
+        InstallationPath = installationPath;
       }
     }
 
@@ -52,10 +59,17 @@ namespace ALsSoundSwitcher
 
     private static void SetupUpgradePack()
     {
-      const string latestReleaseUrl = Globals.LatestReleaseUrl;
+      var html = GetHtmlFromUrl(Globals.LatestReleaseUrl);
+
+      var downloadUrl = GetDownloadUrlFromHtml(html);
+
+      var latestVersion = GetSemanticVersionFromHtml(html);
+
       var localVersion = GetSemanticVersionFromCurrentExecutable();
-      var latestVersion = GetSemanticVersionFromReleaseUrl(latestReleaseUrl);
-      Pack = new UpgradePack(localVersion, latestVersion, latestReleaseUrl);
+
+      var installationPath = Directory.GetCurrentDirectory();
+
+      Pack = new UpgradePack(localVersion, latestVersion, downloadUrl, installationPath);
     }
 
     private static void ProcessUpgradePack()
@@ -82,41 +96,52 @@ namespace ALsSoundSwitcher
       LogWindow.ShowControlBox();
     }
 
-    private static SemanticVersion? GetSemanticVersionFromReleaseUrl(string url)
+    private static string GetHtmlFromUrl(string url)
+    {
+      var html = string.Empty;
+
+      using (var webClient = new WebClient())
+      {
+        webClient.Headers.Add("user-agent", Resources.ALs_Sound_Switcher);
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+        try
+        {
+          html = webClient.DownloadString(url);
+        }
+        catch (WebException ex)
+        {
+          Console.WriteLine(ex);
+        }
+      }
+
+      return html;
+    }
+
+    private static string GetDownloadUrlFromHtml(string html)
+    {
+      //AL.
+      //TODO - implement
+      return "https://github.com/creepyLANguy/SoundSwitcher/releases/download/v2.1.2/ALsSoundSwitcher.zip";
+    }
+
+    private static SemanticVersion? GetSemanticVersionFromHtml(string html)
     {
       //AL.
       //TODO - remove
       return new SemanticVersion();
       //
-      try
+      
+      const string versionPattern = @"\/releases\/tag\/v([0-9]+\.[0-9]+\.[0-9]+)";
+      var match = Regex.Match(html, versionPattern);
+
+      if (match.Success == false)
       {
-        using (var client = new HttpClient())
-        {
-          System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
-
-          var response = client.GetAsync(url).Result;
-          response.EnsureSuccessStatusCode();
-
-          var htmlContent = response.Content.ReadAsStringAsync().Result;
-
-          const string versionPattern = @"\/releases\/tag\/v([0-9]+\.[0-9]+\.[0-9]+)";
-          var match = Regex.Match(htmlContent, versionPattern);
-
-          if (match.Success == false)
-          {
-            throw new Exception("No version information found.");
-          }
-
-          var latestVersion = match.Groups[1].Value;
-          return new SemanticVersion(latestVersion);
-        }
-      }
-      catch (HttpRequestException ex)
-      {
-        Console.WriteLine(ex);
+        return null;
       }
 
-      return null;
+      var latestVersion = match.Groups[1].Value;
+      return new SemanticVersion(latestVersion);
     }
 
     private static SemanticVersion? GetSemanticVersionFromCurrentExecutable()
@@ -137,22 +162,28 @@ namespace ALsSoundSwitcher
       LogWindow.Log(message, showTimestamp);
     }
 
+    private static void IndicateFailure()
+    {
+      Log("Failed to upgrade to latest version \n" +
+          "We recommend you perform a clean install with the latest version here: \n" +
+          "https://github.com/creepyLANguy/SoundSwitcher/releases/latest");
+    }
+
     private static bool Backup()
     {
       Log("Backing up current installation");
 
-      var installationFolder = Directory.GetCurrentDirectory();
       var backupName = "v" + Pack.OldVersion + "_" + DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss");
-      var backupFolder = Path.Combine(installationFolder, backupName);
+      var backupFolder = Path.Combine(Pack.InstallationPath, backupName);
       var archiveName = backupFolder + ".zip";
       try
       {
-        Log("Copying to temp folder : " + backupFolder);
-        CopyDirectoryContents(installationFolder, backupFolder);
+        Log("Copying to temp folder: \n" + backupFolder);
+        CopyDirectoryContents(Pack.InstallationPath, backupFolder);
         Log("Copy complete");
 
-        Log("Archiving backup to file : " + archiveName);
-        CreateArchive(backupFolder, archiveName, installationFolder);
+        Log("Archiving backup to file: \n" + archiveName);
+        CreateArchive(backupFolder, archiveName, Pack.InstallationPath);
         Log("Archiving complete");
 
         Log("Cleaning up temp folder");
@@ -164,7 +195,7 @@ namespace ALsSoundSwitcher
       catch (Exception ex)
       {
         Console.WriteLine(ex);
-        Log("Backup Failed.");
+        Log("Backup Failed");
 
         return false;
       }
@@ -177,7 +208,7 @@ namespace ALsSoundSwitcher
 
       if (sourceInfo.Exists == false)
       {
-        throw new DirectoryNotFoundException($"Source directory not found: {sourceDir}");
+        throw new DirectoryNotFoundException("Source directory not found: " + sourceDir);
       }
 
       if (destInfo.Exists == false)
@@ -218,7 +249,7 @@ namespace ALsSoundSwitcher
       {
         if (Directory.Exists(inputFolder) == false)
         {
-          throw new DirectoryNotFoundException($"Source directory not found: {inputFolder}");
+          throw new DirectoryNotFoundException("Source directory not found: " + inputFolder);
         }
 
         zip.AddDirectory(inputFolder);
@@ -230,10 +261,38 @@ namespace ALsSoundSwitcher
     {
       if (Directory.Exists(folderPath) == false)
       {
-        throw new DirectoryNotFoundException($"Folder not found: {folderPath}");
+        throw new DirectoryNotFoundException("Folder not found: " + folderPath);
       }
 
       Directory.Delete(folderPath, true);
+    }
+
+    private static bool FetchLatestRelease()
+    {
+      Log("Downloading latest release from: \n" + Pack.DownloadUrl);
+
+      using (var webClient = new WebClient())
+      {
+        webClient.Headers.Add("user-agent", Resources.ALs_Sound_Switcher);
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+        try
+        {
+          var fileName = Path.GetFileName(Pack.DownloadUrl);
+          var filePath = Path.Combine(Pack.InstallationPath, fileName);
+          webClient.DownloadFile(Pack.DownloadUrl ?? throw new InvalidOperationException("Pack.DownloadUrl is null"), filePath);
+          Log("Downloaded:\n" + fileName + "\nto\n" + Pack.InstallationPath);
+
+          return true;
+        }
+        catch (WebException ex)
+        {
+          Console.WriteLine(ex);
+          Log("Download failed");
+
+          return false;
+        }
+      }
     }
 
     //AL.
@@ -244,12 +303,16 @@ namespace ALsSoundSwitcher
 
       if (Backup() == false)
       {
-        Rollback();
+        IndicateFailure();
         return;
       }
 
-      //Log("Downloading latest release from " + Pack.Url);
-      //FetchLatestRelease()
+      if (FetchLatestRelease() == false)
+      {
+        IndicateFailure();
+        return;
+      }
+      
 
       //Log("Extracting latest release");
       //UnzipContents()
@@ -283,7 +346,6 @@ namespace ALsSoundSwitcher
     {
       //AL.
       //TODO
-      //Message("Failed to upgrade to latest version. Rolling back to previous version. We recommend you perform a clean install with the [latest version](https://github.com/creepyLANguy/SoundSwitcher/releases/latest."))
     }
   }
 }
