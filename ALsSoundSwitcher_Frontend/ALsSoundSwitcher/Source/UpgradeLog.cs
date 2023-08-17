@@ -39,7 +39,7 @@ namespace ALsSoundSwitcher
       this.MinimizeBox = false;
       this.Name = "UpgradeLog";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-      this.Text = "AL\'s Sound Switcher - Upgrade Log";
+      this.Text = "AL\'s Sound Switcher - Upgrade Log (beta)";
       this.TopMost = true;
       this.ResumeLayout(false);
 

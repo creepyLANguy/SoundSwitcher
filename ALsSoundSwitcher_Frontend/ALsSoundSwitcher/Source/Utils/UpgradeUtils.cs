@@ -1,16 +1,18 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
+using System.IO.Compression;
 using ALsSoundSwitcher.Properties;
 
 namespace ALsSoundSwitcher
 {
   public static class UpgradeUtils
   {
-    private static UpgradeLog _upgradeLog;
+    private static UpgradeLog LogWindow;
+
+    private static UpgradePack Pack;
 
     private struct UpgradePack
     {
@@ -26,41 +28,65 @@ namespace ALsSoundSwitcher
       }
     }
 
-    public static void Upgrade()
+    public static void Run()
+    {
+      SetupUpgradeLog();
+
+      SetupUpgradePack();
+
+      ProcessUpgradePack();
+
+      MakeUpgradeLogDismissible();
+    }
+
+    private static void SetupUpgradeLog()
+    {
+      LogWindow = new UpgradeLog();
+      LogWindow.Show();
+
+      if (System.Diagnostics.Debugger.IsAttached)
+      {
+        LogWindow.TopMost = false;
+      }
+    }
+
+    private static void SetupUpgradePack()
     {
       const string latestReleaseUrl = Globals.LatestReleaseUrl;
       var localVersion = GetSemanticVersionFromCurrentExecutable();
       var latestVersion = GetSemanticVersionFromReleaseUrl(latestReleaseUrl);
-      var upgradePack = new UpgradePack(localVersion, latestVersion, latestReleaseUrl);
-      ProcessUpgradePack(upgradePack);
+      Pack = new UpgradePack(localVersion, latestVersion, latestReleaseUrl);
     }
 
-    private static void ProcessUpgradePack(UpgradePack upgradePack)
+    private static void ProcessUpgradePack()
     {
-      if (Equals(upgradePack.OldVersion, upgradePack.NewVersion))
+      if (Equals(Pack.OldVersion, Pack.NewVersion))
       {
-        MessageBox.Show(
-          Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" (" + upgradePack.NewVersion + @")",
-          @"🎧 " + Resources.ALs_Sound_Switcher);
+        Log(Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" (" + Pack.NewVersion + @")");
+        return;
       }
-      //AL.
-      //TODO - uncomment else
-      //else
+
+      try
+      { 
+        Upgrade();
+      }
+      catch (Exception ex)
       {
-        try
-        { 
-          Upgrade(upgradePack);
-        }
-        catch (Exception ex)
-        {
-          Console.WriteLine(ex);
-          Rollback(upgradePack);
-        }
+        Console.WriteLine(ex);
+        Rollback();
       }
+    }
+
+    private static void MakeUpgradeLogDismissible()
+    {
+      LogWindow.ShowControlBox();
     }
 
     private static SemanticVersion? GetSemanticVersionFromReleaseUrl(string url)
     {
+      //AL.
+      return new SemanticVersion();
+      //
       try
       {
         using (var client = new HttpClient())
@@ -107,23 +133,60 @@ namespace ALsSoundSwitcher
 
     private static void Log(string message, bool showTimestamp = true)
     {
-      _upgradeLog.Log(message, showTimestamp);
+      LogWindow.Log(message, showTimestamp);
     }
 
-    private static void Upgrade(UpgradePack upgradePack)
+    private static void Backup()
     {
+      var fileName = "v" + Pack.OldVersion + "_" + DateTime.Now.ToString("dd-MM-yyyy_HH:mm:ss") + ".zip";
+
+      var directory = Directory.GetCurrentDirectory();
+
       //AL.
-      //TODO
+      var zipFilePath = Path.Combine(directory, fileName).Replace("\\","/");
 
-      _upgradeLog = new UpgradeLog();
-      _upgradeLog.Show();
+      try
+      {
+        using (var zipToCreate = new FileStream(zipFilePath, FileMode.Create))
+        {
+          using (var archive = new ZipArchive(zipToCreate, ZipArchiveMode.Create))
+          {
+            foreach (var filePath in Directory.GetFiles(directory, "*", SearchOption.AllDirectories))
+            {
+              if (filePath.Contains(".zip"))
+              {
+                continue;
+              }
 
-      Log("Upgrading from version v" + upgradePack.OldVersion + " to v" + upgradePack.NewVersion);
+              var relativePath = filePath.Substring(directory.Length + 1);
+              var entry = archive.CreateEntry(relativePath);
 
-      Log("Creating backup of old version and user files");
-      //CreateBackup("Backup_" + currentVersion)
+              using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+              using (var entryStream = entry.Open())
+              {
+                fileStream.CopyTo(entryStream);
+              }
+            }
+          }
+        }
 
-      Log("Downloading latest release from " + upgradePack.Url);
+        Console.WriteLine(@"Folder zipped successfully.");
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine($@"An error occurred: {ex.Message}");
+      }
+    }
+
+    //AL.
+    //TODO
+    private static void Upgrade()
+    {
+      Log("Upgrading from version v" + Pack.OldVersion + " to v" + Pack.NewVersion);
+
+      Backup();
+
+      Log("Downloading latest release from " + Pack.Url);
       //FetchLatestRelease()
 
       Log("Extracting latest release");
@@ -153,11 +216,9 @@ namespace ALsSoundSwitcher
         "If you encounter issues, please rollback to the zipped backup in your install folder, or perform a clean install with the latest version available here: https://github.com/creepyLANguy/SoundSwitcher/releases/latest",
         false
         );
-
-      _upgradeLog.ShowControlBox();
     }
 
-    private static void Rollback(UpgradePack upgradePack)
+    private static void Rollback()
     {
       //AL.
       //TODO

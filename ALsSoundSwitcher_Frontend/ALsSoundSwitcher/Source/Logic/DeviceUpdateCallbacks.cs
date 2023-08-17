@@ -69,8 +69,7 @@ namespace ALsSoundSwitcher
         }
 
         Globals.WeAreSwitching = true;
-     
-        //AL.
+
         //TODO - there's a bug here.
         //This code is reached when we are in PreventAutioSwitch mode and changed the device ourselves.
         //The result is that we retrigger a switch many times.

@@ -157,7 +157,7 @@ namespace ALsSoundSwitcher
 
     private static void menuItemUpdate_Click(object sender, EventArgs e)
     {
-      UpgradeUtils.Upgrade();
+      UpgradeUtils.Run();
     }
     private static void menuItemRefresh_Click(object sender, EventArgs e)
     {
