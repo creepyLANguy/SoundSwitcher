@@ -37,6 +37,7 @@ namespace ALsSoundSwitcher
       this.DoubleBuffered = true;
       this.MaximizeBox = false;
       this.MinimizeBox = false;
+      this.MinimumSize = new System.Drawing.Size(300, 300);
       this.Name = "UpgradeLog";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "AL\'s Sound Switcher - Upgrade Log (beta)";

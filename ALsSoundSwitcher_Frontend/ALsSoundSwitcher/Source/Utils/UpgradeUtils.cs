@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.IO.Compression;
 using ALsSoundSwitcher.Properties;
+using System.Linq;
+using System.Management.Automation;
 
 namespace ALsSoundSwitcher
 {
@@ -136,46 +138,92 @@ namespace ALsSoundSwitcher
       LogWindow.Log(message, showTimestamp);
     }
 
-    private static void Backup()
+    private static bool Backup()
     {
-      var fileName = "v" + Pack.OldVersion + "_" + DateTime.Now.ToString("dd-MM-yyyy_HH:mm:ss") + ".zip";
+      Log("Backing up current installation");
 
-      var directory = Directory.GetCurrentDirectory();
-
-      //AL.
-      var zipFilePath = Path.Combine(directory, fileName).Replace("\\","/");
-
+      var installationFolder = Directory.GetCurrentDirectory();
+      var backupName = "v" + Pack.OldVersion + "_" + DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss");
+      var backupFolder = Path.Combine(installationFolder, backupName);
+      var archiveName = backupFolder + ".zip";
       try
       {
-        using (var zipToCreate = new FileStream(zipFilePath, FileMode.Create))
-        {
-          using (var archive = new ZipArchive(zipToCreate, ZipArchiveMode.Create))
-          {
-            foreach (var filePath in Directory.GetFiles(directory, "*", SearchOption.AllDirectories))
-            {
-              if (filePath.Contains(".zip"))
-              {
-                continue;
-              }
+        Log("Copying to folder : " + backupFolder);
+        CopyDirectoryContents(installationFolder, backupFolder);
+        Log("Copy complete");
 
-              var relativePath = filePath.Substring(directory.Length + 1);
-              var entry = archive.CreateEntry(relativePath);
+        Log("Archiving backup to file : " + archiveName);
+        CreateArchive(backupFolder, archiveName, installationFolder);
+        //AL.
+        //TODO
+        //DeleteFolder(backupFolder);
+        Log("Archiving complete");
 
-              using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-              using (var entryStream = entry.Open())
-              {
-                fileStream.CopyTo(entryStream);
-              }
-            }
-          }
-        }
-
-        Console.WriteLine(@"Folder zipped successfully.");
+        return true;
       }
       catch (Exception ex)
       {
-        Console.WriteLine($@"An error occurred: {ex.Message}");
+        Console.WriteLine(ex);
+        Log("Backup Failed.");
+
+        return false;
       }
+    }
+
+    private static void CopyDirectoryContents(string sourceDir, string destinationDir)
+    {
+      var sourceInfo = new DirectoryInfo(sourceDir);
+      var destInfo = new DirectoryInfo(destinationDir);
+
+      if (sourceInfo.Exists == false)
+      {
+        throw new DirectoryNotFoundException($"Source directory not found: {sourceDir}");
+      }
+
+      if (destInfo.Exists == false)
+      {
+        destInfo.Create();
+      }
+
+      var files = sourceInfo.GetFiles();
+      foreach (var file in files)
+      {
+        if (file.Name.Contains(".zip"))
+        {
+          continue;
+        }
+
+        var destinationFilePath = Path.Combine(destinationDir, file.Name);
+        file.CopyTo(destinationFilePath, true);
+      }
+
+      var dirs = sourceInfo.GetDirectories();
+      foreach (var dir in dirs)
+      {
+        if (destinationDir.Contains(dir.Name))
+        {
+          continue;
+        }
+
+        var destinationSubDir = Path.Combine(destinationDir, dir.Name);
+        CopyDirectoryContents(dir.FullName, destinationSubDir);
+      }
+    }
+
+    private static void CreateArchive(string inputFolder, string outputFileName, string destinationPath)
+    {
+      if (Directory.Exists(inputFolder) == false)
+      {
+        throw new DirectoryNotFoundException($"Source directory not found: {inputFolder}");
+      }
+
+      if (File.Exists(destinationPath))
+      {
+        throw new IOException($"Destination zip file already exists: {destinationPath}");
+      }
+
+      var finalOutputPath = Path.Combine(destinationPath, outputFileName);
+      ZipFile.CreateFromDirectory(inputFolder, finalOutputPath);
     }
 
     //AL.
@@ -184,7 +232,11 @@ namespace ALsSoundSwitcher
     {
       Log("Upgrading from version v" + Pack.OldVersion + " to v" + Pack.NewVersion);
 
-      Backup();
+      if (Backup() == false)
+      {
+        Rollback();
+        return;
+      }
 
       Log("Downloading latest release from " + Pack.Url);
       //FetchLatestRelease()
