@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -81,14 +82,18 @@ namespace ALsSoundSwitcher
       }
 
       try
-      { 
-        Upgrade();
+      {
+        if (Upgrade())
+        {
+          return;
+        }
       }
       catch (Exception ex)
       {
         Console.WriteLine(ex);
-        Rollback();
       }
+
+      IndicateFailure();
     }
 
     private static void MakeUpgradeLogDismissible()
@@ -166,7 +171,7 @@ namespace ALsSoundSwitcher
     {
       Log("Failed to upgrade to latest version \n" +
           "We recommend you perform a clean install with the latest version here: \n" +
-          "https://github.com/creepyLANguy/SoundSwitcher/releases/latest");
+          Globals.LatestReleaseUrl);
     }
 
     private static bool Backup()
@@ -295,57 +300,75 @@ namespace ALsSoundSwitcher
       }
     }
 
+    private static bool UnzipLatestRelease()
+    {
+      Log("Extracting latest release");
+      
+      try
+      {
+        using (var zip = ZipFile.Read(Path.GetFileName(Pack.DownloadUrl)))
+        {
+          zip.ExtractAll(Pack.InstallationPath, ExtractExistingFileAction.OverwriteSilently);
+        }
+
+        Log("Extraction complete");
+        return true;
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine(ex);
+        Log("Extraction Failed");
+
+        return false;
+      }
+    }
+
     //AL.
     //TODO
-    private static void Upgrade()
+    private static bool Upgrade()
     {
       Log("Upgrading from version v" + Pack.OldVersion + " to v" + Pack.NewVersion);
 
-      if (Backup() == false)
+      //AL. 
+      //TODO - add all the functions to an invokable list of steps and loop through them while the result is true.
+
+      var steps = new List<Func<bool>>
       {
-        IndicateFailure();
-        return;
-      }
+        Backup,
+        FetchLatestRelease,
+        UnzipLatestRelease,
+      };
 
-      if (FetchLatestRelease() == false)
-      {
-        IndicateFailure();
-        return;
-      }
-      
+      //Log("Copying new files to installation folder");
+      //CopyNewFiles()
 
-      //Log("Extracting latest release");
-      //UnzipContents()
-
-      //Log("Reading file manifest");
-      //ReadManifest()
-
-      //Log("Attempting full merge");
-      //AttemptBlanketCopyOfFilesButDoNotOverwrite([])
-
-      //Log("Replacing required files");
-      //ReplaceFiles([])
-
-      //Log("Merging file contents and migrating user settings");
-      //MergeFileContents([])
+      //Log("Marking current executable for deletion");
+      //RenameCurrentExecutable()
 
       //Log("Cleaning up");
-      //Delete([])
+      //CleanUp()
 
       //Log("Relaunching application");
-      //Run exe
+      //Run exe or something. This step is still eh
 
-      //Log("Upgrade successful");
+      foreach (var step in steps)
+      {
+        if (step())
+        {
+          continue;
+        }
 
-      //Log(
-      //"If you encounter issues, please rollback to the zipped backup in your install folder, or perform a clean install with the latest version available here: https://github.com/creepyLANguy/SoundSwitcher/releases/latest",
-      //false);
-    }
+        return false;
+      }
 
-    private static void Rollback()
-    {
-      //AL.
-      //TODO
+      Log("Upgrade successful!");
+
+      Log(
+      "If you encounter issues, please rollback to the zipped backup in your install folder.\nAlternatively, perform a clean install with the latest version available here:\n" +
+      Globals.LatestReleaseUrl,
+      false);
+
+      return true;
     }
   }
 }
