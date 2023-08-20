@@ -11,6 +11,7 @@ namespace ALsSoundSwitcher
 
     public const string GithubUrl = "https://github.com/creepyLANguy/SoundSwitcher";
     public const string LatestReleaseUrl = "https://github.com/creepyLANguy/SoundSwitcher/releases/latest";
+    public const string DownloadUrl = "https://github.com/creepyLANguy/SoundSwitcher/releases/latest/download/ALsSoundSwitcher.zip";
 
     public const string StartupRegistryKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 

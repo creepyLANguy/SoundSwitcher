@@ -76,13 +76,13 @@ namespace ALsSoundSwitcher
 
     private static void SetupUpgradePack()
     {
-      var html = GetHtmlFromUrl(Globals.LatestReleaseUrl);
+      var localVersion = GetSemanticVersionFromCurrentExecutable();
 
-      var downloadUrl = GetDownloadUrlFromHtml(html);
+      var html = GetHtmlFromUrl(Globals.LatestReleaseUrl);
 
       var latestVersion = GetSemanticVersionFromHtml(html);
 
-      var localVersion = GetSemanticVersionFromCurrentExecutable();
+      var downloadUrl = GetDownloadUrl();
 
       var installationPath = Directory.GetCurrentDirectory();
 
@@ -143,11 +143,9 @@ namespace ALsSoundSwitcher
       return html;
     }
 
-    private static string GetDownloadUrlFromHtml(string html)
+    private static string GetDownloadUrl()
     {
-      //AL.
-      //TODO - implement
-      return "https://github.com/creepyLANguy/SoundSwitcher/releases/download/v2.1.2/ALsSoundSwitcher.zip";
+      return Globals.LatestReleaseUrl;
     }
 
     private static SemanticVersion? GetSemanticVersionFromHtml(string html)
