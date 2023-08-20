@@ -171,7 +171,7 @@ namespace ALsSoundSwitcher
 
     private static void IndicateFailure()
     {
-      Log("Failed to upgrade to latest version \n" +
+      Log("FAILED to complete upgrade process \n" +
           "We recommend you perform a clean install with the latest version here: \n" +
           Globals.LatestReleaseUrl);
     }
@@ -180,7 +180,7 @@ namespace ALsSoundSwitcher
     {
       Log("Backing up current installation");
 
-      var backupName = "v" + Pack.OldVersion + "_" + DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss");
+      var backupName = "backup_v" + Pack.OldVersion + "_" + DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss");
       var backupFolder = Path.Combine(Pack.InstallationPath, backupName);
       var archiveName = backupFolder + ".zip";
       try
@@ -350,25 +350,49 @@ namespace ALsSoundSwitcher
       }
     }
 
+    public static bool Cleanup()
+    {
+      Log("Cleaning up installation directory");
+
+      try
+      {
+        var file = Path.GetFileName(Pack.DownloadUrl);
+        File.Delete(file);
+
+        var folder = Path.GetFileNameWithoutExtension(Pack.DownloadUrl) ?? throw new InvalidOperationException();
+        Directory.Delete(folder, true);
+
+        Log("Cleanup complete");
+        return true;
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine(ex);
+        Log("Cleanup failed.");
+
+        return false;
+      }
+    }
+
     //AL.
     //TODO
     private static bool Upgrade()
     {
       Log("Upgrading from version v" + Pack.OldVersion + " to v" + Pack.NewVersion);
 
+      Log("Installation directory: \n" + Pack.InstallationPath, false);
+
       var steps = new List<Func<bool>>
       {
         Backup,
         FetchLatestRelease,
         UnzipLatestRelease,
-        CopyNewFiles
+        CopyNewFiles,
+        Cleanup,
       };
 
       //Log("Marking current executable for deletion");
       //RenameCurrentExecutable()
-
-      //Log("Cleaning up");
-      //CleanUp()
 
       //Log("Relaunching application");
       //Run exe or something. This step is still eh
@@ -383,7 +407,7 @@ namespace ALsSoundSwitcher
         return false;
       }
 
-      Log("Upgrade successful!");
+      Log("Upgrade SUCCESSFUL!");
 
       Log(
       "If you encounter issues, please rollback to the zipped backup in your install folder.\nAlternatively, perform a clean install with the latest version available here:\n" +

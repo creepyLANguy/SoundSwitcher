@@ -51,8 +51,8 @@ namespace ALsSoundSwitcher
 
     public void Log(string message, bool showTimestamp)
     {
-      var time = showTimestamp ? DateTime.Now.ToString("HH:mm:ss.fff") : "";
-      textBox.Text += time + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
+      var time = showTimestamp ? DateTime.Now.ToString("HH:mm:ss.fff") + Environment.NewLine : "";
+      textBox.Text += time + message + Environment.NewLine + Environment.NewLine;
       textBox.SelectionStart = textBox.Text.Length;
       textBox.ScrollToCaret();
       Refresh();
