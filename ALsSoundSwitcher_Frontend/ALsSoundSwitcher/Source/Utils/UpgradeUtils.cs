@@ -145,7 +145,7 @@ namespace ALsSoundSwitcher
 
     private static string GetDownloadUrl()
     {
-      return Globals.LatestReleaseUrl;
+      return Globals.DownloadUrl;
     }
 
     private static SemanticVersion? GetSemanticVersionFromHtml(string html)
