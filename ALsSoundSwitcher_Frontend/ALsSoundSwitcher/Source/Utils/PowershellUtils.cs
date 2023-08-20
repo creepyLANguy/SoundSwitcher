@@ -18,6 +18,7 @@ namespace ALsSoundSwitcher
         ps.Invoke();
       }
     }
+
     public static void SetInputDeviceCmdlet(string deviceId)
     {
       using (var ps = PowerShell.Create())
