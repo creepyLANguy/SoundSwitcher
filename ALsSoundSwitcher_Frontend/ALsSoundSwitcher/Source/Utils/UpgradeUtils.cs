@@ -357,11 +357,7 @@ namespace ALsSoundSwitcher
           Path.GetFileNameWithoutExtension(_pack.DownloadUrl),
           _pack.InstallationPath,
           true,
-          new[]
-          {
-            //Path.GetFileName(Application.ExecutablePath), 
-            "settings.json"
-          }
+          new[] {"settings.json"}
         );
 
         Log("Copying complete");
@@ -452,8 +448,9 @@ namespace ALsSoundSwitcher
 
     private static void CleanupOutdatedFiles()
     {
-      var sleepMs = 5000;
-      var maxFailures = 50;
+      const int sleepMs = 5000;
+      const int maxFailures = 50;
+
       var failures = 0;
 
       while (failures < maxFailures)
