@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ALsSoundSwitcher.Properties;
+using System;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -43,6 +44,8 @@ namespace ALsSoundSwitcher
       this.Text = "AL\'s Sound Switcher - Upgrade Log (beta)";
       this.TopMost = true;
       this.ResumeLayout(false);
+
+      this.Icon = Resources.Headset;
 
     }
 

@@ -1,9 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using Ionic.Zip;
 
@@ -184,7 +186,7 @@ namespace ALsSoundSwitcher
       try
       {
         Log("Copying to temp folder: \n" + backupFolder);
-        CopyDirectoryContents(Pack.InstallationPath, backupFolder);
+        CopyDirectoryContents(Pack.InstallationPath, backupFolder, true, new[]{".zip"});
         Log("Copy complete");
 
         Log("Archiving backup to file: \n" + archiveName);
@@ -206,7 +208,7 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private static void CopyDirectoryContents(string sourceDir, string destinationDir)
+    private static void CopyDirectoryContents(string sourceDir, string destinationDir, bool overwrite, string[] exclusions)
     {
       var sourceInfo = new DirectoryInfo(sourceDir);
       var destInfo = new DirectoryInfo(destinationDir);
@@ -224,13 +226,13 @@ namespace ALsSoundSwitcher
       var files = sourceInfo.GetFiles();
       foreach (var file in files)
       {
-        if (file.Name.Contains(".zip"))
+        if (exclusions.Any(exclusion => file.Name.Contains(exclusion)))
         {
           continue;
         }
 
         var destinationFilePath = Path.Combine(destinationDir, file.Name);
-        file.CopyTo(destinationFilePath, true);
+        file.CopyTo(destinationFilePath, overwrite);
       }
 
       var dirs = sourceInfo.GetDirectories();
@@ -242,7 +244,7 @@ namespace ALsSoundSwitcher
         }
 
         var destinationSubDir = Path.Combine(destinationDir, dir.Name);
-        CopyDirectoryContents(dir.FullName, destinationSubDir);
+        CopyDirectoryContents(dir.FullName, destinationSubDir, overwrite, exclusions);
       }
     }
 
@@ -323,24 +325,44 @@ namespace ALsSoundSwitcher
       }
     }
 
+    private static bool CopyNewFiles()
+    {
+      Log("Copying new files");
+
+      try
+      {
+        CopyDirectoryContents(
+          Path.GetFileNameWithoutExtension(Pack.DownloadUrl),
+          Pack.InstallationPath,
+          true,
+          new[] {Path.GetFileName(Application.ExecutablePath), "settings.json"}
+        );
+
+        Log("Copying complete");
+        return true;
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine(ex);
+        Log("Copying failed");
+
+        return false;
+      }
+    }
+
     //AL.
     //TODO
     private static bool Upgrade()
     {
       Log("Upgrading from version v" + Pack.OldVersion + " to v" + Pack.NewVersion);
 
-      //AL. 
-      //TODO - add all the functions to an invokable list of steps and loop through them while the result is true.
-
       var steps = new List<Func<bool>>
       {
         Backup,
         FetchLatestRelease,
         UnzipLatestRelease,
+        CopyNewFiles
       };
-
-      //Log("Copying new files to installation folder");
-      //CopyNewFiles()
 
       //Log("Marking current executable for deletion");
       //RenameCurrentExecutable()
