@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using Ionic.Zip;
@@ -13,9 +15,9 @@ namespace ALsSoundSwitcher
 {
   public static class UpgradeUtils
   {
-    private static UpgradeLog LogWindow;
+    private static UpgradeLog _logWindow;
 
-    private static UpgradePack Pack;
+    private static UpgradePack _pack;
 
     private struct UpgradePack
     {
@@ -23,40 +25,52 @@ namespace ALsSoundSwitcher
       public readonly SemanticVersion? NewVersion;
       public readonly string DownloadUrl;
       public readonly string InstallationPath;
+      public readonly string Timestamp;
 
       public UpgradePack(
         SemanticVersion? oldVersion, 
         SemanticVersion? newVersion,
         string downloadUrl, 
-        string installationPath
+        string installationPath,
+        string timestamp
         )
       {
         OldVersion = oldVersion;
         NewVersion = newVersion;
         DownloadUrl = downloadUrl;
         InstallationPath = installationPath;
+        Timestamp = timestamp;
       }
     }
 
-    public static void Run()
+    public static bool Run()
     {
-      SetupUpgradeLog();
-
       SetupUpgradePack();
 
-      ProcessUpgradePack();
+      if (Equals(_pack.OldVersion, _pack.NewVersion))
+      {
+        MessageBox.Show(
+          Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" (" + _pack.NewVersion + @")",
+          Resources.ALs_Sound_Switcher
+        );
+        return false;
+      }
 
-      MakeUpgradeLogDismissible();
+      SetupUpgradeLog();
+
+      var res = ProcessUpgradePack();
+
+      return res;
     }
 
     private static void SetupUpgradeLog()
     {
-      LogWindow = new UpgradeLog();
-      LogWindow.Show();
+      _logWindow = new UpgradeLog();
+      _logWindow.Show();
 
       if (System.Diagnostics.Debugger.IsAttached)
       {
-        LogWindow.TopMost = false;
+        _logWindow.TopMost = false;
       }
     }
 
@@ -72,22 +86,25 @@ namespace ALsSoundSwitcher
 
       var installationPath = Directory.GetCurrentDirectory();
 
-      Pack = new UpgradePack(localVersion, latestVersion, downloadUrl, installationPath);
+      var timestamp = DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss");
+
+      _pack = new UpgradePack(
+        localVersion,
+        latestVersion,
+        downloadUrl,
+        installationPath,
+        timestamp
+        );
     }
 
-    private static void ProcessUpgradePack()
+    private static bool ProcessUpgradePack()
     {
-      if (Equals(Pack.OldVersion, Pack.NewVersion))
-      {
-        Log(Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" (" + Pack.NewVersion + @")");
-        return;
-      }
-
       try
       {
         if (Upgrade())
         {
-          return;
+          MakeUpgradeLogDismissible();
+          return true;
         }
       }
       catch (Exception ex)
@@ -96,11 +113,12 @@ namespace ALsSoundSwitcher
       }
 
       IndicateFailure();
+      return false;
     }
 
     private static void MakeUpgradeLogDismissible()
     {
-      LogWindow.ShowControlBox();
+      _logWindow.ShowControlBox();
     }
 
     private static string GetHtmlFromUrl(string url)
@@ -134,11 +152,6 @@ namespace ALsSoundSwitcher
 
     private static SemanticVersion? GetSemanticVersionFromHtml(string html)
     {
-      //AL.
-      //TODO - remove
-      return new SemanticVersion();
-      //
-      
       const string versionPattern = @"\/releases\/tag\/v([0-9]+\.[0-9]+\.[0-9]+)";
       var match = Regex.Match(html, versionPattern);
 
@@ -166,7 +179,7 @@ namespace ALsSoundSwitcher
 
     private static void Log(string message, bool showTimestamp = true)
     {
-      LogWindow.Log(message, showTimestamp);
+      _logWindow.Log(message, showTimestamp);
     }
 
     private static void IndicateFailure()
@@ -180,17 +193,17 @@ namespace ALsSoundSwitcher
     {
       Log("Backing up current installation");
 
-      var backupName = "backup_v" + Pack.OldVersion + "_" + DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss");
-      var backupFolder = Path.Combine(Pack.InstallationPath, backupName);
+      var backupName = "backup_v" + _pack.OldVersion + "_" + _pack.Timestamp;
+      var backupFolder = Path.Combine(_pack.InstallationPath, backupName);
       var archiveName = backupFolder + ".zip";
       try
       {
         Log("Copying to temp folder: \n" + backupFolder);
-        CopyDirectoryContents(Pack.InstallationPath, backupFolder, true, new[]{".zip"});
+        CopyDirectoryContents(_pack.InstallationPath, backupFolder, true, new[]{".zip"});
         Log("Copy complete");
 
         Log("Archiving backup to file: \n" + archiveName);
-        CreateArchive(backupFolder, archiveName, Pack.InstallationPath);
+        CreateArchive(backupFolder, archiveName, _pack.InstallationPath);
         Log("Archiving complete");
 
         Log("Cleaning up temp folder");
@@ -276,7 +289,7 @@ namespace ALsSoundSwitcher
 
     private static bool FetchLatestRelease()
     {
-      Log("Downloading latest release from: \n" + Pack.DownloadUrl);
+      Log("Downloading latest release from: \n" + _pack.DownloadUrl);
 
       using (var webClient = new WebClient())
       {
@@ -285,10 +298,10 @@ namespace ALsSoundSwitcher
 
         try
         {
-          var fileName = Path.GetFileName(Pack.DownloadUrl);
-          var filePath = Path.Combine(Pack.InstallationPath, fileName);
-          webClient.DownloadFile(Pack.DownloadUrl ?? throw new InvalidOperationException("Pack.DownloadUrl is null"), filePath);
-          Log("Downloaded:\n" + fileName + "\nto\n" + Pack.InstallationPath);
+          var fileName = Path.GetFileName(_pack.DownloadUrl);
+          var filePath = Path.Combine(_pack.InstallationPath, fileName);
+          webClient.DownloadFile(_pack.DownloadUrl ?? throw new InvalidOperationException(), filePath);
+          Log("Downloaded:\n" + fileName + "\nto\n" + _pack.InstallationPath);
 
           return true;
         }
@@ -308,9 +321,9 @@ namespace ALsSoundSwitcher
       
       try
       {
-        using (var zip = ZipFile.Read(Path.GetFileName(Pack.DownloadUrl)))
+        using (var zip = ZipFile.Read(Path.GetFileName(_pack.DownloadUrl)))
         {
-          zip.ExtractAll(Pack.InstallationPath, ExtractExistingFileAction.OverwriteSilently);
+          zip.ExtractAll(_pack.InstallationPath, ExtractExistingFileAction.OverwriteSilently);
         }
 
         Log("Extraction complete");
@@ -325,6 +338,17 @@ namespace ALsSoundSwitcher
       }
     }
 
+    private static bool MarkCurrentExeForDeletion()
+    {
+      Log("Marking current executable as old");
+
+      PowerShellUtils.Rename(Application.ExecutablePath, _pack.Timestamp + "_outdated");
+
+      Log("Marking complete");
+
+      return true;
+    }
+
     private static bool CopyNewFiles()
     {
       Log("Copying new files");
@@ -332,10 +356,14 @@ namespace ALsSoundSwitcher
       try
       {
         CopyDirectoryContents(
-          Path.GetFileNameWithoutExtension(Pack.DownloadUrl),
-          Pack.InstallationPath,
+          Path.GetFileNameWithoutExtension(_pack.DownloadUrl),
+          _pack.InstallationPath,
           true,
-          new[] {Path.GetFileName(Application.ExecutablePath), "settings.json"}
+          new[]
+          {
+            //Path.GetFileName(Application.ExecutablePath), 
+            "settings.json"
+          }
         );
 
         Log("Copying complete");
@@ -350,16 +378,17 @@ namespace ALsSoundSwitcher
       }
     }
 
-    public static bool Cleanup()
+    private static bool Cleanup()
     {
       Log("Cleaning up installation directory");
 
       try
       {
-        var file = Path.GetFileName(Pack.DownloadUrl);
+        var file = Path.GetFileName(_pack.DownloadUrl);
         File.Delete(file);
 
-        var folder = Path.GetFileNameWithoutExtension(Pack.DownloadUrl) ?? throw new InvalidOperationException();
+        var folder = 
+          Path.GetFileNameWithoutExtension(_pack.DownloadUrl) ?? throw new InvalidOperationException();
         Directory.Delete(folder, true);
 
         Log("Cleanup complete");
@@ -374,28 +403,33 @@ namespace ALsSoundSwitcher
       }
     }
 
-    //AL.
-    //TODO
+    private static bool LaunchNewVersion()
+    {
+      var exe = Application.ProductName + ".exe";
+
+      Log("Launching new version of " + exe);
+
+      ProcessUtils.RunExe(exe, "", true);
+
+      return true;
+    }
+
     private static bool Upgrade()
     {
-      Log("Upgrading from version v" + Pack.OldVersion + " to v" + Pack.NewVersion);
+      Log("Upgrading from version v" + _pack.OldVersion + " to v" + _pack.NewVersion);
 
-      Log("Installation directory: \n" + Pack.InstallationPath, false);
+      Log("Installation directory: \n" + _pack.InstallationPath, false);
 
       var steps = new List<Func<bool>>
       {
         Backup,
         FetchLatestRelease,
         UnzipLatestRelease,
+        MarkCurrentExeForDeletion,
         CopyNewFiles,
         Cleanup,
+        LaunchNewVersion,
       };
-
-      //Log("Marking current executable for deletion");
-      //RenameCurrentExecutable()
-
-      //Log("Relaunching application");
-      //Run exe or something. This step is still eh
 
       foreach (var step in steps)
       {
@@ -410,11 +444,51 @@ namespace ALsSoundSwitcher
       Log("Upgrade SUCCESSFUL!");
 
       Log(
-      "If you encounter issues, please rollback to the zipped backup in your install folder.\nAlternatively, perform a clean install with the latest version available here:\n" +
+      "If you encounter issues, please rollback to the zipped backup in your install folder.\n" +
+      "Alternatively, perform a clean install with the latest version available here:\n" +
       Globals.LatestReleaseUrl,
       false);
 
       return true;
+    }
+
+    private static void CleanupOutdatedFiles()
+    {
+      var sleepMs = 5000;
+      var maxFailures = 50;
+      var failures = 0;
+
+      while (failures < maxFailures)
+      {
+        var allFiles =
+          Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + "_outdated", SearchOption.AllDirectories)
+            .Select(Path.GetFileName)
+            .ToList();
+
+        if (allFiles.Count == 0)
+        {
+          break;
+        }
+
+        try
+        {
+          foreach (var file in allFiles)
+          {
+            File.Delete(file);
+          }
+        }
+        catch (Exception e)
+        {
+          ++failures;
+          Console.WriteLine(e);
+          Thread.Sleep(sleepMs);
+        }
+      }
+    }
+
+    public static async void MonitorForOutdatedFilesAndAttemptRemoval_Async()
+    {
+      await Task.Run(CleanupOutdatedFiles);
     }
   }
 }

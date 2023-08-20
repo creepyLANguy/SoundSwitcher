@@ -36,6 +36,7 @@ namespace ALsSoundSwitcher
       this.ControlBox = false;
       this.Controls.Add(this.textBox);
       this.DoubleBuffered = true;
+      this.Icon = global::ALsSoundSwitcher.Properties.Resources.Headset;
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.MinimumSize = new System.Drawing.Size(300, 300);
@@ -43,9 +44,8 @@ namespace ALsSoundSwitcher
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "AL\'s Sound Switcher - Upgrade Log (beta)";
       this.TopMost = true;
+      this.FormClosed += UpgradeLog_FormClosed;
       this.ResumeLayout(false);
-
-      this.Icon = Resources.Headset;
 
     }
 
@@ -61,6 +61,11 @@ namespace ALsSoundSwitcher
     public void ShowControlBox()
     {
       ControlBox = true;
+    }
+
+    private void UpgradeLog_FormClosed(object sender, FormClosedEventArgs e)
+    {
+      Application.Exit();
     }
   }
 }

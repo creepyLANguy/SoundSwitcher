@@ -157,7 +157,12 @@ namespace ALsSoundSwitcher
 
     private static void menuItemUpdate_Click(object sender, EventArgs e)
     {
-      UpgradeUtils.Run();
+      notifyIcon1.Visible = false;
+
+      if (UpgradeUtils.Run() == false)
+      {
+        notifyIcon1.Visible = true;
+      }
     }
     private static void menuItemRefresh_Click(object sender, EventArgs e)
     {

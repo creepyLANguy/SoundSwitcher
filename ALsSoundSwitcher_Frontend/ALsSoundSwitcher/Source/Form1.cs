@@ -13,12 +13,14 @@ namespace ALsSoundSwitcher
 
     private void Form1_Load(object sender, EventArgs e)
     {
+      ProcessUtils.SetWorkingDirectory();
+
       if (System.Diagnostics.Debugger.IsAttached)
       {
         TestUtils.RunDebugCode();
       }
 
-      ProcessUtils.SetWorkingDirectory();
+      UpgradeUtils.MonitorForOutdatedFilesAndAttemptRemoval_Async();
 
       Globals.Instance = this;
 
@@ -64,7 +66,6 @@ namespace ALsSoundSwitcher
     private void Minimize()
     {
       WindowState = FormWindowState.Minimized;
-      //notifyIcon1.ShowBalloonTip(Settings.Current.BalloonTime);
       ShowInTaskbar = false;
       Visible = false;
     }

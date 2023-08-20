@@ -6,9 +6,6 @@ namespace ALsSoundSwitcher
   {
     public static void RunDebugCode()
     {
-      //AL.
-      //TODO - remove
-      UpgradeUtils.Run();
     }
 
     public static void RemoveAudioDeviceCmdletsAndExit()
