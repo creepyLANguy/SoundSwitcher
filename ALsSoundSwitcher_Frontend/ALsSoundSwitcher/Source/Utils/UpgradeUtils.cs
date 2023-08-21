@@ -15,6 +15,8 @@ namespace ALsSoundSwitcher
 {
   public static class UpgradeUtils
   {
+    private static HashSet<SemanticVersion?> _skippedVersions = new HashSet<SemanticVersion?>() ;
+
     private static UpgradeLog _logWindow;
 
     private static UpgradePack _pack;
@@ -43,8 +45,11 @@ namespace ALsSoundSwitcher
       }
     }
 
-    public static bool Run()
+    public static void Run()
     {
+      var baseForm = (Form1) Globals.Instance;
+      baseForm.HideTrayIcon();
+
       SetupUpgradePack();
 
       if (Equals(_pack.OldVersion, _pack.NewVersion))
@@ -53,14 +58,16 @@ namespace ALsSoundSwitcher
           Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" (" + _pack.NewVersion + @")",
           Resources.ALs_Sound_Switcher
         );
-        return false;
+        return;
       }
 
       SetupUpgradeLog();
 
       var res = ProcessUpgradePack();
-
-      return res;
+      if (res == false)
+      {
+        baseForm.ShowTrayIcon();
+      }
     }
 
     private static void SetupUpgradeLog()
@@ -78,9 +85,7 @@ namespace ALsSoundSwitcher
     {
       var localVersion = GetSemanticVersionFromCurrentExecutable();
 
-      var html = GetHtmlFromUrl(Globals.LatestReleaseUrl);
-
-      var latestVersion = GetSemanticVersionFromHtml(html);
+      var latestVersion = GetSemanticVersionFromUrl(Globals.LatestReleaseUrl);
 
       var downloadUrl = GetDownloadUrl();
 
@@ -95,6 +100,66 @@ namespace ALsSoundSwitcher
         installationPath,
         timestamp
         );
+    }
+
+    private static SemanticVersion? GetSemanticVersionFromCurrentExecutable()
+    {
+      var entryAssembly = Assembly.GetEntryAssembly();
+      var version = entryAssembly?.GetName().Version;
+
+      if (version == null)
+      {
+        return null;
+      }
+
+      return new SemanticVersion(version.ToString());
+    }
+
+    private static SemanticVersion? GetSemanticVersionFromUrl(string url)
+    {
+      var html = GetHtmlFromUrl(url);
+      return GetSemanticVersionFromHtml(html);
+    }
+
+    private static string GetHtmlFromUrl(string url)
+    {
+      var html = string.Empty;
+
+      using (var webClient = new WebClient())
+      {
+        webClient.Headers.Add("user-agent", Resources.ALs_Sound_Switcher);
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+        try
+        {
+          html = webClient.DownloadString(url);
+        }
+        catch (WebException ex)
+        {
+          Console.WriteLine(ex);
+        }
+      }
+
+      return html;
+    }
+
+    private static SemanticVersion? GetSemanticVersionFromHtml(string html)
+    {
+      const string versionPattern = @"\/releases\/tag\/v([0-9]+\.[0-9]+\.[0-9]+)";
+      var match = Regex.Match(html, versionPattern);
+
+      if (match.Success == false)
+      {
+        return null;
+      }
+
+      var latestVersion = match.Groups[1].Value;
+      return new SemanticVersion(latestVersion);
+    }
+
+    private static string GetDownloadUrl()
+    {
+      return Globals.DownloadUrl;
     }
 
     private static bool ProcessUpgradePack()
@@ -121,70 +186,16 @@ namespace ALsSoundSwitcher
       _logWindow.ShowControlBox();
     }
 
-    private static string GetHtmlFromUrl(string url)
+    private static void IndicateFailure()
     {
-      var html = string.Empty;
-
-      using (var webClient = new WebClient())
-      {
-        webClient.Headers.Add("user-agent", Resources.ALs_Sound_Switcher);
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-        try
-        {
-          html = webClient.DownloadString(url);
-        }
-        catch (WebException ex)
-        {
-          Console.WriteLine(ex);
-        }
-      }
-
-      return html;
-    }
-
-    private static string GetDownloadUrl()
-    {
-      return Globals.DownloadUrl;
-    }
-
-    private static SemanticVersion? GetSemanticVersionFromHtml(string html)
-    {
-      const string versionPattern = @"\/releases\/tag\/v([0-9]+\.[0-9]+\.[0-9]+)";
-      var match = Regex.Match(html, versionPattern);
-
-      if (match.Success == false)
-      {
-        return null;
-      }
-
-      var latestVersion = match.Groups[1].Value;
-      return new SemanticVersion(latestVersion);
-    }
-
-    private static SemanticVersion? GetSemanticVersionFromCurrentExecutable()
-    {
-      var entryAssembly = Assembly.GetEntryAssembly();
-      var version = entryAssembly?.GetName().Version;
-
-      if (version == null)
-      {
-        return null;
-      }
-      
-      return new SemanticVersion(version.ToString());
+      Log("FAILED to complete upgrade process " + Environment.NewLine +
+          "We recommend you perform a clean install with the latest version here: " + Environment.NewLine +
+          Globals.LatestReleaseUrl);
     }
 
     private static void Log(string message, bool showTimestamp = true)
     {
       _logWindow.Log(message, showTimestamp);
-    }
-
-    private static void IndicateFailure()
-    {
-      Log("FAILED to complete upgrade process \n" +
-          "We recommend you perform a clean install with the latest version here: \n" +
-          Globals.LatestReleaseUrl);
     }
 
     private static bool Backup()
@@ -196,11 +207,11 @@ namespace ALsSoundSwitcher
       var archiveName = backupFolder + ".zip";
       try
       {
-        Log("Copying to temp folder: \n" + backupFolder);
+        Log("Copying to temp folder: " + Environment.NewLine + backupFolder);
         CopyDirectoryContents(_pack.InstallationPath, backupFolder, true, new[]{".zip"});
         Log("Copy complete");
 
-        Log("Archiving backup to file: \n" + archiveName);
+        Log("Archiving backup to file: " + Environment.NewLine + archiveName);
         CreateArchive(backupFolder, archiveName, _pack.InstallationPath);
         Log("Archiving complete");
 
@@ -287,7 +298,7 @@ namespace ALsSoundSwitcher
 
     private static bool FetchLatestRelease()
     {
-      Log("Downloading latest release from: \n" + _pack.DownloadUrl);
+      Log("Downloading latest release from: " + Environment.NewLine + _pack.DownloadUrl);
 
       using (var webClient = new WebClient())
       {
@@ -299,7 +310,12 @@ namespace ALsSoundSwitcher
           var fileName = Path.GetFileName(_pack.DownloadUrl);
           var filePath = Path.Combine(_pack.InstallationPath, fileName);
           webClient.DownloadFile(_pack.DownloadUrl ?? throw new InvalidOperationException(), filePath);
-          Log("Downloaded:\n" + fileName + "\nto\n" + _pack.InstallationPath);
+
+          Log(
+            "Downloaded:" + Environment.NewLine + 
+            fileName + Environment.NewLine + 
+            "to" + Environment.NewLine + 
+            _pack.InstallationPath);
 
           return true;
         }
@@ -412,7 +428,7 @@ namespace ALsSoundSwitcher
     {
       Log("Upgrading from version v" + _pack.OldVersion + " to v" + _pack.NewVersion);
 
-      Log("Installation directory: \n" + _pack.InstallationPath, false);
+      Log("Installation directory: " + Environment.NewLine + _pack.InstallationPath, false);
 
       var steps = new List<Func<bool>>
       {
@@ -438,8 +454,8 @@ namespace ALsSoundSwitcher
       Log("Upgrade SUCCESSFUL!");
 
       Log(
-      "If you encounter issues, please rollback to the zipped backup in your install folder.\n" +
-      "Alternatively, perform a clean install with the latest version available here:\n" +
+      "If you encounter issues, please rollback to the zipped backup in your install folder." + Environment.NewLine +
+      "Alternatively, perform a clean install with the latest version available here:" + Environment.NewLine +
       Globals.LatestReleaseUrl,
       false);
 
@@ -484,6 +500,45 @@ namespace ALsSoundSwitcher
     public static async void MonitorForOutdatedFilesAndAttemptRemoval_Async()
     {
       await Task.Run(CleanupOutdatedFiles);
+    }
+
+    public static async void PollForUpdates_Async()
+    {
+      while (true)
+      {
+        await Task.Delay(TimeSpan.FromHours(1));
+
+        var currentVersion = GetSemanticVersionFromCurrentExecutable();
+        var latestVersion = GetSemanticVersionFromUrl(Globals.LatestReleaseUrl);
+
+        if (Equals(currentVersion, latestVersion))
+        {
+          continue;
+        }
+
+        if (_skippedVersions.Contains(latestVersion))
+        {
+          continue;
+        }
+
+        var selection = 
+          MessageBox.Show(
+          @"An update is available." +
+          Environment.NewLine + Environment.NewLine + @"Current version: " + currentVersion +
+          Environment.NewLine + @"nLatest version: " + latestVersion +
+          Environment.NewLine + Environment.NewLine + @"Would you like to update?",
+          Resources.ALs_Sound_Switcher,
+          MessageBoxButtons.YesNo
+        );
+
+        if (selection == DialogResult.Yes)
+        { 
+          Run();
+          return;
+        }
+
+        _skippedVersions.Add(latestVersion);
+      }
     }
   }
 }

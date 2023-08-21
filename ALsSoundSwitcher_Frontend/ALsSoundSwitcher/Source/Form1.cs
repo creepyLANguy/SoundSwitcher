@@ -20,6 +20,7 @@ namespace ALsSoundSwitcher
         TestUtils.RunDebugCode();
       }
 
+      UpgradeUtils.PollForUpdates_Async();
       UpgradeUtils.MonitorForOutdatedFilesAndAttemptRemoval_Async();
 
       Globals.Instance = this;
@@ -68,6 +69,30 @@ namespace ALsSoundSwitcher
       WindowState = FormWindowState.Minimized;
       ShowInTaskbar = false;
       Visible = false;
+    }
+
+    public void ShowTrayIcon()
+    {
+      if (InvokeRequired)
+      {
+        Invoke(new MethodInvoker(ShowTrayIcon));
+      }
+      else
+      {
+        notifyIcon1.Visible = true;
+      }
+    }
+
+    public void HideTrayIcon()
+    {
+      if (InvokeRequired)
+      {
+        Invoke(new MethodInvoker(HideTrayIcon));
+      }
+      else
+      {
+        notifyIcon1.Visible = false;
+      }
     }
   }
 }
