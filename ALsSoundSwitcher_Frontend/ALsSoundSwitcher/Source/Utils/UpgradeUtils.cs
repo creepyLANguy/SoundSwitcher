@@ -45,6 +45,8 @@ namespace ALsSoundSwitcher
       }
     }
 
+    private static readonly string Newline = Environment.NewLine;
+
     public static void Run()
     {
       var baseForm = (Form1) Globals.Instance;
@@ -63,8 +65,7 @@ namespace ALsSoundSwitcher
 
       SetupUpgradeLog();
 
-      var res = ProcessUpgradePack();
-      if (res == false)
+      if (ProcessUpgradePack() == false)
       {
         baseForm.ShowTrayIcon();
       }
@@ -188,8 +189,8 @@ namespace ALsSoundSwitcher
 
     private static void IndicateFailure()
     {
-      Log("FAILED to complete upgrade process " + Environment.NewLine +
-          "We recommend you perform a clean install with the latest version here: " + Environment.NewLine +
+      Log("FAILED to complete upgrade process " + Newline +
+          "We recommend you perform a clean install with the latest version here: " + Newline +
           Globals.LatestReleaseUrl);
     }
 
@@ -207,11 +208,11 @@ namespace ALsSoundSwitcher
       var archiveName = backupFolder + ".zip";
       try
       {
-        Log("Copying to temp folder: " + Environment.NewLine + backupFolder);
+        Log("Copying to temp folder: " + Newline + backupFolder);
         CopyDirectoryContents(_pack.InstallationPath, backupFolder, true, new[]{".zip"});
         Log("Copy complete");
 
-        Log("Archiving backup to file: " + Environment.NewLine + archiveName);
+        Log("Archiving backup to file: " + Newline + archiveName);
         CreateArchive(backupFolder, archiveName, _pack.InstallationPath);
         Log("Archiving complete");
 
@@ -298,7 +299,7 @@ namespace ALsSoundSwitcher
 
     private static bool FetchLatestRelease()
     {
-      Log("Downloading latest release from: " + Environment.NewLine + _pack.DownloadUrl);
+      Log("Downloading latest release from: " + Newline + _pack.DownloadUrl);
 
       using (var webClient = new WebClient())
       {
@@ -312,9 +313,9 @@ namespace ALsSoundSwitcher
           webClient.DownloadFile(_pack.DownloadUrl ?? throw new InvalidOperationException(), filePath);
 
           Log(
-            "Downloaded:" + Environment.NewLine + 
-            fileName + Environment.NewLine + 
-            "to" + Environment.NewLine + 
+            "Downloaded:" + Newline + 
+            fileName + Newline + 
+            "to" + Newline + 
             _pack.InstallationPath);
 
           return true;
@@ -428,7 +429,7 @@ namespace ALsSoundSwitcher
     {
       Log("Upgrading from version v" + _pack.OldVersion + " to v" + _pack.NewVersion);
 
-      Log("Installation directory: " + Environment.NewLine + _pack.InstallationPath, false);
+      Log("Installation directory: " + Newline + _pack.InstallationPath, false);
 
       var steps = new List<Func<bool>>
       {
@@ -454,8 +455,8 @@ namespace ALsSoundSwitcher
       Log("Upgrade SUCCESSFUL!");
 
       Log(
-      "If you encounter issues, please rollback to the zipped backup in your install folder." + Environment.NewLine +
-      "Alternatively, perform a clean install with the latest version available here:" + Environment.NewLine +
+      "If you encounter issues, please rollback to the zipped backup in your install folder." + Newline +
+      "Alternatively, perform a clean install with the latest version available here:" + Newline +
       Globals.LatestReleaseUrl,
       false);
 
@@ -524,9 +525,9 @@ namespace ALsSoundSwitcher
         var selection = 
           MessageBox.Show(
           @"An update is available." +
-          Environment.NewLine + Environment.NewLine + @"Current version: " + currentVersion +
-          Environment.NewLine + @"nLatest version: " + latestVersion +
-          Environment.NewLine + Environment.NewLine + @"Would you like to update?",
+          Newline + Newline + @"Current version: " + currentVersion +
+          Newline + @"nLatest version: " + latestVersion +
+          Newline + Newline + @"Would you like to update?",
           Resources.ALs_Sound_Switcher,
           MessageBoxButtons.YesNo
         );
