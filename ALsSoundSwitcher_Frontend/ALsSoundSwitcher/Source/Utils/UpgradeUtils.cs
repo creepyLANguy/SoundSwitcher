@@ -57,7 +57,7 @@ namespace ALsSoundSwitcher
       if (Equals(_pack.OldVersion, _pack.NewVersion))
       {
         MessageBox.Show(
-          Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" (" + _pack.NewVersion + @")",
+          Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" [" + _pack.NewVersion + @"]",
           Resources.ALs_Sound_Switcher
         );
         
