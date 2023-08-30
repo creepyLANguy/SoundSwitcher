@@ -61,6 +61,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AL&apos;s Sound Switcher.
+        /// </summary>
+        internal static string ALs_Sound_Switcher {
+            get {
+                return ResourceManager.GetString("ALs_Sound_Switcher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monitoring for audio device changes....
         /// </summary>
         internal static string DeviceUtils_Monitor {
@@ -306,6 +315,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_Update {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Volume Mixer.
         /// </summary>
         internal static string Form1_SetupContextMenu_VolumeMixer {
@@ -513,24 +531,6 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AL&apos;s Sound Switcher.
-        /// </summary>
-        internal static string PowerShellUtils_InstallAudioCmdlets_Caption {
-            get {
-                return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Caption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AL&apos;s Sound Switcher.
-        /// </summary>
-        internal static string PowerShellUtils_InstallAudioCmdlets_Error_Caption {
-            get {
-                return ResourceManager.GetString("PowerShellUtils_InstallAudioCmdlets_Error_Caption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to For Input mode to function, allow PowerShell to install the required components. Please try again..
         /// </summary>
         internal static string PowerShellUtils_InstallAudioCmdlets_Error_Message {
@@ -572,6 +572,15 @@ namespace ALsSoundSwitcher.Properties {
         internal static string ThemeCreator_TextBoxDefault {
             get {
                 return ResourceManager.GetString("ThemeCreator_TextBoxDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are already on the latest version.
+        /// </summary>
+        internal static string UpgradeUtils_HandleUpgradeReason_already_on_latest_version {
+            get {
+                return ResourceManager.GetString("UpgradeUtils_HandleUpgradeReason_already_on_latest_version", resourceCulture);
             }
         }
     }

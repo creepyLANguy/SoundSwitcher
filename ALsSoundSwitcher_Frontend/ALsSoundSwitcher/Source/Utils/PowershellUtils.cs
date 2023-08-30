@@ -7,7 +7,18 @@ using ALsSoundSwitcher.Properties;
 namespace ALsSoundSwitcher
 {
   public class PowerShellUtils
-  {
+  {    
+    public static void Rename(string path, string newName)
+    {
+      using (var ps = PowerShell.Create())
+      {
+        ps.AddCommand("Rename-Item");
+        ps.AddParameter("-Path", path);
+        ps.AddParameter("-NewName", newName);
+        ps.Invoke();
+      }
+    }
+
     public static void SetInputDeviceCmdlet(string deviceId)
     {
       using (var ps = PowerShell.Create())
@@ -43,7 +54,7 @@ namespace ALsSoundSwitcher
     {
       var result = MessageBox.Show(
         Resources.PowerShellUtils_InstallAudioCmdlets_Message,
-        Resources.PowerShellUtils_InstallAudioCmdlets_Caption,
+        Resources.ALs_Sound_Switcher,
         MessageBoxButtons.OKCancel, 
         MessageBoxIcon.Asterisk
       );
@@ -78,7 +89,7 @@ namespace ALsSoundSwitcher
         
         MessageBox.Show(
           Resources.PowerShellUtils_InstallAudioCmdlets_Error_Message,
-          Resources.PowerShellUtils_InstallAudioCmdlets_Error_Caption,
+          Resources.ALs_Sound_Switcher,
           MessageBoxButtons.OK,
           MessageBoxIcon.Error
         );

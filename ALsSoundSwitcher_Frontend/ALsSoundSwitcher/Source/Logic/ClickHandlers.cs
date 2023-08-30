@@ -45,7 +45,7 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private async void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+    private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
       if (e.Button == MouseButtons.Right)
       {
@@ -153,6 +153,11 @@ namespace ALsSoundSwitcher
     private static void menuItemExit_Click(object sender, EventArgs e)
     {
       Instance.Close();
+    }
+
+    private static void menuItemUpdate_Click(object sender, EventArgs e)
+    {
+      UpgradeUtils.Run();
     }
 
     private static void menuItemRefresh_Click(object sender, EventArgs e)

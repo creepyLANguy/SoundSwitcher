@@ -15,6 +15,14 @@ namespace ALsSoundSwitcher
     {
       ProcessUtils.SetWorkingDirectory();
 
+      if (System.Diagnostics.Debugger.IsAttached)
+      {
+        TestUtils.RunDebugCode();
+      }
+
+      UpgradeUtils.PollForUpdates_Async();
+      UpgradeUtils.MonitorForOutdatedFilesAndAttemptRemoval_Async();
+
       Globals.Instance = this;
 
       if (Config.Read() == false)
@@ -59,9 +67,32 @@ namespace ALsSoundSwitcher
     private void Minimize()
     {
       WindowState = FormWindowState.Minimized;
-      //notifyIcon1.ShowBalloonTip(Settings.Current.BalloonTime);
       ShowInTaskbar = false;
       Visible = false;
+    }
+
+    public void ShowTrayIcon()
+    {
+      if (InvokeRequired)
+      {
+        Invoke(new MethodInvoker(ShowTrayIcon));
+      }
+      else
+      {
+        notifyIcon1.Visible = true;
+      }
+    }
+
+    public void HideTrayIcon()
+    {
+      if (InvokeRequired)
+      {
+        Invoke(new MethodInvoker(HideTrayIcon));
+      }
+      else
+      {
+        notifyIcon1.Visible = false;
+      }
     }
   }
 }
