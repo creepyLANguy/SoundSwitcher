@@ -15,6 +15,8 @@ namespace ALsSoundSwitcher
     {
       ProcessUtils.SetWorkingDirectory();
 
+      Globals.Instance = this;
+
       if (System.Diagnostics.Debugger.IsAttached)
       {
         TestUtils.RunDebugCode();
@@ -22,8 +24,6 @@ namespace ALsSoundSwitcher
 
       UpgradeUtils.PollForUpdates_Async();
       UpgradeUtils.MonitorForOutdatedFilesAndAttemptRemoval_Async();
-
-      Globals.Instance = this;
 
       if (Config.Read() == false)
       {
