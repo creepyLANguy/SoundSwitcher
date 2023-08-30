@@ -60,6 +60,9 @@ namespace ALsSoundSwitcher
           Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" (" + _pack.NewVersion + @")",
           Resources.ALs_Sound_Switcher
         );
+        
+        baseForm.ShowTrayIcon();
+
         return;
       }
 
