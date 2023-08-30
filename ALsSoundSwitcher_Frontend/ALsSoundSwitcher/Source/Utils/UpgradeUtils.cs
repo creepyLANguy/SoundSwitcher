@@ -523,7 +523,7 @@ namespace ALsSoundSwitcher
           MessageBox.Show(
           @"An update is available." +
           Newline + Newline + @"Current version: " + currentVersion +
-          Newline + @"nLatest version: " + latestVersion +
+          Newline + @"Latest version: " + latestVersion +
           Newline + Newline + @"Would you like to update?",
           Resources.ALs_Sound_Switcher,
           MessageBoxButtons.YesNo
