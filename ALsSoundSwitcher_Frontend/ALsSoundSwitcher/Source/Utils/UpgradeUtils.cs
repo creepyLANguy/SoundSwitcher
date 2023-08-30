@@ -510,18 +510,12 @@ namespace ALsSoundSwitcher
     {
       while (true)
       {
-        await Task.Delay(TimeSpan.FromHours(1));
-
         var currentVersion = GetSemanticVersionFromCurrentExecutable();
         var latestVersion = GetSemanticVersionFromUrl(Globals.LatestReleaseUrl);
 
-        if (Equals(currentVersion, latestVersion))
+        if (Equals(currentVersion, latestVersion) || _skippedVersions.Contains(latestVersion))
         {
-          continue;
-        }
-
-        if (_skippedVersions.Contains(latestVersion))
-        {
+          await Task.Delay(TimeSpan.FromHours(1));
           continue;
         }
 
