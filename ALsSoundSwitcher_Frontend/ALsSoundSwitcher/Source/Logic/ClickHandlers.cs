@@ -196,7 +196,7 @@ namespace ALsSoundSwitcher
 
     private static void TrySwitchMode(DeviceMode selectedMode)
     {
-      if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistsForThisPath(Settings.Current.Mode))
+      if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistForThisPath(Settings.Current.Mode))
       {
         if (RegistryUtils.TryDeleteStartupRegistrySetting(Settings.Current.Mode) == false)
         {

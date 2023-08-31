@@ -44,7 +44,7 @@ namespace ALsSoundSwitcher
       }
     }
 
-    public static bool DoesStartupRegistrySettingAlreadyExistsForThisPath(DeviceMode mode)
+    public static bool DoesStartupRegistrySettingAlreadyExistForThisPath(DeviceMode mode)
     {
       try
       {

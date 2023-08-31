@@ -22,9 +22,6 @@ namespace ALsSoundSwitcher
         TestUtils.RunDebugCode();
       }
 
-      UpgradeUtils.PollForUpdates_Async();
-      UpgradeUtils.MonitorForOutdatedFilesAndAttemptRemoval_Async();
-
       if (Config.Read() == false)
       {
         NotifyUserOfConfigReadFail();
@@ -40,7 +37,7 @@ namespace ALsSoundSwitcher
 
       if (Settings.Current.LaunchOnStartup)
       {
-        if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistsForThisPath(Settings.Current.Mode) == false)
+        if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistForThisPath(Settings.Current.Mode) == false)
         {
           Settings.Current.LaunchOnStartup = false;
           Config.Save();
@@ -52,6 +49,10 @@ namespace ALsSoundSwitcher
       Minimize();
 
       DeviceUtils.Monitor();
+      
+      UpgradeUtils.PollForUpdates_Async();
+      
+      UpgradeUtils.MonitorForOutdatedFilesAndAttemptRemoval_Async();
     }
 
     private void NotifyUserOfConfigReadFail()
