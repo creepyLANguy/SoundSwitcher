@@ -68,20 +68,18 @@ namespace ALsSoundSwitcher
 
       SetupUpgradeLog();
 
-      if (ProcessUpgradePack() == false)
+      try
       {
-        baseForm.ShowTrayIcon();
+        if (Upgrade() == false)
+        {
+          IndicateFailure();
+          MakeUpgradeLogDismissible();
+          baseForm.ShowTrayIcon();
+        }
       }
-    }
-
-    private static void SetupUpgradeLog()
-    {
-      _logWindow = new UpgradeLog();
-      _logWindow.Show();
-
-      if (System.Diagnostics.Debugger.IsAttached)
+      catch (Exception ex)
       {
-        _logWindow.TopMost = false;
+        Console.WriteLine(ex);
       }
     }
 
@@ -166,23 +164,53 @@ namespace ALsSoundSwitcher
       return Globals.DownloadUrl;
     }
 
-    private static bool ProcessUpgradePack()
+    private static void SetupUpgradeLog()
     {
-      try
+      _logWindow = new UpgradeLog();
+      _logWindow.Show();
+
+      if (System.Diagnostics.Debugger.IsAttached)
       {
-        if (Upgrade())
-        {
-          MakeUpgradeLogDismissible();
-          return true;
-        }
+        _logWindow.TopMost = false;
       }
-      catch (Exception ex)
+    }
+
+    private static bool Upgrade()
+    {
+      Log("Upgrading from version v" + _pack.OldVersion + " to v" + _pack.NewVersion);
+
+      Log("Installation directory: " + Newline + _pack.InstallationPath, false);
+
+      var steps = new List<Func<bool>>
       {
-        Console.WriteLine(ex);
+        Backup,
+        FetchLatestRelease,
+        UnzipLatestRelease,
+        MarkCurrentExeForDeletion,
+        CopyNewFiles,
+        Cleanup,
+        LaunchNewVersion,
+      };
+
+      foreach (var step in steps)
+      {
+        if (step())
+        {
+          continue;
+        }
+
+        return false;
       }
 
-      IndicateFailure();
-      return false;
+      Log("Upgrade SUCCESSFUL!");
+
+      Log(
+        "If you encounter issues, please rollback to the zipped backup in your install folder." + Newline +
+        "Alternatively, perform a clean install with the latest version available here:" + Newline +
+        Globals.LatestReleaseUrl,
+        false);
+
+      return true;
     }
 
     private static void MakeUpgradeLogDismissible()
@@ -428,42 +456,9 @@ namespace ALsSoundSwitcher
       return true;
     }
 
-    private static bool Upgrade()
+    public static async void MonitorForOutdatedFilesAndAttemptRemoval_Async()
     {
-      Log("Upgrading from version v" + _pack.OldVersion + " to v" + _pack.NewVersion);
-
-      Log("Installation directory: " + Newline + _pack.InstallationPath, false);
-
-      var steps = new List<Func<bool>>
-      {
-        Backup,
-        FetchLatestRelease,
-        UnzipLatestRelease,
-        MarkCurrentExeForDeletion,
-        CopyNewFiles,
-        Cleanup,
-        LaunchNewVersion,
-      };
-
-      foreach (var step in steps)
-      {
-        if (step())
-        {
-          continue;
-        }
-
-        return false;
-      }
-
-      Log("Upgrade SUCCESSFUL!");
-
-      Log(
-      "If you encounter issues, please rollback to the zipped backup in your install folder." + Newline +
-      "Alternatively, perform a clean install with the latest version available here:" + Newline +
-      Globals.LatestReleaseUrl,
-      false);
-
-      return true;
+      await Task.Run(CleanupOutdatedFiles);
     }
 
     private static void CleanupOutdatedFiles()
@@ -499,11 +494,6 @@ namespace ALsSoundSwitcher
           Thread.Sleep(sleepMs);
         }
       }
-    }
-
-    public static async void MonitorForOutdatedFilesAndAttemptRemoval_Async()
-    {
-      await Task.Run(CleanupOutdatedFiles);
     }
 
     public static async void PollForUpdates_Async()
