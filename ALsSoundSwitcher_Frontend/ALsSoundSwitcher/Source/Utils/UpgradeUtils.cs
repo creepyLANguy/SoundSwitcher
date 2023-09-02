@@ -503,6 +503,11 @@ namespace ALsSoundSwitcher
         var currentVersion = GetSemanticVersionFromCurrentExecutable();
         var latestVersion = GetSemanticVersionFromUrl(Globals.LatestReleaseUrl);
 
+        if (latestVersion == null)
+        {
+          return;
+        }
+
         if (Equals(currentVersion, latestVersion) || _skippedVersions.Contains(latestVersion))
         {
           await Task.Delay(TimeSpan.FromHours(1));
@@ -512,20 +517,20 @@ namespace ALsSoundSwitcher
         var selection = 
           MessageBox.Show(
           @"An update is available." +
-          Newline + Newline + @"Current version: " + currentVersion +
+          Newline + (currentVersion == null ? "" : Newline + @"Current version: " + currentVersion) +
           Newline + @"Latest version: " + latestVersion +
           Newline + Newline + @"Would you like to update?",
           Resources.ALs_Sound_Switcher,
           MessageBoxButtons.YesNo
         );
 
-        if (selection == DialogResult.Yes)
-        { 
-          Run();
+        if (selection == DialogResult.No)
+        {
+          _skippedVersions.Add(latestVersion);
           return;
         }
 
-        _skippedVersions.Add(latestVersion);
+        Run();
       }
     }
   }
