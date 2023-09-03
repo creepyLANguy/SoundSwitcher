@@ -530,13 +530,13 @@ namespace ALsSoundSwitcher
           MessageBoxButtons.YesNo
         );
 
-        if (selection == DialogResult.No)
+        if (selection == DialogResult.Yes)
         {
-          _skippedVersions.Add(latestVersion);
+          Run();
           return;
         }
 
-        Run();
+        _skippedVersions.Add(latestVersion);
       }
     }
   }
