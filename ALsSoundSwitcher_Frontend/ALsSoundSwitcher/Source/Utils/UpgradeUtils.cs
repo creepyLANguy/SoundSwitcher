@@ -215,8 +215,8 @@ namespace ALsSoundSwitcher
       Log(UpgradeComplete);
 
       Log(
-        "If you encounter issues, please rollback to the zipped backup in your install folder." + Newline +
-        "Alternatively, perform a clean install with the latest version available here:" + Newline +
+        PostUpgradeAdvice + Newline +
+        PostUpgradeAdviceAlternative + Newline +
         Globals.LatestReleaseUrl,
         false);
 
@@ -230,8 +230,8 @@ namespace ALsSoundSwitcher
 
     private static void IndicateFailure()
     {
-      Log("FAILED to complete upgrade process " + Newline +
-          "We recommend you perform a clean install with the latest version here: " + Newline +
+      Log(UpgradeFailed + Newline +
+          UpgradeFailedAdvice + Newline +
           Globals.LatestReleaseUrl);
     }
 

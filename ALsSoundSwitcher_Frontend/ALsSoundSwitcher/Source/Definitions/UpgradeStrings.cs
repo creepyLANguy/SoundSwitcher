@@ -39,5 +39,11 @@
     public const string LaunchingNewVersionOf = "Launching new version of ";
 
     public const string UpgradeComplete = "Upgrade SUCCESSFUL!";
+
+    public const string UpgradeFailed = "FAILED to complete upgrade process";
+    public const string UpgradeFailedAdvice = "We recommend you perform a clean install with the latest version here: ";
+
+    public const string PostUpgradeAdvice = "If you encounter issues, please rollback to the zipped backup in your install folder.";
+    public const string PostUpgradeAdviceAlternative = "Alternatively, perform a clean install with the latest version available here:";
   }
 }
