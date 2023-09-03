@@ -477,7 +477,7 @@ namespace ALsSoundSwitcher
       while (failures < maxFailures)
       {
         var allFiles =
-          Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + "_outdated", SearchOption.AllDirectories)
+          Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + "_outdated" + "*", SearchOption.AllDirectories)
             .Select(Path.GetFileName)
             .ToList();
 
