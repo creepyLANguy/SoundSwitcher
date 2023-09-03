@@ -73,7 +73,6 @@ namespace ALsSoundSwitcher
         if (Upgrade() == false)
         {
           IndicateFailure();
-          MakeUpgradeLogDismissible();
           baseForm.ShowTrayIcon();
         }
       }
@@ -81,6 +80,8 @@ namespace ALsSoundSwitcher
       {
         Console.WriteLine(ex);
       }
+
+      MakeUpgradeLogDismissible();
     }
 
     private static void SetupUpgradePack()
