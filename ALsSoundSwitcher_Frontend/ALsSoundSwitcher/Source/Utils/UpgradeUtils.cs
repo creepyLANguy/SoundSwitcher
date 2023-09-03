@@ -241,7 +241,12 @@ namespace ALsSoundSwitcher
       try
       {
         Log("Copying to temp folder: " + Newline + backupFolder);
-        CopyDirectoryContents(_pack.InstallationPath, backupFolder, true, new[]{".zip"});
+        CopyDirectoryContents(
+          _pack.InstallationPath, 
+          backupFolder, 
+          true, 
+          new[]{".zip", "_outdated"}
+          );
         Log("Copy complete");
 
         Log("Archiving backup to file: " + Newline + archiveName);
