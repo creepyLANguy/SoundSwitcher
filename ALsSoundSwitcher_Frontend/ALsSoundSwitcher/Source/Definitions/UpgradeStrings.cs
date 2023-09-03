@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ALsSoundSwitcher
+﻿namespace ALsSoundSwitcher
 {
   public partial class UpgradeUtils
   {
