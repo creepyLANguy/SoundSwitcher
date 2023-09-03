@@ -83,6 +83,7 @@
     <Compile Include="Source\Definitions\DeviceMode.cs" />
     <Compile Include="Source\Definitions\MouseControlFunction.cs" />
     <Compile Include="Source\Definitions\SemanticVersion.cs" />
+    <Compile Include="Source\Definitions\UpgradeStrings.cs" />
     <Compile Include="Source\Logic\ClickHandlers.cs">
       <SubType>Form</SubType>
     </Compile>

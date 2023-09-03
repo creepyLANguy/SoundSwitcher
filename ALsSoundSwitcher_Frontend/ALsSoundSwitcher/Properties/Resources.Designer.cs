@@ -574,14 +574,5 @@ namespace ALsSoundSwitcher.Properties {
                 return ResourceManager.GetString("ThemeCreator_TextBoxDefault", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You are already on the latest version.
-        /// </summary>
-        internal static string UpgradeUtils_HandleUpgradeReason_already_on_latest_version {
-            get {
-                return ResourceManager.GetString("UpgradeUtils_HandleUpgradeReason_already_on_latest_version", resourceCulture);
-            }
-        }
     }
 }

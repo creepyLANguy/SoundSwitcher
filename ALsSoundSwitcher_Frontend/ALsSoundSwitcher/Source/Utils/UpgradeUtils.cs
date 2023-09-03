@@ -13,8 +13,20 @@ using Ionic.Zip;
 
 namespace ALsSoundSwitcher
 {
-  public static class UpgradeUtils
+  public static partial class UpgradeUtils
   {
+    private const int CleanupMaxFailures = 50;
+    private const int CleanupSleepMs = 5000;
+
+    private const string VersionPattern = @"\/releases\/tag\/v([0-9]+\.[0-9]+\.[0-9]+)";
+    private const string DateTimeFormatPattern = "dd-MM-yyyy_HH-mm-ss";
+    private const string OutdatedMarker = "_outdated";
+
+    private static readonly string Newline = Environment.NewLine;
+    private const string ExecutableExtension = ".exe";
+    private const string ZipExtension = ".zip";
+
+
     private static HashSet<SemanticVersion?> _skippedVersions = new HashSet<SemanticVersion?>() ;
 
     private static UpgradeLog _logWindow;
@@ -45,8 +57,6 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private static readonly string Newline = Environment.NewLine;
-
     public static void Run()
     {
       var baseForm = (Form1) Globals.Instance;
@@ -57,7 +67,7 @@ namespace ALsSoundSwitcher
       if (Equals(_pack.OldVersion, _pack.NewVersion))
       {
         MessageBox.Show(
-          Resources.UpgradeUtils_HandleUpgradeReason_already_on_latest_version + @" [" + _pack.NewVersion + @"]",
+          AlreadyHaveLatestVersion + @" [" + _pack.NewVersion + @"]",
           Resources.ALs_Sound_Switcher
         );
         
@@ -94,7 +104,7 @@ namespace ALsSoundSwitcher
 
       var installationPath = Directory.GetCurrentDirectory();
 
-      var timestamp = DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss");
+      var timestamp = DateTime.Now.ToString(DateTimeFormatPattern);
 
       _pack = new UpgradePack(
         localVersion,
@@ -148,8 +158,7 @@ namespace ALsSoundSwitcher
 
     private static SemanticVersion? GetSemanticVersionFromHtml(string html)
     {
-      const string versionPattern = @"\/releases\/tag\/v([0-9]+\.[0-9]+\.[0-9]+)";
-      var match = Regex.Match(html, versionPattern);
+      var match = Regex.Match(html, VersionPattern);
 
       if (match.Success == false)
       {
@@ -203,7 +212,7 @@ namespace ALsSoundSwitcher
         return false;
       }
 
-      Log("Upgrade SUCCESSFUL!");
+      Log(UpgradeComplete);
 
       Log(
         "If you encounter issues, please rollback to the zipped backup in your install folder." + Newline +
@@ -233,36 +242,36 @@ namespace ALsSoundSwitcher
 
     private static bool Backup()
     {
-      Log("Backing up current installation");
+      Log(BackingUp);
 
       var backupName = "backup_v" + _pack.OldVersion + "_" + _pack.Timestamp;
       var backupFolder = Path.Combine(_pack.InstallationPath, backupName);
-      var archiveName = backupFolder + ".zip";
+      var archiveName = backupFolder + ZipExtension;
       try
       {
-        Log("Copying to temp folder: " + Newline + backupFolder);
+        Log(BackupCopying + Newline + backupFolder);
         CopyDirectoryContents(
           _pack.InstallationPath, 
           backupFolder, 
           true, 
-          new[]{".zip", "_outdated"}
+          new[]{ZipExtension, OutdatedMarker}
           );
-        Log("Copy complete");
+        Log(CopyingComplete);
 
-        Log("Archiving backup to file: " + Newline + archiveName);
+        Log(Archiving + Newline + archiveName);
         CreateArchive(backupFolder, archiveName, _pack.InstallationPath);
-        Log("Archiving complete");
+        Log(ArchivingComplete);
 
-        Log("Cleaning up temp folder");
+        Log(CleaningTemp);
         DeleteFolder(backupFolder);
-        Log("Temp folder successfully removed");
+        Log(CleaningTempComplete);
 
         return true;
       }
       catch (Exception ex)
       {
         Console.WriteLine(ex);
-        Log("Backup Failed");
+        Log(BackupFailed);
 
         return false;
       }
@@ -275,7 +284,7 @@ namespace ALsSoundSwitcher
 
       if (sourceInfo.Exists == false)
       {
-        throw new DirectoryNotFoundException("Source directory not found: " + sourceDir);
+        throw new DirectoryNotFoundException(DirectoryNotFound + sourceDir);
       }
 
       if (destInfo.Exists == false)
@@ -316,7 +325,7 @@ namespace ALsSoundSwitcher
       {
         if (Directory.Exists(inputFolder) == false)
         {
-          throw new DirectoryNotFoundException("Source directory not found: " + inputFolder);
+          throw new DirectoryNotFoundException(DirectoryNotFound + inputFolder);
         }
 
         zip.AddDirectory(inputFolder);
@@ -328,7 +337,7 @@ namespace ALsSoundSwitcher
     {
       if (Directory.Exists(folderPath) == false)
       {
-        throw new DirectoryNotFoundException("Folder not found: " + folderPath);
+        throw new DirectoryNotFoundException(FolderNotFound + folderPath);
       }
 
       Directory.Delete(folderPath, true);
@@ -336,7 +345,7 @@ namespace ALsSoundSwitcher
 
     private static bool FetchLatestRelease()
     {
-      Log("Downloading latest release from: " + Newline + _pack.DownloadUrl);
+      Log(Downloading + Newline + _pack.DownloadUrl);
 
       using (var webClient = new WebClient())
       {
@@ -360,7 +369,7 @@ namespace ALsSoundSwitcher
         catch (WebException ex)
         {
           Console.WriteLine(ex);
-          Log("Download failed");
+          Log(DownloadFailed);
 
           return false;
         }
@@ -369,7 +378,7 @@ namespace ALsSoundSwitcher
 
     private static bool UnzipLatestRelease()
     {
-      Log("Extracting latest release");
+      Log(Extracting);
       
       try
       {
@@ -378,13 +387,13 @@ namespace ALsSoundSwitcher
           zip.ExtractAll(_pack.InstallationPath, ExtractExistingFileAction.OverwriteSilently);
         }
 
-        Log("Extraction complete");
+        Log(ExtractionComplete);
         return true;
       }
       catch (Exception ex)
       {
         Console.WriteLine(ex);
-        Log("Extraction Failed");
+        Log(ExtractionFailed);
 
         return false;
       }
@@ -392,18 +401,18 @@ namespace ALsSoundSwitcher
 
     private static bool MarkCurrentExeForDeletion()
     {
-      Log("Marking current executable as old");
+      Log(MarkingExe);
 
-      PowerShellUtils.Rename(Application.ExecutablePath, _pack.Timestamp + "_outdated");
+      PowerShellUtils.Rename(Application.ExecutablePath, _pack.Timestamp + OutdatedMarker);
 
-      Log("Marking complete");
+      Log(MarkingComplete);
 
       return true;
     }
 
     private static bool CopyNewFiles()
     {
-      Log("Copying new files");
+      Log(CopyingFiles);
 
       try
       {
@@ -411,16 +420,16 @@ namespace ALsSoundSwitcher
           Path.GetFileNameWithoutExtension(_pack.DownloadUrl),
           _pack.InstallationPath,
           true,
-          new[] {"settings.json"}
+          new[] {Globals.ConfigFile}
         );
 
-        Log("Copying complete");
+        Log(CopyingComplete);
         return true;
       }
       catch (Exception ex)
       {
         Console.WriteLine(ex);
-        Log("Copying failed");
+        Log(CopyingFailed);
 
         return false;
       }
@@ -428,7 +437,7 @@ namespace ALsSoundSwitcher
 
     private static bool Cleanup()
     {
-      Log("Cleaning up installation directory");
+      Log(CleaningUp);
 
       try
       {
@@ -439,13 +448,13 @@ namespace ALsSoundSwitcher
           Path.GetFileNameWithoutExtension(_pack.DownloadUrl) ?? throw new InvalidOperationException();
         Directory.Delete(folder, true);
 
-        Log("Cleanup complete");
+        Log(CleanupComplete);
         return true;
       }
       catch (Exception ex)
       {
         Console.WriteLine(ex);
-        Log("Cleanup failed.");
+        Log(CleanupFailed);
 
         return false;
       }
@@ -453,9 +462,9 @@ namespace ALsSoundSwitcher
 
     private static bool LaunchNewVersion()
     {
-      var exe = Application.ProductName + ".exe";
+      var exe = Application.ProductName + ExecutableExtension;
 
-      Log("Launching new version of " + exe);
+      Log(LaunchingNewVersionOf + exe);
 
       ProcessUtils.RunExe(exe, "", true);
 
@@ -469,15 +478,12 @@ namespace ALsSoundSwitcher
 
     private static void CleanupOutdatedFiles()
     {
-      const int sleepMs = 5000;
-      const int maxFailures = 50;
-
       var failures = 0;
 
-      while (failures < maxFailures)
+      while (failures < CleanupMaxFailures)
       {
         var allFiles =
-          Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + "_outdated" + "*", SearchOption.AllDirectories)
+          Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + OutdatedMarker + "*", SearchOption.AllDirectories)
             .Select(Path.GetFileName)
             .ToList();
 
@@ -497,7 +503,7 @@ namespace ALsSoundSwitcher
         {
           ++failures;
           Console.WriteLine(e);
-          Thread.Sleep(sleepMs);
+          Thread.Sleep(CleanupSleepMs);
         }
       }
     }

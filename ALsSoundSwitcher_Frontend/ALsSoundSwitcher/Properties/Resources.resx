@@ -288,7 +288,4 @@ Could not start </value>
   <data name="ALs_Sound_Switcher" xml:space="preserve">
     <value>AL's Sound Switcher</value>
   </data>
-  <data name="UpgradeUtils_HandleUpgradeReason_already_on_latest_version" xml:space="preserve">
-    <value>You are already on the latest version</value>
-  </data>
 </root>
