@@ -96,6 +96,12 @@ namespace ALsSoundSwitcher
 
     public static bool operator > (SemanticVersion a, SemanticVersion b) 
       => b < a;
+    
+    public static bool operator <= (SemanticVersion a, SemanticVersion b) 
+      => a < b || a == b;
+
+    public static bool operator >= (SemanticVersion a, SemanticVersion b) 
+      => a > b || a == b;
 
     public override string ToString() => Major + "." + Minor + "." + Patch;
   }

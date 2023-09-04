@@ -64,7 +64,7 @@ namespace ALsSoundSwitcher
 
       SetupUpgradePack();
 
-      if (_pack.OldVersion < _pack.NewVersion)
+      if (_pack.OldVersion >= _pack.NewVersion)
       {
         MessageBox.Show(
           AlreadyHaveLatestVersion + @" [" + _pack.NewVersion + @"]",
@@ -526,13 +526,15 @@ namespace ALsSoundSwitcher
           MessageBoxButtons.YesNo
         );
 
-        if (selection == DialogResult.Yes)
+        if (selection == DialogResult.No)
+        {
+          _skippedVersions.Add(latestVersion);
+        }
+        else if (selection == DialogResult.Yes)
         {
           Run();
           return;
         }
-
-        _skippedVersions.Add(latestVersion);
       }
     }
 
