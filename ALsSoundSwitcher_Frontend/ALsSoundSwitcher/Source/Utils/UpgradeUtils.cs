@@ -27,7 +27,7 @@ namespace ALsSoundSwitcher
     private const string ZipExtension = ".zip";
 
 
-    private static HashSet<SemanticVersion?> _skippedVersions = new HashSet<SemanticVersion?>() ;
+    private static HashSet<SemanticVersion> _skippedVersions = new HashSet<SemanticVersion>() ;
 
     private static UpgradeLog _logWindow;
 
@@ -35,15 +35,15 @@ namespace ALsSoundSwitcher
 
     private struct UpgradePack
     {
-      public readonly SemanticVersion? OldVersion;
-      public readonly SemanticVersion? NewVersion;
+      public readonly SemanticVersion OldVersion;
+      public readonly SemanticVersion NewVersion;
       public readonly string DownloadUrl;
       public readonly string InstallationPath;
       public readonly string Timestamp;
 
       public UpgradePack(
-        SemanticVersion? oldVersion, 
-        SemanticVersion? newVersion,
+        SemanticVersion oldVersion, 
+        SemanticVersion newVersion,
         string downloadUrl, 
         string installationPath,
         string timestamp
@@ -64,7 +64,7 @@ namespace ALsSoundSwitcher
 
       SetupUpgradePack();
 
-      if (Equals(_pack.OldVersion, _pack.NewVersion))
+      if (_pack.OldVersion < _pack.NewVersion)
       {
         MessageBox.Show(
           AlreadyHaveLatestVersion + @" [" + _pack.NewVersion + @"]",
@@ -115,20 +115,15 @@ namespace ALsSoundSwitcher
         );
     }
 
-    private static SemanticVersion? GetSemanticVersionFromCurrentExecutable()
+    private static SemanticVersion GetSemanticVersionFromCurrentExecutable()
     {
       var entryAssembly = Assembly.GetEntryAssembly();
       var version = entryAssembly?.GetName().Version;
 
-      if (version == null)
-      {
-        return null;
-      }
-
-      return new SemanticVersion(version.ToString());
+      return version == null ? new SemanticVersion() : new SemanticVersion(version.ToString());
     }
 
-    private static SemanticVersion? GetSemanticVersionFromUrl(string url)
+    private static SemanticVersion GetSemanticVersionFromUrl(string url)
     {
       var html = GetHtmlFromUrl(url);
       return GetSemanticVersionFromHtml(html);
@@ -156,13 +151,13 @@ namespace ALsSoundSwitcher
       return html;
     }
 
-    private static SemanticVersion? GetSemanticVersionFromHtml(string html)
+    private static SemanticVersion GetSemanticVersionFromHtml(string html)
     {
       var match = Regex.Match(html, VersionPattern);
 
       if (match.Success == false)
       {
-        return null;
+        return new SemanticVersion();
       }
 
       var latestVersion = match.Groups[1].Value;
@@ -515,12 +510,7 @@ namespace ALsSoundSwitcher
         var currentVersion = GetSemanticVersionFromCurrentExecutable();
         var latestVersion = GetSemanticVersionFromUrl(Globals.LatestReleaseUrl);
 
-        if (latestVersion == null)
-        {
-          return;
-        }
-
-        if (Equals(currentVersion, latestVersion) || _skippedVersions.Contains(latestVersion))
+        if (ShouldPromptUser(currentVersion, latestVersion) == false)
         {
           await Task.Delay(TimeSpan.FromHours(1));
           continue;
@@ -529,7 +519,7 @@ namespace ALsSoundSwitcher
         var selection = 
           MessageBox.Show(
           @"An update is available." +
-          Newline + (currentVersion == null ? "" : Newline + @"Current version: " + currentVersion) +
+          Newline + (currentVersion.IsValid ? "" : Newline + @"Current version: " + currentVersion) +
           Newline + @"Latest version: " + latestVersion +
           Newline + Newline + @"Would you like to update?",
           Resources.ALs_Sound_Switcher,
@@ -544,6 +534,13 @@ namespace ALsSoundSwitcher
 
         _skippedVersions.Add(latestVersion);
       }
+    }
+
+    public static bool ShouldPromptUser(SemanticVersion currentVersion, SemanticVersion latestVersion)
+    {
+      return latestVersion.IsValid &&
+             currentVersion < latestVersion &&
+             _skippedVersions.Contains(latestVersion) == false;
     }
   }
 }
