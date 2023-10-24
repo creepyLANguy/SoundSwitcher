@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ALsSoundSwitcher.Properties;
 using CSCore.CoreAudioAPI;
 using CSCore.Win32;
@@ -112,8 +112,7 @@ namespace ALsSoundSwitcher
       {
         UpdateSliderAndTooltip_Async();
 
-        var volume = DeviceUtils.GetVolume();
-        IconUtils.SetTrayIcon(volume, notifyIcon1);
+        IconUtils.SetTrayIcon();
       }
     }
 

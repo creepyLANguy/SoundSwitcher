@@ -5,7 +5,6 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 
 namespace ALsSoundSwitcher
@@ -16,17 +15,17 @@ namespace ALsSoundSwitcher
     {
       //AL.
       //TODO - implement
-      return null;
+      return icon;
     }
 
     private static Icon GetCombinedIcons(List<Icon> icons)
     {
       //AL.
       //TODO - implement
-      return null;
+      return icons[0];
     }
 
-    public static bool SetTrayIcon_LowVolume(NotifyIcon notifyIcon)
+    public static bool IndicateLowVolume()
     {
       if (Globals.ShowingLowVolumeIndicator)
       {
@@ -43,63 +42,59 @@ namespace ALsSoundSwitcher
           return true;
 
         case LowVolumeIconBehaviour.Invert:
-          icon = GetInvertedIcon(notifyIcon.Icon);
+          icon = GetInvertedIcon(Globals.TrayIcon.Icon);
           break;
 
         case LowVolumeIconBehaviour.Replace:
-          icon = GetIconByRawName(Settings.Current.LowVolumeIcon);
+          var iconFile = GetBestMatchIconFileName(Settings.Current.LowVolumeIcon);
+          icon = GetIconByRawName(iconFile);
           break;
 
         case LowVolumeIconBehaviour.Strikeout:
           var strike = GetIconByRawName(Settings.Current.LowVolumeIcon);
-          var iconList = new List<Icon> { notifyIcon.Icon, strike };
+          var iconList = new List<Icon> { Globals.TrayIcon.Icon, strike };
           icon = GetCombinedIcons(iconList);
           break;
       }
 
-      var result = SetTrayIcon(icon, notifyIcon);
+      var result = SetTrayIcon(icon);
 
       Globals.ShowingLowVolumeIndicator = result;
 
       return result;
     }
 
-    public static bool SetTrayIcon(int volume, NotifyIcon notifyIcon)
+    public static bool SetTrayIcon()
     {
-      if (volume == 0)
+      if (DeviceUtils.GetVolume() <= Globals.LowVolumeThreshold)
       {
-        return SetTrayIcon_LowVolume(notifyIcon);
+        return IndicateLowVolume();
       }
 
-      if (Globals.ShowingLowVolumeIndicator == false)
-      {
-        return true;
-      }
-
-      var result = SetTrayIcon(Globals.ActiveMenuItemDevice.Text, notifyIcon);
+      var result = SetTrayIcon(Globals.ActiveMenuItemDevice.Text);
       
       Globals.ShowingLowVolumeIndicator = !result;
       
       return result;
     }
 
-    public static bool SetTrayIcon(string iconName, NotifyIcon notifyIcon)
+    public static bool SetTrayIcon(string iconName)
     {
       var bestMatch = GetBestMatchIconFileName(iconName);
 
       var icon = GetIconByRawName(bestMatch) ?? GetDefaultIcon();
 
-      return SetTrayIcon(icon, notifyIcon);
+      return SetTrayIcon(icon);
     }
 
-    public static bool SetTrayIcon(Icon icon, NotifyIcon notifyIcon)
+    public static bool SetTrayIcon(Icon icon)
     {
       if (icon == null)
       {
         return false;
       }
 
-      notifyIcon.Icon = icon;
+      Globals.TrayIcon.Icon = icon;
 
       return true;
     }

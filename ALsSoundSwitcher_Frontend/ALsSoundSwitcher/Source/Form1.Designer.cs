@@ -42,7 +42,7 @@
       notifyIcon1.BalloonTipTitle = "AL\'s Sound Switcher ";
       notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
       notifyIcon1.Text = "AL\'s Sound Switcher has been minimised.";
-      notifyIcon1.Visible = true;
+      notifyIcon1.Visible = false;
       notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(notifyIcon1_MouseClick);
       // 
       // textBox1

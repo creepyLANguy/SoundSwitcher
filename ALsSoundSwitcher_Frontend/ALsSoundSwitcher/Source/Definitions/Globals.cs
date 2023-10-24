@@ -8,6 +8,7 @@ namespace ALsSoundSwitcher
   public static class Globals
   {
     public static Form Instance;
+    public static NotifyIcon TrayIcon;
 
     public const string GithubUrl = "https://github.com/creepyLANguy/SoundSwitcher";
     public const string LatestReleaseUrl = "https://github.com/creepyLANguy/SoundSwitcher/releases/latest";
@@ -33,6 +34,8 @@ namespace ALsSoundSwitcher
 
     public const string ThemeFileExtension = ".skin";
     public const string ThemeFileCustomFolder = "CustomThemes";
+
+    public const int LowVolumeThreshold = 0;
 
     //WinForms seems to support lowest common denominator:
     //https://learn.microsoft.com/en-gb/dotnet/api/system.windows.forms.notifyicon.text 
