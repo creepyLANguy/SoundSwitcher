@@ -13,16 +13,19 @@ namespace ALsSoundSwitcher
   {
     private static Icon GetInvertedIcon(Icon icon)
     {
-      //AL.
-      //TODO - implement
-      return icon;
-    }
+      var bitmap = icon.ToBitmap();
 
-    private static Icon GetCombinedIcons(List<Icon> icons)
-    {
-      //AL.
-      //TODO - implement
-      return icons[0];
+      for (var y = 0; y < (bitmap.Height); ++y)
+      {
+        for (var x = 0; x < (bitmap.Width); ++x)
+        {
+          var px = bitmap.GetPixel(x, y);
+          px = Color.FromArgb(px.A, (255 - px.R), (255 - px.G), (255 - px.B));
+          bitmap.SetPixel(x, y, px);
+        }
+      }
+
+      return BitmapToIcon(bitmap);
     }
 
     public static bool IndicateLowVolume()
@@ -34,26 +37,20 @@ namespace ALsSoundSwitcher
 
       Icon icon = null;
 
-      //AL.
-      //TODO - test all cases.
       switch (Settings.Current.LowVolumeIconBehaviour)
       {
         case LowVolumeIconBehaviour.None:
           return true;
 
         case LowVolumeIconBehaviour.Invert:
-          icon = GetInvertedIcon(Globals.TrayIcon.Icon);
+          var currentIconFile = GetBestMatchIconFileName(Globals.ActiveMenuItemDevice.Text);
+          var replacementIcon = GetIconByRawName(currentIconFile);
+          icon = GetInvertedIcon(replacementIcon);
           break;
 
         case LowVolumeIconBehaviour.Replace:
-          var iconFile = GetBestMatchIconFileName(Settings.Current.LowVolumeIcon);
-          icon = GetIconByRawName(iconFile);
-          break;
-
-        case LowVolumeIconBehaviour.Strikeout:
-          var strike = GetIconByRawName(Settings.Current.LowVolumeIcon);
-          var iconList = new List<Icon> { Globals.TrayIcon.Icon, strike };
-          icon = GetCombinedIcons(iconList);
+          var replacementIconFile = GetBestMatchIconFileName(Settings.Current.LowVolumeIcon);
+          icon = GetIconByRawName(replacementIconFile);
           break;
       }
 

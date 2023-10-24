@@ -5,7 +5,7 @@
     None,
     Invert,
     Replace,
-    Strikeout
+    //Strikeout //TODO - implement
   }
 }
 

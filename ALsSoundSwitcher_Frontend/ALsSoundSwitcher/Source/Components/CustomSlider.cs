@@ -93,6 +93,10 @@ namespace ALsSoundSwitcher
       {
         IconUtils.IndicateLowVolume();
       }
+      else if (Globals.ShowingLowVolumeIndicator)
+      {
+        IconUtils.SetTrayIcon();
+      }
 
       if (WeAreRefreshingVolumeSliderValue)
       {
