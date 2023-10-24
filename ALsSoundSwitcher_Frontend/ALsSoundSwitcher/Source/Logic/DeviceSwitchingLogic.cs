@@ -28,7 +28,7 @@ namespace ALsSoundSwitcher
 
         var deviceName = menuItem.Text;
 
-        IconUtils.SetTrayIcon(deviceName);
+        IconUtils.SetTrayIcon(true);
 
         SetToolTip(deviceName);
 

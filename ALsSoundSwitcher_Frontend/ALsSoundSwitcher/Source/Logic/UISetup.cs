@@ -311,7 +311,7 @@ namespace ALsSoundSwitcher
 
     public static void SetCurrentDeviceTrayIcon()
     {
-      IconUtils.SetTrayIcon();
+      IconUtils.SetTrayIcon(true);
       notifyIcon1.Visible = true;
     }
 

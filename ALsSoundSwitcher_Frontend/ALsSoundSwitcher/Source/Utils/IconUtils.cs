@@ -43,9 +43,7 @@ namespace ALsSoundSwitcher
           return true;
 
         case LowVolumeIconBehaviour.Invert:
-          var currentIconFile = GetBestMatchIconFileName(Globals.ActiveMenuItemDevice.Text);
-          var replacementIcon = GetIconByRawName(currentIconFile);
-          icon = GetInvertedIcon(replacementIcon);
+          icon = GetInvertedIcon(Globals.TrayIcon.Icon);
           break;
 
         case LowVolumeIconBehaviour.Replace:
@@ -61,11 +59,22 @@ namespace ALsSoundSwitcher
       return result;
     }
 
-    public static bool SetTrayIcon()
+    public static bool SetTrayIcon(bool force = false)
     {
+      if (force)
+      {
+        SetTrayIcon(Globals.ActiveMenuItemDevice.Text);
+        Globals.ShowingLowVolumeIndicator = false;
+      }
+
       if (DeviceUtils.GetVolume() <= Globals.LowVolumeThreshold)
       {
         return IndicateLowVolume();
+      }
+      
+      if (Globals.ShowingLowVolumeIndicator == false)
+      {
+        return true;
       }
 
       var result = SetTrayIcon(Globals.ActiveMenuItemDevice.Text);
