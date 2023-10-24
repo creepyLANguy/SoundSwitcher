@@ -12,14 +12,88 @@ namespace ALsSoundSwitcher
 {
   public class IconUtils
   {
+    private static Icon GetInvertedIcon(Icon icon)
+    {
+      //AL.
+      //TODO - implement
+      return null;
+    }
+
+    private static Icon GetCombinedIcons(List<Icon> icons)
+    {
+      //AL.
+      //TODO - implement
+      return null;
+    }
+
+    public static bool SetTrayIcon_LowVolume(NotifyIcon notifyIcon)
+    {
+      if (Globals.ShowingLowVolumeIndicator)
+      {
+        return true;
+      }
+
+      Icon icon = null;
+
+      //AL.
+      //TODO - test all cases.
+      switch (Settings.Current.LowVolumeIconBehaviour)
+      {
+        case LowVolumeIconBehaviour.None:
+          return true;
+
+        case LowVolumeIconBehaviour.Invert:
+          icon = GetInvertedIcon(notifyIcon.Icon);
+          break;
+
+        case LowVolumeIconBehaviour.Replace:
+          icon = GetIconByRawName(Settings.Current.LowVolumeIcon);
+          break;
+
+        case LowVolumeIconBehaviour.Strikeout:
+          var strike = GetIconByRawName(Settings.Current.LowVolumeIcon);
+          var iconList = new List<Icon> { notifyIcon.Icon, strike };
+          icon = GetCombinedIcons(iconList);
+          break;
+      }
+
+      var result = SetTrayIcon(icon, notifyIcon);
+
+      Globals.ShowingLowVolumeIndicator = result;
+
+      return result;
+    }
+
+    public static bool SetTrayIcon(int volume, NotifyIcon notifyIcon)
+    {
+      if (volume == 0)
+      {
+        return SetTrayIcon_LowVolume(notifyIcon);
+      }
+
+      if (Globals.ShowingLowVolumeIndicator == false)
+      {
+        return true;
+      }
+
+      var result = SetTrayIcon(Globals.ActiveMenuItemDevice.Text, notifyIcon);
+      
+      Globals.ShowingLowVolumeIndicator = !result;
+      
+      return result;
+    }
+
     public static bool SetTrayIcon(string iconName, NotifyIcon notifyIcon)
     {
-      notifyIcon.Icon = GetDefaultIcon();
-
       var bestMatch = GetBestMatchIconFileName(iconName);
 
-      var icon = GetIconByRawName(bestMatch);
+      var icon = GetIconByRawName(bestMatch) ?? GetDefaultIcon();
 
+      return SetTrayIcon(icon, notifyIcon);
+    }
+
+    public static bool SetTrayIcon(Icon icon, NotifyIcon notifyIcon)
+    {
       if (icon == null)
       {
         return false;

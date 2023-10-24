@@ -13,6 +13,8 @@
       public bool LaunchOnStartup;
       public MouseControlFunction LeftClickFunction;
       public MouseControlFunction MiddleClickFunction;
+      public LowVolumeIconBehaviour LowVolumeIconBehaviour;
+      public string LowVolumeIcon;
     }
 
     public static SettingsStruct Current = new SettingsStruct
@@ -26,6 +28,8 @@
       LaunchOnStartup = false,
       LeftClickFunction = MouseControlFunction.Switch_Next_Device,
       MiddleClickFunction = MouseControlFunction.Volume_Mixer,
+      LowVolumeIconBehaviour = LowVolumeIconBehaviour.None,
+      LowVolumeIcon = "",
     };
   }
 }

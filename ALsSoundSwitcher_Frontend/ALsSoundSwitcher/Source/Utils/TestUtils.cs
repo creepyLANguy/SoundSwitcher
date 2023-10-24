@@ -6,6 +6,7 @@ namespace ALsSoundSwitcher
   {
     public static void RunDebugCode()
     {
+      //new ThemeCreator().Show();
     }
 
     public static void RemoveAudioDeviceCmdletsAndExit()

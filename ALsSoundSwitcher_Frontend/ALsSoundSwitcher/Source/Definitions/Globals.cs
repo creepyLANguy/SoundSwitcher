@@ -40,6 +40,7 @@ namespace ALsSoundSwitcher
     public const string Ellipsis = "...";
 
     public static bool WeAreSwitching = false;
+    public static bool ShowingLowVolumeIndicator = false;
 
     public static MMDeviceEnumerator DeviceEnumerator = new MMDeviceEnumerator();
 
