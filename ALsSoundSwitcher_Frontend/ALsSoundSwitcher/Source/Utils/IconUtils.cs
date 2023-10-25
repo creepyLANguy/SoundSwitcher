@@ -5,27 +5,24 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 
 namespace ALsSoundSwitcher
 {
   public class IconUtils
   {
-    public static bool SetTrayIcon(string iconName, NotifyIcon notifyIcon)
+    public static bool SetTrayIcon(string iconName)
     {
-      notifyIcon.Icon = GetDefaultIcon();
-
       var bestMatch = GetBestMatchIconFileName(iconName);
 
-      var icon = GetIconByRawName(bestMatch);
+      var icon = GetIconByRawName(bestMatch) ?? GetDefaultIcon();
 
       if (icon == null)
       {
         return false;
       }
 
-      notifyIcon.Icon = icon;
+      Globals.TrayIcon.Icon = icon;
 
       return true;
     }
