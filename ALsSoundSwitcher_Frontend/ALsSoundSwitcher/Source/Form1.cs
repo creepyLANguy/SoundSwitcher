@@ -16,6 +16,7 @@ namespace ALsSoundSwitcher
       ProcessUtils.SetWorkingDirectory();
 
       Globals.Instance = this;
+      Globals.TrayIcon = notifyIcon1;
 
       if (System.Diagnostics.Debugger.IsAttached)
       {

@@ -71,9 +71,9 @@ namespace ALsSoundSwitcher
         Globals.WeAreSwitching = true;
 
         //TODO - there's a bug here.
-        //This code is reached when we are in PreventAutioSwitch mode and changed the device ourselves.
-        //The result is that we retrigger a switch many times.
-        //This might have something to do with us not chaching the active device correctly or in time.
+        //This code is reached when we are in PreventAudioSwitch mode and changed the device ourselves.
+        //The result is that we re-trigger a switch many times.
+        //This might have something to do with us not caching the active device correctly or in time.
         if (Settings.Current.Mode == DeviceMode.Output)
         {
           ProcessUtils.RunExe(Globals.SetDeviceExe, cachedActiveDeviceId);

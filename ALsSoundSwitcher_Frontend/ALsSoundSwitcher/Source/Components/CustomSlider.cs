@@ -24,6 +24,7 @@ namespace ALsSoundSwitcher
       RefreshColours();
       RefreshValue();
 
+      //TODO - bug: dragging slider can cause jumps back to previous volume value. Doing mouseup helps, but still not a great user experience.
       trackBar.ValueChanged += trackBar_ValueChanged;
     }
 
