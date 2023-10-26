@@ -8,7 +8,6 @@ namespace ALsSoundSwitcher
   public static class Globals
   {
     public static Form Instance;
-    public static NotifyIcon TrayIcon;
 
     public const string GithubUrl = "https://github.com/creepyLANguy/SoundSwitcher";
     public const string LatestReleaseUrl = "https://github.com/creepyLANguy/SoundSwitcher/releases/latest";

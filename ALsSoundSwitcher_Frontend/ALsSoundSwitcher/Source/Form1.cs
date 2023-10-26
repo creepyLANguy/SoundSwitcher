@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 
@@ -16,7 +17,6 @@ namespace ALsSoundSwitcher
       ProcessUtils.SetWorkingDirectory();
 
       Globals.Instance = this;
-      Globals.TrayIcon = notifyIcon1;
 
       if (System.Diagnostics.Debugger.IsAttached)
       {
@@ -94,6 +94,21 @@ namespace ALsSoundSwitcher
       else
       {
         notifyIcon1.Visible = false;
+      }
+    }
+
+    public void SetTrayIcon(Icon icon)
+    {
+      if (InvokeRequired)
+      {
+        Invoke((MethodInvoker) delegate
+        {
+          SetTrayIcon(icon);
+        });
+      }
+      else
+      {
+        notifyIcon1.Icon = icon;
       }
     }
   }

@@ -512,6 +512,9 @@ namespace ALsSoundSwitcher
 
         if (ShouldPromptUser(currentVersion, latestVersion) == false)
         {
+          //AL.
+          //TODO - make the time configurable.
+          //https://github.com/creepyLANguy/SoundSwitcher/issues/72
           await Task.Delay(TimeSpan.FromHours(1));
           continue;
         }

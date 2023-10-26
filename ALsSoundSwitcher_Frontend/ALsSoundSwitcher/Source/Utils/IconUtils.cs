@@ -22,7 +22,7 @@ namespace ALsSoundSwitcher
         return false;
       }
 
-      Globals.TrayIcon.Icon = icon;
+      ((Form1)Globals.Instance).SetTrayIcon(icon);
 
       return true;
     }
