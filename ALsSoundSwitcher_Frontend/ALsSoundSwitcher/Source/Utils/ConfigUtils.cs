@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,9 +15,6 @@ namespace ALsSoundSwitcher
       try
       {
         ProcessJsonSettings();
-
-        //Should only do this *after* json processing else you'll write a blank blob to the file.
-        TryUpdateFileStructure();
 
         return true;
       }
@@ -36,12 +33,15 @@ namespace ALsSoundSwitcher
       var jsonString = File.ReadAllText(ConfigFile);
 
       UserSettings = JsonConvert.DeserializeObject<Settings>(jsonString);
+
+      TryUpdateFileStructure();
     }
 
     public static void TryUpdateFileStructure()
     {
       var jsonString = File.ReadAllText(ConfigFile);
       var keysInFile = JObject.Parse(jsonString).Properties().Select(p => p.Name).Count();
+
       var keysInStruct = typeof(Settings).GetProperties().Length;
 
       if (keysInFile != keysInStruct)
