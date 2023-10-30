@@ -404,7 +404,7 @@ namespace ALsSoundSwitcher
       SetBackgroundForMouseControlSubmenu(MenuItemLeftClick, MouseFunctionDictionary[UserSettings.LeftClickFunction]);
       SetBackgroundForMouseControlSubmenu(MenuItemMiddleClick, MouseFunctionDictionary[UserSettings.MiddleClickFunction]);
 
-      void SetBackgroundForMouseControlSubmenu(ToolStripMenuItem menuItem, string label)
+      static void SetBackgroundForMouseControlSubmenu(ToolStripMenuItem menuItem, string label)
       {
         foreach (var item in menuItem.DropDownItems.OfType<ToolStripMenuItem>())
         {

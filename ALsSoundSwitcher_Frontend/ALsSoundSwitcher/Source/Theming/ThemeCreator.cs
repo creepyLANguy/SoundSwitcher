@@ -18,7 +18,7 @@ namespace ALsSoundSwitcher
 
     private static ColourBundle[] _allColourBundles;
 
-    private static readonly ColorDialog ColourPicker = new ColorDialog();
+    private static readonly ColorDialog ColourPicker = new();
 
     public ThemeCreator()
     {

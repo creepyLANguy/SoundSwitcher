@@ -27,7 +27,7 @@ namespace ALsSoundSwitcher
     private const string ZipExtension = ".zip";
 
 
-    private static HashSet<SemanticVersion> _skippedVersions = new HashSet<SemanticVersion>() ;
+    private static HashSet<SemanticVersion> _skippedVersions = new();
 
     private static UpgradeLog _logWindow;
 
@@ -499,6 +499,8 @@ namespace ALsSoundSwitcher
 
     public static async void PollForUpdates_Async()
     {
+      var upgradePollingTimeSpan = GetUpgradePollingTimeSpan();
+
       while (true)
       {
         var currentVersion = GetSemanticVersionFromCurrentExecutable();
@@ -506,10 +508,7 @@ namespace ALsSoundSwitcher
 
         if (ShouldPromptUser(currentVersion, latestVersion) == false)
         {
-          //AL.
-          //TODO - make the time configurable.
-          //https://github.com/creepyLANguy/SoundSwitcher/issues/72
-          await Task.Delay(TimeSpan.FromHours(1));
+          await Task.Delay(upgradePollingTimeSpan);
           continue;
         }
 
@@ -533,6 +532,17 @@ namespace ALsSoundSwitcher
           return;
         }
       }
+    }
+
+    private static TimeSpan GetUpgradePollingTimeSpan()
+    {
+      char[] delimiters = { 'd', 'h', 'm', 's' };
+
+      var parts = Globals.UserSettings.UpgradePollingTime
+        .Split(delimiters, StringSplitOptions.RemoveEmptyEntries)
+        .Select(int.Parse).ToArray();
+
+      return new TimeSpan(parts[0], parts[1], parts[2], parts[3]);
     }
 
     public static bool ShouldPromptUser(SemanticVersion currentVersion, SemanticVersion latestVersion)
