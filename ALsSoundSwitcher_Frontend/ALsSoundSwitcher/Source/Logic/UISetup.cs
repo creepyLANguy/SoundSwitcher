@@ -361,7 +361,7 @@ namespace ALsSoundSwitcher
       {
         item.ResetBackColor();
 
-        if (item.Text == Settings.Current.Theme)
+        if (item.Text == UserSettings.Theme)
         {
           item.BackColor = Theme.ActiveSelectionColor;
         }
@@ -370,14 +370,14 @@ namespace ALsSoundSwitcher
 
     private static void SetBackgroundForMenuItemModeSelected()
     {
-      var currentMode = Enum.GetName(typeof(DeviceMode), Settings.Current.Mode);     
+      var currentMode = Enum.GetName(typeof(DeviceMode), UserSettings.Mode);     
       var selectedItem = MenuItemMode.DropDownItems.OfType<ToolStripMenuItem>().First(it => it.Text == currentMode);
       selectedItem.BackColor = Theme.ActiveSelectionColor;
     }
 
     private static void SetBackgroundForMenuItemPreventAutoSwitch()
     {
-      if (Settings.Current.PreventAutoSwitch)
+      if (UserSettings.PreventAutoSwitch)
       {
         MenuItemPreventAutoSwitch.BackColor = Theme.ActiveSelectionColor;
       }
@@ -389,7 +389,7 @@ namespace ALsSoundSwitcher
     
     private static void SetBackgroundForMenuItemLaunchOnStartup()
     {
-      if (Settings.Current.LaunchOnStartup)
+      if (UserSettings.LaunchOnStartup)
       {
         MenuItemLaunchOnStartup.BackColor = Theme.ActiveSelectionColor;
       }
@@ -401,8 +401,8 @@ namespace ALsSoundSwitcher
 
     private static void SetBackgroundForMouseControlSubmenus()
     {
-      SetBackgroundForMouseControlSubmenu(MenuItemLeftClick, MouseFunctionDictionary[Settings.Current.LeftClickFunction]);
-      SetBackgroundForMouseControlSubmenu(MenuItemMiddleClick, MouseFunctionDictionary[Settings.Current.MiddleClickFunction]);
+      SetBackgroundForMouseControlSubmenu(MenuItemLeftClick, MouseFunctionDictionary[UserSettings.LeftClickFunction]);
+      SetBackgroundForMouseControlSubmenu(MenuItemMiddleClick, MouseFunctionDictionary[UserSettings.MiddleClickFunction]);
 
       void SetBackgroundForMouseControlSubmenu(ToolStripMenuItem menuItem, string label)
       {

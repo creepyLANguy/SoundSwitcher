@@ -41,11 +41,11 @@ namespace ALsSoundSwitcher
 
     public static bool WeAreSwitching = false;
 
-    public static MMDeviceEnumerator DeviceEnumerator = new MMDeviceEnumerator();
+    public static MMDeviceEnumerator DeviceEnumerator = new ();
 
-    public static Dictionary<string, string> ActiveDevices = new Dictionary<string, string>();
+    public static Dictionary<string, string> ActiveDevices = new();
 
-    public static CustomRenderer Theme = new CustomRenderer();
+    public static CustomRenderer Theme = new ();
 
     public static ContextMenuStrip BaseMenu;
 
@@ -55,7 +55,9 @@ namespace ALsSoundSwitcher
 
     public static ToolStripMenuItem MenuItemCreateTheme;
 
-    public static SliderMenuItem MenuItemSlider = new SliderMenuItem();
+    public static SliderMenuItem MenuItemSlider = new ();
+
+    public static Settings UserSettings;
 
     public struct ControlPanelMenuItems
     {

@@ -104,7 +104,7 @@ namespace ALsSoundSwitcher
     private void SetVolume()
     {
       WeAreCurrentlySettingTheVolume = true;
-      var arg = Settings.Current.Mode == DeviceMode.Output ? Globals.SetVolumeArg : Globals.SetMicLevelArg;
+      var arg = Globals.UserSettings.Mode == DeviceMode.Output ? Globals.SetVolumeArg : Globals.SetMicLevelArg;
       ProcessUtils.RunExe(Globals.SetDeviceExe, arg + trackBar.Value);
       WeAreCurrentlySettingTheVolume = false;
     }

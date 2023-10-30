@@ -61,7 +61,7 @@ namespace ALsSoundSwitcher
 
       var cachedActiveDeviceId = (string)Globals.ActiveMenuItemDevice.Tag;
 
-      if (Settings.Current.PreventAutoSwitch && Globals.WeAreSwitching == false)
+      if (Globals.UserSettings.PreventAutoSwitch && Globals.WeAreSwitching == false)
       {
         if (cachedActiveDeviceId == deviceId)
         {
@@ -74,7 +74,7 @@ namespace ALsSoundSwitcher
         //This code is reached when we are in PreventAudioSwitch mode and changed the device ourselves.
         //The result is that we re-trigger a switch many times.
         //This might have something to do with us not caching the active device correctly or in time.
-        if (Settings.Current.Mode == DeviceMode.Output)
+        if (Globals.UserSettings.Mode == DeviceMode.Output)
         {
           ProcessUtils.RunExe(Globals.SetDeviceExe, cachedActiveDeviceId);
         }
@@ -117,7 +117,7 @@ namespace ALsSoundSwitcher
     private static bool IgnoreThisUpdate(string deviceId)
     {
       var device = Globals.DeviceEnumerator.GetDevice(deviceId);
-      var dataFlow = Settings.Current.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;
+      var dataFlow = Globals.UserSettings.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;
       return device.DataFlow != dataFlow;
     }
   }

@@ -15,7 +15,7 @@ namespace ALsSoundSwitcher
 
         var deviceId = (string) menuItem.Tag;
 
-        if (Settings.Current.Mode == DeviceMode.Output)
+        if (UserSettings.Mode == DeviceMode.Output)
         {
           ProcessUtils.RunExe(SetDeviceExe, deviceId);
         }
@@ -78,12 +78,12 @@ namespace ALsSoundSwitcher
     {
       if (deviceName != null)
       {
-        var title = Settings.Current.Mode == DeviceMode.Output
+        var title = UserSettings.Mode == DeviceMode.Output
           ? Resources.Form1_PerformSwitch_Switched_Audio_Output_Device
           : Resources.Form1_PerformSwitch_Switched_Audio_Input_Device;
 
         notifyIcon1.ShowBalloonTip(
-          Settings.Current.BalloonTime,
+          UserSettings.BalloonTime,
           title,
           deviceName,
           ToolTipIcon.None
@@ -92,7 +92,7 @@ namespace ALsSoundSwitcher
       else
       {
         notifyIcon1.ShowBalloonTip(
-          Settings.Current.BalloonTime,
+          UserSettings.BalloonTime,
           Resources.Form1_PerformSwitch_Error_Switching_Audio_Device,
           Resources.Form1_PerformSwitch_could_not_set_default_device,
           ToolTipIcon.Error

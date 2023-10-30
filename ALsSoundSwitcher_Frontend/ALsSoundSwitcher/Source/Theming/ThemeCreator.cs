@@ -102,10 +102,8 @@ namespace ALsSoundSwitcher
 
       lock (pictureBox1)
       {
-        using (var g = Graphics.FromImage(pictureBox1.Image))
-        {
-          g.DrawImage(buffer, 0, 0);
-        }
+        using var g = Graphics.FromImage(pictureBox1.Image);
+        g.DrawImage(buffer, 0, 0);
       }
     }
 
@@ -201,7 +199,7 @@ namespace ALsSoundSwitcher
       var path = Path.Combine(ThemeFileCustomFolder, filename);
       WriteThemeToFile(_allColourBundles.ToList(), path);
 
-      Settings.Current.Theme = input;
+      UserSettings.Theme = input;
       Config.Save();
     }
 
@@ -233,18 +231,16 @@ namespace ALsSoundSwitcher
           Directory.CreateDirectory(fileInfo.DirectoryName);
         }
 
-        using (var file = new StreamWriter(filePath))
+        using var file = new StreamWriter(filePath);
+        file.WriteLine("{");
+        foreach (var bundle in bundles)
         {
-          file.WriteLine("{");
-          foreach (var bundle in bundles)
-          {
-            var key = $"\"{bundle.JsonKey}\"";
-            var colourString = $"\"{bundle.Colour.R}, {bundle.Colour.G}, {bundle.Colour.B}\"";
-            var item = "  " + key + " : " + colourString + ",";
-            file.WriteLine(item);
-          }
-          file.WriteLine("}");
+          var key = $"\"{bundle.JsonKey}\"";
+          var colourString = $"\"{bundle.Colour.R}, {bundle.Colour.G}, {bundle.Colour.B}\"";
+          var item = "  " + key + " : " + colourString + ",";
+          file.WriteLine(item);
         }
+        file.WriteLine("}");
       }
       catch (Exception ex)
       {

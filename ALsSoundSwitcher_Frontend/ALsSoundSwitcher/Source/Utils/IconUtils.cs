@@ -29,10 +29,10 @@ namespace ALsSoundSwitcher
 
     public static Icon GetDefaultIcon()
     {
-      var icon = GetIconByRawName(Settings.Current.DefaultIcon);
+      var icon = GetIconByRawName(Globals.UserSettings.DefaultIcon);
       if (icon == null)
       {
-        icon = Settings.Current.Mode == DeviceMode.Output ? Resources.Headset : Resources.Mic;
+        icon = Globals.UserSettings.Mode == DeviceMode.Output ? Resources.Headset : Resources.Mic;
       }
       return icon;
     }
@@ -52,7 +52,7 @@ namespace ALsSoundSwitcher
 
       var matches = GetMatchPercentages(iconName.Trim(), allIcons);
       var bestMatch = matches.OrderByDescending(it => it.Item2).First();
-      if (bestMatch.Item2 < Settings.Current.BestNameMatchPercentageMinimum)
+      if (bestMatch.Item2 < Globals.UserSettings.BestNameMatchPercentageMinimum)
       {
         return string.Empty;
       }
@@ -126,16 +126,14 @@ namespace ALsSoundSwitcher
       var largestDimension = Math.Max(originalImage.Height, originalImage.Width);
       var squareImage = new Bitmap(largestDimension, largestDimension);
 
-      using (var graphics = Graphics.FromImage(squareImage))
-      {
-        graphics.CompositingQuality = CompositingQuality.HighQuality;
-        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-        graphics.SmoothingMode = SmoothingMode.HighQuality;
+      using var graphics = Graphics.FromImage(squareImage);
+      graphics.CompositingQuality = CompositingQuality.HighQuality;
+      graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+      graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-        var x = (largestDimension / 2) - (originalImage.Width / 2);
-        var y = (largestDimension / 2) - (originalImage.Height / 2);
-        graphics.DrawImage(originalImage, x, y, originalImage.Width, originalImage.Height);
-      }
+      var x = (largestDimension / 2) - (originalImage.Width / 2);
+      var y = (largestDimension / 2) - (originalImage.Height / 2);
+      graphics.DrawImage(originalImage, x, y, originalImage.Width, originalImage.Height);
 
       return squareImage;
     }
@@ -143,47 +141,43 @@ namespace ALsSoundSwitcher
     //Based on: https://gist.github.com/darkfall/1656050
     public static Icon BitmapToIcon(Bitmap input, int size = 16)
     {
-      using (var output = new MemoryStream())
+      using var output = new MemoryStream();
+      var newBitmap = new Bitmap(input, new Size(size, size));
+
+      using (var memoryStream = new MemoryStream())
       {
-        var newBitmap = new Bitmap(input, new Size(size, size));
+        newBitmap.Save(memoryStream, ImageFormat.Png);
 
-        using (var memoryStream = new MemoryStream())
-        {
-          newBitmap.Save(memoryStream, ImageFormat.Png);
+        var iconWriter = new BinaryWriter(output);
 
-          var iconWriter = new BinaryWriter(output);
-
-          iconWriter.Write((byte)0);
-          iconWriter.Write((byte)0);
-          iconWriter.Write((short)1);
-          iconWriter.Write((short)1);
-          iconWriter.Write((byte)size);
-          iconWriter.Write((byte)size);
-          iconWriter.Write((byte)0);
-          iconWriter.Write((byte)0);
-          iconWriter.Write((short)0);
-          iconWriter.Write((short)32);
-          iconWriter.Write((int)memoryStream.Length);
-          iconWriter.Write(6 + 16);
-          iconWriter.Write(memoryStream.ToArray());
-          iconWriter.Flush();
-        }
-
-        output.Position = 0;
-        return new Icon(output);
+        iconWriter.Write((byte)0);
+        iconWriter.Write((byte)0);
+        iconWriter.Write((short)1);
+        iconWriter.Write((short)1);
+        iconWriter.Write((byte)size);
+        iconWriter.Write((byte)size);
+        iconWriter.Write((byte)0);
+        iconWriter.Write((byte)0);
+        iconWriter.Write((short)0);
+        iconWriter.Write((short)32);
+        iconWriter.Write((int)memoryStream.Length);
+        iconWriter.Write(6 + 16);
+        iconWriter.Write(memoryStream.ToArray());
+        iconWriter.Flush();
       }
+
+      output.Position = 0;
+      return new Icon(output);
     }
 
     private static Icon LoadIconIntoMemory(string filename)
     {
       Icon icon;
 
-      using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
-      {
-        var tempIcon = new Icon(stream);
-        icon = new Icon(tempIcon, tempIcon.Size);
-        tempIcon.Dispose();
-      }
+      using var stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
+      var tempIcon = new Icon(stream);
+      icon = new Icon(tempIcon, tempIcon.Size);
+      tempIcon.Dispose();
 
       return icon;
     }
@@ -192,12 +186,10 @@ namespace ALsSoundSwitcher
     {
       Image image;
 
-      using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
-      {
-        var tempImage = Image.FromStream(stream);
-        image = new Bitmap(tempImage);
-        tempImage.Dispose();
-      }
+      using var stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
+      var tempImage = Image.FromStream(stream);
+      image = new Bitmap(tempImage);
+      tempImage.Dispose();
 
       return image;
     }

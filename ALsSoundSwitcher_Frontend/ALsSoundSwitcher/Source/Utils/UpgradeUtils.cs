@@ -133,19 +133,17 @@ namespace ALsSoundSwitcher
     {
       var html = string.Empty;
 
-      using (var webClient = new WebClient())
-      {
-        webClient.Headers.Add("user-agent", Resources.ALs_Sound_Switcher);
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+      using var webClient = new WebClient();
+      webClient.Headers.Add("user-agent", Resources.ALs_Sound_Switcher);
+      ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-        try
-        {
-          html = webClient.DownloadString(url);
-        }
-        catch (WebException ex)
-        {
-          Console.WriteLine(ex);
-        }
+      try
+      {
+        html = webClient.DownloadString(url);
+      }
+      catch (WebException ex)
+      {
+        Console.WriteLine(ex);
       }
 
       return html;
@@ -315,17 +313,15 @@ namespace ALsSoundSwitcher
     private static void CreateArchive(string inputFolder, string outputFileName, string destinationPath)
     {
       var finalOutputPath = Path.Combine(destinationPath, outputFileName);
-      
-      using (var zip = new ZipFile())
-      {
-        if (Directory.Exists(inputFolder) == false)
-        {
-          throw new DirectoryNotFoundException(DirectoryNotFound + inputFolder);
-        }
 
-        zip.AddDirectory(inputFolder);
-        zip.Save(finalOutputPath);
+      using var zip = new ZipFile();
+      if (Directory.Exists(inputFolder) == false)
+      {
+        throw new DirectoryNotFoundException(DirectoryNotFound + inputFolder);
       }
+
+      zip.AddDirectory(inputFolder);
+      zip.Save(finalOutputPath);
     }
 
     private static void DeleteFolder(string folderPath)
@@ -342,32 +338,30 @@ namespace ALsSoundSwitcher
     {
       Log(Downloading + Newline + _pack.DownloadUrl);
 
-      using (var webClient = new WebClient())
+      using var webClient = new WebClient();
+      webClient.Headers.Add("user-agent", Resources.ALs_Sound_Switcher);
+      ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+      try
       {
-        webClient.Headers.Add("user-agent", Resources.ALs_Sound_Switcher);
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        var fileName = Path.GetFileName(_pack.DownloadUrl);
+        var filePath = Path.Combine(_pack.InstallationPath, fileName);
+        webClient.DownloadFile(_pack.DownloadUrl ?? throw new InvalidOperationException(), filePath);
 
-        try
-        {
-          var fileName = Path.GetFileName(_pack.DownloadUrl);
-          var filePath = Path.Combine(_pack.InstallationPath, fileName);
-          webClient.DownloadFile(_pack.DownloadUrl ?? throw new InvalidOperationException(), filePath);
+        Log(
+          "Downloaded:" + Newline + 
+          fileName + Newline + 
+          "to" + Newline + 
+          _pack.InstallationPath);
 
-          Log(
-            "Downloaded:" + Newline + 
-            fileName + Newline + 
-            "to" + Newline + 
-            _pack.InstallationPath);
+        return true;
+      }
+      catch (WebException ex)
+      {
+        Console.WriteLine(ex);
+        Log(DownloadFailed);
 
-          return true;
-        }
-        catch (WebException ex)
-        {
-          Console.WriteLine(ex);
-          Log(DownloadFailed);
-
-          return false;
-        }
+        return false;
       }
     }
 

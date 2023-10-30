@@ -18,9 +18,9 @@ namespace ALsSoundSwitcher
       {
         Theme = new CustomRenderer();
 
-        if (Settings.Current.Theme.Length > 0)
+        if (UserSettings.Theme.Length > 0)
         {
-          var filename = Settings.Current.Theme + ThemeFileExtension;
+          var filename = UserSettings.Theme + ThemeFileExtension;
           var filePath = Directory.GetFiles(Directory.GetCurrentDirectory(), filename, SearchOption.AllDirectories).First();
 
           var colourPack = GetColourPackFromThemeFile(filePath);
@@ -32,7 +32,7 @@ namespace ALsSoundSwitcher
         Console.WriteLine(ex.ToString());
 
         notifyIcon1.ShowBalloonTip(
-          Settings.Current.BalloonTime,
+          UserSettings.BalloonTime,
           Resources.Form1_PerformSwitch_Error_Switching_Theme,
           ex.Message,
           ToolTipIcon.Error
