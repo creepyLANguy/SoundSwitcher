@@ -107,8 +107,7 @@ namespace ALsSoundSwitcher
       //Console.WriteLine($"Audio device {deviceId} property {propertyKey} value changed");
 
       var propString = propertyKey.ToString();
-      var cachedActiveDeviceId = (string)Globals.ActiveMenuItemDevice.Tag;
-      if ((deviceId == cachedActiveDeviceId) && (propString == Globals.VolumeChangedPropertyKey))
+      if (propString == Globals.VolumeChangedPropertyKey) //AL. //TODO - revise how the propstring.ToString works and if that is causing issues with the hardcoded Global comparison
       {
         UpdateSliderAndTooltip_Async();
       }
