@@ -288,4 +288,8 @@ Could not start </value>
   <data name="ALs_Sound_Switcher" xml:space="preserve">
     <value>AL's Sound Switcher</value>
   </data>
+  <data name="Form1_CacheCurrentDevice_KnownIssue_Restart" xml:space="preserve">
+    <value>A known issue has occurred.
+The application will now restart.</value>
+  </data>
 </root>

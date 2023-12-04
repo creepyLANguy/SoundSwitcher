@@ -115,6 +115,16 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A known issue has occurred.
+        ///The application will now restart..
+        /// </summary>
+        internal static string Form1_CacheCurrentDevice_KnownIssue_Restart {
+            get {
+                return ResourceManager.GetString("Form1_CacheCurrentDevice_KnownIssue_Restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not set default device.
         /// </summary>
         internal static string Form1_PerformSwitch_could_not_set_default_device {

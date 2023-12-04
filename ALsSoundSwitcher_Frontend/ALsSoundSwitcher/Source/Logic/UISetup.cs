@@ -306,7 +306,19 @@ namespace ALsSoundSwitcher
     {
       var currentDevice = DeviceUtils.GetCurrentDefaultDevice();
       var items = BaseMenu.Items.OfType<ToolStripMenuItem>().ToList();
-      ActiveMenuItemDevice = items.First(it => (string)it.Tag == currentDevice.DeviceID);
+      
+      try
+      {
+        ActiveMenuItemDevice = items.First(it => (string)it.Tag == currentDevice.DeviceID);
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+
+        MessageBox.Show(Resources.Form1_CacheCurrentDevice_KnownIssue_Restart, Application.ProductName);
+
+        Application.Restart();
+      }
     }
 
     public static void SetCurrentDeviceTrayIcon()
