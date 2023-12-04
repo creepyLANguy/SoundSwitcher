@@ -7,7 +7,7 @@ namespace ALsSoundSwitcher
 {
   public class CustomRenderer : ToolStripProfessionalRenderer
   {
-    private new static readonly MenuStripColorTable ColorTable = new MenuStripColorTable();
+    private new static readonly MenuStripColorTable ColorTable = new();
 
     public Color ActiveSelectionColor = Color.DarkSlateGray;
     public Color ColorMenuArrow = Color.FromArgb(237, 237, 237);

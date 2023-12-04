@@ -18,7 +18,7 @@ namespace ALsSoundSwitcher
 	
     public static MMDevice GetCurrentDefaultDevice()
     {
-      var dataFlow = Settings.Current.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;
+      var dataFlow = UserSettings.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;
 
       return DeviceEnumerator.GetDefaultAudioEndpoint(dataFlow, Role.Multimedia);
     }
@@ -27,7 +27,7 @@ namespace ALsSoundSwitcher
     {
       ActiveDevices.Clear();
 
-      var dataFlow = Settings.Current.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;
+      var dataFlow = UserSettings.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;
 
       var deviceCollection = DeviceEnumerator.EnumAudioEndpoints(dataFlow, DeviceState.Active);
 
@@ -77,7 +77,7 @@ namespace ALsSoundSwitcher
 
     public static int GetVolume()
     {
-      var arg = Settings.Current.Mode == DeviceMode.Output ? GetVolumeArg : GetMicLevelArg;
+      var arg = UserSettings.Mode == DeviceMode.Output ? GetVolumeArg : GetMicLevelArg;
       var volume = ProcessUtils.RunExe(SetDeviceExe, arg);
       return volume;
     }

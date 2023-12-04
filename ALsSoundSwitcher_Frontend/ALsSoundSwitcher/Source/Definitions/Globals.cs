@@ -10,6 +10,8 @@ namespace ALsSoundSwitcher
     public static Form Instance;
 
     public const string GithubUrl = "https://github.com/creepyLANguy/SoundSwitcher";
+    public const string LatestReleaseUrl = "https://github.com/creepyLANguy/SoundSwitcher/releases/latest";
+    public const string DownloadUrl = "https://github.com/creepyLANguy/SoundSwitcher/releases/latest/download/ALsSoundSwitcher.zip";
 
     public const string StartupRegistryKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
@@ -39,11 +41,11 @@ namespace ALsSoundSwitcher
 
     public static bool WeAreSwitching = false;
 
-    public static MMDeviceEnumerator DeviceEnumerator = new MMDeviceEnumerator();
+    public static MMDeviceEnumerator DeviceEnumerator = new();
 
-    public static Dictionary<string, string> ActiveDevices = new Dictionary<string, string>();
+    public static Dictionary<string, string> ActiveDevices = new();
 
-    public static CustomRenderer Theme = new CustomRenderer();
+    public static CustomRenderer Theme = new();
 
     public static ContextMenuStrip BaseMenu;
 
@@ -53,7 +55,9 @@ namespace ALsSoundSwitcher
 
     public static ToolStripMenuItem MenuItemCreateTheme;
 
-    public static SliderMenuItem MenuItemSlider = new SliderMenuItem();
+    public static SliderMenuItem MenuItemSlider = new();
+
+    public static Settings UserSettings;
 
     public struct ControlPanelMenuItems
     {
@@ -73,6 +77,7 @@ namespace ALsSoundSwitcher
     {
       public static ToolStripMenuItem MenuItemExit;
       public static ToolStripMenuItem MenuItemHelp;
+      public static ToolStripMenuItem MenuItemUpdate;
       public static ToolStripMenuItem MenuItemRefresh;
       public static ToolStripMenuItem MenuItemMode;
       public static ToolStripMenuItem MenuItemToggleTheme;
@@ -80,24 +85,22 @@ namespace ALsSoundSwitcher
       public static ToolStripMenuItem MenuItemControlPanel;
     }
 
-    public static Dictionary<MouseControlFunction, string> MouseFunctionDictionary =
-      new Dictionary<MouseControlFunction, string>
-      {
-        {MouseControlFunction.None, Resources.Globals_MouseFunctionDictionary_None},
-        {MouseControlFunction.Exit, Resources.Globals_MouseFunctionDictionary_Exit},
-        {MouseControlFunction.Expand, Resources.Globals_MouseFunctionDictionary_Expand},
-        {MouseControlFunction.Refresh, Resources.Globals_MouseFunctionDictionary_Refresh},
-        {MouseControlFunction.Toggle_Mode, Resources.Globals_MouseFunctionDictionary_Toggle_Mode},
-        {MouseControlFunction.Volume_Mixer, Resources.Globals_MouseFunctionDictionary_Volume_Mixer},
-        {MouseControlFunction.Manage_Devices, Resources.Globals_MouseFunctionDictionary_Manage_Devices},
-        {MouseControlFunction.Switch_Next_Device, Resources.Globals_MouseFunctionDictionary_Switch_Next_Device}
-      };    
+    public static Dictionary<MouseControlFunction, string> MouseFunctionDictionary = new()
+    {
+      {MouseControlFunction.None, Resources.Globals_MouseFunctionDictionary_None},
+      {MouseControlFunction.Exit, Resources.Globals_MouseFunctionDictionary_Exit},
+      {MouseControlFunction.Expand, Resources.Globals_MouseFunctionDictionary_Expand},
+      {MouseControlFunction.Refresh, Resources.Globals_MouseFunctionDictionary_Refresh},
+      {MouseControlFunction.Toggle_Mode, Resources.Globals_MouseFunctionDictionary_Toggle_Mode},
+      {MouseControlFunction.Volume_Mixer, Resources.Globals_MouseFunctionDictionary_Volume_Mixer},
+      {MouseControlFunction.Manage_Devices, Resources.Globals_MouseFunctionDictionary_Manage_Devices},
+      {MouseControlFunction.Switch_Next_Device, Resources.Globals_MouseFunctionDictionary_Switch_Next_Device}
+    };    
     
-    public static Dictionary<DeviceMode, string> DeviceModeDictionary =
-      new Dictionary<DeviceMode, string>
-      {
-        {DeviceMode.Input, Resources.Globals_DeviceModeDictionary_Input},
-        {DeviceMode.Output, Resources.Globals_DeviceModeDictionary_Output}
-      };
+    public static Dictionary<DeviceMode, string> DeviceModeDictionary = new()
+    {
+      {DeviceMode.Input, Resources.Globals_DeviceModeDictionary_Input},
+      {DeviceMode.Output, Resources.Globals_DeviceModeDictionary_Output}
+    };
   }
 }

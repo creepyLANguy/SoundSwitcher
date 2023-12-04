@@ -90,6 +90,9 @@ namespace ALsSoundSwitcher
       MenuItemHelp = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Help);
       MenuItemHelp.Click += menuItemHelp_Click;
 
+      MenuItemUpdate = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Update);
+      MenuItemUpdate.Click += menuItemUpdate_Click;
+      
       MenuItemRefresh = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Refresh);
       MenuItemRefresh.Click += menuItemRefresh_Click;
 
@@ -256,8 +259,8 @@ namespace ALsSoundSwitcher
       var deviceName = name.Substring(indexOfOpeningParenthesis + 1, lengthOfFormattedString);
 
       //Handles the case where bracketed portion is identical but prefix is unique, e.g., systems with Realtek(R) audio.
-      var occurences = ActiveDevices.Keys.Count(key => key.Contains(deviceName));
-      if (occurences > 1)
+      var occurrences = ActiveDevices.Keys.Count(key => key.Contains(deviceName));
+      if (occurrences > 1)
       {
         deviceName = name.Substring(0, indexOfOpeningParenthesis);
       }
@@ -334,7 +337,8 @@ namespace ALsSoundSwitcher
 
     public static void SetCurrentDeviceTrayIcon()
     {
-      IconUtils.SetTrayIcon(ActiveMenuItemDevice.Text, notifyIcon1);      
+      IconUtils.SetTrayIcon(ActiveMenuItemDevice.Text);
+      notifyIcon1.Visible = true;
     }
 
     public static void SetToolTip(string text, bool appendVolume = true)
@@ -383,7 +387,7 @@ namespace ALsSoundSwitcher
       {
         item.ResetBackColor();
 
-        if (item.Text == Settings.Current.Theme)
+        if (item.Text == UserSettings.Theme)
         {
           item.BackColor = Theme.ActiveSelectionColor;
         }
@@ -392,14 +396,14 @@ namespace ALsSoundSwitcher
 
     private static void SetBackgroundForMenuItemModeSelected()
     {
-      var currentMode = Enum.GetName(typeof(DeviceMode), Settings.Current.Mode);     
+      var currentMode = Enum.GetName(typeof(DeviceMode), UserSettings.Mode);     
       var selectedItem = MenuItemMode.DropDownItems.OfType<ToolStripMenuItem>().First(it => it.Text == currentMode);
       selectedItem.BackColor = Theme.ActiveSelectionColor;
     }
 
     private static void SetBackgroundForMenuItemPreventAutoSwitch()
     {
-      if (Settings.Current.PreventAutoSwitch)
+      if (UserSettings.PreventAutoSwitch)
       {
         MenuItemPreventAutoSwitch.BackColor = Theme.ActiveSelectionColor;
       }
@@ -411,7 +415,7 @@ namespace ALsSoundSwitcher
     
     private static void SetBackgroundForMenuItemLaunchOnStartup()
     {
-      if (Settings.Current.LaunchOnStartup)
+      if (UserSettings.LaunchOnStartup)
       {
         MenuItemLaunchOnStartup.BackColor = Theme.ActiveSelectionColor;
       }
@@ -423,10 +427,10 @@ namespace ALsSoundSwitcher
 
     private static void SetBackgroundForMouseControlSubmenus()
     {
-      SetBackgroundForMouseControlSubmenu(MenuItemLeftClick, MouseFunctionDictionary[Settings.Current.LeftClickFunction]);
-      SetBackgroundForMouseControlSubmenu(MenuItemMiddleClick, MouseFunctionDictionary[Settings.Current.MiddleClickFunction]);
+      SetBackgroundForMouseControlSubmenu(MenuItemLeftClick, MouseFunctionDictionary[UserSettings.LeftClickFunction]);
+      SetBackgroundForMouseControlSubmenu(MenuItemMiddleClick, MouseFunctionDictionary[UserSettings.MiddleClickFunction]);
 
-      void SetBackgroundForMouseControlSubmenu(ToolStripMenuItem menuItem, string label)
+      static void SetBackgroundForMouseControlSubmenu(ToolStripMenuItem menuItem, string label)
       {
         foreach (var item in menuItem.DropDownItems.OfType<ToolStripMenuItem>())
         {

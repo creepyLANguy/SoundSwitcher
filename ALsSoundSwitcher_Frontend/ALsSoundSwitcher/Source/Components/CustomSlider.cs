@@ -24,6 +24,7 @@ namespace ALsSoundSwitcher
       RefreshColours();
       RefreshValue();
 
+      //TODO - bug: dragging slider can cause jumps back to previous volume value. Doing mouseup helps, but still not a great user experience.
       trackBar.ValueChanged += trackBar_ValueChanged;
     }
 
@@ -103,7 +104,7 @@ namespace ALsSoundSwitcher
     private void SetVolume()
     {
       WeAreCurrentlySettingTheVolume = true;
-      var arg = Settings.Current.Mode == DeviceMode.Output ? Globals.SetVolumeArg : Globals.SetMicLevelArg;
+      var arg = Globals.UserSettings.Mode == DeviceMode.Output ? Globals.SetVolumeArg : Globals.SetMicLevelArg;
       ProcessUtils.RunExe(Globals.SetDeviceExe, arg + trackBar.Value);
       WeAreCurrentlySettingTheVolume = false;
     }

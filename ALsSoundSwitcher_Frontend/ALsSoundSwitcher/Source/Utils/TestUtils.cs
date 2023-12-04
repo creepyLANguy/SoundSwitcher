@@ -4,6 +4,10 @@ namespace ALsSoundSwitcher
 {
   public class TestUtils
   {
+    public static void RunDebugCode()
+    {
+    }
+
     public static void RemoveAudioDeviceCmdletsAndExit()
     {
       var process = new Process();

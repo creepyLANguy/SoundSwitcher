@@ -129,6 +129,9 @@
   <data name="Form1_PerformSwitch_Error_Switching_Audio_Device" xml:space="preserve">
     <value>Error Switching Audio Device</value>
   </data>
+  <data name="Form1_SetupContextMenu_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
   <data name="Form1_SetupContextMenu_Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
@@ -203,14 +206,8 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_PreventAutoSwitch" xml:space="preserve">
     <value>Prevent Auto Switching</value>
   </data>
-  <data name="PowerShellUtils_InstallAudioCmdlets_Error_Caption" xml:space="preserve">
-    <value>AL's Sound Switcher</value>
-  </data>
   <data name="DeviceUtils_Monitor" xml:space="preserve">
     <value>Monitoring for audio device changes...</value>
-  </data>
-  <data name="PowerShellUtils_InstallAudioCmdlets_Caption" xml:space="preserve">
-    <value>AL's Sound Switcher</value>
   </data>
   <data name="Form1_PerformSwitch_Switched_Audio_Output_Device" xml:space="preserve">
     <value>Switched Audio Output Device</value>
@@ -287,5 +284,8 @@ Could not start </value>
   </data>
   <data name="Globals_MouseFunctionDictionary_None" xml:space="preserve">
     <value>🛇</value>
+  </data>
+  <data name="ALs_Sound_Switcher" xml:space="preserve">
+    <value>AL's Sound Switcher</value>
   </data>
 </root>

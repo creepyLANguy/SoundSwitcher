@@ -61,7 +61,7 @@ namespace ALsSoundSwitcher
 
       var cachedActiveDeviceId = (string)Globals.ActiveMenuItemDevice.Tag;
 
-      if (Settings.Current.PreventAutoSwitch && Globals.WeAreSwitching == false)
+      if (Globals.UserSettings.PreventAutoSwitch && Globals.WeAreSwitching == false)
       {
         if (cachedActiveDeviceId == deviceId)
         {
@@ -69,13 +69,12 @@ namespace ALsSoundSwitcher
         }
 
         Globals.WeAreSwitching = true;
-     
-        //AL.
+
         //TODO - there's a bug here.
-        //This code is reached when we are in PreventAutioSwitch mode and changed the device ourselves.
-        //The result is that we retrigger a switch many times.
-        //This might have something to do with us not chaching the active device correctly or in time.
-        if (Settings.Current.Mode == DeviceMode.Output)
+        //This code is reached when we are in PreventAudioSwitch mode and changed the device ourselves.
+        //The result is that we re-trigger a switch many times.
+        //This might have something to do with us not caching the active device correctly or in time.
+        if (Globals.UserSettings.Mode == DeviceMode.Output)
         {
           ProcessUtils.RunExe(Globals.SetDeviceExe, cachedActiveDeviceId);
         }
@@ -111,15 +110,14 @@ namespace ALsSoundSwitcher
       var cachedActiveDeviceId = (string)Globals.ActiveMenuItemDevice.Tag;
       if ((deviceId == cachedActiveDeviceId) && (propString == Globals.VolumeChangedPropertyKey))
       {
-        Globals.MenuItemSlider.RefreshValue();
-        SetToolTip(Globals.ActiveMenuItemDevice.Text);
+        UpdateSliderAndTooltip_Async();
       }
     }
 
     private static bool IgnoreThisUpdate(string deviceId)
     {
       var device = Globals.DeviceEnumerator.GetDevice(deviceId);
-      var dataFlow = Settings.Current.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;
+      var dataFlow = Globals.UserSettings.Mode == DeviceMode.Output ? DataFlow.Render : DataFlow.Capture;
       return device.DataFlow != dataFlow;
     }
   }

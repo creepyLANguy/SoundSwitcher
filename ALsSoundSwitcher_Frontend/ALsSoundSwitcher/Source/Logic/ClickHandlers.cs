@@ -18,8 +18,16 @@ namespace ALsSoundSwitcher
 
     private static void InvokeRightClick()
     {
+      UpdateSliderAndTooltip_Async();
+
       var mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic);
       mi?.Invoke(notifyIcon1, null);
+    }
+
+    private static async void UpdateSliderAndTooltip_Async()
+    {
+      await Task.Run(() => MenuItemSlider.RefreshValue());
+      await Task.Run(() => SetToolTip(ActiveMenuItemDevice.Text));
     }
 
     private static void HandleCloseOnClick(object sender, ToolStripDropDownClosingEventArgs e)
@@ -37,19 +45,19 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private async void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+    private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
     {
       if (e.Button == MouseButtons.Right)
       {
-        await Task.Run(() => MenuItemSlider.RefreshValue());
+        UpdateSliderAndTooltip_Async();
       }
       else if (e.Button == MouseButtons.Left)
       {
-        HandleClickAsPerCurrentSettings(Settings.Current.LeftClickFunction);
+        HandleClickAsPerCurrentSettings(UserSettings.LeftClickFunction);
       }
       else if (e.Button == MouseButtons.Middle)
       {
-        HandleClickAsPerCurrentSettings(Settings.Current.MiddleClickFunction);
+        HandleClickAsPerCurrentSettings(UserSettings.MiddleClickFunction);
       }
     }
 
@@ -119,8 +127,8 @@ namespace ALsSoundSwitcher
 
     private static void MenuItemLaunchOnStartup_Click(object sender, EventArgs e)
     {
-      var mode = Settings.Current.Mode;
-      var regResult = Settings.Current.LaunchOnStartup ?
+      var mode = UserSettings.Mode;
+      var regResult = UserSettings.LaunchOnStartup ?
         RegistryUtils.TryDeleteStartupRegistrySetting(mode) : RegistryUtils.TrySaveStartupRegistrySetting(mode);
 
       if (regResult == false)
@@ -128,7 +136,7 @@ namespace ALsSoundSwitcher
         return;
       }
 
-      Settings.Current.LaunchOnStartup = !Settings.Current.LaunchOnStartup;
+      UserSettings.LaunchOnStartup = !UserSettings.LaunchOnStartup;
 
       Config.Save();
 
@@ -145,6 +153,11 @@ namespace ALsSoundSwitcher
     private static void menuItemExit_Click(object sender, EventArgs e)
     {
       Instance.Close();
+    }
+
+    private static void menuItemUpdate_Click(object sender, EventArgs e)
+    {
+      UpgradeUtils.Run();
     }
 
     private static void menuItemRefresh_Click(object sender, EventArgs e)
@@ -165,7 +178,7 @@ namespace ALsSoundSwitcher
 
     private static void menuItemTheme_Click(object sender, EventArgs e)
     {
-      Settings.Current.Theme = ((ToolStripMenuItem) sender).Text;
+      UserSettings.Theme = ((ToolStripMenuItem) sender).Text;
 
       RefreshUITheme();
 
@@ -183,9 +196,9 @@ namespace ALsSoundSwitcher
 
     private static void TrySwitchMode(DeviceMode selectedMode)
     {
-      if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistsForThisPath(Settings.Current.Mode))
+      if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistForThisPath(UserSettings.Mode))
       {
-        if (RegistryUtils.TryDeleteStartupRegistrySetting(Settings.Current.Mode) == false)
+        if (RegistryUtils.TryDeleteStartupRegistrySetting(UserSettings.Mode) == false)
         {
           return;
         }
@@ -199,11 +212,11 @@ namespace ALsSoundSwitcher
         }
       }
 
-      Settings.Current.Mode = selectedMode;
+      UserSettings.Mode = selectedMode;
 
       Config.Save();
 
-      if (Settings.Current.LaunchOnStartup)
+      if (UserSettings.LaunchOnStartup)
       {
         RegistryUtils.TrySaveStartupRegistrySetting(selectedMode);
       }
@@ -214,7 +227,7 @@ namespace ALsSoundSwitcher
     private static DeviceMode GetNextAvailableMode()
     {
       var modes = DeviceModeDictionary.Keys.ToList();
-      var nextIndex = modes.IndexOf(Settings.Current.Mode) + 1;
+      var nextIndex = modes.IndexOf(UserSettings.Mode) + 1;
       if (nextIndex >= modes.Count)
       {
         nextIndex = 0;
@@ -223,8 +236,8 @@ namespace ALsSoundSwitcher
     }
 
     private static void menuItemPreventAutoSwitch_Click(object sender, EventArgs e)
-    {      
-      Settings.Current.PreventAutoSwitch = !Settings.Current.PreventAutoSwitch;
+    {
+      UserSettings.PreventAutoSwitch = !UserSettings.PreventAutoSwitch;
 
       Config.Save();
 
@@ -251,11 +264,11 @@ namespace ALsSoundSwitcher
 
       if (parent == Resources.Form1_SetupMouseControlsSubmenu_Left_Click)
       {
-        Settings.Current.LeftClickFunction = mouseControlFunction;
+        UserSettings.LeftClickFunction = mouseControlFunction;
       }
       else if (parent == Resources.Form1_SetupMouseControlsSubmenu_Middle_Click)
       {
-        Settings.Current.MiddleClickFunction = mouseControlFunction;
+        UserSettings.MiddleClickFunction = mouseControlFunction;
       }
       
       Config.Save();

@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 
@@ -17,24 +18,29 @@ namespace ALsSoundSwitcher
 
       Globals.Instance = this;
 
+      if (System.Diagnostics.Debugger.IsAttached)
+      {
+        TestUtils.RunDebugCode();
+      }
+
       if (Config.Read() == false)
       {
         NotifyUserOfConfigReadFail();
       }
 
-      if (Settings.Current.Mode == DeviceMode.Input)
+      if (Globals.UserSettings.Mode == DeviceMode.Input)
       {
         if (PowerShellUtils.VerifyAudioCmdletsAvailability() == false)
         {
-          Settings.Current.Mode = DeviceMode.Output;
+          Globals.UserSettings.Mode = DeviceMode.Output;
         }
       }
 
-      if (Settings.Current.LaunchOnStartup)
+      if (Globals.UserSettings.LaunchOnStartup)
       {
-        if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistsForThisPath(Settings.Current.Mode) == false)
+        if (RegistryUtils.DoesStartupRegistrySettingAlreadyExistForThisPath(Globals.UserSettings.Mode) == false)
         {
-          Settings.Current.LaunchOnStartup = false;
+          Globals.UserSettings.LaunchOnStartup = false;
           Config.Save();
         }
       }
@@ -44,12 +50,16 @@ namespace ALsSoundSwitcher
       Minimize();
 
       DeviceUtils.Monitor();
+      
+      UpgradeUtils.PollForUpdates_Async();
+      
+      UpgradeUtils.MonitorForOutdatedFilesAndAttemptRemoval_Async();
     }
 
     private void NotifyUserOfConfigReadFail()
     {
       notifyIcon1.ShowBalloonTip(
-        Settings.Current.BalloonTime,
+        Globals.UserSettings.BalloonTime,
         Resources.Form1_ReadConfig_Error_reading_config_file_ + Globals.ConfigFile,
         Resources.Form1_ReadConfig_Will_use_default_values,
         ToolTipIcon.Error
@@ -59,9 +69,47 @@ namespace ALsSoundSwitcher
     private void Minimize()
     {
       WindowState = FormWindowState.Minimized;
-      //notifyIcon1.ShowBalloonTip(Settings.Current.BalloonTime);
       ShowInTaskbar = false;
       Visible = false;
+    }
+
+    public void ShowTrayIcon()
+    {
+      if (InvokeRequired)
+      {
+        Invoke(new MethodInvoker(ShowTrayIcon));
+      }
+      else
+      {
+        notifyIcon1.Visible = true;
+      }
+    }
+
+    public void HideTrayIcon()
+    {
+      if (InvokeRequired)
+      {
+        Invoke(new MethodInvoker(HideTrayIcon));
+      }
+      else
+      {
+        notifyIcon1.Visible = false;
+      }
+    }
+
+    public void SetTrayIcon(Icon icon)
+    {
+      if (InvokeRequired)
+      {
+        Invoke((MethodInvoker) delegate
+        {
+          SetTrayIcon(icon);
+        });
+      }
+      else
+      {
+        notifyIcon1.Icon = icon;
+      }
     }
   }
 }
