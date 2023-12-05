@@ -111,5 +111,10 @@ namespace ALsSoundSwitcher
         notifyIcon1.Icon = icon;
       }
     }
+
+    private void btn_restart_Click(object sender, EventArgs e)
+    {
+      Application.Restart();
+    }
   }
 }
