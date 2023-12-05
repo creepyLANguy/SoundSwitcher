@@ -115,6 +115,16 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The application config has been modified.
+        ///Would you like to restart to apply these changes?.
+        /// </summary>
+        internal static string FileWatcher_OnChanged {
+            get {
+                return ResourceManager.GetString("FileWatcher_OnChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A known issue has occurred.
         ///The application will now restart..
         /// </summary>
