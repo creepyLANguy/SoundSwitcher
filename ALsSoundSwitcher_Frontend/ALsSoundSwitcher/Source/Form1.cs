@@ -54,6 +54,8 @@ namespace ALsSoundSwitcher
       UpgradeUtils.PollForUpdates_Async();
       
       UpgradeUtils.MonitorForOutdatedFilesAndAttemptRemoval_Async();
+
+      FileWatcher.Run();
     }
 
     private void NotifyUserOfConfigReadFail()

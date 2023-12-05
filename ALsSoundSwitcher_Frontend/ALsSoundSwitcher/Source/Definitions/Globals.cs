@@ -59,6 +59,8 @@ namespace ALsSoundSwitcher
 
     public static Settings UserSettings;
 
+    public static int SettingsHash;
+
     public struct ControlPanelMenuItems
     {
       public static ToolStripMenuItem MenuItemMixer;
