@@ -35,6 +35,8 @@ namespace ALsSoundSwitcher
       UserSettings = JsonConvert.DeserializeObject<Settings>(jsonString);
 
       TryUpdateFileStructure();
+
+      SettingsHash = jsonString.GetHashCode();
     }
 
     public static void TryUpdateFileStructure()

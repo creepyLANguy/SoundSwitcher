@@ -117,6 +117,7 @@
     <Compile Include="Source\Logic\UISetup.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Source\Utils\FileWatcher.cs" />
     <Compile Include="Source\Utils\IconUtils.cs" />
     <Compile Include="Source\Logic\DeviceSwitchingLogic.cs">
       <SubType>Form</SubType>

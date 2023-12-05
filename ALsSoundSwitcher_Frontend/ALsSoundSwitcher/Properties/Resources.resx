@@ -292,4 +292,8 @@ Could not start </value>
     <value>A known issue has occurred.
 The application will now restart.</value>
   </data>
+  <data name="FileWatcher_OnChanged" xml:space="preserve">
+    <value>The application config has been modified.
+Would you like to restart to apply these changes?</value>
+  </data>
 </root>
