@@ -146,6 +146,9 @@ Could not start </value>
   <data name="Form1_SetupContextMenu_Help" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="Form1_SetupContextMenu_Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
   <data name="Form1_SetupContextMenu_SwitchTheme" xml:space="preserve">
     <value>Theme</value>
   </data>
@@ -278,6 +281,9 @@ Could not start </value>
   </data>
   <data name="Globals_MouseFunctionDictionary_Expand" xml:space="preserve">
     <value>Expand</value>
+  </data>
+  <data name="Globals_MouseFunctionDictionary_Browse" xml:space="preserve">
+    <value>Browse</value>
   </data>
   <data name="Globals_MouseFunctionDictionary_Exit" xml:space="preserve">
     <value>Exit</value>

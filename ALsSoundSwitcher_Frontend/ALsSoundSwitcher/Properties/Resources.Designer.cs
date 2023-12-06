@@ -209,6 +209,15 @@ namespace ALsSoundSwitcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        internal static string Form1_SetupContextMenu_Browse {
+            get {
+                return ResourceManager.GetString("Form1_SetupContextMenu_Browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Windows.
         /// </summary>
         internal static string Form1_SetupContextMenu_ControlPanel {
@@ -385,6 +394,15 @@ namespace ALsSoundSwitcher.Properties {
         internal static string Globals_DeviceModeDictionary_Output {
             get {
                 return ResourceManager.GetString("Globals_DeviceModeDictionary_Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        internal static string Globals_MouseFunctionDictionary_Browse {
+            get {
+                return ResourceManager.GetString("Globals_MouseFunctionDictionary_Browse", resourceCulture);
             }
         }
         

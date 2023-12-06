@@ -66,7 +66,10 @@ namespace ALsSoundSwitcher
       var jsonString = JsonConvert.SerializeObject(jsonDict, Formatting.Indented);
 
       using var sw = File.CreateText(ConfigFile);
-      sw.WriteLine(jsonString);
+      sw.Write(jsonString);
+
+      //Prevent triggering of file watcher as this is an internally driven update
+      SettingsHash = jsonString.GetHashCode(); 
     }
   }
 }

@@ -25,7 +25,7 @@ namespace ALsSoundSwitcher
 
       try
       {
-        TryHandlingFileUpdateEvent(e);
+        HandleFileUpdateEvent(e);
       }
       catch (Exception ex)
       {
@@ -33,7 +33,7 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private static void TryHandlingFileUpdateEvent(FileSystemEventArgs e)
+    private static void HandleFileUpdateEvent(FileSystemEventArgs e)
     {
       var hash = File.ReadAllText(e.FullPath).GetHashCode();
       if (hash == Globals.SettingsHash)
