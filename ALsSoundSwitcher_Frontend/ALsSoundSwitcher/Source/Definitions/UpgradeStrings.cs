@@ -38,7 +38,7 @@
     
     public const string LaunchingNewVersionOf = "Launching new version of ";
 
-    public const string UpgradeComplete = "Upgrade SUCCESSFUL!";
+    public const string UpgradeComplete = "***UPGRADE SUCCESSFUL***";
 
     public const string UpgradeFailed = "FAILED to complete upgrade process";
     public const string UpgradeFailedAdvice = "We recommend you perform a clean install with the latest version here: ";
