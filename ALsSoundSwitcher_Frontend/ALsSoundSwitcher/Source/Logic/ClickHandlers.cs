@@ -73,6 +73,9 @@ namespace ALsSoundSwitcher
         case MouseControlFunction.Expand:
           InvokeRightClick();
           break;
+        case MouseControlFunction.Browse:
+          OpenFileExplorer();
+          break;
         case MouseControlFunction.Refresh:
           ProcessUtils.Restart_ThreadSafe();
           break;
@@ -168,6 +171,15 @@ namespace ALsSoundSwitcher
     private static void menuItemHelp_Click(object sender, EventArgs e)
     {
       Process.Start(GithubUrl);
+    }
+    private static void menuItemBrowse_Click(object sender, EventArgs e)
+    {
+      OpenFileExplorer();
+    }
+
+    private static void OpenFileExplorer()
+    {
+      Process.Start(Directory.GetCurrentDirectory());
     }
 
     //Not sure why non-BaseMenu hovers don't expand properly on first try without this call. 

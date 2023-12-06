@@ -89,6 +89,9 @@ namespace ALsSoundSwitcher
       MenuItemHelp = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Help);
       MenuItemHelp.Click += menuItemHelp_Click;
 
+      MenuItemBrowse = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Browse);
+      MenuItemBrowse.Click += menuItemBrowse_Click;
+
       MenuItemUpdate = new ToolStripMenuItem(Resources.Form1_SetupContextMenu_Update);
       MenuItemUpdate.Click += menuItemUpdate_Click;
       

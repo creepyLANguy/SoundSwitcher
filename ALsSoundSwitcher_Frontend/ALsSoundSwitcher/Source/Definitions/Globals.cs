@@ -79,6 +79,7 @@ namespace ALsSoundSwitcher
     {
       public static ToolStripMenuItem MenuItemExit;
       public static ToolStripMenuItem MenuItemHelp;
+      public static ToolStripMenuItem MenuItemBrowse;
       public static ToolStripMenuItem MenuItemUpdate;
       public static ToolStripMenuItem MenuItemRefresh;
       public static ToolStripMenuItem MenuItemMode;
@@ -92,6 +93,7 @@ namespace ALsSoundSwitcher
       {MouseControlFunction.None, Resources.Globals_MouseFunctionDictionary_None},
       {MouseControlFunction.Exit, Resources.Globals_MouseFunctionDictionary_Exit},
       {MouseControlFunction.Expand, Resources.Globals_MouseFunctionDictionary_Expand},
+      {MouseControlFunction.Browse, Resources.Globals_MouseFunctionDictionary_Browse},
       {MouseControlFunction.Refresh, Resources.Globals_MouseFunctionDictionary_Refresh},
       {MouseControlFunction.Toggle_Mode, Resources.Globals_MouseFunctionDictionary_Toggle_Mode},
       {MouseControlFunction.Volume_Mixer, Resources.Globals_MouseFunctionDictionary_Volume_Mixer},

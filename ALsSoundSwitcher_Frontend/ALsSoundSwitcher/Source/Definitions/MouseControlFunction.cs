@@ -5,6 +5,7 @@
     None,
     Exit,
     Expand,
+    Browse,
     Refresh,
     Toggle_Mode,
     Volume_Mixer,
