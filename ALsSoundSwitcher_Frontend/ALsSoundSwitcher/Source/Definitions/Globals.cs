@@ -57,7 +57,7 @@ namespace ALsSoundSwitcher
 
     public static SliderMenuItem MenuItemSlider = new();
 
-    public static Settings UserSettings;
+    public static Settings UserSettings = new();
 
     public static int SettingsHash;
 
