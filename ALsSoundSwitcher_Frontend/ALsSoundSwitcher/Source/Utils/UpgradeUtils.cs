@@ -67,7 +67,7 @@ namespace ALsSoundSwitcher
       if (_pack.OldVersion >= _pack.NewVersion)
       {
         MessageBox.Show(
-          AlreadyHaveLatestVersion + @" [" + _pack.NewVersion + @"]",
+          AlreadyHaveLatestVersion + @" ( " + _pack.NewVersion + @" )",
           Resources.ALs_Sound_Switcher
         );
         
