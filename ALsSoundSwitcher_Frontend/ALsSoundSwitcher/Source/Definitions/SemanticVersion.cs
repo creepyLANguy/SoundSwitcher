@@ -82,10 +82,9 @@ namespace ALsSoundSwitcher
       {
         return a.Minor < b.Minor;
       }
-        
+
       return a.Patch < b.Patch;
     }
-
 
     public static bool operator > (SemanticVersion a, SemanticVersion b) 
       => b < a;
