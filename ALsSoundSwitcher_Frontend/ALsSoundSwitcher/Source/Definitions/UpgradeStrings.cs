@@ -3,6 +3,7 @@
   public partial class UpgradeUtils
   {
     public const string AlreadyHaveLatestVersion = "You are already on the latest version";
+    public const string ForceUpdate = "Would you like to re-download and re-install?";
 
     public const string BackingUp = "Backing up current installation";
     public const string BackupCopying = "Copying to temp folder: ";
