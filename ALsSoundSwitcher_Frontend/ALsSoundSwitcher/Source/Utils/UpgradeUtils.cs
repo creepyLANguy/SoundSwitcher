@@ -66,14 +66,22 @@ namespace ALsSoundSwitcher
 
       if (_pack.OldVersion >= _pack.NewVersion)
       {
-        MessageBox.Show(
-          AlreadyHaveLatestVersion + @" ( " + _pack.NewVersion + @" )",
-          Resources.ALs_Sound_Switcher
-        );
-        
-        baseForm.ShowTrayIcon();
+        var message = AlreadyHaveLatestVersion + @" ( " + _pack.NewVersion + @" )" +
+          Environment.NewLine + Environment.NewLine +
+          ForceUpdate;
 
-        return;
+        var selection =
+        MessageBox.Show(
+          message,
+          Resources.ALs_Sound_Switcher,
+          MessageBoxButtons.YesNo
+        );
+
+        if (selection == DialogResult.No)
+        {
+          baseForm.ShowTrayIcon();
+          return;
+        }
       }
 
       SetupUpgradeLog();

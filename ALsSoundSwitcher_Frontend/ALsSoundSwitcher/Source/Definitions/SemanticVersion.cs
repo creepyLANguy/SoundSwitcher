@@ -71,27 +71,19 @@ namespace ALsSoundSwitcher
     public static bool operator != (SemanticVersion a, SemanticVersion b)
       => !(a == b);
 
-    public static bool operator < (SemanticVersion a, SemanticVersion b)
+    public static bool operator <(SemanticVersion a, SemanticVersion b)
     {
-      if (a == b)
+      if (a.Major != b.Major)
       {
-        return false;
+        return a.Major < b.Major;
       }
 
-      if (a.Major < b.Major)
+      if (a.Minor != b.Minor)
       {
-        return true;
-      }
-      if (a.Minor < b.Minor)
-      {
-        return true;
-      }
-      if (a.Patch < b.Patch)
-      {
-        return true;
+        return a.Minor < b.Minor;
       }
 
-      return false;
+      return a.Patch < b.Patch;
     }
 
     public static bool operator > (SemanticVersion a, SemanticVersion b) 

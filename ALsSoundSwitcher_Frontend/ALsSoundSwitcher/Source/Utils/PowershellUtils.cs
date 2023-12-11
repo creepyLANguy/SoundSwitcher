@@ -46,14 +46,14 @@ namespace ALsSoundSwitcher
 
     private static bool InstallAudioCmdlets()
     {
-      var result = MessageBox.Show(
+      var selection = MessageBox.Show(
         Resources.PowerShellUtils_InstallAudioCmdlets_Message,
         Resources.ALs_Sound_Switcher,
         MessageBoxButtons.OKCancel, 
         MessageBoxIcon.Asterisk
       );
 
-      if (result == DialogResult.Cancel)
+      if (selection == DialogResult.Cancel)
       {
         return false;
       }
