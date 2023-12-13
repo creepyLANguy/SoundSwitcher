@@ -45,9 +45,9 @@ _Note, The file name does not need match perfectly - the application will use th
 
 - Choose colours for various UI elements 
 
-- To activate your theme, specify a name and save it
+- To activate your theme, specify a name and save it 
 
-- ![image](https://github.com/creepyLANguy/SoundSwitcher/assets/28150772/5b1fbeb1-cd4b-4355-a01b-2d22862fc942)
+- ![image](https://github.com/creepyLANguy/SoundSwitcher/assets/28150772/f7828603-508d-4882-8517-fa60e600fae0)
 
 
 ---
