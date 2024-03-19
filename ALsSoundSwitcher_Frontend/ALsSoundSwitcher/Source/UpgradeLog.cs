@@ -79,7 +79,7 @@ namespace ALsSoundSwitcher
     {
       ControlBox = true;
 
-      //TODO - prevents incorrectly triggering old button clicks. 
+      Application.DoEvents(); //TODO - revise this bad hack that prevents incorrectly triggering old button clicks. 
       _buttonBottom.Text = buttonMessage;
       _buttonBottom.BackColor = buttonColor;
       _buttonBottom.Enabled = true;
