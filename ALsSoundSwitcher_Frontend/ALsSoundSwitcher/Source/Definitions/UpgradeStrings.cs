@@ -46,5 +46,8 @@
 
     public const string PostUpgradeAdvice = "If you encounter issues, please rollback to the zipped backup in your install folder.";
     public const string PostUpgradeAdviceAlternative = "Alternatively, perform a clean install with the latest version available here:";
+
+    public const string PostUpgradeCompleteDismissButtonMessage = "Upgrade Complete - click to dismiss this window";
+    public const string PostUpgradeFailedDismissButtonMessage = "Upgrade Failed (details in log above) - click to dismiss this window";    
   }
 }

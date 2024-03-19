@@ -302,4 +302,7 @@ The application will now restart.</value>
     <value>The application config has been modified.
 Would you like to restart to apply these changes?</value>
   </data>
+  <data name="UpgradeLog_MakeDismissible_Dismiss" xml:space="preserve">
+    <value>Dismiss</value>
+  </data>
 </root>

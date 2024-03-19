@@ -612,5 +612,14 @@ namespace ALsSoundSwitcher.Properties {
                 return ResourceManager.GetString("ThemeCreator_TextBoxDefault", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dismiss.
+        /// </summary>
+        internal static string UpgradeLog_MakeDismissible_Dismiss {
+            get {
+                return ResourceManager.GetString("UpgradeLog_MakeDismissible_Dismiss", resourceCulture);
+            }
+        }
     }
 }

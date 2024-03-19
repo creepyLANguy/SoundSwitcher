@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -86,12 +87,19 @@ namespace ALsSoundSwitcher
 
       SetupUpgradeLog();
 
+
+      var buttonMessage = PostUpgradeCompleteDismissButtonMessage;
+      var buttonColour = Color.FromArgb(200, 240, 225);
+
       try
       {
         if (Upgrade() == false)
         {
-          IndicateFailure();
+          LogFailure();
           baseForm.ShowTrayIcon();
+
+          buttonMessage = PostUpgradeFailedDismissButtonMessage;
+          buttonColour = Color.FromArgb(240, 200, 200);
         }
       }
       catch (Exception ex)
@@ -99,7 +107,7 @@ namespace ALsSoundSwitcher
         Console.WriteLine(ex);
       }
 
-      MakeUpgradeLogDismissible();
+      MakeUpgradeLogDismissible(buttonMessage, buttonColour);
     }
 
     private static void SetupUpgradePack()
@@ -224,12 +232,12 @@ namespace ALsSoundSwitcher
       return true;
     }
 
-    private static void MakeUpgradeLogDismissible()
+    private static void MakeUpgradeLogDismissible(string buttonMessage, Color buttonColor)
     {
-      _logWindow.ShowControlBox();
+      _logWindow.MakeDismissible(buttonMessage, buttonColor);
     }
 
-    private static void IndicateFailure()
+    private static void LogFailure()
     {
       Log(UpgradeFailed + Newline +
           UpgradeFailedAdvice + Newline +
