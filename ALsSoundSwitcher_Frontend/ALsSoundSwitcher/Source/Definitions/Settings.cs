@@ -15,6 +15,7 @@ namespace ALsSoundSwitcher
     private const MouseControlFunction DefaultLeftClickFunction = MouseControlFunction.Switch_Next_Device;
     private const MouseControlFunction DefaultMiddleClickFunction = MouseControlFunction.Volume_Mixer;
     private const string DefaultUpgradePollingTime = "0d1h0m0s";
+    private const bool DefaultShowKnownIssueCrashMessages = false;
 
     [DefaultValue(DefaultBalloonTime)]
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
@@ -56,6 +57,10 @@ namespace ALsSoundSwitcher
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
     public string UpgradePollingTime { get; set; }
 
+    [DefaultValue(DefaultShowKnownIssueCrashMessages)]
+    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+    public bool ShowKnownIssueCrashMessages { get; set; }
+
     public Settings()
     {
       BalloonTime = DefaultBalloonTime;
@@ -68,6 +73,7 @@ namespace ALsSoundSwitcher
       LeftClickFunction = DefaultLeftClickFunction;
       MiddleClickFunction = DefaultMiddleClickFunction;
       UpgradePollingTime = DefaultUpgradePollingTime;
+      ShowKnownIssueCrashMessages = DefaultShowKnownIssueCrashMessages;
     }
   }
 }

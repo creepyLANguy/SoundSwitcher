@@ -318,7 +318,10 @@ namespace ALsSoundSwitcher
       {
         Console.WriteLine(e);
 
-        MessageBox.Show(Resources.Form1_CacheCurrentDevice_KnownIssue_Restart, Application.ProductName);
+        if (UserSettings.ShowKnownIssueCrashMessages)
+        {
+          MessageBox.Show(Resources.Form1_CacheCurrentDevice_KnownIssue_Restart, Application.ProductName);
+        }
 
         Application.Restart();
       }
