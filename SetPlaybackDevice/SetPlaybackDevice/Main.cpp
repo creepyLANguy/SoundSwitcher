@@ -37,6 +37,8 @@ int main(const int argc, const char * argv[])
   }
 	 else if (wcslen(arg) > 0)
 	 {
-	   SetAudioPlaybackDevice(arg);
+	SetAudioPlaybackDevice(arg);
+     	SetCommunicationPlaybackDevice(arg);
+
   }
 }
