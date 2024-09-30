@@ -10,11 +10,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ALsSoundSwitcher</RootNamespace>
     <AssemblyName>ALsSoundSwitcher</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,8 +51,8 @@
     <Reference Include="CSCore, Version=1.2.1.2, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
       <HintPath>..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -153,6 +154,7 @@
     <EmbeddedResource Include="Source\UpgradeLog.resx">
       <DependentUpon>UpgradeLog.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -167,6 +169,13 @@
   <ItemGroup>
     <Content Include="Icons\Headset.ico" />
     <None Include="Icons\Mic.ico" />
+    <None Include="Public\Themes\Dark.skin" />
+    <None Include="Public\Themes\Gliss.skin" />
+    <None Include="Public\Themes\haXOR.skin" />
+    <None Include="Public\Themes\Light.skin" />
+    <None Include="Public\Themes\Ocean.skin" />
+    <None Include="Public\Themes\Sapphire.skin" />
+    <None Include="Public\Themes\Uni.skin" />
     <None Include="Resources\mask_text.png" />
     <None Include="Resources\mask_separator.png" />
     <None Include="Resources\mask_selected.png" />
@@ -187,7 +196,8 @@
   </Target>
   <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>REM xcopy "$(ProjectDir)Skins" /Y /I</PostBuildEvent>
+    <PostBuildEvent>REM xcopy "$(ProjectDir)Skins" /Y /I
+xcopy /E /I /Y "$(ProjectDir)Public\*" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
