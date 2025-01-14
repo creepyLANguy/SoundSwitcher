@@ -1,6 +1,6 @@
 #include "Includes.h"
 
-HRESULT SetAudioPlaybackDevice(const LPCWSTR devID)
+HRESULT SetAudioPlaybackDevice(const LPCWSTR devID, ERole role)
 {
 		HRESULT hr;
 
@@ -8,13 +8,11 @@ HRESULT SetAudioPlaybackDevice(const LPCWSTR devID)
 
 		IPolicyConfigVista* pPolicyConfig;
 
-		const ERole reserved = eConsole;
-
 		hr = CoCreateInstance(__uuidof(CPolicyConfigVistaClient), nullptr, CLSCTX_ALL, __uuidof(IPolicyConfigVista), reinterpret_cast<LPVOID*>(&pPolicyConfig));
 
 		if (SUCCEEDED(hr))
 		{
-				hr = pPolicyConfig->SetDefaultEndpoint(devID, reserved);
+				hr = pPolicyConfig->SetDefaultEndpoint(devID, role);
 				pPolicyConfig->Release();
 		}
 
