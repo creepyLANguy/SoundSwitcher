@@ -6,8 +6,12 @@ namespace ALsSoundSwitcher
 {
   public class UpgradeLog : Form
   {
-    private Button _buttonBottom;
+    private Button _button;
     private RichTextBox _textBox;
+
+    private readonly Color _progressColour = Color.FromArgb(200, 240, 225);
+    private readonly Color _failColour = Color.FromArgb(255, 150, 150);
+
 
     public UpgradeLog()
     {
@@ -17,7 +21,7 @@ namespace ALsSoundSwitcher
     private void InitializeComponent()
     {
       this._textBox = new System.Windows.Forms.RichTextBox();
-      this._buttonBottom = new System.Windows.Forms.Button();
+      this._button = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // _textBox
@@ -33,26 +37,26 @@ namespace ALsSoundSwitcher
       this._textBox.TabIndex = 0;
       this._textBox.Text = "";
       // 
-      // _buttonBottom
+      // _button
       // 
-      this._buttonBottom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+      this._button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this._buttonBottom.Enabled = false;
-      this._buttonBottom.Location = new System.Drawing.Point(12, 412);
-      this._buttonBottom.Name = "_buttonBottom";
-      this._buttonBottom.Size = new System.Drawing.Size(360, 37);
-      this._buttonBottom.TabIndex = 1;
-      this._buttonBottom.Text = "Upgrade In Progress...";
-      this._buttonBottom.UseVisualStyleBackColor = true;
-      this._buttonBottom.Click += new System.EventHandler(this.buttonBottom_Click);
-      this._buttonBottom.FlatStyle = FlatStyle.Flat;
-      //this._buttonBottom.BackColor = Color.Lavender;
+      this._button.Enabled = false;
+      this._button.Location = new System.Drawing.Point(12, 412);
+      this._button.Name = "_button";
+      this._button.Size = new System.Drawing.Size(360, 37);
+      this._button.TabIndex = 1;
+      this._button.Text = "Upgrade In Progress...";
+      this._button.UseVisualStyleBackColor = true;
+      this._button.Click += new System.EventHandler(this.buttonBottom_Click);
+      this._button.FlatStyle = FlatStyle.Flat;
+      //this._button.BackColor = Color.Lavender;
       // 
       // UpgradeLog
       // 
       this.ClientSize = new System.Drawing.Size(384, 461);
       this.ControlBox = false;
-      this.Controls.Add(this._buttonBottom);
+      this.Controls.Add(this._button);
       this.Controls.Add(this._textBox);
       this.DoubleBuffered = true;
       this.Icon = global::ALsSoundSwitcher.Properties.Resources.Headset;
@@ -75,14 +79,19 @@ namespace ALsSoundSwitcher
       Refresh();
     }
 
-    public void MakeDismissible(string buttonMessage, Color buttonColor)
+    public void MakeDismissible(string buttonMessage, bool hasFailed)
     {
       ControlBox = true;
 
       Application.DoEvents(); //TODO - revise this bad hack that prevents incorrectly triggering old button clicks. 
-      _buttonBottom.Text = buttonMessage;
-      _buttonBottom.BackColor = buttonColor;
-      _buttonBottom.Enabled = true;
+      _button.Text = buttonMessage;
+
+      if (hasFailed)
+      {
+        PaintButton(_failColour, 100);
+      }
+      
+      _button.Enabled = true;
     }
 
     private void UpgradeLog_FormClosed(object sender, FormClosedEventArgs e)
@@ -93,6 +102,30 @@ namespace ALsSoundSwitcher
     private void buttonBottom_Click(object sender, EventArgs e)
     {
       Close();
+    }
+
+    public void UpdateProgress(float percentage)
+    {
+      PaintButton(_progressColour, percentage);
+    }
+
+    private void PaintButton(Color color, float percentage)
+    {
+      var bm = new Bitmap(_button.ClientSize.Width, _button.ClientSize.Height);
+      _button.BackgroundImage = bm;
+
+      using (var solidBrush = new SolidBrush(color))
+      {
+        using (var graphics = Graphics.FromImage(bm))
+        {
+          var w = bm.Width * (percentage / 100);
+          var h = bm.Height;
+          var rect = new RectangleF(0, 0, w, h);
+          graphics.FillRectangle(solidBrush, rect);
+        }
+      }
+
+      _button.Refresh();
     }
   }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -11,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using Ionic.Zip;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ALsSoundSwitcher
 {
@@ -28,34 +28,24 @@ namespace ALsSoundSwitcher
     private const string ZipExtension = ".zip";
 
 
-    private static HashSet<SemanticVersion> _skippedVersions = new();
+    private static HashSet<SemanticVersion> _skippedVersions = [];
 
     private static UpgradeLog _logWindow;
 
     private static UpgradePack _pack;
 
-    private struct UpgradePack
+    private struct UpgradePack(
+      SemanticVersion oldVersion,
+      SemanticVersion newVersion,
+      string downloadUrl,
+      string installationPath,
+      string timestamp)
     {
-      public readonly SemanticVersion OldVersion;
-      public readonly SemanticVersion NewVersion;
-      public readonly string DownloadUrl;
-      public readonly string InstallationPath;
-      public readonly string Timestamp;
-
-      public UpgradePack(
-        SemanticVersion oldVersion, 
-        SemanticVersion newVersion,
-        string downloadUrl, 
-        string installationPath,
-        string timestamp
-        )
-      {
-        OldVersion = oldVersion;
-        NewVersion = newVersion;
-        DownloadUrl = downloadUrl;
-        InstallationPath = installationPath;
-        Timestamp = timestamp;
-      }
+      public readonly SemanticVersion OldVersion = oldVersion;
+      public readonly SemanticVersion NewVersion = newVersion;
+      public readonly string DownloadUrl = downloadUrl;
+      public readonly string InstallationPath = installationPath;
+      public readonly string Timestamp = timestamp;
     }
 
     public static void Run()
@@ -89,7 +79,6 @@ namespace ALsSoundSwitcher
 
 
       var buttonMessage = PostUpgradeCompleteDismissButtonMessage;
-      var buttonColour = Color.FromArgb(200, 240, 225);
 
       try
       {
@@ -99,7 +88,8 @@ namespace ALsSoundSwitcher
           baseForm.ShowTrayIcon();
 
           buttonMessage = PostUpgradeFailedDismissButtonMessage;
-          buttonColour = Color.FromArgb(240, 200, 200);
+          MakeUpgradeLogDismissible(buttonMessage, true);
+          return;
         }
       }
       catch (Exception ex)
@@ -107,7 +97,7 @@ namespace ALsSoundSwitcher
         Console.WriteLine(ex);
       }
 
-      MakeUpgradeLogDismissible(buttonMessage, buttonColour);
+      MakeUpgradeLogDismissible(buttonMessage);
     }
 
     private static void SetupUpgradePack()
@@ -211,10 +201,12 @@ namespace ALsSoundSwitcher
         LaunchNewVersion,
       };
 
-      foreach (var step in steps)
+      for (var index = 0; index < steps.Count; index++)
       {
+        var step = steps[index];
         if (step())
         {
+          _logWindow.UpdateProgress((float) (index + 1) / steps.Count * 100);
           continue;
         }
 
@@ -232,9 +224,9 @@ namespace ALsSoundSwitcher
       return true;
     }
 
-    private static void MakeUpgradeLogDismissible(string buttonMessage, Color buttonColor)
+    private static void MakeUpgradeLogDismissible(string buttonMessage, bool hasFailed = false)
     {
-      _logWindow.MakeDismissible(buttonMessage, buttonColor);
+      _logWindow.MakeDismissible(buttonMessage, hasFailed);
     }
 
     private static void LogFailure()
