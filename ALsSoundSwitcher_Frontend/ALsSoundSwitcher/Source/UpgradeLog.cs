@@ -111,19 +111,18 @@ namespace ALsSoundSwitcher
 
     private void PaintButton(Color color, float percentage)
     {
-      var bm = new Bitmap(_button.ClientSize.Width, _button.ClientSize.Height);
-      _button.BackgroundImage = bm;
-
-      using (var solidBrush = new SolidBrush(color))
+      if (_button.BackgroundImage == null || _button.BackgroundImage.Size != _button.ClientSize)
       {
-        using (var graphics = Graphics.FromImage(bm))
-        {
-          var w = bm.Width * (percentage / 100);
-          var h = bm.Height;
-          var rect = new RectangleF(0, 0, w, h);
-          graphics.FillRectangle(solidBrush, rect);
-        }
+        _button.BackgroundImage = new Bitmap(_button.ClientSize.Width, _button.ClientSize.Height);
       }
+
+      var bm = (Bitmap)_button.BackgroundImage;
+
+      using var graphics = Graphics.FromImage(bm);
+      graphics.Clear(Color.Transparent);
+
+      var rect = new RectangleF(0, 0, bm.Width * (percentage / 100), bm.Height);
+      graphics.FillRectangle(new SolidBrush(color), rect);
 
       _button.Refresh();
     }
