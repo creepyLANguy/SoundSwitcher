@@ -28,3 +28,5 @@ GetPlaybackDevices/GetPlaybackDevices/x64/
 GetPlaybackDevices/x64/
 
 ALsSoundSwitcher_Frontend/packages/
+
+*.user

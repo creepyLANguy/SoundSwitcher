@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 using Ionic.Zip;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ALsSoundSwitcher
 {
