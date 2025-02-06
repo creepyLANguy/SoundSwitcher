@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
@@ -58,9 +59,18 @@ namespace ALsSoundSwitcher
     {
       //AL.
       //TODO - relaunch with menu restore.
+      string activeMenuItem = null; 
+      foreach (ToolStripItem baseMenuItem in BaseMenu.Items)
+      {
+        if (baseMenuItem.Selected)
+        {
+          activeMenuItem = baseMenuItem.Text;
+        }
+      }
+
       var startInfo = Process.GetCurrentProcess().StartInfo;
       startInfo.FileName = Application.ExecutablePath;
-      startInfo.Arguments += ArgsType.RestoreMenu + " " + "SomeMenuState";
+      startInfo.Arguments += activeMenuItem == null ? "" : ArgsType.RestoreMenu + " " + activeMenuItem;
       Process.Start(startInfo);
 
       Application.Exit();

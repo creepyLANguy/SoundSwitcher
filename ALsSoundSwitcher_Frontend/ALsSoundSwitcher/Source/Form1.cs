@@ -62,16 +62,15 @@ namespace ALsSoundSwitcher
       var args = Environment.GetCommandLineArgs();
       if (args.Contains(ArgsType.RestoreMenu.ToString()))
       {
-        var allArgs = string.Join("\n\n", args);
-        var choice = MessageBox.Show(allArgs, "", MessageBoxButtons.OKCancel);
-        if (choice == DialogResult.Cancel)
-        {
-          Application.Exit();
-        }
+        RestoreMenuState(args);
       }
       else
       {
-        var choice = MessageBox.Show("RESTART?\nPress Yes to Restart or No to Exit.", "", MessageBoxButtons.YesNo);
+        var choice = 
+          MessageBox.Show(
+            @"RESTART?" + Environment.NewLine + @"Press Yes to Restart or No to Exit.", 
+            "", 
+            MessageBoxButtons.YesNo);
         if (choice == DialogResult.Yes)
         {
           ProcessUtils.Restart_ThreadSafe(ArgsType.RestoreMenu);
@@ -82,6 +81,24 @@ namespace ALsSoundSwitcher
         }
       }
       //
+    }
+
+    private void RestoreMenuState(string[] args)
+    {
+      var menuStateIndex = args.ToList().IndexOf(ArgsType.RestoreMenu.ToString()) + 1;
+      var menuState = args[menuStateIndex];
+      var choice = MessageBox.Show(menuState, "", MessageBoxButtons.OKCancel);
+      if (choice == DialogResult.Cancel)
+      {
+        Application.Exit();
+      }
+
+      Globals.BaseMenu.Show();
+      var activeItem = Globals.BaseMenu.Items.Find(menuState, false);
+      if (activeItem.Length > 0)
+      {
+        activeItem[0].Select();
+      }
     }
 
     private void NotifyUserOfConfigReadFail()
