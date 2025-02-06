@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using ALsSoundSwitcher.Properties;
 
@@ -56,6 +57,31 @@ namespace ALsSoundSwitcher
       UpgradeUtils.MonitorForOutdatedFilesAndAttemptRemoval_Async();
 
       FileWatcher.Run();
+
+      //AL.
+      var args = Environment.GetCommandLineArgs();
+      if (args.Contains(ArgsType.RestoreMenu.ToString()))
+      {
+        var allArgs = string.Join("\n\n", args);
+        var choice = MessageBox.Show(allArgs, "", MessageBoxButtons.OKCancel);
+        if (choice == DialogResult.Cancel)
+        {
+          Application.Exit();
+        }
+      }
+      else
+      {
+        var choice = MessageBox.Show("RESTART?\nPress Yes to Restart or No to Exit.", "", MessageBoxButtons.YesNo);
+        if (choice == DialogResult.Yes)
+        {
+          ProcessUtils.Restart_ThreadSafe(ArgsType.RestoreMenu);
+        }
+        else
+        {
+          Application.Exit();
+        }
+      }
+      //
     }
 
     private void NotifyUserOfConfigReadFail()

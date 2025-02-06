@@ -82,6 +82,7 @@
     <Compile Include="Source\Components\CustomSlider.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Source\Definitions\ArgsType.cs" />
     <Compile Include="Source\Definitions\DeviceMode.cs" />
     <Compile Include="Source\Definitions\MouseControlFunction.cs" />
     <Compile Include="Source\Definitions\SemanticVersion.cs" />

@@ -22,10 +22,10 @@ namespace ALsSoundSwitcher
       {
         return;
       }
-      
+
       LastMonitoredDeviceUpdate = deviceId;
 
-      ProcessUtils.Restart_ThreadSafe();
+      ProcessUtils.Restart_ThreadSafe(ArgsType.RestoreMenu);
     }
 
     public void OnDeviceAdded(string deviceId)
@@ -37,7 +37,7 @@ namespace ALsSoundSwitcher
 
       Console.WriteLine(Resources.EndpointNotificationCallback_OnDeviceAdded, deviceId);
 
-      ProcessUtils.Restart_ThreadSafe();
+      ProcessUtils.Restart_ThreadSafe(ArgsType.RestoreMenu);
     }
 
     public void OnDeviceRemoved(string deviceId)
@@ -98,7 +98,7 @@ namespace ALsSoundSwitcher
       }
       else
       {
-        ProcessUtils.Restart_ThreadSafe();
+        ProcessUtils.Restart_ThreadSafe(ArgsType.RestoreMenu);
       }
     }
 

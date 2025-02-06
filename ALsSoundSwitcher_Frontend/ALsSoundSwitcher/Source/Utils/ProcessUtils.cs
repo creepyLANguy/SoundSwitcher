@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
@@ -20,25 +21,49 @@ namespace ALsSoundSwitcher
 
       if (async)
       {
-        return -1;        
+        return -1;
       }
 
       process.WaitForExit();
       return process.ExitCode;
     }
 
-    public static void Restart_ThreadSafe()
+    public static void Restart_ThreadSafe(ArgsType argsType = ArgsType.None)
     {
       DeviceEnumerator.UnregisterEndpointNotificationCallback((Form1)Instance);
 
       if (Instance.InvokeRequired)
       {
-        Instance.Invoke(new MethodInvoker(Restart_ThreadSafe));
+        Instance.Invoke(new MethodInvoker(() => Restart_ThreadSafe(ArgsType.RestoreMenu)));
       }
       else
       {
-        Application.Restart();
+        switch (argsType)
+        {
+          case ArgsType.None:
+            Application.Restart();
+            break;
+          case ArgsType.RestoreMenu: 
+          {
+            RelaunchWithMenuState();
+            break;
+          }
+          default:
+            return;
+        }
       }
+    }
+
+    private static void RelaunchWithMenuState()
+    {
+      //AL.
+      //TODO - relaunch with menu restore.
+      var startInfo = Process.GetCurrentProcess().StartInfo;
+      startInfo.FileName = Application.ExecutablePath;
+      startInfo.Arguments += ArgsType.RestoreMenu + " " + "SomeMenuState";
+      Process.Start(startInfo);
+
+      Application.Exit();
     }
 
     public static void SetWorkingDirectory()
