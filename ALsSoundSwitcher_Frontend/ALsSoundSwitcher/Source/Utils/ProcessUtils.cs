@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
@@ -58,22 +56,34 @@ namespace ALsSoundSwitcher
     private static void RelaunchWithMenuState()
     {
       //AL.
-      //TODO - relaunch with menu restore.
-      string activeMenuItem = null; 
-      foreach (ToolStripItem baseMenuItem in BaseMenu.Items)
-      {
-        if (baseMenuItem.Selected)
-        {
-          activeMenuItem = baseMenuItem.Text;
-        }
-      }
-
+      //TODO - setup menu restore args.
       var startInfo = Process.GetCurrentProcess().StartInfo;
       startInfo.FileName = Application.ExecutablePath;
-      startInfo.Arguments += activeMenuItem == null ? "" : ArgsType.RestoreMenu + " " + activeMenuItem;
+      if (BaseMenu.Visible)
+      {
+        string activeMenuItem = null;
+        RecursivelyFindActiveMenuItem(BaseMenu.Items, ref activeMenuItem);
+        startInfo.Arguments += ArgsType.RestoreMenu + " " + (activeMenuItem == null ? "" :  activeMenuItem);
+      }
       Process.Start(startInfo);
+      //
 
       Application.Exit();
+    }
+
+    private static void RecursivelyFindActiveMenuItem(ToolStripItemCollection items, ref string activeMenuItem)
+    {
+      foreach (ToolStripItem item in items)
+      {
+        if (item is ToolStripMenuItem menuItem && menuItem.Visible)
+        {
+          if (menuItem.DropDown.Visible)
+          {
+            activeMenuItem = "\"" + menuItem.Text + "\"";
+            RecursivelyFindActiveMenuItem(menuItem.DropDownItems, ref activeMenuItem);
+          }
+        }
+      }
     }
 
     public static void SetWorkingDirectory()

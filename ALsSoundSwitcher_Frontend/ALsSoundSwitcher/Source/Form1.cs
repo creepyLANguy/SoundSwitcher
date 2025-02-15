@@ -59,11 +59,13 @@ namespace ALsSoundSwitcher
       FileWatcher.Run();
 
       //AL.
+      MessageBox.Show(@"Attach", @"Attach");
       var args = Environment.GetCommandLineArgs();
       if (args.Contains(ArgsType.RestoreMenu.ToString()))
       {
         RestoreMenuState(args);
       }
+      //TODO - remove this branch when the new version is stable.
       else
       {
         var choice = 
@@ -93,12 +95,9 @@ namespace ALsSoundSwitcher
         Application.Exit();
       }
 
-      Globals.BaseMenu.Show();
-      var activeItem = Globals.BaseMenu.Items.Find(menuState, false);
-      if (activeItem.Length > 0)
-      {
-        activeItem[0].Select();
-      }
+      //AL.
+      //TODO - show the menu and applicable submenus
+      //
     }
 
     private void NotifyUserOfConfigReadFail()
