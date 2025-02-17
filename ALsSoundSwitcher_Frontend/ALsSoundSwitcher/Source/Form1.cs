@@ -59,45 +59,35 @@ namespace ALsSoundSwitcher
       FileWatcher.Run();
 
       //AL.
-      MessageBox.Show(@"Attach", @"Attach");
+      MessageBox.Show(@"Attach", @"Attach"); //TODO - remove this line.
       var args = Environment.GetCommandLineArgs();
       if (args.Contains(ArgsType.RestoreMenu.ToString()))
       {
         RestoreMenuState(args);
       }
-      //TODO - remove this branch when the new version is stable.
       else
       {
-        var choice = 
-          MessageBox.Show(
-            @"RESTART?" + Environment.NewLine + @"Press Yes to Restart or No to Exit.", 
-            "", 
-            MessageBoxButtons.YesNo);
-        if (choice == DialogResult.Yes)
-        {
-          ProcessUtils.Restart_ThreadSafe(ArgsType.RestoreMenu);
-        }
-        else
-        {
-          Application.Exit();
-        }
+        ProcessUtils.Restart_ThreadSafe(ArgsType.RestoreMenu);
       }
       //
     }
 
     private void RestoreMenuState(string[] args)
     {
-      var menuStateIndex = args.ToList().IndexOf(ArgsType.RestoreMenu.ToString()) + 1;
-      var menuState = args[menuStateIndex];
-      var choice = MessageBox.Show(menuState, "", MessageBoxButtons.OKCancel);
-      if (choice == DialogResult.Cancel)
+      var argsAsList = args.ToList();
+      var menuStateStartIndex = args.ToList().IndexOf(ArgsType.RestoreMenu.ToString()) + 1;
+      for (var i = menuStateStartIndex; i < argsAsList.Count; ++i)
       {
-        Application.Exit();
-      }
+        //AL.
+        //TODO - crashing here :< 
+        var menuItem = Globals.BaseMenu.Items.Find(argsAsList[i], true).First();
+        if (menuItem == null)
+        {
+          break;
+        }
 
-      //AL.
-      //TODO - show the menu and applicable submenus
-      //
+        menuItem.Visible = true;
+      }
     }
 
     private void NotifyUserOfConfigReadFail()

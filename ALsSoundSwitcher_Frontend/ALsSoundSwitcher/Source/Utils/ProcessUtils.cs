@@ -61,9 +61,9 @@ namespace ALsSoundSwitcher
       startInfo.FileName = Application.ExecutablePath;
       if (BaseMenu.Visible)
       {
-        string activeMenuItem = null;
-        RecursivelyFindActiveMenuItem(BaseMenu.Items, ref activeMenuItem);
-        startInfo.Arguments += ArgsType.RestoreMenu + " " + (activeMenuItem == null ? "" :  activeMenuItem);
+        string buffer = null;
+        RecursivelyFindActiveMenuItems(BaseMenu.Items, ref buffer);
+        startInfo.Arguments += ArgsType.RestoreMenu + " " + (buffer ?? "");
       }
       Process.Start(startInfo);
       //
@@ -71,7 +71,7 @@ namespace ALsSoundSwitcher
       Application.Exit();
     }
 
-    private static void RecursivelyFindActiveMenuItem(ToolStripItemCollection items, ref string activeMenuItem)
+    private static void RecursivelyFindActiveMenuItems(ToolStripItemCollection items, ref string buffer)
     {
       foreach (ToolStripItem item in items)
       {
@@ -79,8 +79,8 @@ namespace ALsSoundSwitcher
         {
           if (menuItem.DropDown.Visible)
           {
-            activeMenuItem = "\"" + menuItem.Text + "\"";
-            RecursivelyFindActiveMenuItem(menuItem.DropDownItems, ref activeMenuItem);
+            buffer += " \"" + menuItem.Text + "\" ";
+            RecursivelyFindActiveMenuItems(menuItem.DropDownItems, ref buffer);
           }
         }
       }
