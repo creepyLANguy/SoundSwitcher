@@ -48,6 +48,20 @@ namespace ALsSoundSwitcher
       notifyIcon1.ContextMenuStrip = BaseMenu;
 
       RefreshUITheme();
+
+      //AL.
+      MessageBox.Show(@"Attach", @"Attach"); //TODO - remove this line.
+      //var args = Environment.GetCommandLineArgs();
+      var args = new List<string>{"RestoreMenu", "More", "Controls", "Left Click"};
+      if (args.Contains(ArgsType.RestoreMenu.ToString()))
+      {
+        RestoreMenuState(args);
+      }
+      else
+      {
+        ProcessUtils.Restart_ThreadSafe(ArgsType.RestoreMenu);
+      }
+      //
     }
 
     private static void AddAudioDevicesAsMenuItems()
@@ -433,6 +447,29 @@ namespace ALsSoundSwitcher
             item.BackColor = Theme.ActiveSelectionColor;
           }
         }
+      }
+    }
+
+    private static void RestoreMenuState(List<string> argsList)
+    {
+      BaseMenu.Visible = true;
+
+      var menuStateStartIndex = argsList.IndexOf(ArgsType.RestoreMenu.ToString()) + 1;
+      for (var i = menuStateStartIndex; i < argsList.Count; ++i)
+      {
+        //AL.
+        //TODO
+        for (var j = 0; j < BaseMenu.Items.Count; ++j)
+        {
+          BaseMenu.Items[j].Name = BaseMenu.Items[j].Text;
+        }
+
+        var mi = BaseMenu.Items.Find(argsList[i], true).FirstOrDefault();
+        if (mi == null)
+        {
+          break;
+        }
+        mi.Visible = true;
       }
     }
   }

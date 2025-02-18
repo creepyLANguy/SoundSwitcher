@@ -57,37 +57,6 @@ namespace ALsSoundSwitcher
       UpgradeUtils.MonitorForOutdatedFilesAndAttemptRemoval_Async();
 
       FileWatcher.Run();
-
-      //AL.
-      MessageBox.Show(@"Attach", @"Attach"); //TODO - remove this line.
-      var args = Environment.GetCommandLineArgs();
-      if (args.Contains(ArgsType.RestoreMenu.ToString()))
-      {
-        RestoreMenuState(args);
-      }
-      else
-      {
-        ProcessUtils.Restart_ThreadSafe(ArgsType.RestoreMenu);
-      }
-      //
-    }
-
-    private void RestoreMenuState(string[] args)
-    {
-      var argsAsList = args.ToList();
-      var menuStateStartIndex = args.ToList().IndexOf(ArgsType.RestoreMenu.ToString()) + 1;
-      for (var i = menuStateStartIndex; i < argsAsList.Count; ++i)
-      {
-        //AL.
-        //TODO - crashing here :< 
-        var menuItem = Globals.BaseMenu.Items.Find(argsAsList[i], true).First();
-        if (menuItem == null)
-        {
-          break;
-        }
-
-        menuItem.Visible = true;
-      }
     }
 
     private void NotifyUserOfConfigReadFail()
