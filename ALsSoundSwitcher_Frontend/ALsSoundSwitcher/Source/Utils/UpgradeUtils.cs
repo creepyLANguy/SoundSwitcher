@@ -399,7 +399,7 @@ namespace ALsSoundSwitcher
     {
       Log(MarkingExe);
 
-      PowerShellUtils.Rename(Application.ExecutablePath, _pack.Timestamp + OutdatedMarker);
+      File.Move(Application.ExecutablePath, _pack.Timestamp + OutdatedMarker);
 
       Log(MarkingComplete);
 
