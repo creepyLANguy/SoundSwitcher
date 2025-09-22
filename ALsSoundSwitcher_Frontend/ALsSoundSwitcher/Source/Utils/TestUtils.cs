@@ -8,6 +8,7 @@ namespace ALsSoundSwitcher
     {
     }
 
+    /*
     public static void RemoveAudioDeviceCmdletsAndExit()
     {
       var process = new Process();
@@ -22,6 +23,6 @@ namespace ALsSoundSwitcher
       process.WaitForExit();
       Globals.Instance.Close();
     }
-
+    */
   }
 }
