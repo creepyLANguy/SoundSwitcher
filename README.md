@@ -50,7 +50,7 @@ _Note, The file name does not need match perfectly - the application will use th
 - ![image](https://github.com/creepyLANguy/SoundSwitcher/assets/28150772/f7828603-508d-4882-8517-fa60e600fae0)
 
 ---
-### Coming Soon 👀
+### 🤫 Coming Soon 
  - Hotkeys! 🔥⌨
 
 ---
