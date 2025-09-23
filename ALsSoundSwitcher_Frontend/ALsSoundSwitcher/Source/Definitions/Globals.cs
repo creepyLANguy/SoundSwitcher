@@ -1,13 +1,18 @@
+using System;
 using ALsSoundSwitcher.Properties;
 using CSCore.CoreAudioAPI;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Windows.Input;
+using GlobalHotKey;
 
 namespace ALsSoundSwitcher
 {
   public static class Globals
   {
     public static Form Instance;
+
+    public static HotKeyManager GlobalHotKeyManager;
 
     public const string GithubUrl = "https://github.com/creepyLANguy/SoundSwitcher";
     public const string LatestReleaseUrl = "https://github.com/creepyLANguy/SoundSwitcher/releases/latest";
