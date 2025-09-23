@@ -97,9 +97,7 @@ namespace ALsSoundSwitcher
     }
 
     private static void menuItemMixer_Click(object sender, EventArgs e)
-    {
-      OpenVolumeMixer();
-    }
+      => OpenVolumeMixer();
 
     private static void OpenVolumeMixer()
     {
@@ -119,14 +117,10 @@ namespace ALsSoundSwitcher
     }
 
     private static void menuItemDeviceManager_Click(object sender, EventArgs e)
-    {
-      OpenDeviceManager();
-    }
+      => OpenDeviceManager();
 
     private static void OpenDeviceManager()
-    {
-      ProcessUtils.RunExe(DeviceManagerExe, DeviceManagerArgs, true);
-    }
+      => ProcessUtils.RunExe(DeviceManagerExe, DeviceManagerArgs, true);
 
     private static void MenuItemLaunchOnStartup_Click(object sender, EventArgs e)
     {
@@ -149,44 +143,29 @@ namespace ALsSoundSwitcher
     }
 
     private static void menuItem_Click(object sender, EventArgs e)
-    {
-      PerformSwitch((ToolStripMenuItem)sender);
-    }
+    => PerformSwitch((ToolStripMenuItem)sender);
 
     private static void menuItemExit_Click(object sender, EventArgs e)
-    {
-      Instance.Close();
-    }
+      => Instance.Close();
 
     private static void menuItemUpdate_Click(object sender, EventArgs e)
-    {
-      UpgradeUtils.Run();
-    }
+    => UpgradeUtils.Run();
 
     private static void menuItemRefresh_Click(object sender, EventArgs e)
-    {
-      ProcessUtils.Restart_ThreadSafe();
-    }
+      => ProcessUtils.Restart_ThreadSafe();
 
     private static void menuItemHelp_Click(object sender, EventArgs e)
-    {
-      Process.Start(GithubUrl);
-    }
+      => Process.Start(GithubUrl);
+
     private static void menuItemBrowse_Click(object sender, EventArgs e)
-    {
-      OpenFileExplorer();
-    }
+      => OpenFileExplorer();
 
     private static void OpenFileExplorer()
-    {
-      Process.Start(Directory.GetCurrentDirectory());
-    }
+      => Process.Start(Directory.GetCurrentDirectory());
 
     //Not sure why non-BaseMenu hovers don't expand properly on first try without this call. 
     private static void menuItemExpandable_Hover(object sender, EventArgs e)
-    {
-      ((ToolStripMenuItem) sender)?.ShowDropDown();
-    }
+      => ((ToolStripMenuItem) sender)?.ShowDropDown();
 
     private static void menuItemTheme_Click(object sender, EventArgs e)
     {
@@ -200,11 +179,7 @@ namespace ALsSoundSwitcher
     }
 
     private static void menuItemMode_Click(object sender, EventArgs e)
-    {
-      var selectedMode = (DeviceMode)((ToolStripMenuItem)sender).Tag;
-
-      TrySwitchMode(selectedMode);
-    }
+      => TrySwitchMode((DeviceMode) ((ToolStripMenuItem) sender).Tag);
 
     private static void TrySwitchMode(DeviceMode selectedMode)
     {
@@ -259,14 +234,11 @@ namespace ALsSoundSwitcher
     }
 
     private static void menuItemCreateTheme_Click(object sender, EventArgs e)
-    {
-      new ThemeCreator().Show();
-    }
+      => new ThemeCreator().Show();
 
     private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-    {
-      Process.Start(GithubUrl);
-    }
+    => Process.Start(GithubUrl);
+
     private static void menuItemMouseControlFunction_Click(object sender, EventArgs e)
     {
       var mouseControlFunction =

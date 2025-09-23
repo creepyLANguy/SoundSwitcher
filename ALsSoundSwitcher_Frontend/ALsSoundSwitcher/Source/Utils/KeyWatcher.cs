@@ -4,7 +4,6 @@ using GlobalHotKey;
 
 namespace ALsSoundSwitcher
 {
-  //AL.
   //TODO - make hotkeys and actions generic and configurable.
 
   public static class KeyWatcher

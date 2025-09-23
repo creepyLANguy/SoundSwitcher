@@ -77,9 +77,7 @@ namespace ALsSoundSwitcher
       }
 
       public override void WriteJson(JsonWriter writer, Color value, JsonSerializer serializer)
-      {
-        writer.WriteValue($"{value.R}, {value.G}, {value.B}");
-      }
+        => writer.WriteValue($"{value.R}, {value.G}, {value.B}");
     }
   }
 }

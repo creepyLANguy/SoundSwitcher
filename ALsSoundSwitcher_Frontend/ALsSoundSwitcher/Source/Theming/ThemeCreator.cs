@@ -173,9 +173,7 @@ namespace ALsSoundSwitcher
       .Any(file => string.Equals(Path.GetFileName(file), filename, StringComparison.OrdinalIgnoreCase));
 
     private void btn_save_Click(object sender, EventArgs e)
-    {
-      SaveAndApplyTheme();
-    }
+      => SaveAndApplyTheme();
 
     private void textBox_ThemeName_KeyUp(object sender, KeyEventArgs e)
     {
@@ -211,9 +209,7 @@ namespace ALsSoundSwitcher
     }
 
     private void ShowMenu()
-    {
-      BaseMenu.Show();
-    }
+      => BaseMenu.Show();
 
     private static void WriteThemeToFile(List<ColourBundle> bundles, string filePath)
     {
@@ -279,9 +275,7 @@ namespace ALsSoundSwitcher
     }
 
     private void checkBox_smoothing_CheckedChanged(object sender, EventArgs e)
-    {
-      pictureBox1.Refresh();
-    }
+      => pictureBox1.Refresh();
 
     private void btn_reset_Click(object sender, EventArgs e)
     {
@@ -302,9 +296,7 @@ namespace ALsSoundSwitcher
     }
 
     private void btn_help_Click(object sender, EventArgs e)
-    {
-      Process.Start(GithubUrl);
-    }
+      => Process.Start(GithubUrl);
   }
 
   internal class ColourBundle

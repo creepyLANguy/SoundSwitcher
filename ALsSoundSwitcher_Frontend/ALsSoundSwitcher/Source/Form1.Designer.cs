@@ -89,6 +89,7 @@
       SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
       StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       Text = "AL\'s Sound Switcher";
+      FormClosing += new System.Windows.Forms.FormClosingEventHandler(Form1_FormClosing);
       Load += new System.EventHandler(Form1_Load);
       ResumeLayout(false);
       PerformLayout();
