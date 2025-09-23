@@ -128,11 +128,8 @@ namespace ALsSoundSwitcher
       return version == null ? new SemanticVersion() : new SemanticVersion(version.ToString());
     }
 
-    private static SemanticVersion GetSemanticVersionFromUrl(string url)
-    {
-      var html = GetHtmlFromUrl(url);
-      return GetSemanticVersionFromHtml(html);
-    }
+    private static SemanticVersion GetSemanticVersionFromUrl(string url) 
+      => GetSemanticVersionFromHtml(GetHtmlFromUrl(url));
 
     private static string GetHtmlFromUrl(string url)
     {
@@ -167,10 +164,8 @@ namespace ALsSoundSwitcher
       return new SemanticVersion(latestVersion);
     }
 
-    private static string GetDownloadUrl()
-    {
-      return Globals.DownloadUrl;
-    }
+    private static string GetDownloadUrl() 
+      => Globals.DownloadUrl;
 
     private static void SetupUpgradeLog()
     {
@@ -223,22 +218,14 @@ namespace ALsSoundSwitcher
       return true;
     }
 
-    private static void MakeUpgradeLogDismissible(string buttonMessage, bool hasFailed = false)
-    {
-      _logWindow.MakeDismissible(buttonMessage, hasFailed);
-    }
+    private static void MakeUpgradeLogDismissible(string buttonMessage, bool hasFailed = false) 
+      => _logWindow.MakeDismissible(buttonMessage, hasFailed);
 
-    private static void LogFailure()
-    {
-      Log(UpgradeFailed + Newline +
-          UpgradeFailedAdvice + Newline +
-          Globals.LatestReleaseUrl);
-    }
+    private static void LogFailure() 
+      => Log(UpgradeFailed + Newline + UpgradeFailedAdvice + Newline + Globals.LatestReleaseUrl);
 
-    private static void Log(string message, bool showTimestamp = true)
-    {
-      _logWindow.Log(message, showTimestamp);
-    }
+    private static void Log(string message, bool showTimestamp = true) 
+      => _logWindow.Log(message, showTimestamp);
 
     private static bool Backup()
     {
@@ -467,10 +454,8 @@ namespace ALsSoundSwitcher
       return true;
     }
 
-    public static async void MonitorForOutdatedFilesAndAttemptRemoval_Async()
-    {
-      await Task.Run(CleanupOutdatedFiles);
-    }
+    public static async void MonitorForOutdatedFilesAndAttemptRemoval_Async() 
+      => await Task.Run(CleanupOutdatedFiles);
 
     private static void CleanupOutdatedFiles()
     {
@@ -553,10 +538,8 @@ namespace ALsSoundSwitcher
     }
 
     public static bool ShouldPromptUser(SemanticVersion currentVersion, SemanticVersion latestVersion)
-    {
-      return latestVersion.IsValid &&
-             currentVersion < latestVersion &&
-             _skippedVersions.Contains(latestVersion) == false;
-    }
+      => latestVersion.IsValid &&
+         currentVersion < latestVersion &&
+         _skippedVersions.Contains(latestVersion) == false;
   }
 }

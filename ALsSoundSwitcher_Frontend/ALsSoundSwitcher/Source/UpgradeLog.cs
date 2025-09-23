@@ -94,20 +94,14 @@ namespace ALsSoundSwitcher
       _button.Enabled = true;
     }
 
-    private void UpgradeLog_FormClosed(object sender, FormClosedEventArgs e)
-    {
-      Application.Exit();
-    }
+    private void UpgradeLog_FormClosed(object sender, FormClosedEventArgs e) 
+      => Application.Exit();
 
     private void buttonBottom_Click(object sender, EventArgs e)
-    {
-      Close();
-    }
+      => Close();
 
     public void UpdateProgress(float percentage)
-    {
-      PaintButton(_progressColour, percentage);
-    }
+      => PaintButton(_progressColour, percentage);
 
     private void PaintButton(Color color, float percentage)
     {

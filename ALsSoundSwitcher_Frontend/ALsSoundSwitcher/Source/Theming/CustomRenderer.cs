@@ -16,28 +16,22 @@ namespace ALsSoundSwitcher
     public Color ColorMenuItemText = Color.FromArgb(237, 237, 237);
     public Color ColorBackground = Color.FromArgb(43, 43, 43);
 
-    public CustomRenderer() : base(new MenuStripColorTable())
-    {
-    }
+    public CustomRenderer() : base(new MenuStripColorTable()) { }
 
-    public CustomRenderer(ColourPack colourPack) : base(ColorTable)
-    {
-      SetColours(colourPack);
-    }
+    public CustomRenderer(ColourPack colourPack) : base(ColorTable) 
+      => SetColours(colourPack);
 
     public Dictionary<string, Color> GetPertinentColours()
-    {
-      return new Dictionary<string, Color>
+      => new()
       {
-        {nameof(ColorBackground),ColorBackground},
-        {nameof(ColorTable.ColorMenuBorder),ColorTable.ColorMenuBorder},
-        {nameof(ActiveSelectionColor),ActiveSelectionColor},
-        {nameof(ColorTable.ColorMenuItemSelected),ColorTable.ColorMenuItemSelected},
-        {nameof(ColorTable.ColorSeparator),ColorTable.ColorSeparator},
-        {nameof(ColorMenuArrow),ColorMenuArrow},
-        {nameof(ColorMenuItemText),ColorMenuItemText}
+        {nameof(ColorBackground), ColorBackground},
+        {nameof(ColorTable.ColorMenuBorder), ColorTable.ColorMenuBorder},
+        {nameof(ActiveSelectionColor), ActiveSelectionColor},
+        {nameof(ColorTable.ColorMenuItemSelected), ColorTable.ColorMenuItemSelected},
+        {nameof(ColorTable.ColorSeparator), ColorTable.ColorSeparator},
+        {nameof(ColorMenuArrow), ColorMenuArrow},
+        {nameof(ColorMenuItemText), ColorMenuItemText}
       };
-    }
 
     private void SetColours(ColourPack colourPack)
     {

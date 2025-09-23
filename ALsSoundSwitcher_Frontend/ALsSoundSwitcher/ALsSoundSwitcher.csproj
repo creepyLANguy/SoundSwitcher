@@ -15,6 +15,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,6 +51,9 @@
     <Reference Include="CSCore, Version=1.2.1.2, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
       <HintPath>..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
     </Reference>
+    <Reference Include="GlobalHotKey, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GlobalHotKey.1.1.0\lib\GlobalHotKey.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
@@ -77,6 +81,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Components\CustomSlider.cs">
@@ -122,6 +127,7 @@
     <Compile Include="Source\Logic\DeviceSwitchingLogic.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Source\Utils\KeyWatcher.cs" />
     <Compile Include="Source\Utils\PowerShellUtils.cs" />
     <Compile Include="Source\Utils\ProcessUtils.cs" />
     <Compile Include="Source\Definitions\Settings.cs" />
@@ -153,6 +159,7 @@
     <EmbeddedResource Include="Source\UpgradeLog.resx">
       <DependentUpon>UpgradeLog.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

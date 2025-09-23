@@ -8,9 +8,7 @@ namespace ALsSoundSwitcher
   public partial class Form1 : Form
   {
     public Form1()
-    {
-      InitializeComponent();
-    }
+      => InitializeComponent();
 
     private void Form1_Load(object sender, EventArgs e)
     {
@@ -56,6 +54,8 @@ namespace ALsSoundSwitcher
       UpgradeUtils.MonitorForOutdatedFilesAndAttemptRemoval_Async();
 
       FileWatcher.Run();
+
+      KeyWatcher.Run(Toggle);
     }
 
     private void NotifyUserOfConfigReadFail()
@@ -114,9 +114,10 @@ namespace ALsSoundSwitcher
       }
     }
 
-    private void btn_restart_Click(object sender, EventArgs e)
-    {
-      Application.Restart();
-    }
+    private void btn_restart_Click(object sender, EventArgs e) 
+      => Application.Restart();
+
+    private void Form1_FormClosing(object sender, FormClosingEventArgs e) 
+      => Globals.GlobalHotKeyManager.Dispose();
   }
 }
