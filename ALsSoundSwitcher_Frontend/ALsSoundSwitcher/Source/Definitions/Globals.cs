@@ -1,9 +1,7 @@
-using System;
 using ALsSoundSwitcher.Properties;
 using CSCore.CoreAudioAPI;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Windows.Input;
 using GlobalHotKey;
 
 namespace ALsSoundSwitcher

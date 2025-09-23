@@ -1,35 +1,31 @@
-﻿using System.Windows.Forms;
+﻿using System;
 using System.Windows.Input;
 using GlobalHotKey;
 
 namespace ALsSoundSwitcher
 {
+  //AL.
+  //TODO - make hotkeys and actions generic and configurable.
+
   public static class KeyWatcher
   {
-    //AL.
-    //TODO - make configurable etc
-    private static ModifierKeys hkModifier = ModifierKeys.Alt;
-    private static Key hkToggle= Key.OemPeriod;
-    //
+    private const ModifierKeys HkModifier = ModifierKeys.Alt;
+    private const Key HkToggle= Key.OemPeriod;
 
-    public static void Run()
+    public static void Run(Action toggleAction)
     {
       Globals.GlobalHotKeyManager = new HotKeyManager();
 
-      Globals.GlobalHotKeyManager.Register(hkToggle, hkModifier);
+      Globals.GlobalHotKeyManager.Register(HkToggle, HkModifier);
 
       Globals.GlobalHotKeyManager.KeyPressed += HotKeyPressed;
-    }
 
-    private static void HotKeyPressed(object sender, KeyPressedEventArgs e)
-    {
-      var key = e.HotKey.Key;
-
-      if (key == hkToggle)
+      void HotKeyPressed(object sender, KeyPressedEventArgs e)
       {
-        //AL.
-        //TODO - implement clean call to Toggle()
-        MessageBox.Show(@"Pressed");
+        if (e.HotKey.Key == HkToggle)
+        {
+          toggleAction.Invoke();
+        }
       }
     }
   }

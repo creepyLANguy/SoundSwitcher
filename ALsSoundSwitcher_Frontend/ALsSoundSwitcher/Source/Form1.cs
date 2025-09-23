@@ -57,7 +57,7 @@ namespace ALsSoundSwitcher
 
       FileWatcher.Run();
 
-      KeyWatcher.Run();
+      KeyWatcher.Run(Toggle);
     }
 
     private void NotifyUserOfConfigReadFail()
